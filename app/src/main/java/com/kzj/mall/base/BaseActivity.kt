@@ -15,7 +15,9 @@ abstract class BaseActivity<P : IPresenter, D : ViewDataBinding> : AppCompatActi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinding = DataBindingUtil.setContentView(this, getLayoutId())
+        initData()
     }
 
     abstract fun getLayoutId(): Int
+    abstract fun initData()
 }
