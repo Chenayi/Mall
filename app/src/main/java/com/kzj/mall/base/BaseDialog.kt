@@ -13,10 +13,15 @@ import android.view.WindowManager
 import android.view.Gravity
 import com.blankj.utilcode.util.ScreenUtils
 import com.blankj.utilcode.util.SizeUtils
+import com.yatoooon.screenadaptation.ScreenAdapterTools
+import javax.inject.Inject
 
 
 abstract class BaseDialog<P : IPresenter, D : ViewDataBinding> : DialogFragment() {
-    protected var binding: D? = null
+    @Inject
+    lateinit var mPresenter: P
+
+    protected var mBinding: D? = null
 
     /**
      * 灰度深浅
@@ -65,7 +70,8 @@ abstract class BaseDialog<P : IPresenter, D : ViewDataBinding> : DialogFragment(
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(getLayoutId(), container, false)
-        binding = DataBindingUtil.bind(view)
+        mBinding = DataBindingUtil.bind(view)
+        ScreenAdapterTools.getInstance().loadView(view);
         initData()
         return view
     }
@@ -164,5 +170,13 @@ abstract class BaseDialog<P : IPresenter, D : ViewDataBinding> : DialogFragment(
         }
         ft.add(this, System.currentTimeMillis().toString())
         ft.commitAllowingStateLoss()
+    }
+
+    override fun onDestroy() {
+        mBinding?.unbind()
+        if (::mPresenter.isInitialized) {
+            mPresenter.onDestory();
+        }
+        super.onDestroy()
     }
 }

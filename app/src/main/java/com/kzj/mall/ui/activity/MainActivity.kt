@@ -6,6 +6,10 @@ import com.kzj.mall.adapter.CommomViewPagerAdapter
 import com.kzj.mall.base.BaseActivity
 import com.kzj.mall.base.IPresenter
 import com.kzj.mall.databinding.ActivityMainBinding
+import com.kzj.mall.ui.fragment.CartFragment
+import com.kzj.mall.ui.fragment.ClassifyFragment
+import com.kzj.mall.ui.fragment.HomeFragment
+import com.kzj.mall.ui.fragment.MineFragment
 
 class MainActivity : BaseActivity<IPresenter, ActivityMainBinding>() {
     private var vpAdapter: CommomViewPagerAdapter? = null
@@ -23,6 +27,11 @@ class MainActivity : BaseActivity<IPresenter, ActivityMainBinding>() {
     private fun initViewPager() {
         fragments = ArrayList()
         fragments?.let {
+            it.add(HomeFragment.newInstance())
+            it.add(ClassifyFragment.newInstance())
+            it.add(CartFragment.newInstance())
+            it.add(MineFragment.newInstance())
+
             vpAdapter = CommomViewPagerAdapter(supportFragmentManager, it)
             mBinding?.vpMain?.adapter = vpAdapter
             mBinding?.vpMain?.offscreenPageLimit = it.size

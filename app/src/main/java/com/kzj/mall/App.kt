@@ -5,6 +5,7 @@ import com.blankj.utilcode.util.Utils
 import com.kzj.mall.di.component.AppComponent
 import com.kzj.mall.di.component.DaggerAppComponent
 import com.kzj.mall.di.module.AppModule
+import com.yatoooon.screenadaptation.ScreenAdapterTools
 
 class App : Application() {
     val component: AppComponent by lazy {
@@ -16,6 +17,7 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         Utils.init(this);
+        ScreenAdapterTools.init(this);
     }
 
     fun getAppComponent(): AppComponent? = component

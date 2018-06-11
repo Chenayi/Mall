@@ -10,6 +10,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <meta-data
+            android:name="android.max_aspect"
+            android:value="2.1" />
+
+        <meta-data
+            android:name="designwidth"
+            android:value="1080" />
+        <meta-data
+            android:name="designdpi"
+            android:value="480" />
+        <meta-data
+            android:name="fontsize"
+            android:value="1.0" />
+        <meta-data
+            android:name="unit"
+            android:value="dp" />
+
         <activity android:name=".ui.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
