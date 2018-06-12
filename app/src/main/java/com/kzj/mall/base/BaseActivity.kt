@@ -19,7 +19,7 @@ abstract class BaseActivity<P : IPresenter, D : ViewDataBinding> : SupportActivi
         super.onCreate(savedInstanceState)
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         mBinding = DataBindingUtil.setContentView(this, getLayoutId())
-        ScreenAdapterTools.getInstance().loadView(getWindow().getDecorView());
+        ScreenAdapterTools.getInstance().loadView(window.decorView);
         initData()
     }
 
