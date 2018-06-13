@@ -39,7 +39,7 @@ class ApiModule {
 
     @Singleton
     @Provides
-    internal fun provideRetrofit(client: OkHttpClient): Retrofit {
+    fun provideRetrofit(client: OkHttpClient): Retrofit {
         val builder = Retrofit.Builder()
                 .baseUrl(C.BASE_URL)
                 .client(client)

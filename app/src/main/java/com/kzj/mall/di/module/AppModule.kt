@@ -15,7 +15,7 @@ class AppModule(var context: Context?) {
 
     @Singleton
     @Provides
-    internal fun provideHttpManager(retrofit: Retrofit): HttpUtils {
+    fun provideHttpUtils(retrofit: Retrofit): HttpUtils {
         return HttpUtils(retrofit)
     }
 }
