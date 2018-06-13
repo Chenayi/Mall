@@ -6,17 +6,22 @@ import com.kzj.mall.adapter.CommomViewPagerAdapter
 import com.kzj.mall.base.BaseActivity
 import com.kzj.mall.base.IPresenter
 import com.kzj.mall.databinding.ActivityMainBinding
+import com.kzj.mall.di.component.AppComponent
 import com.kzj.mall.ui.fragment.CartFragment
 import com.kzj.mall.ui.fragment.ClassifyFragment
 import com.kzj.mall.ui.fragment.HomeFragment
 import com.kzj.mall.ui.fragment.MineFragment
 
 class MainActivity : BaseActivity<IPresenter, ActivityMainBinding>() {
+
     private var vpAdapter: CommomViewPagerAdapter? = null
     private var fragments: MutableList<Fragment>? = null
 
     override fun getLayoutId(): Int {
         return R.layout.activity_main
+    }
+
+    override fun setupComponent(appComponent: AppComponent?) {
     }
 
     override fun initData() {

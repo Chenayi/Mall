@@ -1,4 +1,6 @@
 package com.kzj.mall.base
 
-open class BaseModel : IModel {
+import com.kzj.mall.http.HttpUtils
+
+open class BaseModel(val httpUtils: HttpUtils?) : IModel {
 }
