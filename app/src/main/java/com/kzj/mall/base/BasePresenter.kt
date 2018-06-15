@@ -1,7 +1,6 @@
 package com.kzj.mall.base
 
 import android.content.Context
-import com.blankj.utilcode.util.LogUtils
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.disposables.CompositeDisposable
