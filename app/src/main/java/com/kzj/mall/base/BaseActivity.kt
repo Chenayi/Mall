@@ -1,5 +1,6 @@
 package com.kzj.mall.base
 
+import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
@@ -32,6 +33,13 @@ abstract class BaseActivity<P : IPresenter, D : ViewDataBinding> : SupportActivi
     abstract fun getLayoutId(): Int
     abstract fun setupComponent(appComponent: AppComponent?)
     abstract fun initData()
+
+    fun jumpActivity(cls: Class<Any>) {
+        var intent = Intent()
+        intent.setClass(this,cls)
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(intent)
+    }
 
     override fun onDestroy() {
         mBinding?.unbind()

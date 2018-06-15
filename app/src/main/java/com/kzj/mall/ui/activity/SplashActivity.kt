@@ -23,7 +23,7 @@ class SplashActivity : BaseActivity<SplashPresenter, ActivitySplashBinding>(), S
     }
 
     override fun initData() {
-        mPresenter?.delayJump()
+        mPresenter?.delayFinish(3)
     }
 
     override fun showLoading() {
@@ -33,7 +33,8 @@ class SplashActivity : BaseActivity<SplashPresenter, ActivitySplashBinding>(), S
     }
 
     override fun delayFinish() {
-
+        jumpActivity(MainActivity().javaClass)
+        finish()
     }
 
 }

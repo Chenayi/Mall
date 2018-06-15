@@ -12,12 +12,11 @@ import javax.inject.Inject
 class SplashPresenter @Inject
 constructor(model: SplashContract.Model, view: SplashContract.View?, context: Context?)
     : BasePresenter<SplashContract.Model, SplashContract.View>(model, view, context) {
+    override fun updateSecond(second: Int) {
+        LogUtils.e("delayTime : " + second)
+    }
 
-    /**
-     * 3秒后跳转到首页
-     */
-    fun delayJump() {
-        LogUtils.e("3秒后跳转到首页...")
-
+    override fun close() {
+        view?.delayFinish()
     }
 }
