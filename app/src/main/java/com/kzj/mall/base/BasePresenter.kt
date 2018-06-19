@@ -1,6 +1,7 @@
 package com.kzj.mall.base
 
 import android.content.Context
+import com.kzj.mall.http.RxScheduler
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.disposables.CompositeDisposable
@@ -39,6 +40,7 @@ abstract class BasePresenter<M : IModel, V : IView>(val model: M?, val view: V?,
                     }
                 })
                 .take((countTime + 1).toLong())
+                .compose(RxScheduler.compose())
                 .subscribe(object : Observer<Int> {
                     override fun onComplete() {
                         disposable()
