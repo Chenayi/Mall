@@ -1,4 +1,4 @@
-package com.kzj.mall.http
+package com.kzj.mall.base
 
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable

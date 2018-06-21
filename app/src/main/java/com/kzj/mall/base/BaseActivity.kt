@@ -1,5 +1,6 @@
 package com.kzj.mall.base
 
+import android.content.Context
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.databinding.DataBindingUtil
@@ -20,11 +21,14 @@ abstract class BaseActivity<P : IPresenter, D : ViewDataBinding> : SupportActivi
 
     protected var app: App? = null
 
+    protected var mContext: Context? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         mBinding = DataBindingUtil.setContentView(this, getLayoutId())
         ScreenAdapterTools.getInstance().loadView(window.decorView);
+        mContext = applicationContext
         app = application as App
         setupComponent(app?.getAppComponent())
         initData()
@@ -36,7 +40,7 @@ abstract class BaseActivity<P : IPresenter, D : ViewDataBinding> : SupportActivi
 
     fun jumpActivity(cls: Class<Any>) {
         var intent = Intent()
-        intent.setClass(this,cls)
+        intent.setClass(this, cls)
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(intent)
     }
