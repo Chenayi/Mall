@@ -12,7 +12,6 @@ import com.zhouwei.mzbanner.holder.MZViewHolder
 import android.view.LayoutInflater
 
 
-
 class HomeBanner : BaseRelativeLayout<HomeBannerBinding> {
 
     constructor(context: Context?) : super(context)
@@ -25,18 +24,22 @@ class HomeBanner : BaseRelativeLayout<HomeBannerBinding> {
     }
 
     override fun init(attrs: AttributeSet, defStyleAttr: Int) {
-        mBinding?.banner?.setIndicatorRes(R.drawable.indicator_default,R.drawable.indicator_sel)
+        mBinding?.banner?.setIndicatorRes(R.drawable.indicator_default, R.drawable.indicator_sel)
     }
 
     fun setBanners(banners: MutableList<String>) {
-        mBinding?.banner?.setPages(banners,0, object : MZHolderCreator<BannerViewHolder> {
+        mBinding?.banner?.setPages(banners, 0, object : MZHolderCreator<BannerViewHolder> {
             override fun createViewHolder(): BannerViewHolder {
                 return BannerViewHolder()
             }
         })
-        mBinding?.banner?.setDelayedTime(2000)
+        mBinding?.banner?.setDelayedTime(3000)
         mBinding?.banner?.start()
 
+    }
+
+    fun setBannerPadding(left: Int, top: Int, right: Int, bottom: Int) {
+        mBinding?.rlBannerRoot?.setPadding(left, top, right, bottom)
     }
 
     inner class BannerViewHolder : MZViewHolder<String> {

@@ -9,7 +9,7 @@ import com.kzj.mall.databinding.ActivityMainBinding
 import com.kzj.mall.di.component.AppComponent
 import com.kzj.mall.ui.fragment.CartFragment
 import com.kzj.mall.ui.fragment.ClassifyFragment
-import com.kzj.mall.ui.fragment.HomeFragment
+import com.kzj.mall.ui.fragment.home.HomeFragment
 import com.kzj.mall.ui.fragment.MineFragment
 
 class MainActivity : BaseActivity<IPresenter, ActivityMainBinding>() {

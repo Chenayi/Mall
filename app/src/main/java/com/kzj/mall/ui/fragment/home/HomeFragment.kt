@@ -1,4 +1,4 @@
-package com.kzj.mall.ui.fragment
+package com.kzj.mall.ui.fragment.home
 
 import android.content.Context
 import android.support.v4.app.Fragment
@@ -17,9 +17,6 @@ import com.blankj.utilcode.util.SizeUtils
 import net.lucode.hackware.magicindicator.ViewPagerHelper
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorTransitionPagerTitleView
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator
-
-
-
 
 
 class HomeFragment : BaseFragment<IPresenter, FragmentHomeBinding>() {
@@ -51,17 +48,17 @@ class HomeFragment : BaseFragment<IPresenter, FragmentHomeBinding>() {
 
 
         var commonNavigator = CommonNavigator(context)
-        commonNavigator.adapter = object : CommonNavigatorAdapter(){
+        commonNavigator.adapter = object : CommonNavigatorAdapter() {
             override fun getTitleView(p0: Context?, index: Int): IPagerTitleView {
                 val colorTransitionPagerTitleView = ColorTransitionPagerTitleView(context)
                 colorTransitionPagerTitleView.normalColor = Color.parseColor("#EBFFD9")
                 colorTransitionPagerTitleView.selectedColor = Color.WHITE
                 colorTransitionPagerTitleView.textSize = 13f
-                colorTransitionPagerTitleView.setPadding(SizeUtils.dp2px(12f),0,SizeUtils.dp2px(12f),0)
+                colorTransitionPagerTitleView.setPadding(SizeUtils.dp2px(12f), 0, SizeUtils.dp2px(12f), 0)
                 colorTransitionPagerTitleView.setText(mTitles[index])
                 colorTransitionPagerTitleView.setOnClickListener(object : View.OnClickListener {
                     override fun onClick(v: View?) {
-                        mBinding?.vpHome?.setCurrentItem(index)
+                        mBinding?.vpHome?.setCurrentItem(index, false)
                     }
 
                 })
@@ -69,7 +66,7 @@ class HomeFragment : BaseFragment<IPresenter, FragmentHomeBinding>() {
             }
 
             override fun getCount(): Int {
-               return mTitles?.size
+                return mTitles?.size
             }
 
             override fun getIndicator(p0: Context?): IPagerIndicator {
