@@ -5,19 +5,15 @@ import com.chad.library.adapter.base.provider.BaseItemProvider
 import com.kzj.mall.R
 import com.kzj.mall.entity.IHomeEntity
 
-/**
- *  分类
- */
-class ClassifyProvider : BaseItemProvider<IHomeEntity, BaseViewHolder>() {
+class SicknessProvider : BaseItemProvider<IHomeEntity,BaseViewHolder>() {
     override fun layout(): Int {
-        return R.layout.item_home_classify
+        return R.layout.item_home_sickness
     }
 
     override fun viewType(): Int {
-        return IHomeEntity.CLASSIFY
+        return IHomeEntity.SICKNESS
     }
 
     override fun convert(helper: BaseViewHolder?, data: IHomeEntity?, position: Int) {
-
     }
 }

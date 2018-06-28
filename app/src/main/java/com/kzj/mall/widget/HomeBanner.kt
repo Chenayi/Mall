@@ -54,7 +54,7 @@ class HomeBanner : BaseRelativeLayout<HomeBannerBinding> {
         }
 
         override fun createView(p0: Context?): View {
-            val view = LayoutInflater.from(context).inflate(R.layout.item_home_banner, null)
+            val view = LayoutInflater.from(context).inflate(R.layout.item_home_banner_list, null)
             mImageView = view?.findViewById(R.id.banner_image)
             return view
         }

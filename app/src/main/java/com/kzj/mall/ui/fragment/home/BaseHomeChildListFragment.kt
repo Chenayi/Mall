@@ -3,6 +3,7 @@ package com.kzj.mall.ui.fragment.home
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.view.ViewGroup
+import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.chad.library.adapter.base.MultipleItemRvAdapter
 import com.kzj.mall.R
@@ -11,6 +12,7 @@ import com.kzj.mall.base.BaseFragment
 import com.kzj.mall.base.IPresenter
 import com.kzj.mall.databinding.FragmentBaseHomeChildListBinding
 import com.kzj.mall.entity.HomeEntity
+import com.kzj.mall.entity.IHomeEntity
 import com.kzj.mall.widget.HomeBanner
 
 abstract class BaseHomeChildListFragment<P : IPresenter> : BaseFragment<P, FragmentBaseHomeChildListBinding>() {
@@ -28,6 +30,25 @@ abstract class BaseHomeChildListFragment<P : IPresenter> : BaseFragment<P, Fragm
         mBinding?.rvHome?.layoutManager = LinearLayoutManager(context)
         mBinding?.rvHome?.adapter = listAdapter
         addHeaderView()
+        listAdapter?.setEnableLoadMore(enableLoadMore())
+        if (enableLoadMore()){
+            listAdapter?.setOnLoadMoreListener(object : BaseQuickAdapter.RequestLoadMoreListener{
+                override fun onLoadMoreRequested() {
+                    onLoadMore()
+                }
+            },mBinding?.rvHome)
+        }
+    }
+
+    open fun enableLoadMore(): Boolean {
+        return false
+    }
+
+    abstract fun onLoadMore()
+
+    fun finishLoadMore(datas : MutableList<IHomeEntity>){
+        listAdapter?.addData(datas)
+        listAdapter?.loadMoreEnd()
     }
 
     fun addHeaderView() {
@@ -46,7 +67,7 @@ abstract class BaseHomeChildListFragment<P : IPresenter> : BaseFragment<P, Fragm
     /**
      * 列表数据
      */
-    fun setListDatas(datas: MutableList<HomeEntity>) {
+    fun setListDatas(datas: MutableList<IHomeEntity>) {
         listAdapter?.setNewData(datas)
     }
 
@@ -65,8 +86,8 @@ abstract class BaseHomeChildListFragment<P : IPresenter> : BaseFragment<P, Fragm
     }
 
     inner class ListAdapter
-    constructor(datas: MutableList<HomeEntity>)
-        : MultipleItemRvAdapter<HomeEntity, BaseViewHolder>(datas) {
+    constructor(datas: MutableList<IHomeEntity>)
+        : MultipleItemRvAdapter<IHomeEntity, BaseViewHolder>(datas) {
 
         init {
             finishInitialize()
@@ -78,10 +99,15 @@ abstract class BaseHomeChildListFragment<P : IPresenter> : BaseFragment<P, Fragm
             mProviderDelegate.registerProvider(BrandProvider())
             mProviderDelegate.registerProvider(FlashSaleProvider())
             mProviderDelegate.registerProvider(ChoiceGoodsProvider())
+            mProviderDelegate.registerProvider(AdvBannerProvider())
+            mProviderDelegate.registerProvider(SicknessProvider())
+            mProviderDelegate.registerProvider(SexToyProvider())
+            mProviderDelegate.registerProvider(AskAnswerProvider())
+            mProviderDelegate.registerProvider(RecommendProvider())
         }
 
-        override fun getViewType(homeEntity: HomeEntity): Int {
-            return homeEntity.type
+        override fun getViewType(homeEntity: IHomeEntity): Int {
+            return homeEntity.getItemType()
         }
 
     }

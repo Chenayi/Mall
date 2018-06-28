@@ -1,25 +1,33 @@
 package com.kzj.mall.entity
 
-class HomeEntity {
-    companion object {
-        val CLASSIFY = 1
-        val CHOICE = 2
-        val BRAND = 3
-        val FLASH_SALE = 4
-        val CHOICE_GOODS = 5
+class HomeEntity constructor(val type: Int) : IHomeEntity {
+    constructor() : this(0)
+
+    override fun getItemType(): Int {
+        return type
     }
 
-    var type: Int = 0
     var flashSale: MutableList<FlashSale>? = null
+    var advBanner: MutableList<AdvBanner>? = null
 
-    constructor()
-
-    constructor(type: Int) {
-        this.type = type
-    }
-
+    /**
+     * 每日闪购
+     */
     inner class FlashSale {
 
     }
 
+    /**
+     * 广告banner
+     */
+    inner class AdvBanner {
+
+    }
+
+    /**
+     * 情趣用品
+     */
+    inner class SexToy {
+
+    }
 }

@@ -1,10 +1,10 @@
 package com.kzj.mall.ui.fragment.home
 
 import com.blankj.utilcode.util.SizeUtils
-import com.kzj.mall.R
-import com.kzj.mall.base.BaseFragment
 import com.kzj.mall.base.IPresenter
 import com.kzj.mall.entity.HomeEntity
+import com.kzj.mall.entity.HomeRecommendEntity
+import com.kzj.mall.entity.IHomeEntity
 
 class HomeChildFragment : BaseHomeChildListFragment<IPresenter>() {
 
@@ -29,13 +29,40 @@ class HomeChildFragment : BaseHomeChildListFragment<IPresenter>() {
         setListDatas(getNormalMultipleEntities())
     }
 
+    override fun enableLoadMore(): Boolean {
+        return true
+    }
 
-    fun getNormalMultipleEntities(): MutableList<HomeEntity> {
-        val list = ArrayList<HomeEntity>()
-        list.add(HomeEntity(HomeEntity.CLASSIFY))
-        list.add(HomeEntity(HomeEntity.CHOICE))
-        list.add(HomeEntity(HomeEntity.FLASH_SALE))
-        list.add(HomeEntity(HomeEntity.CHOICE_GOODS))
+    override fun onLoadMore() {
+        finishLoadMore(getRecommendDatas())
+    }
+
+    fun getRecommendDatas():MutableList<IHomeEntity>{
+        val list = ArrayList<IHomeEntity>()
+        for (i in 0..8){
+            val homeRecommendEntity = HomeRecommendEntity()
+            if (i == 0){
+                homeRecommendEntity.isShowRecommendText = true
+            }else{
+                homeRecommendEntity.isShowRecommendText = false
+            }
+            list.add(homeRecommendEntity)
+        }
+        return list
+    }
+
+
+    fun getNormalMultipleEntities(): MutableList<IHomeEntity> {
+        val list = ArrayList<IHomeEntity>()
+        list.add(HomeEntity(IHomeEntity.CLASSIFY))
+        list.add(HomeEntity(IHomeEntity.CHOICE))
+        list.add(HomeEntity(IHomeEntity.FLASH_SALE))
+        list.add(HomeEntity(IHomeEntity.CHOICE_GOODS))
+        list.add(HomeEntity(IHomeEntity.ADV_BANNER))
+        list.add(HomeEntity(IHomeEntity.SICKNESS))
+        list.add(HomeEntity(IHomeEntity.BRAND))
+        list.add(HomeEntity(IHomeEntity.SEX_TOY))
+        list.add(HomeEntity(IHomeEntity.ASK_ANSWER))
         return list
     }
 }
