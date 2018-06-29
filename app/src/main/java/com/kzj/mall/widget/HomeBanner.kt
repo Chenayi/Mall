@@ -1,6 +1,7 @@
 package com.kzj.mall.widget
 
 import android.content.Context
+import android.support.v4.view.ViewPager
 import android.util.AttributeSet
 import android.view.View
 import android.widget.ImageView
@@ -28,14 +29,13 @@ class HomeBanner : BaseRelativeLayout<HomeBannerBinding> {
     }
 
     fun setBanners(banners: MutableList<String>) {
+        mBinding?.banner?.setDelayedTime(3000)
         mBinding?.banner?.setPages(banners, 0, object : MZHolderCreator<BannerViewHolder> {
             override fun createViewHolder(): BannerViewHolder {
                 return BannerViewHolder()
             }
         })
-        mBinding?.banner?.setDelayedTime(3000)
         mBinding?.banner?.start()
-
     }
 
     fun setBannerPadding(left: Int, top: Int, right: Int, bottom: Int) {

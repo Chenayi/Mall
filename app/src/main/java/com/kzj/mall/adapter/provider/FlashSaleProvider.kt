@@ -15,7 +15,7 @@ import com.kzj.mall.entity.IHomeEntity
 
 class FlashSaleProvider : BaseItemProvider<IHomeEntity, BaseViewHolder>() {
     override fun layout(): Int {
-        return R.layout.item_home_flash_sale
+        return R.layout.item_home_flash_sale_list
     }
 
     override fun viewType(): Int {
@@ -46,7 +46,7 @@ class FlashSaleProvider : BaseItemProvider<IHomeEntity, BaseViewHolder>() {
 
     inner class FlashSaleAdapter
     constructor(val flashSaleDatas: MutableList<HomeEntity.FlashSale>)
-        : BaseAdapter<HomeEntity.FlashSale, BaseViewHolder>(R.layout.item_flash_sale, flashSaleDatas) {
+        : BaseAdapter<HomeEntity.FlashSale, BaseViewHolder>(R.layout.item_home_flash_sale, flashSaleDatas) {
         override fun convert(helper: BaseViewHolder?, item: HomeEntity.FlashSale?) {
             var ivGoods = helper?.getView<ImageView>(R.id.iv_goods)
             var params : RelativeLayout.LayoutParams = ivGoods?.layoutParams as RelativeLayout.LayoutParams

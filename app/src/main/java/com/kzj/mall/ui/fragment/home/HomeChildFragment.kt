@@ -1,6 +1,8 @@
 package com.kzj.mall.ui.fragment.home
 
 import com.blankj.utilcode.util.SizeUtils
+import com.chad.library.adapter.base.util.ProviderDelegate
+import com.kzj.mall.adapter.provider.*
 import com.kzj.mall.base.IPresenter
 import com.kzj.mall.entity.HomeEntity
 import com.kzj.mall.entity.HomeRecommendEntity
@@ -29,8 +31,17 @@ class HomeChildFragment : BaseHomeChildListFragment<IPresenter>() {
         setListDatas(getNormalMultipleEntities())
     }
 
-    override fun enableLoadMore(): Boolean {
-        return true
+    override fun registerItemProvider(providerDelegate: ProviderDelegate) {
+        providerDelegate.registerProvider(ClassifyProvider())
+        providerDelegate.registerProvider(ChoiceProvider())
+        providerDelegate.registerProvider(BrandProvider())
+        providerDelegate.registerProvider(FlashSaleProvider())
+        providerDelegate.registerProvider(ChoiceGoodsProvider())
+        providerDelegate.registerProvider(AdvBannerProvider())
+        providerDelegate.registerProvider(SicknessProvider())
+        providerDelegate.registerProvider(SexToyProvider())
+        providerDelegate.registerProvider(AskAnswerProvider())
+        providerDelegate.registerProvider(RecommendProvider())
     }
 
     override fun onLoadMore() {
@@ -41,6 +52,7 @@ class HomeChildFragment : BaseHomeChildListFragment<IPresenter>() {
         val list = ArrayList<IHomeEntity>()
         for (i in 0..8){
             val homeRecommendEntity = HomeRecommendEntity()
+            homeRecommendEntity.isBackgroundCorners = true
             if (i == 0){
                 homeRecommendEntity.isShowRecommendText = true
             }else{

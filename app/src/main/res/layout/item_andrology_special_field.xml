@@ -3,11 +3,13 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/iv_goods"
-        android:layout_width="87dp"
-        android:layout_height="87dp"
-        android:layout_marginRight="12dp"
-        android:src="@color/gray_default" />
+    <RelativeLayout
+        android:layout_width="117dp"
+        android:layout_height="163dp"
+        android:layout_marginLeft="10dp"
+        android:background="@color/white">
+
+
+    </RelativeLayout>
 
 </RelativeLayout>

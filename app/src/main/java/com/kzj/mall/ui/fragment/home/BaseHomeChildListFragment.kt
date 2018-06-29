@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.chad.library.adapter.base.MultipleItemRvAdapter
+import com.chad.library.adapter.base.util.ProviderDelegate
 import com.kzj.mall.R
 import com.kzj.mall.adapter.provider.*
 import com.kzj.mall.base.BaseFragment
@@ -31,22 +32,23 @@ abstract class BaseHomeChildListFragment<P : IPresenter> : BaseFragment<P, Fragm
         mBinding?.rvHome?.adapter = listAdapter
         addHeaderView()
         listAdapter?.setEnableLoadMore(enableLoadMore())
-        if (enableLoadMore()){
-            listAdapter?.setOnLoadMoreListener(object : BaseQuickAdapter.RequestLoadMoreListener{
+        if (enableLoadMore()) {
+            listAdapter?.setOnLoadMoreListener(object : BaseQuickAdapter.RequestLoadMoreListener {
                 override fun onLoadMoreRequested() {
                     onLoadMore()
                 }
-            },mBinding?.rvHome)
+            }, mBinding?.rvHome)
         }
     }
 
     open fun enableLoadMore(): Boolean {
-        return false
+        return true
     }
 
+    abstract fun registerItemProvider(providerDelegate: ProviderDelegate)
     abstract fun onLoadMore()
 
-    fun finishLoadMore(datas : MutableList<IHomeEntity>){
+    fun finishLoadMore(datas: MutableList<IHomeEntity>) {
         listAdapter?.addData(datas)
         listAdapter?.loadMoreEnd()
     }
@@ -94,16 +96,7 @@ abstract class BaseHomeChildListFragment<P : IPresenter> : BaseFragment<P, Fragm
         }
 
         override fun registerItemProvider() {
-            mProviderDelegate.registerProvider(ClassifyProvider())
-            mProviderDelegate.registerProvider(ChoiceProvider())
-            mProviderDelegate.registerProvider(BrandProvider())
-            mProviderDelegate.registerProvider(FlashSaleProvider())
-            mProviderDelegate.registerProvider(ChoiceGoodsProvider())
-            mProviderDelegate.registerProvider(AdvBannerProvider())
-            mProviderDelegate.registerProvider(SicknessProvider())
-            mProviderDelegate.registerProvider(SexToyProvider())
-            mProviderDelegate.registerProvider(AskAnswerProvider())
-            mProviderDelegate.registerProvider(RecommendProvider())
+            this@BaseHomeChildListFragment.registerItemProvider(mProviderDelegate)
         }
 
         override fun getViewType(homeEntity: IHomeEntity): Int {

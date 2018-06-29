@@ -5,5 +5,13 @@ class HomeRecommendEntity : IHomeEntity {
         return IHomeEntity.RECOMMEND
     }
 
-    var isShowRecommendText: Boolean? = null
+    /**
+     * 是否显示为您推荐
+     */
+    var isShowRecommendText: Boolean = false
+
+    /**
+     * 是否圆角
+     */
+    var isBackgroundCorners: Boolean = false
 }

@@ -39,9 +39,11 @@ class HomeFragment : BaseFragment<IPresenter, FragmentHomeBinding>() {
         mFragments = ArrayList()
         mBinding?.vpHome?.offscreenPageLimit = mTitles?.size - 1
         mFragments?.let {
-            for (i in 0 until mTitles.size) {
-                it?.add(HomeChildFragment.newInstance())
-            }
+            it?.add(HomeChildFragment.newInstance())
+            it?.add(AndrologyFragment.newInstance())
+            it?.add(OtherFragment.newInstance())
+            it?.add(OtherFragment.newInstance())
+            it?.add(OtherFragment.newInstance())
             mCommomViewPagerAdapter = CommomViewPagerAdapter(childFragmentManager, it)
             mBinding?.vpHome?.adapter = mCommomViewPagerAdapter
         }

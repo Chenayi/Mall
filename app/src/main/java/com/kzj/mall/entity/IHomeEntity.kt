@@ -12,6 +12,8 @@ interface IHomeEntity {
         val SEX_TOY = 8
         val ASK_ANSWER = 9
         val RECOMMEND = 10
+        val MALE_STATION = 11
+        val MALE_SEPCIAL_FIELD = 12
     }
 
     fun getItemType(): Int
