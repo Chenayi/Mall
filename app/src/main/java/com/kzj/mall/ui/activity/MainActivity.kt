@@ -34,6 +34,7 @@ class MainActivity : BaseActivity<IPresenter, ActivityMainBinding>() {
         fragments?.let {
             it.add(HomeFragment.newInstance())
             it.add(ClassifyFragment.newInstance())
+            it.add(Fragment())
             it.add(CartFragment.newInstance())
             it.add(MineFragment.newInstance())
 
