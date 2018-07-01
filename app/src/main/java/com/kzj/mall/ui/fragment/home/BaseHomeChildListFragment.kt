@@ -66,6 +66,14 @@ abstract class BaseHomeChildListFragment<P : IPresenter> : BaseFragment<P, Fragm
         banner?.setBanners(banners)
     }
 
+    fun bannerStart(){
+        banner?.start()
+    }
+
+    fun bannerPause(){
+        banner?.pause()
+    }
+
     /**
      * 列表数据
      */

@@ -1,5 +1,8 @@
 package com.kzj.mall.ui.fragment.home
 
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
+import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.SizeUtils
 import com.chad.library.adapter.base.util.ProviderDelegate
 import com.kzj.mall.adapter.provider.*
@@ -29,6 +32,27 @@ class HomeChildFragment : BaseHomeChildListFragment<IPresenter>() {
         setBannerData(banners)
 
         setListDatas(getNormalMultipleEntities())
+
+
+        mBinding?.rvHome?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                val layoutManager = recyclerView?.layoutManager
+                if (layoutManager is LinearLayoutManager){
+                    val linearLayoutManager :LinearLayoutManager = layoutManager
+                    val firstVisibleItemPosition = linearLayoutManager.findFirstVisibleItemPosition()
+                    if (firstVisibleItemPosition == 0 ){
+                        bannerStart()
+                    }else{
+                        bannerPause()
+                    }
+                }
+            }
+
+            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+            }
+        })
     }
 
     override fun registerItemProvider(providerDelegate: ProviderDelegate) {
