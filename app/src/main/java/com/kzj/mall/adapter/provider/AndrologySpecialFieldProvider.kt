@@ -9,7 +9,10 @@ import com.kzj.mall.adapter.BaseAdapter
 import com.kzj.mall.entity.AndrologySpecialFieldEntity
 import com.kzj.mall.entity.IHomeEntity
 
-class AndrologySpecialFieldProvider : BaseItemProvider<IHomeEntity,BaseViewHolder>() {
+/**
+ * 男科专场
+ */
+class AndrologySpecialFieldProvider : BaseItemProvider<IHomeEntity, BaseViewHolder>() {
     override fun layout(): Int {
         return R.layout.item_andrology_special_field_list
     }
@@ -21,7 +24,7 @@ class AndrologySpecialFieldProvider : BaseItemProvider<IHomeEntity,BaseViewHolde
     override fun convert(helper: BaseViewHolder?, data: IHomeEntity?, position: Int) {
         var rv = helper?.getView<RecyclerView>(R.id.rv)
         val myAdapter = MyAdapter(getDatas())
-        val layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL,false)
+        val layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false)
         rv?.setLayoutManager(layoutManager)
         rv?.setAdapter(myAdapter)
     }

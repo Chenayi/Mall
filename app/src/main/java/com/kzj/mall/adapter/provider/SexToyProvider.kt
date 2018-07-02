@@ -6,8 +6,8 @@ import com.chad.library.adapter.base.BaseViewHolder
 import com.chad.library.adapter.base.provider.BaseItemProvider
 import com.kzj.mall.R
 import com.kzj.mall.adapter.BaseAdapter
-import com.kzj.mall.entity.HomeEntity
 import com.kzj.mall.entity.IHomeEntity
+import com.kzj.mall.entity.SexToyEntity
 
 /**
  * 情趣用品
@@ -30,18 +30,18 @@ class SexToyProvider : BaseItemProvider<IHomeEntity, BaseViewHolder>() {
     }
 
 
-    private fun getDatas(): MutableList<HomeEntity.SexToy> {
-        var datas = ArrayList<HomeEntity.SexToy>()
+    private fun getDatas(): MutableList<SexToyEntity> {
+        var datas = ArrayList<SexToyEntity>()
         for (i in 0..8) {
-            datas?.add(HomeEntity().SexToy())
+            datas?.add(SexToyEntity())
         }
         return datas
     }
 
     inner class MyAdapter
-    constructor(val sexToyDatas: MutableList<HomeEntity.SexToy>)
-        : BaseAdapter<HomeEntity.SexToy, BaseViewHolder>(R.layout.item_home_sex_toy, sexToyDatas) {
-        override fun convert(helper: BaseViewHolder?, item: HomeEntity.SexToy?) {
+    constructor(val sexToyDatas: MutableList<SexToyEntity>)
+        : BaseAdapter<SexToyEntity, BaseViewHolder>(R.layout.item_home_sex_toy, sexToyDatas) {
+        override fun convert(helper: BaseViewHolder?, item: SexToyEntity?) {
 
         }
     }

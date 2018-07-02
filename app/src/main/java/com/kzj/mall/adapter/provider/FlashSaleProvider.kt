@@ -12,7 +12,9 @@ import com.blankj.utilcode.util.SizeUtils
 import com.kzj.mall.adapter.BaseAdapter
 import com.kzj.mall.entity.IHomeEntity
 
-
+/**
+ * 闪购
+ */
 class FlashSaleProvider : BaseItemProvider<IHomeEntity, BaseViewHolder>() {
     override fun layout(): Int {
         return R.layout.item_home_flash_sale_list
@@ -50,10 +52,12 @@ class FlashSaleProvider : BaseItemProvider<IHomeEntity, BaseViewHolder>() {
         override fun convert(helper: BaseViewHolder?, item: HomeEntity.FlashSale?) {
             var ivGoods = helper?.getView<ImageView>(R.id.iv_goods)
             var params : RelativeLayout.LayoutParams = ivGoods?.layoutParams as RelativeLayout.LayoutParams
+
+            params.leftMargin = SizeUtils.dp2px(12f)
             if (helper?.layoutPosition == datas?.size - 1){
-                params.rightMargin = 0
-            }else{
                 params.rightMargin = SizeUtils.dp2px(12f)
+            }else{
+                params.rightMargin = 0
             }
             ivGoods.layoutParams = params
         }

@@ -21,7 +21,7 @@ class HomeEntity constructor(val type: Int) : IHomeEntity {
      * 广告banner
      */
     inner class AdvBanner {
-
+        var bannerUrl: String? = null
     }
 
     /**

@@ -45,6 +45,8 @@ dependencies {
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.40'
     implementation 'com.github.ittianyu:BottomNavigationViewEx:1.2.4'
     implementation 'me.yatoooon:screenadaptation:1.1.1'
+    implementation 'com.github.bumptech.glide:glide:4.7.1'
+    kapt 'com.github.bumptech.glide:compiler:4.7.1'
 
     //retrofit2 + rxjava2
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'
@@ -58,6 +60,8 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.7.1'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.7.1'
 
+    //banner
+    implementation 'com.github.OCNYang:PageTransformerHelp:v1.0.0'
     implementation 'com.youth.banner:banner:1.4.10'
     implementation ('com.alibaba.android:ultraviewpager:1.0.7.7@aar') {
         transitive = true

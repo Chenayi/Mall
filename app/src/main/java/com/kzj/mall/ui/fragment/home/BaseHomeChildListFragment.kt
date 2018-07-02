@@ -1,25 +1,21 @@
 package com.kzj.mall.ui.fragment.home
 
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.View
-import android.view.ViewGroup
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.chad.library.adapter.base.MultipleItemRvAdapter
 import com.chad.library.adapter.base.util.ProviderDelegate
 import com.kzj.mall.R
-import com.kzj.mall.adapter.provider.*
 import com.kzj.mall.base.BaseFragment
 import com.kzj.mall.base.IPresenter
 import com.kzj.mall.databinding.FragmentBaseHomeChildListBinding
-import com.kzj.mall.entity.HomeEntity
 import com.kzj.mall.entity.IHomeEntity
-import com.kzj.mall.widget.HomeBanner
 
 abstract class BaseHomeChildListFragment<P : IPresenter> : BaseFragment<P, FragmentBaseHomeChildListBinding>() {
     private var listAdapter: ListAdapter? = null
     private var headerBannerView: View? = null
-    private var banner: HomeBanner? = null
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_base_home_child_list
@@ -27,10 +23,12 @@ abstract class BaseHomeChildListFragment<P : IPresenter> : BaseFragment<P, Fragm
 
     override fun initData() {
         mBinding?.refreshLayout?.isEnabled = false
+
+        val layoutManager = LinearLayoutManager(context)
+        layoutManager.recycleChildrenOnDetach = true
+        mBinding?.rvHome?.layoutManager = layoutManager
         listAdapter = ListAdapter(ArrayList())
-        mBinding?.rvHome?.layoutManager = LinearLayoutManager(context)
         mBinding?.rvHome?.adapter = listAdapter
-        addHeaderView()
         listAdapter?.setEnableLoadMore(enableLoadMore())
         if (enableLoadMore()) {
             listAdapter?.setOnLoadMoreListener(object : BaseQuickAdapter.RequestLoadMoreListener {
@@ -53,46 +51,12 @@ abstract class BaseHomeChildListFragment<P : IPresenter> : BaseFragment<P, Fragm
         listAdapter?.loadMoreEnd()
     }
 
-    fun addHeaderView() {
-        headerBannerView = layoutInflater.inflate(R.layout.header_home_banner, mBinding?.rvHome?.parent as ViewGroup, false)
-        banner = headerBannerView?.findViewById(R.id.home_banner)
-        listAdapter?.addHeaderView(headerBannerView)
-    }
-
-    /**
-     * 广告数据
-     */
-    fun setBannerData(banners: MutableList<String>) {
-        banner?.setBanners(banners)
-    }
-
-    fun bannerStart(){
-        banner?.start()
-    }
-
-    fun bannerPause(){
-        banner?.pause()
-    }
 
     /**
      * 列表数据
      */
     fun setListDatas(datas: MutableList<IHomeEntity>) {
         listAdapter?.setNewData(datas)
-    }
-
-    fun setBannerPadding(left: Int, top: Int, right: Int, bottom: Int) {
-        banner?.setBannerPadding(left, top, right, bottom)
-    }
-
-    override fun onSupportVisible() {
-        super.onSupportVisible()
-        banner?.start()
-    }
-
-    override fun onSupportInvisible() {
-        super.onSupportInvisible()
-        banner?.pause()
     }
 
     inner class ListAdapter

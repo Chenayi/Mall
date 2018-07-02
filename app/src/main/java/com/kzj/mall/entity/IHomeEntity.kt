@@ -2,6 +2,7 @@ package com.kzj.mall.entity
 
 interface IHomeEntity {
     companion object {
+        val HEADER_BANNER = 0
         val CLASSIFY = 1
         val CHOICE = 2
         val BRAND = 3

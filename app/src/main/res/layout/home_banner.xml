@@ -29,16 +29,18 @@
             android:id="@+id/rl_banner_root"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="18dp">
+            android:paddingTop="18dp"
+            android:clipChildren="false">
 
-            <com.zhouwei.mzbanner.MZBannerView
+            <com.tmall.ultraviewpager.UltraViewPager
                 android:id="@+id/banner"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
-                app:canLoop="true"
-                app:indicatorAlign="center"
-                app:middle_page_cover="false"
-                app:open_mz_mode="true" />
+                android:clipChildren="false"
+                android:layout_marginLeft="22dp"
+                android:layout_marginRight="22dp"
+                app:upv_autoscroll="3000"/>
+
         </RelativeLayout>
     </RelativeLayout>
 </layout>
