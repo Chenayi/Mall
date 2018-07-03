@@ -87,16 +87,25 @@ class HomeChildFragment : BaseHomeChildListFragment<IPresenter>() {
 
     fun getNormalMultipleEntities(): MutableList<IHomeEntity> {
         val list = ArrayList<IHomeEntity>()
+        //头部广告
         list.add(HomeHeaderBannerEntity())
+        //分类
         list.add(HomeClassifyEntity())
+        //公告精选
         list.add(HomeChoiceEntity())
         //每日闪购
         list.add(DataHelper.flashData())
+        //精选优品
         list.add(HomeChoiceGoodsEntity())
+        //穿插广告
         list.add(HomeAdvBannerEntity())
+        //常见疾病
         list.add(HomeSicknessEntity())
+        //品牌专区
         list.add(HomeBrandEntity())
+        //情趣用品
         list.add(SexToyEntity())
+        //问答解惑
         list.add(HomeAskAnswerEntity())
         return list
     }
