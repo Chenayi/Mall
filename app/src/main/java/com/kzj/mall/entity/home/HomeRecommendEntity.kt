@@ -1,4 +1,4 @@
-package com.kzj.mall.entity
+package com.kzj.mall.entity.home
 
 class HomeRecommendEntity : IHomeEntity {
     override fun getItemType(): Int {

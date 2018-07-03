@@ -1,7 +1,6 @@
 package com.kzj.mall.ui.fragment.home
 
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
@@ -11,7 +10,7 @@ import com.kzj.mall.R
 import com.kzj.mall.base.BaseFragment
 import com.kzj.mall.base.IPresenter
 import com.kzj.mall.databinding.FragmentBaseHomeChildListBinding
-import com.kzj.mall.entity.IHomeEntity
+import com.kzj.mall.entity.home.IHomeEntity
 
 abstract class BaseHomeChildListFragment<P : IPresenter> : BaseFragment<P, FragmentBaseHomeChildListBinding>() {
     private var listAdapter: ListAdapter? = null

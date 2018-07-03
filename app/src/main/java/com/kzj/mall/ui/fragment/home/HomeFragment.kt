@@ -14,8 +14,8 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTit
 import android.graphics.Color
 import android.view.View
 import com.blankj.utilcode.util.SizeUtils
+import com.kzj.mall.adapter.HomeNavigatorTitleView
 import net.lucode.hackware.magicindicator.ViewPagerHelper
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorTransitionPagerTitleView
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator
 
 
@@ -52,7 +52,7 @@ class HomeFragment : BaseFragment<IPresenter, FragmentHomeBinding>() {
         var commonNavigator = CommonNavigator(context)
         commonNavigator.adapter = object : CommonNavigatorAdapter() {
             override fun getTitleView(p0: Context?, index: Int): IPagerTitleView {
-                val colorTransitionPagerTitleView = ColorTransitionPagerTitleView(context)
+                val colorTransitionPagerTitleView = HomeNavigatorTitleView(context)
                 colorTransitionPagerTitleView.normalColor = Color.parseColor("#EBFFD9")
                 colorTransitionPagerTitleView.selectedColor = Color.WHITE
                 colorTransitionPagerTitleView.textSize = 13f
@@ -73,8 +73,9 @@ class HomeFragment : BaseFragment<IPresenter, FragmentHomeBinding>() {
 
             override fun getIndicator(p0: Context?): IPagerIndicator {
                 val indicator = LinePagerIndicator(context)
-                indicator.mode = LinePagerIndicator.MODE_WRAP_CONTENT
+                indicator.mode = LinePagerIndicator.MODE_EXACTLY
                 indicator.setColors(Color.WHITE)
+                indicator.lineWidth = SizeUtils.dp2px(13f).toFloat()
                 return indicator
             }
 

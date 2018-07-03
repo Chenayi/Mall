@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:orientation="vertical">
 
 
     <LinearLayout
@@ -23,7 +23,7 @@
             <ImageView
                 android:layout_width="47dp"
                 android:layout_height="47dp"
-                android:src="@color/gray_default" />
+                android:src="@mipmap/icon_all_classify" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -48,7 +48,7 @@
             <ImageView
                 android:layout_width="47dp"
                 android:layout_height="47dp"
-                android:src="@color/gray_default" />
+                android:src="@mipmap/icon_doctor_ask" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -73,7 +73,7 @@
             <ImageView
                 android:layout_width="47dp"
                 android:layout_height="47dp"
-                android:src="@color/gray_default" />
+                android:src="@mipmap/icon_health" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -98,7 +98,7 @@
             <ImageView
                 android:layout_width="47dp"
                 android:layout_height="47dp"
-                android:src="@color/gray_default" />
+                android:src="@mipmap/icon_sex_toy" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -115,6 +115,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="121dp"
-        android:src="@color/colorPrimary" />
+        android:scaleType="centerCrop"
+        android:src="@mipmap/icon_sample" />
 
 </LinearLayout>

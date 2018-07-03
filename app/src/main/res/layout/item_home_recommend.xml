@@ -12,30 +12,46 @@
         android:layout_marginTop="12dp"
         android:background="@drawable/background_white_corners_8"
         android:orientation="vertical"
-        android:padding="12dp">
+        android:paddingBottom="12dp"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp">
+
 
         <LinearLayout
             android:id="@+id/ll_recommend"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal">
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="为您推荐"
+                    android:textColor="#91CA5F"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="为您推荐"
-                android:textColor="#91CA5F"
-                android:textSize="17sp"
-                android:textStyle="bold" />
-
+                android:text="万千商品 懂你所需"
+                android:textColor="#8A9099"
+                android:textSize="9sp" />
         </LinearLayout>
-
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
             <ImageView

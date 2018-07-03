@@ -5,8 +5,8 @@ import android.widget.LinearLayout
 import com.chad.library.adapter.base.BaseViewHolder
 import com.chad.library.adapter.base.provider.BaseItemProvider
 import com.kzj.mall.R
-import com.kzj.mall.entity.HomeRecommendEntity
-import com.kzj.mall.entity.IHomeEntity
+import com.kzj.mall.entity.home.HomeRecommendEntity
+import com.kzj.mall.entity.home.IHomeEntity
 
 class RecommendProvider : BaseItemProvider<IHomeEntity,BaseViewHolder>() {
     override fun layout(): Int {

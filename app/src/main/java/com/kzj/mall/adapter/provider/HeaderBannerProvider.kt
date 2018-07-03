@@ -11,12 +11,13 @@ import com.chad.library.adapter.base.provider.BaseItemProvider
 import com.kzj.mall.GlideApp
 import com.kzj.mall.R
 import com.kzj.mall.entity.HomeEntity
-import com.kzj.mall.entity.IHomeEntity
+import com.kzj.mall.entity.home.IHomeEntity
 import com.kzj.mall.transformer.ScaleInTransformer
 import com.tmall.ultraviewpager.UltraViewPager
 
 class HeaderBannerProvider : BaseItemProvider<IHomeEntity, BaseViewHolder>() {
     var ultraViewPager: UltraViewPager? = null
+    var isInitialized = false
 
     override fun layout(): Int {
         return R.layout.home_banner
@@ -27,15 +28,18 @@ class HeaderBannerProvider : BaseItemProvider<IHomeEntity, BaseViewHolder>() {
     }
 
     override fun convert(helper: BaseViewHolder?, data: IHomeEntity?, position: Int) {
-        ultraViewPager = helper?.getView(R.id.banner)
-        ultraViewPager?.setScrollMode(UltraViewPager.ScrollMode.HORIZONTAL);
-        val adapter = UltraPagerAdapter(advDatas())
-        ultraViewPager?.viewPager?.pageMargin = SizeUtils.dp2px(10f)
-        ultraViewPager?.viewPager?.offscreenPageLimit = 3
-        ultraViewPager?.setAdapter(adapter)
-        ultraViewPager?.setInfiniteLoop(true);
-        ultraViewPager?.setAdapter(adapter);
-        ultraViewPager?.setPageTransformer(true, ScaleInTransformer());
+        if (isInitialized == false) {
+            ultraViewPager = helper?.getView(R.id.banner)
+            ultraViewPager?.setScrollMode(UltraViewPager.ScrollMode.HORIZONTAL);
+            val adapter = UltraPagerAdapter(advDatas())
+            ultraViewPager?.viewPager?.pageMargin = SizeUtils.dp2px(10f)
+            ultraViewPager?.viewPager?.offscreenPageLimit = 3
+            ultraViewPager?.setAdapter(adapter)
+            ultraViewPager?.setInfiniteLoop(true)
+            ultraViewPager?.setAdapter(adapter)
+            ultraViewPager?.setPageTransformer(true, ScaleInTransformer())
+            isInitialized = true
+        }
     }
 
     private fun advDatas(): MutableList<HomeEntity.AdvBanner> {

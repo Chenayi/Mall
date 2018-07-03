@@ -8,12 +8,17 @@ import com.chad.library.adapter.base.BaseViewHolder
 import com.chad.library.adapter.base.provider.BaseItemProvider
 import com.kzj.mall.R
 import com.kzj.mall.entity.HomeEntity
-import com.kzj.mall.entity.IHomeEntity
+import com.kzj.mall.entity.home.IHomeEntity
 import com.kzj.mall.transformer.ScaleInTransformer
 import com.tmall.ultraviewpager.UltraViewPager
 
+/**
+ * 穿插广告
+ */
+class HomeAdvBannerProvider : BaseItemProvider<IHomeEntity, BaseViewHolder>() {
+    var isInitialized = false
+    var viewPager: UltraViewPager? = null
 
-class AdvBannerProvider : BaseItemProvider<IHomeEntity, BaseViewHolder>() {
     override fun layout(): Int {
         return R.layout.item_home_adv_banner
     }
@@ -23,12 +28,16 @@ class AdvBannerProvider : BaseItemProvider<IHomeEntity, BaseViewHolder>() {
     }
 
     override fun convert(helper: BaseViewHolder?, data: IHomeEntity?, position: Int) {
-        val myAdapter = MyAdapter()
-        val viewPager = helper?.getView<UltraViewPager>(R.id.vp)
-        viewPager?.viewPager?.pageMargin =20
-        viewPager?.viewPager?.offscreenPageLimit = 3
-        viewPager?.adapter = myAdapter
-        viewPager?.setPageTransformer(true, ScaleInTransformer());
+        if (isInitialized == false) {
+            viewPager = helper?.getView(R.id.vp)
+            viewPager?.viewPager?.pageMargin = 20
+            viewPager?.viewPager?.offscreenPageLimit = 3
+
+            val myAdapter = MyAdapter()
+            viewPager?.adapter = myAdapter
+            viewPager?.setPageTransformer(true, ScaleInTransformer());
+            isInitialized = true
+        }
     }
 
     private fun advDatas(): MutableList<HomeEntity.AdvBanner> {

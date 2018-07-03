@@ -3,15 +3,18 @@ package com.kzj.mall.adapter.provider
 import com.chad.library.adapter.base.BaseViewHolder
 import com.chad.library.adapter.base.provider.BaseItemProvider
 import com.kzj.mall.R
-import com.kzj.mall.entity.IHomeEntity
+import com.kzj.mall.entity.home.IHomeEntity
 
-class AskAnswerProvider : BaseItemProvider<IHomeEntity,BaseViewHolder>() {
+/**
+ * 常见疾病
+ */
+class HomeSicknessProvider : BaseItemProvider<IHomeEntity, BaseViewHolder>() {
     override fun layout(): Int {
-        return R.layout.item_home_ask_answer
+        return R.layout.item_home_sickness
     }
 
     override fun viewType(): Int {
-       return IHomeEntity.ASK_ANSWER
+        return IHomeEntity.SICKNESS
     }
 
     override fun convert(helper: BaseViewHolder?, data: IHomeEntity?, position: Int) {

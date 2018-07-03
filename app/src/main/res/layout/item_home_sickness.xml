@@ -7,30 +7,49 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="12dp"
-        android:background="@drawable/background_white_corners_8">
+        android:background="@drawable/background_white_corners_8"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal">
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="常见疾病"
+                    android:textColor="#1F5BCA"
+                    android:textSize="17dp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="常见疾病"
-                android:textColor="#17BEBB"
-                android:textSize="17sp"
-                android:textStyle="bold"/>
-
+                android:gravity="center"
+                android:text="百万男性常见症状"
+                android:textColor="#8A9099"
+                android:textSize="9dp" />
         </LinearLayout>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="#f7f7f7" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
             android:orientation="vertical">
 
@@ -49,7 +68,7 @@
                     <ImageView
                         android:layout_width="47dp"
                         android:layout_height="47dp"
-                        android:src="@color/gray_default" />
+                        android:src="@mipmap/k" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -70,7 +89,7 @@
                     <ImageView
                         android:layout_width="47dp"
                         android:layout_height="47dp"
-                        android:src="@color/gray_default" />
+                        android:src="@mipmap/k" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -91,7 +110,7 @@
                     <ImageView
                         android:layout_width="47dp"
                         android:layout_height="47dp"
-                        android:src="@color/gray_default" />
+                        android:src="@mipmap/k" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -112,7 +131,7 @@
                     <ImageView
                         android:layout_width="47dp"
                         android:layout_height="47dp"
-                        android:src="@color/gray_default" />
+                        android:src="@mipmap/k" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -140,7 +159,7 @@
                     <ImageView
                         android:layout_width="47dp"
                         android:layout_height="47dp"
-                        android:src="@color/gray_default" />
+                        android:src="@mipmap/k" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -161,7 +180,7 @@
                     <ImageView
                         android:layout_width="47dp"
                         android:layout_height="47dp"
-                        android:src="@color/gray_default" />
+                        android:src="@mipmap/k" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -182,7 +201,7 @@
                     <ImageView
                         android:layout_width="47dp"
                         android:layout_height="47dp"
-                        android:src="@color/gray_default" />
+                        android:src="@mipmap/k" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -203,7 +222,7 @@
                     <ImageView
                         android:layout_width="47dp"
                         android:layout_height="47dp"
-                        android:src="@color/gray_default" />
+                        android:src="@mipmap/k" />
 
                     <TextView
                         android:layout_width="wrap_content"

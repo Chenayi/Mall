@@ -1,4 +1,4 @@
-package com.kzj.mall.entity
+package com.kzj.mall.entity.home
 
 interface IHomeEntity {
     companion object {

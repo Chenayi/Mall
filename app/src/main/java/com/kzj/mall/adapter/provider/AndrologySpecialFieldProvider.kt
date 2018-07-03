@@ -1,18 +1,21 @@
 package com.kzj.mall.adapter.provider
 
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import com.chad.library.adapter.base.BaseViewHolder
 import com.chad.library.adapter.base.provider.BaseItemProvider
 import com.kzj.mall.R
 import com.kzj.mall.adapter.BaseAdapter
 import com.kzj.mall.entity.AndrologySpecialFieldEntity
-import com.kzj.mall.entity.IHomeEntity
+import com.kzj.mall.entity.home.IHomeEntity
+import com.takusemba.multisnaprecyclerview.MultiSnapRecyclerView
+import com.takusemba.multisnaprecyclerview.OnSnapListener
 
 /**
  * 男科专场
  */
-class AndrologySpecialFieldProvider : BaseItemProvider<IHomeEntity, BaseViewHolder>() {
+class AndrologySpecialFieldProvider : BaseItemProvider<AndrologySpecialFieldEntity, BaseViewHolder>() {
+    var rv: MultiSnapRecyclerView? = null
+
     override fun layout(): Int {
         return R.layout.item_andrology_special_field_list
     }
@@ -21,12 +24,20 @@ class AndrologySpecialFieldProvider : BaseItemProvider<IHomeEntity, BaseViewHold
         return IHomeEntity.MALE_SEPCIAL_FIELD
     }
 
-    override fun convert(helper: BaseViewHolder?, data: IHomeEntity?, position: Int) {
-        var rv = helper?.getView<RecyclerView>(R.id.rv)
+    override fun convert(helper: BaseViewHolder?, data: AndrologySpecialFieldEntity?, position: Int) {
+        rv = helper?.getView(R.id.rv)
         val myAdapter = MyAdapter(getDatas())
         val layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false)
         rv?.setLayoutManager(layoutManager)
         rv?.setAdapter(myAdapter)
+        data?.p?.let {
+            rv?.scrollToPosition(it)
+        }
+        rv?.setOnSnapListener(object :OnSnapListener{
+            override fun snapped(position: Int) {
+                data?.p = position
+            }
+        })
     }
 
     private fun getDatas(): MutableList<AndrologySpecialFieldEntity> {

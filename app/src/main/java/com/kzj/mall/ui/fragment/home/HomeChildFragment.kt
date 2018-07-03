@@ -6,6 +6,7 @@ import com.chad.library.adapter.base.util.ProviderDelegate
 import com.kzj.mall.adapter.provider.*
 import com.kzj.mall.base.IPresenter
 import com.kzj.mall.entity.*
+import com.kzj.mall.entity.home.*
 
 class HomeChildFragment : BaseHomeChildListFragment<IPresenter>() {
 
@@ -52,15 +53,15 @@ class HomeChildFragment : BaseHomeChildListFragment<IPresenter>() {
     override fun registerItemProvider(providerDelegate: ProviderDelegate) {
         headerBannerProvider = HeaderBannerProvider()
         providerDelegate.registerProvider(headerBannerProvider)
-        providerDelegate.registerProvider(ClassifyProvider())
-        providerDelegate.registerProvider(ChoiceProvider())
-        providerDelegate.registerProvider(BrandProvider())
-        providerDelegate.registerProvider(FlashSaleProvider())
-        providerDelegate.registerProvider(ChoiceGoodsProvider())
-        providerDelegate.registerProvider(AdvBannerProvider())
-        providerDelegate.registerProvider(SicknessProvider())
-        providerDelegate.registerProvider(SexToyProvider())
-        providerDelegate.registerProvider(AskAnswerProvider())
+        providerDelegate.registerProvider(HomeClassifyProvider())
+        providerDelegate.registerProvider(HomeChoiceProvider())
+        providerDelegate.registerProvider(HomeFlashSaleProvider())
+        providerDelegate.registerProvider(HomeBrandProvider())
+        providerDelegate.registerProvider(HomeChoiceGoodsProvider())
+        providerDelegate.registerProvider(HomeAdvBannerProvider())
+        providerDelegate.registerProvider(HomeSicknessProvider())
+        providerDelegate.registerProvider(HomeSexToyProvider())
+        providerDelegate.registerProvider(HomeAskAnswerProvider())
         providerDelegate.registerProvider(RecommendProvider())
     }
 
@@ -87,15 +88,15 @@ class HomeChildFragment : BaseHomeChildListFragment<IPresenter>() {
     fun getNormalMultipleEntities(): MutableList<IHomeEntity> {
         val list = ArrayList<IHomeEntity>()
         list.add(HomeHeaderBannerEntity())
-        list.add(HomeEntity(IHomeEntity.CLASSIFY))
-        list.add(HomeEntity(IHomeEntity.CHOICE))
-        list.add(HomeEntity(IHomeEntity.FLASH_SALE))
-        list.add(HomeEntity(IHomeEntity.CHOICE_GOODS))
-        list.add(HomeEntity(IHomeEntity.ADV_BANNER))
-        list.add(HomeEntity(IHomeEntity.SICKNESS))
-        list.add(HomeEntity(IHomeEntity.BRAND))
+        list.add(HomeClassifyEntity())
+        list.add(HomeChoiceEntity())
+        list.add(HomeFlashSaleEntity())
+        list.add(HomeChoiceGoodsEntity())
+        list.add(HomeAdvBannerEntity())
+        list.add(HomeSicknessEntity())
+        list.add(HomeBrandEntity())
         list.add(SexToyEntity())
-        list.add(HomeEntity(IHomeEntity.ASK_ANSWER))
+        list.add(HomeAskAnswerEntity())
         return list
     }
 }

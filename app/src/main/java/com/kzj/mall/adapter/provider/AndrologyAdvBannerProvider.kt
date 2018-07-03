@@ -3,7 +3,7 @@ package com.kzj.mall.adapter.provider
 import com.chad.library.adapter.base.BaseViewHolder
 import com.chad.library.adapter.base.provider.BaseItemProvider
 import com.kzj.mall.R
-import com.kzj.mall.entity.IHomeEntity
+import com.kzj.mall.entity.home.IHomeEntity
 import com.tmall.ultraviewpager.UltraViewPager
 import android.support.v4.view.PagerAdapter
 import android.view.LayoutInflater
@@ -17,7 +17,10 @@ import com.kzj.mall.transformer.ScaleInTransformer
 /**
  * 男科广告banner
  */
-class AndrologyAdvBannerProvider : BaseItemProvider<IHomeEntity,BaseViewHolder>() {
+class AndrologyAdvBannerProvider : BaseItemProvider<IHomeEntity, BaseViewHolder>() {
+    var isInitialized = false
+    var ultraViewPager: UltraViewPager? = null
+
     override fun layout(): Int {
         return R.layout.item_andrology_adv_banner_list
     }
@@ -27,15 +30,18 @@ class AndrologyAdvBannerProvider : BaseItemProvider<IHomeEntity,BaseViewHolder>(
     }
 
     override fun convert(helper: BaseViewHolder?, data: IHomeEntity?, position: Int) {
-        val ultraViewPager = helper?.getView<UltraViewPager>(R.id.ultra_viewpager)
-        ultraViewPager?.setScrollMode(UltraViewPager.ScrollMode.HORIZONTAL);
-        val adapter = UltraPagerAdapter(advDatas())
-        ultraViewPager?.viewPager?.pageMargin =SizeUtils.dp2px(10f)
-        ultraViewPager?.viewPager?.offscreenPageLimit = 3
-        ultraViewPager?.setAdapter(adapter)
-        ultraViewPager?.setInfiniteLoop(true);
-        ultraViewPager?.setAdapter(adapter);
-        ultraViewPager?.setPageTransformer(true, ScaleInTransformer());
+        if (isInitialized == false) {
+            ultraViewPager = helper?.getView(R.id.ultra_viewpager)
+            ultraViewPager?.setScrollMode(UltraViewPager.ScrollMode.HORIZONTAL);
+            val adapter = UltraPagerAdapter(advDatas())
+            ultraViewPager?.viewPager?.pageMargin = SizeUtils.dp2px(10f)
+            ultraViewPager?.viewPager?.offscreenPageLimit = 3
+            ultraViewPager?.setAdapter(adapter)
+            ultraViewPager?.setInfiniteLoop(true);
+            ultraViewPager?.setAdapter(adapter);
+            ultraViewPager?.setPageTransformer(true, ScaleInTransformer());
+            isInitialized = true
+        }
     }
 
     private fun advDatas(): MutableList<HomeEntity.AdvBanner> {

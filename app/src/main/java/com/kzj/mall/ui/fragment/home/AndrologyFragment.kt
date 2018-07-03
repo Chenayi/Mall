@@ -2,11 +2,13 @@ package com.kzj.mall.ui.fragment.home
 
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import com.blankj.utilcode.util.SizeUtils
 import com.chad.library.adapter.base.util.ProviderDelegate
 import com.kzj.mall.adapter.provider.*
 import com.kzj.mall.base.IPresenter
 import com.kzj.mall.entity.*
+import com.kzj.mall.entity.home.HomeHeaderBannerEntity
+import com.kzj.mall.entity.home.HomeRecommendEntity
+import com.kzj.mall.entity.home.IHomeEntity
 
 /**
  * 男科
