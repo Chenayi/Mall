@@ -90,7 +90,8 @@ class HomeChildFragment : BaseHomeChildListFragment<IPresenter>() {
         list.add(HomeHeaderBannerEntity())
         list.add(HomeClassifyEntity())
         list.add(HomeChoiceEntity())
-        list.add(HomeFlashSaleEntity())
+        //每日闪购
+        list.add(DataHelper.flashData())
         list.add(HomeChoiceGoodsEntity())
         list.add(HomeAdvBannerEntity())
         list.add(HomeSicknessEntity())
