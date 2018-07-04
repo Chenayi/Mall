@@ -51,17 +51,28 @@ class HomeChildFragment : BaseHomeChildListFragment<IPresenter>() {
     }
 
     override fun registerItemProvider(providerDelegate: ProviderDelegate) {
+        //头部广告
         headerBannerProvider = HeaderBannerProvider()
         providerDelegate.registerProvider(headerBannerProvider)
+        //分类
         providerDelegate.registerProvider(HomeClassifyProvider())
+        //公告精选
         providerDelegate.registerProvider(HomeChoiceProvider())
+        //每日闪购
         providerDelegate.registerProvider(HomeFlashSaleProvider())
+        //品牌
         providerDelegate.registerProvider(HomeBrandProvider())
+        //精选优品
         providerDelegate.registerProvider(HomeChoiceGoodsProvider())
+        //穿插广告
         providerDelegate.registerProvider(HomeAdvBannerProvider())
+        //常见疾病
         providerDelegate.registerProvider(HomeSicknessProvider())
+        //情趣用品
         providerDelegate.registerProvider(HomeSexToyProvider())
+        //问答
         providerDelegate.registerProvider(HomeAskAnswerProvider())
+        //推荐
         providerDelegate.registerProvider(RecommendProvider())
     }
 
@@ -69,22 +80,17 @@ class HomeChildFragment : BaseHomeChildListFragment<IPresenter>() {
         finishLoadMore(getRecommendDatas())
     }
 
-    fun getRecommendDatas(): MutableList<IHomeEntity> {
-        val list = ArrayList<IHomeEntity>()
-        for (i in 0..8) {
-            val homeRecommendEntity = HomeRecommendEntity()
-            homeRecommendEntity.isBackgroundCorners = true
-            if (i == 0) {
-                homeRecommendEntity.isShowRecommendText = true
-            } else {
-                homeRecommendEntity.isShowRecommendText = false
-            }
-            list.add(homeRecommendEntity)
-        }
-        return list
+    /**
+     * 为您推荐
+     */
+    fun getRecommendDatas(): MutableList<HomeRecommendEntity> {
+        return DataHelper.homeRecommendDatas()
     }
 
 
+    /**
+     * 列表数据
+     */
     fun getNormalMultipleEntities(): MutableList<IHomeEntity> {
         val list = ArrayList<IHomeEntity>()
         //头部广告
@@ -94,17 +100,17 @@ class HomeChildFragment : BaseHomeChildListFragment<IPresenter>() {
         //公告精选
         list.add(HomeChoiceEntity())
         //每日闪购
-        list.add(DataHelper.flashData())
+        list.add(DataHelper.homeFlashData())
         //精选优品
         list.add(HomeChoiceGoodsEntity())
         //穿插广告
-        list.add(HomeAdvBannerEntity())
+        list.add(DataHelper.homeAdvBannerData())
         //常见疾病
         list.add(HomeSicknessEntity())
         //品牌专区
         list.add(HomeBrandEntity())
         //情趣用品
-        list.add(SexToyEntity())
+        list.add(DataHelper.homeSexToy())
         //问答解惑
         list.add(HomeAskAnswerEntity())
         return list

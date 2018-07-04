@@ -3,12 +3,13 @@ package com.kzj.mall.adapter.provider
 import com.chad.library.adapter.base.BaseViewHolder
 import com.chad.library.adapter.base.provider.BaseItemProvider
 import com.kzj.mall.R
+import com.kzj.mall.entity.home.HomeChoiceEntity
 import com.kzj.mall.entity.home.IHomeEntity
 
 /**
  * 公告/精选
  */
-class HomeChoiceProvider : BaseItemProvider<IHomeEntity, BaseViewHolder>() {
+class HomeChoiceProvider : BaseItemProvider<HomeChoiceEntity, BaseViewHolder>() {
     override fun layout(): Int {
         return R.layout.item_home_choice
     }
@@ -17,6 +18,6 @@ class HomeChoiceProvider : BaseItemProvider<IHomeEntity, BaseViewHolder>() {
         return IHomeEntity.CHOICE
     }
 
-    override fun convert(helper: BaseViewHolder?, data: IHomeEntity?, position: Int) {
+    override fun convert(helper: BaseViewHolder?, data: HomeChoiceEntity?, position: Int) {
     }
 }

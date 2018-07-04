@@ -26,10 +26,13 @@ class AndrologySpecialFieldProvider : BaseItemProvider<AndrologySpecialFieldEnti
 
     override fun convert(helper: BaseViewHolder?, data: AndrologySpecialFieldEntity?, position: Int) {
         rv = helper?.getView(R.id.rv)
-        val myAdapter = MyAdapter(getDatas())
         val layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false)
         rv?.setLayoutManager(layoutManager)
-        rv?.setAdapter(myAdapter)
+
+        data?.specialFields?.let {
+            val myAdapter = MyAdapter(it)
+            rv?.setAdapter(myAdapter)
+        }
         data?.p?.let {
             rv?.scrollToPosition(it)
         }
@@ -40,18 +43,10 @@ class AndrologySpecialFieldProvider : BaseItemProvider<AndrologySpecialFieldEnti
         })
     }
 
-    private fun getDatas(): MutableList<AndrologySpecialFieldEntity> {
-        var datas = ArrayList<AndrologySpecialFieldEntity>()
-        for (i in 0..8) {
-            datas?.add(AndrologySpecialFieldEntity())
-        }
-        return datas
-    }
-
     inner class MyAdapter
-    constructor(val aDatas: MutableList<AndrologySpecialFieldEntity>)
-        : BaseAdapter<AndrologySpecialFieldEntity, BaseViewHolder>(R.layout.item_andrology_special_field, aDatas) {
-        override fun convert(helper: BaseViewHolder?, item: AndrologySpecialFieldEntity?) {
+    constructor(val aDatas: MutableList<AndrologySpecialFieldEntity.SpecialFields>)
+        : BaseAdapter<AndrologySpecialFieldEntity.SpecialFields, BaseViewHolder>(R.layout.item_andrology_special_field, aDatas) {
+        override fun convert(helper: BaseViewHolder?, item: AndrologySpecialFieldEntity.SpecialFields?) {
 
         }
     }

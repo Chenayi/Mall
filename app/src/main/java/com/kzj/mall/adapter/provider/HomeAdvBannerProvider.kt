@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import com.chad.library.adapter.base.BaseViewHolder
 import com.chad.library.adapter.base.provider.BaseItemProvider
 import com.kzj.mall.R
-import com.kzj.mall.entity.HomeEntity
+import com.kzj.mall.entity.home.HomeAdvBannerEntity
 import com.kzj.mall.entity.home.IHomeEntity
 import com.kzj.mall.transformer.ScaleInTransformer
 import com.tmall.ultraviewpager.UltraViewPager
@@ -15,7 +15,7 @@ import com.tmall.ultraviewpager.UltraViewPager
 /**
  * 穿插广告
  */
-class HomeAdvBannerProvider : BaseItemProvider<IHomeEntity, BaseViewHolder>() {
+class HomeAdvBannerProvider : BaseItemProvider<HomeAdvBannerEntity, BaseViewHolder>() {
     var isInitialized = false
     var viewPager: UltraViewPager? = null
 
@@ -27,31 +27,21 @@ class HomeAdvBannerProvider : BaseItemProvider<IHomeEntity, BaseViewHolder>() {
         return IHomeEntity.ADV_BANNER
     }
 
-    override fun convert(helper: BaseViewHolder?, data: IHomeEntity?, position: Int) {
+    override fun convert(helper: BaseViewHolder?, data: HomeAdvBannerEntity?, position: Int) {
         if (isInitialized == false) {
             viewPager = helper?.getView(R.id.vp)
             viewPager?.viewPager?.pageMargin = 20
             viewPager?.viewPager?.offscreenPageLimit = 3
 
-            val myAdapter = MyAdapter()
-            viewPager?.adapter = myAdapter
-            viewPager?.setPageTransformer(true, ScaleInTransformer());
+            data?.banners?.let {
+                viewPager?.adapter = MyAdapter(it)
+                viewPager?.setPageTransformer(true, ScaleInTransformer());
+            }
             isInitialized = true
         }
     }
 
-    private fun advDatas(): MutableList<HomeEntity.AdvBanner> {
-        var datas = ArrayList<HomeEntity.AdvBanner>()
-        for (i in 0..6) {
-            datas.add(HomeEntity().AdvBanner())
-        }
-        return datas
-    }
-
-
-    inner class MyAdapter : PagerAdapter() {
-        private val advDatas = advDatas()
-
+    inner class MyAdapter constructor(val advDatas : MutableList<HomeAdvBannerEntity.Banners>) : PagerAdapter() {
         override fun isViewFromObject(view: View, `object`: Any): Boolean {
             return view == `object`
         }

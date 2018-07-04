@@ -15,7 +15,7 @@ import com.takusemba.multisnaprecyclerview.MultiSnapRecyclerView
 /**
  * 情趣用品
  */
-class HomeSexToyProvider : BaseItemProvider<IHomeEntity, BaseViewHolder>() {
+class HomeSexToyProvider : BaseItemProvider<SexToyEntity, BaseViewHolder>() {
     var isInitialized = false
     var rv: MultiSnapRecyclerView? = null
 
@@ -27,30 +27,24 @@ class HomeSexToyProvider : BaseItemProvider<IHomeEntity, BaseViewHolder>() {
         return IHomeEntity.SEX_TOY
     }
 
-    override fun convert(helper: BaseViewHolder?, data: IHomeEntity?, position: Int) {
+    override fun convert(helper: BaseViewHolder?, data: SexToyEntity?, position: Int) {
         if (isInitialized == false) {
             rv = helper?.getView(R.id.rv_sex_toy_sale)
-            val myAdapter = MyAdapter(getDatas())
             val layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false)
             rv?.setLayoutManager(layoutManager)
-            rv?.setAdapter(myAdapter)
+            data?.sexToys?.let {
+                val myAdapter = MyAdapter(it)
+                rv?.setAdapter(myAdapter)
+            }
             isInitialized = true
         }
     }
 
 
-    private fun getDatas(): MutableList<SexToyEntity> {
-        var datas = ArrayList<SexToyEntity>()
-        for (i in 0..8) {
-            datas?.add(SexToyEntity())
-        }
-        return datas
-    }
-
     inner class MyAdapter
-    constructor(val sexToyDatas: MutableList<SexToyEntity>)
-        : BaseAdapter<SexToyEntity, BaseViewHolder>(R.layout.item_home_sex_toy, sexToyDatas) {
-        override fun convert(helper: BaseViewHolder?, item: SexToyEntity?) {
+    constructor(val sexToyDatas: MutableList<SexToyEntity.SexToys>)
+        : BaseAdapter<SexToyEntity.SexToys, BaseViewHolder>(R.layout.item_home_sex_toy, sexToyDatas) {
+        override fun convert(helper: BaseViewHolder?, item: SexToyEntity.SexToys?) {
             val linearLayout = helper?.getView<LinearLayout>(R.id.ll_item)
             var params: RelativeLayout.LayoutParams = linearLayout?.layoutParams as RelativeLayout.LayoutParams
 

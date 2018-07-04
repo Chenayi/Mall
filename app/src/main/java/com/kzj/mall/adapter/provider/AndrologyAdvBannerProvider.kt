@@ -11,13 +11,14 @@ import android.view.View
 import android.view.ViewGroup
 import com.blankj.utilcode.util.SizeUtils
 import com.kzj.mall.entity.HomeEntity
+import com.kzj.mall.entity.home.AndrologyAdvBannerEntity
 import com.kzj.mall.transformer.ScaleInTransformer
 
 
 /**
  * 男科广告banner
  */
-class AndrologyAdvBannerProvider : BaseItemProvider<IHomeEntity, BaseViewHolder>() {
+class AndrologyAdvBannerProvider : BaseItemProvider<AndrologyAdvBannerEntity, BaseViewHolder>() {
     var isInitialized = false
     var ultraViewPager: UltraViewPager? = null
 
@@ -26,10 +27,10 @@ class AndrologyAdvBannerProvider : BaseItemProvider<IHomeEntity, BaseViewHolder>
     }
 
     override fun viewType(): Int {
-        return IHomeEntity.ADV_BANNER
+        return IHomeEntity.MALE_ADV_BANNER
     }
 
-    override fun convert(helper: BaseViewHolder?, data: IHomeEntity?, position: Int) {
+    override fun convert(helper: BaseViewHolder?, data: AndrologyAdvBannerEntity?, position: Int) {
         if (isInitialized == false) {
             ultraViewPager = helper?.getView(R.id.ultra_viewpager)
             ultraViewPager?.setScrollMode(UltraViewPager.ScrollMode.HORIZONTAL);

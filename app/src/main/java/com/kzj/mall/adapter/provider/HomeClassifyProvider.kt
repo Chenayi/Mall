@@ -3,12 +3,13 @@ package com.kzj.mall.adapter.provider
 import com.chad.library.adapter.base.BaseViewHolder
 import com.chad.library.adapter.base.provider.BaseItemProvider
 import com.kzj.mall.R
+import com.kzj.mall.entity.home.HomeClassifyEntity
 import com.kzj.mall.entity.home.IHomeEntity
 
 /**
  *  分类
  */
-class HomeClassifyProvider : BaseItemProvider<IHomeEntity, BaseViewHolder>() {
+class HomeClassifyProvider : BaseItemProvider<HomeClassifyEntity, BaseViewHolder>() {
     override fun layout(): Int {
         return R.layout.item_home_classify
     }
@@ -17,6 +18,6 @@ class HomeClassifyProvider : BaseItemProvider<IHomeEntity, BaseViewHolder>() {
         return IHomeEntity.CLASSIFY
     }
 
-    override fun convert(helper: BaseViewHolder?, data: IHomeEntity?, position: Int) {
+    override fun convert(helper: BaseViewHolder?, data: HomeClassifyEntity?, position: Int) {
     }
 }

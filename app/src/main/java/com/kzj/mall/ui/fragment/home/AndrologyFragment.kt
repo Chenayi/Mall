@@ -6,9 +6,7 @@ import com.chad.library.adapter.base.util.ProviderDelegate
 import com.kzj.mall.adapter.provider.*
 import com.kzj.mall.base.IPresenter
 import com.kzj.mall.entity.*
-import com.kzj.mall.entity.home.HomeHeaderBannerEntity
-import com.kzj.mall.entity.home.HomeRecommendEntity
-import com.kzj.mall.entity.home.IHomeEntity
+import com.kzj.mall.entity.home.*
 
 /**
  * 男科
@@ -67,31 +65,19 @@ class AndrologyFragment : BaseHomeChildListFragment<IPresenter>() {
     fun getNormalMultipleEntities(): MutableList<IHomeEntity> {
         val list = ArrayList<IHomeEntity>()
         list.add(HomeHeaderBannerEntity())
-        list.add(HomeEntity(IHomeEntity.CLASSIFY))
-        list.add(HomeEntity(IHomeEntity.MALE_STATION))
-        list.add(HomeEntity(IHomeEntity.ADV_BANNER))
-        for (i in 0..2) {
-            list.add(AndrologySpecialFieldEntity())
-        }
+        list.add(AndrologyClassifyEntity())
+        list.add(AndrologyStationEntity())
+
+        //穿插广告
+        list.add(DataHelper.andrologyAdvBannerData())
+
+        // 专场
+        list.add(DataHelper.andrologySpecialFieldData())
+        list.add(DataHelper.andrologySpecialFieldData())
         return list
     }
 
     override fun onLoadMore() {
-        finishLoadMore(getRecommendDatas())
-    }
-
-    fun getRecommendDatas(): MutableList<IHomeEntity> {
-        val list = ArrayList<IHomeEntity>()
-        for (i in 0..8) {
-            val homeRecommendEntity = HomeRecommendEntity()
-            homeRecommendEntity.isBackgroundCorners = false
-            if (i == 0) {
-                homeRecommendEntity.isShowRecommendText = true
-            } else {
-                homeRecommendEntity.isShowRecommendText = false
-            }
-            list.add(homeRecommendEntity)
-        }
-        return list
+        finishLoadMore(DataHelper.homeRecommendDatas())
     }
 }

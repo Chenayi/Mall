@@ -8,7 +8,7 @@ import com.kzj.mall.R
 import com.kzj.mall.entity.home.HomeRecommendEntity
 import com.kzj.mall.entity.home.IHomeEntity
 
-class RecommendProvider : BaseItemProvider<IHomeEntity,BaseViewHolder>() {
+class RecommendProvider : BaseItemProvider<HomeRecommendEntity,BaseViewHolder>() {
     override fun layout(): Int {
         return R.layout.item_home_recommend
     }
@@ -17,7 +17,7 @@ class RecommendProvider : BaseItemProvider<IHomeEntity,BaseViewHolder>() {
         return IHomeEntity.RECOMMEND
     }
 
-    override fun convert(helper: BaseViewHolder?, data: IHomeEntity?, position: Int) {
+    override fun convert(helper: BaseViewHolder?, data: HomeRecommendEntity?, position: Int) {
         val homeRecommendEntity : HomeRecommendEntity = data as HomeRecommendEntity
         homeRecommendEntity?.isShowRecommendText?.let {
             helper?.setGone(R.id.ll_recommend, it)

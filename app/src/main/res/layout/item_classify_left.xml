@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/rl_item"
+        android:layout_width="88dp"
+        android:layout_height="44dp">
+
+        <TextView
+            android:id="@+id/tv_classify_name"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:lines="1"
+            android:paddingLeft="6dp"
+            android:paddingRight="6dp"
+            android:singleLine="true"
+            android:textColor="#2E3033"
+            android:textSize="12dp" />
+
+        <View
+            android:layout_width="3dp"
+            android:layout_height="13dp"
+            android:layout_centerVertical="true"
+            android:background="@color/colorPrimary"
+            android:id="@+id/icon_left"/>
+    </RelativeLayout>
+</RelativeLayout>

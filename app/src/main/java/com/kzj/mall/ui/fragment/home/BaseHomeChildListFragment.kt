@@ -10,6 +10,7 @@ import com.kzj.mall.R
 import com.kzj.mall.base.BaseFragment
 import com.kzj.mall.base.IPresenter
 import com.kzj.mall.databinding.FragmentBaseHomeChildListBinding
+import com.kzj.mall.entity.home.HomeRecommendEntity
 import com.kzj.mall.entity.home.IHomeEntity
 
 abstract class BaseHomeChildListFragment<P : IPresenter> : BaseFragment<P, FragmentBaseHomeChildListBinding>() {
@@ -45,7 +46,7 @@ abstract class BaseHomeChildListFragment<P : IPresenter> : BaseFragment<P, Fragm
     abstract fun registerItemProvider(providerDelegate: ProviderDelegate)
     abstract fun onLoadMore()
 
-    fun finishLoadMore(datas: MutableList<IHomeEntity>) {
+    fun finishLoadMore(datas: MutableList<HomeRecommendEntity>) {
         listAdapter?.addData(datas)
         listAdapter?.loadMoreEnd()
     }

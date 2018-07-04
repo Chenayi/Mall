@@ -15,11 +15,12 @@ import android.graphics.Color
 import android.view.View
 import com.blankj.utilcode.util.SizeUtils
 import com.kzj.mall.adapter.HomeNavigatorTitleView
+import com.kzj.mall.ui.dialog.HomeTabClassifyPop
 import net.lucode.hackware.magicindicator.ViewPagerHelper
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator
 
 
-class HomeFragment : BaseFragment<IPresenter, FragmentHomeBinding>() {
+class HomeFragment : BaseFragment<IPresenter, FragmentHomeBinding>(), View.OnClickListener {
     private var mCommomViewPagerAdapter: CommomViewPagerAdapter? = null
     private val mTitles: Array<String> = arrayOf("首页", "男科", "早泄", "温阳补肾", "脱发少发")
     private var mFragments: MutableList<Fragment>? = null
@@ -83,5 +84,15 @@ class HomeFragment : BaseFragment<IPresenter, FragmentHomeBinding>() {
 
         mBinding?.magicIndicator?.navigator = commonNavigator
         ViewPagerHelper.bind(mBinding?.magicIndicator, mBinding?.vpHome);
+
+
+        mBinding?.ivClassify?.setOnClickListener(this)
+    }
+
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            R.id.iv_classify -> {
+            }
+        }
     }
 }

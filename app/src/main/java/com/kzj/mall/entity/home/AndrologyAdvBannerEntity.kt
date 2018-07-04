@@ -1,13 +1,13 @@
 package com.kzj.mall.entity.home
 
-class HomeAdvBannerEntity : IHomeEntity {
+class AndrologyAdvBannerEntity : IHomeEntity {
     var banners: MutableList<Banners>? = null
 
     override fun getItemType(): Int {
-        return IHomeEntity.ADV_BANNER
+        return IHomeEntity.MALE_ADV_BANNER
     }
 
-    inner class Banners {
+    inner class Banners{
 
     }
 }
