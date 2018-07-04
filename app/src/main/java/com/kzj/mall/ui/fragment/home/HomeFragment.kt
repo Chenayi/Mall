@@ -12,10 +12,14 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.CommonNav
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView
 import android.graphics.Color
+import android.view.Gravity
 import android.view.View
+import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.SizeUtils
 import com.kzj.mall.adapter.HomeNavigatorTitleView
 import com.kzj.mall.ui.dialog.HomeTabClassifyPop
+import com.zyyoona7.popup.XGravity
+import com.zyyoona7.popup.YGravity
 import net.lucode.hackware.magicindicator.ViewPagerHelper
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator
 
@@ -86,12 +90,16 @@ class HomeFragment : BaseFragment<IPresenter, FragmentHomeBinding>(), View.OnCli
         ViewPagerHelper.bind(mBinding?.magicIndicator, mBinding?.vpHome);
 
 
+
         mBinding?.ivClassify?.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.iv_classify -> {
+                val homeTabClassifyPop = HomeTabClassifyPop(activity!!)
+                homeTabClassifyPop?.offsetY = SizeUtils.dp2px(8f)
+                homeTabClassifyPop?.showPopupWindow(mBinding?.llTopSearch)
             }
         }
     }
