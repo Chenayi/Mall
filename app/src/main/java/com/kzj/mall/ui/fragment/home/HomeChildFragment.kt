@@ -38,6 +38,9 @@ class HomeChildFragment : BaseHomeChildListFragment<IPresenter>() {
                 }
             }
         })
+
+        mBinding?.rvHome?.setFocusableInTouchMode(false);
+        mBinding?.rvHome?.requestFocus();
     }
 
     override fun onSupportInvisible() {

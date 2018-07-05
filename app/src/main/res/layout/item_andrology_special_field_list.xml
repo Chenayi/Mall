@@ -5,12 +5,11 @@
     android:layout_height="wrap_content"
     android:layout_marginTop="10dp">
 
-    <RelativeLayout
+    <ImageView
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:background="@color/colorAccent">
-
-    </RelativeLayout>
+        android:src="@mipmap/sextoy_sample"
+        android:scaleType="centerCrop"/>
 
     <com.takusemba.multisnaprecyclerview.MultiSnapRecyclerView
         android:id="@+id/rv"

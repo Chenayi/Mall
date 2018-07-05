@@ -1,6 +1,9 @@
 package com.kzj.mall.adapter.provider
 
 import android.support.v7.widget.LinearLayoutManager
+import android.widget.LinearLayout
+import android.widget.RelativeLayout
+import com.blankj.utilcode.util.SizeUtils
 import com.chad.library.adapter.base.BaseViewHolder
 import com.chad.library.adapter.base.provider.BaseItemProvider
 import com.kzj.mall.R
@@ -47,7 +50,16 @@ class AndrologySpecialFieldProvider : BaseItemProvider<AndrologySpecialFieldEnti
     constructor(val aDatas: MutableList<AndrologySpecialFieldEntity.SpecialFields>)
         : BaseAdapter<AndrologySpecialFieldEntity.SpecialFields, BaseViewHolder>(R.layout.item_andrology_special_field, aDatas) {
         override fun convert(helper: BaseViewHolder?, item: AndrologySpecialFieldEntity.SpecialFields?) {
+            val linearLayout = helper?.getView<LinearLayout>(R.id.ll_item)
+            var params: RelativeLayout.LayoutParams = linearLayout?.layoutParams as RelativeLayout.LayoutParams
 
+            params.leftMargin = SizeUtils.dp2px(10f)
+            if (helper?.layoutPosition == datas?.size - 1) {
+                params.rightMargin = SizeUtils.dp2px(10f)
+            } else {
+                params.rightMargin = 0
+            }
+            linearLayout.layoutParams = params
         }
     }
 }

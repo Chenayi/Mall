@@ -9,9 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:src="@mipmap/sextoy_sample"
-        android:scaleType="centerCrop">
-
-    </ImageView>
+        android:scaleType="centerCrop"/>
 
     <com.takusemba.multisnaprecyclerview.MultiSnapRecyclerView
         android:id="@+id/rv_sex_toy_sale"

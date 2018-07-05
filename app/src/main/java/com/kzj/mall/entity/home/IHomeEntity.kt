@@ -19,6 +19,7 @@ interface IHomeEntity {
         val MALE_SEPCIAL_FIELD = 12
         val MALE_CLASSIFY = 13
         val MALE_ADV_BANNER = 14
+        val MALE_BRAND = 15
     }
 
     fun getItemType(): Int

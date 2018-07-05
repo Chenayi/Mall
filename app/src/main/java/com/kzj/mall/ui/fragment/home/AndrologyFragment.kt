@@ -58,6 +58,7 @@ class AndrologyFragment : BaseHomeChildListFragment<IPresenter>() {
         providerDelegate.registerProvider(AndrologyClassifyProvider())
         providerDelegate.registerProvider(AndrologyStationProvider())
         providerDelegate.registerProvider(AndrologyAdvBannerProvider())
+        providerDelegate.registerProvider(AndroilogyBrandProvider())
         providerDelegate.registerProvider(AndrologySpecialFieldProvider())
         providerDelegate.registerProvider(RecommendProvider())
     }
@@ -70,6 +71,9 @@ class AndrologyFragment : BaseHomeChildListFragment<IPresenter>() {
 
         //穿插广告
         list.add(DataHelper.andrologyAdvBannerData())
+
+        //品牌
+        list.add(AndrologyBrandEntity())
 
         // 专场
         list.add(DataHelper.andrologySpecialFieldData())
