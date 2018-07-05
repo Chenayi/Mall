@@ -113,6 +113,8 @@ class HomeChildFragment : BaseHomeChildListFragment<IPresenter>() {
         list.add(DataHelper.homeSexToy())
         //问答解惑
         list.add(HomeAskAnswerEntity())
+        //穿插广告
+        list.add(DataHelper.homeAdvBannerData())
         return list
     }
 }

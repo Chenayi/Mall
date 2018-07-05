@@ -3,8 +3,10 @@ package com.kzj.mall.adapter
 import android.graphics.Color
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.Gravity
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
+import com.blankj.utilcode.util.ScreenUtils
 import com.blankj.utilcode.util.SizeUtils
 import com.chad.library.adapter.base.BaseSectionQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
@@ -39,7 +41,14 @@ class ClassifyRightAdapter : BaseSectionQuickAdapter<ClassifyRightSectionEntity,
         constructor(layoutResId: Int, datas: MutableList<ClassifyRightEntity>) : super(layoutResId, datas)
 
         override fun convert(helper: BaseViewHolder?, item: ClassifyRightEntity?) {
-
+            val llItem = helper?.getView<LinearLayout>(R.id.ll_item)
+            var itemWidth = (ScreenUtils.getScreenWidth() - SizeUtils.dp2px(108f)) / 3f
+            val params: RelativeLayout.LayoutParams = llItem?.layoutParams as RelativeLayout.LayoutParams
+            params.width = itemWidth.toInt()
+            params.height = RelativeLayout.LayoutParams.WRAP_CONTENT
+            params.topMargin = SizeUtils.dp2px(16f)
+            llItem.layoutParams = params
+            llItem.gravity = Gravity.CENTER
         }
 
     }

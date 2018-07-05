@@ -3,20 +3,60 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/rl_root"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:id="@+id/ll_root"
         android:background="#7f000000">
 
-        <RelativeLayout
-            android:id="@+id/tl_top"
+        <LinearLayout
+            android:id="@+id/ll_content"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:background="@color/white"
-            android:clickable="true"/>
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:orientation="vertical">
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/white">
 
-    </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="全部分类"
+                    android:textColor="#6A6E75"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/iv_close"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:scaleType="centerInside"
+                    android:src="@mipmap/close" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/gray_default" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="12dp"
+                android:background="@color/white" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_tab"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white" />
+        </LinearLayout>
+
+    </RelativeLayout>
 </RelativeLayout>

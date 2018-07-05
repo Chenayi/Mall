@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/gray_default">
+
+        <com.kzj.mall.widget.ObservableScrollView
+            android:id="@+id/scroll_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:id="@+id/rl_banner"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:src="@mipmap/sextoy_sample" />
+
+                </RelativeLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/rl_banner"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="-30dp"
+                    android:orientation="vertical">
+
+                    <include layout="@layout/include_detail_title_content"
+                        android:id="@+id/detail_title_content"/>
+
+                    <include layout="@layout/include_detail_spec"
+                        android:id="@+id/detail_spec"/>
+
+                    <include layout="@layout/include_detail_group"
+                        android:id="@+id/detail_group"/>
+
+                    <include layout="@layout/include_detail_detail"
+                        android:id="@+id/detail_detail"/>
+
+                    <include layout="@layout/include_detail_quality"
+                        android:id="@+id/detail_quality"/>
+                </LinearLayout>
+            </RelativeLayout>
+        </com.kzj.mall.widget.ObservableScrollView>
+
+        <com.kzj.mall.widget.GoodsDetailTitleBar
+            android:id="@+id/goods_detail_titlebar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+</layout>

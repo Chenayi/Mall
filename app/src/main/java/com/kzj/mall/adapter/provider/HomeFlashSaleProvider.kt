@@ -1,5 +1,6 @@
 package com.kzj.mall.adapter.provider
 
+import android.content.Intent
 import android.graphics.Paint
 import com.chad.library.adapter.base.BaseViewHolder
 import com.chad.library.adapter.base.provider.BaseItemProvider
@@ -12,14 +13,14 @@ import com.blankj.utilcode.util.SizeUtils
 import com.kzj.mall.adapter.BaseAdapter
 import com.kzj.mall.entity.home.HomeFlashSaleEntity
 import com.kzj.mall.entity.home.IHomeEntity
+import com.kzj.mall.ui.activity.GoodsDetailsActivity
 import com.takusemba.multisnaprecyclerview.MultiSnapRecyclerView
+import com.takusemba.multisnaprecyclerview.OnSnapListener
 
 /**
  * 每日闪购
  */
 class HomeFlashSaleProvider : BaseItemProvider<HomeFlashSaleEntity, BaseViewHolder>() {
-
-    var isInitialized = false
     var rv: MultiSnapRecyclerView? = null
 
     override fun layout(): Int {
@@ -31,16 +32,24 @@ class HomeFlashSaleProvider : BaseItemProvider<HomeFlashSaleEntity, BaseViewHold
     }
 
     override fun convert(helper: BaseViewHolder?, data: HomeFlashSaleEntity?, position: Int) {
-        if (isInitialized == false) {
-            val flashSaleListData = data?.flashSaleListData
-            flashSaleListData?.let {
-                rv = helper?.getView(R.id.rv_flash_sale)
-                var adapter = FlashSaleAdapter(it)
-                val layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false)
-                rv?.setLayoutManager(layoutManager)
-                rv?.setAdapter(adapter)
+        val flashSaleListData = data?.flashSaleListData
+        flashSaleListData?.let {
+            rv = helper?.getView(R.id.rv_flash_sale)
+            var adapter = FlashSaleAdapter(it)
+            val layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false)
+            rv?.setLayoutManager(layoutManager)
+            rv?.setAdapter(adapter)
+            rv?.scrollToPosition(data?.position)
+            rv?.setOnSnapListener(object : OnSnapListener {
+                override fun snapped(position: Int) {
+                    data?.position = position
+                }
+            })
+            adapter.setOnItemClickListener { adapter, view, position ->
+                var intent = Intent(mContext, GoodsDetailsActivity::class.java)
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                mContext.startActivity(intent)
             }
-            isInitialized = true
         }
     }
 

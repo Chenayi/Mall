@@ -3,24 +3,51 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="36dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
-        android:background="@drawable/background_white_corners_8"
-        android:orientation="horizontal">
+        android:background="@drawable/background_white_corners_8">
 
-        <TextView
-            android:layout_width="0dp"
+        <ImageView
+            android:layout_width="63dp"
+            android:layout_height="36dp"
+            android:src="@mipmap/tag_notice_icon"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="“男科妙药”就在你身边，你一定没想到！"
-            android:textColor="#6A6E75"
-            android:textSize="12dp" />
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
-    </LinearLayout>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:src="@mipmap/tag_notice" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:src="@mipmap/tag_choose" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:layout_marginRight="10dp"
+                android:lines="1"
+                android:singleLine="true"
+                android:text="“男科妙药”就在你身边，你一定没想到！"
+                android:textColor="#6A6E75"
+                android:textSize="12dp" />
+
+        </LinearLayout>
+    </RelativeLayout>
 
 </RelativeLayout>

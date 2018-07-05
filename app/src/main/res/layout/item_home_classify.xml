@@ -114,8 +114,9 @@
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="121dp"
+        android:layout_height="106dp"
         android:scaleType="centerCrop"
-        android:src="@mipmap/icon_sample" />
+        android:src="@mipmap/icon_sample"
+        android:layout_marginBottom="10dp"/>
 
 </LinearLayout>

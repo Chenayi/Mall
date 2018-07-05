@@ -2,7 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="12dp">
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginTop="10dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,17 +21,28 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
+                android:gravity="center"
                 android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/icon_sick_left" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="6dp"
+                    android:layout_marginRight="6dp"
                     android:text="常见疾病"
                     android:textColor="#1F5BCA"
                     android:textSize="17dp"
                     android:textStyle="bold" />
 
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/icon_sick_right" />
             </LinearLayout>
 
             <TextView
@@ -68,7 +81,7 @@
                     <ImageView
                         android:layout_width="47dp"
                         android:layout_height="47dp"
-                        android:src="@mipmap/k" />
+                        android:src="@mipmap/s1" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -89,7 +102,7 @@
                     <ImageView
                         android:layout_width="47dp"
                         android:layout_height="47dp"
-                        android:src="@mipmap/k" />
+                        android:src="@mipmap/s2" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -110,7 +123,7 @@
                     <ImageView
                         android:layout_width="47dp"
                         android:layout_height="47dp"
-                        android:src="@mipmap/k" />
+                        android:src="@mipmap/s3" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -131,7 +144,7 @@
                     <ImageView
                         android:layout_width="47dp"
                         android:layout_height="47dp"
-                        android:src="@mipmap/k" />
+                        android:src="@mipmap/s4" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -159,7 +172,7 @@
                     <ImageView
                         android:layout_width="47dp"
                         android:layout_height="47dp"
-                        android:src="@mipmap/k" />
+                        android:src="@mipmap/s5" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -180,7 +193,7 @@
                     <ImageView
                         android:layout_width="47dp"
                         android:layout_height="47dp"
-                        android:src="@mipmap/k" />
+                        android:src="@mipmap/s6" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -201,7 +214,7 @@
                     <ImageView
                         android:layout_width="47dp"
                         android:layout_height="47dp"
-                        android:src="@mipmap/k" />
+                        android:src="@mipmap/s7" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -222,7 +235,7 @@
                     <ImageView
                         android:layout_width="47dp"
                         android:layout_height="47dp"
-                        android:src="@mipmap/k" />
+                        android:src="@mipmap/s8" />
 
                     <TextView
                         android:layout_width="wrap_content"

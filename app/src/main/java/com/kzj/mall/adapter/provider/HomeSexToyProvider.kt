@@ -48,9 +48,9 @@ class HomeSexToyProvider : BaseItemProvider<SexToyEntity, BaseViewHolder>() {
             val linearLayout = helper?.getView<LinearLayout>(R.id.ll_item)
             var params: RelativeLayout.LayoutParams = linearLayout?.layoutParams as RelativeLayout.LayoutParams
 
-            params.leftMargin = SizeUtils.dp2px(12f)
+            params.leftMargin = SizeUtils.dp2px(10f)
             if (helper?.layoutPosition == datas?.size - 1) {
-                params.rightMargin = SizeUtils.dp2px(12f)
+                params.rightMargin = SizeUtils.dp2px(10f)
             } else {
                 params.rightMargin = 0
             }

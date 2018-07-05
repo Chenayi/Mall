@@ -2,9 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="12dp"
-    android:layout_marginRight="12dp"
-    android:layout_marginTop="12dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginTop="10dp"
     android:background="@drawable/background_white_corners_8"
     android:orientation="vertical">
 
@@ -17,17 +17,28 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
+            android:gravity="center"
             android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/icon_ask_left" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:layout_marginRight="6dp"
                 android:text="问答解惑"
                 android:textColor="#731FCA"
                 android:textSize="17sp"
                 android:textStyle="bold" />
 
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/icon_ask_right" />
         </LinearLayout>
 
         <TextView
@@ -398,6 +409,7 @@
             android:layout_weight="1">
 
             <TextView
+                android:id="@+id/tv_ask_num"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -412,7 +424,7 @@
             android:layout_width="65dp"
             android:layout_height="26dp"
             android:layout_marginRight="10dp"
-            android:background="#731FCA"
+            android:background="@mipmap/icon_to_ask_bg"
             android:gravity="center"
             android:text="立即提问"
             android:textColor="@color/white"
@@ -426,7 +438,7 @@
         android:layout_marginLeft="12dp"
         android:layout_marginRight="12dp"
         android:background="@color/gray_default"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
     <LinearLayout
         android:layout_width="match_parent"

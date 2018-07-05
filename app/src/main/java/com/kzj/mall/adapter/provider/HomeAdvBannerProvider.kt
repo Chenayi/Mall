@@ -1,6 +1,7 @@
 package com.kzj.mall.adapter.provider
 
 import android.support.v4.view.PagerAdapter
+import android.support.v4.view.ViewPager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +17,6 @@ import com.tmall.ultraviewpager.UltraViewPager
  * 穿插广告
  */
 class HomeAdvBannerProvider : BaseItemProvider<HomeAdvBannerEntity, BaseViewHolder>() {
-    var isInitialized = false
     var viewPager: UltraViewPager? = null
 
     override fun layout(): Int {
@@ -28,20 +28,31 @@ class HomeAdvBannerProvider : BaseItemProvider<HomeAdvBannerEntity, BaseViewHold
     }
 
     override fun convert(helper: BaseViewHolder?, data: HomeAdvBannerEntity?, position: Int) {
-        if (isInitialized == false) {
-            viewPager = helper?.getView(R.id.vp)
-            viewPager?.viewPager?.pageMargin = 20
-            viewPager?.viewPager?.offscreenPageLimit = 3
+        viewPager = helper?.getView(R.id.vp)
+        viewPager?.viewPager?.pageMargin = 20
+        viewPager?.viewPager?.offscreenPageLimit = 3
 
-            data?.banners?.let {
-                viewPager?.adapter = MyAdapter(it)
-                viewPager?.setPageTransformer(true, ScaleInTransformer());
-            }
-            isInitialized = true
+        data?.banners?.let {
+            viewPager?.adapter = MyAdapter(it)
+            viewPager?.setPageTransformer(true, ScaleInTransformer());
+            viewPager?.setCurrentItem(data?.position, false)
         }
+
+        viewPager?.setOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+            override fun onPageScrollStateChanged(state: Int) {
+            }
+
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+            }
+
+            override fun onPageSelected(position: Int) {
+                data?.position = position
+            }
+
+        })
     }
 
-    inner class MyAdapter constructor(val advDatas : MutableList<HomeAdvBannerEntity.Banners>) : PagerAdapter() {
+    inner class MyAdapter constructor(val advDatas: MutableList<HomeAdvBannerEntity.Banners>) : PagerAdapter() {
         override fun isViewFromObject(view: View, `object`: Any): Boolean {
             return view == `object`
         }

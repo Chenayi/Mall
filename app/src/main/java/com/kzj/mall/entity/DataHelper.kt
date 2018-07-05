@@ -1,5 +1,6 @@
 package com.kzj.mall.entity
 
+import com.kzj.mall.R
 import com.kzj.mall.entity.home.*
 
 class DataHelper {
@@ -194,6 +195,37 @@ class DataHelper {
                 classifyContentDatas.add(ClassifyRightEntity())
             }
             return classifyContentDatas
+        }
+
+        fun homeTabDatas(): MutableList<HomeTabEntity> {
+            var homeTabDatas = ArrayList<HomeTabEntity>()
+            for (i in 0 until 5) {
+                var homeTabData = HomeTabEntity()
+                when (i) {
+                    0 -> {
+                        homeTabData.icon = R.color.gray_default
+                        homeTabData.name = "首页"
+                    }
+                    1 -> {
+                        homeTabData.icon = R.color.gray_default
+                        homeTabData.name = "男科"
+                    }
+                    2 -> {
+                        homeTabData.icon = R.color.gray_default
+                        homeTabData.name = "早泄"
+                    }
+                    3 -> {
+                        homeTabData.icon = R.color.gray_default
+                        homeTabData.name = "温阳补肾"
+                    }
+                    4 -> {
+                        homeTabData.icon = R.color.gray_default
+                        homeTabData.name = "脱发少发"
+                    }
+                }
+                homeTabDatas.add(homeTabData)
+            }
+            return homeTabDatas
         }
 
     }
