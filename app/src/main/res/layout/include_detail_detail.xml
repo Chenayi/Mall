@@ -71,9 +71,9 @@
     <!-- 分割线 -->
 
 
-    <com.kzj.mall.widget.NoScollViewPager
+    <com.kzj.mall.widget.NoScollWrapViewPager
         android:id="@+id/vp_goods_detail"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="400dp" />
 
 </LinearLayout>

@@ -1,29 +1,37 @@
 package com.kzj.mall.ui.activity
 
 import android.graphics.Color
+import android.support.v4.app.Fragment
+import android.support.v4.view.ViewPager
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.ScrollView
 import android.widget.TextView
+import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ScreenUtils
 import com.blankj.utilcode.util.SizeUtils
 import com.kzj.mall.GlideApp
 import com.kzj.mall.R
+import com.kzj.mall.adapter.CommomViewPagerAdapter
 import com.kzj.mall.adapter.GoodsDetailGroupAdapter
 import com.kzj.mall.base.BaseActivity
 import com.kzj.mall.base.IPresenter
 import com.kzj.mall.databinding.ActivityGoodsDetailsBinding
 import com.kzj.mall.di.component.AppComponent
 import com.kzj.mall.entity.DataHelper
+import com.kzj.mall.ui.fragment.GoodsDetailDescribeFragment
+import com.kzj.mall.ui.fragment.GoodsDetailExplainFragment
 import com.kzj.mall.widget.GoodsDetailTitleBar
 import com.kzj.mall.widget.NoScollViewPager
+import com.kzj.mall.widget.NoScollWrapViewPager
 import com.kzj.mall.widget.ObservableScrollView
 import com.takusemba.multisnaprecyclerview.MultiSnapRecyclerView
 
 
-class GoodsDetailsActivity : BaseActivity<IPresenter, ActivityGoodsDetailsBinding>(), View.OnClickListener {
+class GoodsDetailsActivity : BaseActivity<IPresenter, ActivityGoodsDetailsBinding>(),
+        View.OnClickListener,GoodsDetailDescribeFragment.ChangeHeightListener,GoodsDetailExplainFragment.ChangeHeightListener {
     private var rvGroup: MultiSnapRecyclerView? = null
     private var goodsDetailGroupAdapter: GoodsDetailGroupAdapter? = null
     private var rlDescribe: RelativeLayout? = null
@@ -32,7 +40,7 @@ class GoodsDetailsActivity : BaseActivity<IPresenter, ActivityGoodsDetailsBindin
     private var tvExplain: TextView? = null
     private var viewDescribe: View? = null
     private var viewExplain: View? = null
-    private var vpGoodsDetail: NoScollViewPager? = null
+    private var vpGoodsDetail: NoScollWrapViewPager? = null
 
     var detailDistance = 0
     var qualityDistance = 0
@@ -92,10 +100,12 @@ class GoodsDetailsActivity : BaseActivity<IPresenter, ActivityGoodsDetailsBindin
         initZizhi()
 
 //        mBinding?.detailGroup?.visibility = View.GONE
-
-        measuredDistance()
+//        measuredDistance()
     }
 
+    /**
+     * 计算滑动距离
+     */
     private fun measuredDistance() {
         bannerHeight = SizeUtils.getMeasuredHeight(mBinding?.rlBanner)
         val titleHeight = SizeUtils.getMeasuredHeight(mBinding?.detailTitleContent) - SizeUtils.dp2px(30f)
@@ -133,6 +143,26 @@ class GoodsDetailsActivity : BaseActivity<IPresenter, ActivityGoodsDetailsBindin
         viewExplain = findViewById(R.id.view_explain)
 
         vpGoodsDetail = findViewById(R.id.vp_goods_detail)
+
+
+        var fragments = ArrayList<Fragment>()
+        fragments.add(GoodsDetailDescribeFragment.newInstance())
+        fragments.add(GoodsDetailExplainFragment.newInstance())
+        var adapter = CommomViewPagerAdapter(supportFragmentManager, fragments)
+        vpGoodsDetail?.adapter = adapter
+
+        vpGoodsDetail?.addOnPageChangeListener(object : ViewPager.OnPageChangeListener{
+            override fun onPageScrollStateChanged(state: Int) {
+            }
+
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+            }
+
+            override fun onPageSelected(position: Int) {
+                vpGoodsDetail?.resetHeight(position)
+                measuredDistance()
+            }
+        })
     }
 
     /**
@@ -183,6 +213,7 @@ class GoodsDetailsActivity : BaseActivity<IPresenter, ActivityGoodsDetailsBindin
                 tvDescribe?.setTextColor(Color.parseColor("#48B828"))
                 tvDescribe?.paint?.isFakeBoldText = true
                 viewDescribe?.visibility = View.VISIBLE
+                vpGoodsDetail?.setCurrentItem(0,false)
             }
             R.id.rl_explain -> {
                 tvDescribe?.setTextColor(Color.parseColor("#2E3033"))
@@ -192,7 +223,15 @@ class GoodsDetailsActivity : BaseActivity<IPresenter, ActivityGoodsDetailsBindin
                 tvExplain?.setTextColor(Color.parseColor("#48B828"))
                 tvExplain?.paint?.isFakeBoldText = true
                 viewExplain?.visibility = View.VISIBLE
+                vpGoodsDetail?.setCurrentItem(1,false)
             }
         }
+    }
+
+
+    override fun changeData(position: Int, height: Int) {
+        vpGoodsDetail?.addHeight(position,height)
+        vpGoodsDetail?.resetHeight(position)
+        measuredDistance()
     }
 }
