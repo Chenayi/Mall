@@ -197,6 +197,9 @@ class DataHelper {
             return classifyContentDatas
         }
 
+        /**
+         * 首页tab
+         */
         fun homeTabDatas(): MutableList<HomeTabEntity> {
             var homeTabDatas = ArrayList<HomeTabEntity>()
             for (i in 0 until 5) {
@@ -226,6 +229,18 @@ class DataHelper {
                 homeTabDatas.add(homeTabData)
             }
             return homeTabDatas
+        }
+
+
+        /**
+         * 商品详情 组合
+         */
+        fun goodsDetailGroups() : MutableList<GoodsDetailEntity.Group>{
+            val goodsDetailGroups = ArrayList<GoodsDetailEntity.Group>()
+            for (i in 0 until 4){
+                goodsDetailGroups.add(GoodsDetailEntity().Group())
+            }
+            return goodsDetailGroups
         }
 
     }
