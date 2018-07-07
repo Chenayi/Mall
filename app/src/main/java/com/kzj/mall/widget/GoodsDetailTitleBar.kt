@@ -1,5 +1,6 @@
 package com.kzj.mall.widget
 
+import android.app.Activity
 import android.content.Context
 import android.graphics.Color
 import android.support.v4.content.ContextCompat
@@ -27,6 +28,7 @@ class GoodsDetailTitleBar : BaseRelativeLayout<TitlebarGoodsDetailBinding>, View
         mBinding?.tvGoods?.setOnClickListener(this)
         mBinding?.tvDetail?.setOnClickListener(this)
         mBinding?.tvQuality?.setOnClickListener(this)
+        mBinding?.tvQuality?.setOnClickListener(this)
     }
 
     fun setTabAlpha(alpha: Float) {
@@ -35,9 +37,21 @@ class GoodsDetailTitleBar : BaseRelativeLayout<TitlebarGoodsDetailBinding>, View
 
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.tv_goods -> switchGoods()
-            R.id.tv_detail -> switchDetail()
-            R.id.tv_quality -> switchQuality()
+            R.id.tv_goods -> {
+                switchGoods()
+                onTabClickListener?.onTabClick(0)
+            }
+            R.id.tv_detail -> {
+                switchDetail()
+                onTabClickListener?.onTabClick(1)
+            }
+            R.id.tv_quality -> {
+                switchQuality()
+                onTabClickListener?.onTabClick(2)
+            }
+            R.id.iv_back->{
+                (context as Activity).finish()
+            }
         }
     }
 

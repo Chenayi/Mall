@@ -39,20 +39,66 @@
                     android:layout_marginTop="-30dp"
                     android:orientation="vertical">
 
-                    <include layout="@layout/include_detail_title_content"
-                        android:id="@+id/detail_title_content"/>
+                    <!-- 标题 -->
+                    <include
+                        android:id="@+id/detail_title_content"
+                        layout="@layout/include_detail_title_content" />
 
-                    <include layout="@layout/include_detail_spec"
-                        android:id="@+id/detail_spec"/>
+                    <!-- 规格 -->
+                    <LinearLayout
+                        android:id="@+id/detail_spec"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
 
-                    <include layout="@layout/include_detail_group"
-                        android:id="@+id/detail_group"/>
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="10dp" />
 
-                    <include layout="@layout/include_detail_detail"
-                        android:id="@+id/detail_detail"/>
+                        <include layout="@layout/include_detail_spec" />
+                    </LinearLayout>
 
-                    <include layout="@layout/include_detail_quality"
-                        android:id="@+id/detail_quality"/>
+                    <!-- 组合 -->
+                    <LinearLayout
+                        android:id="@+id/detail_group"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="10dp" />
+
+                        <include layout="@layout/include_detail_group" />
+                    </LinearLayout>
+
+                    <!-- 详情 -->
+                    <LinearLayout
+                        android:id="@+id/detail_detail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="10dp" />
+
+                        <include layout="@layout/include_detail_detail" />
+                    </LinearLayout>
+
+                    <!--资质-->
+                    <LinearLayout
+                        android:id="@+id/detail_quality"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="10dp" />
+
+                        <include layout="@layout/include_detail_quality" />
+                    </LinearLayout>
                 </LinearLayout>
             </RelativeLayout>
         </com.kzj.mall.widget.ObservableScrollView>

@@ -1,8 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="228dp"
-    android:layout_marginTop="10dp"
-    android:background="@drawable/background_white_corners_8">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/background_white_corners_8"
+    android:orientation="vertical">
 
-</RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:orientation="horizontal">
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:lines="1"
+                android:singleLine="true"
+                android:text="舒筋+鸿茅药酒超值套餐"
+                android:textColor="#2E3033"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="优惠价:￥1198.00"
+                android:textColor="#2E3033"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="62dp"
+                android:layout_height="15dp"
+                android:gravity="center"
+                android:text="立省:￥47.00"
+                android:textColor="#FF4F0A"
+                android:textSize="9dp" />
+
+
+        </LinearLayout>
+
+
+        <TextView
+            android:layout_width="75dp"
+            android:layout_height="26dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/background_2e3033_corners_9999"
+            android:gravity="center"
+            android:text="加入购物车"
+            android:textColor="@color/white"
+            android:textSize="11dp" />
+
+    </LinearLayout>
+
+
+    <com.takusemba.multisnaprecyclerview.MultiSnapRecyclerView
+        android:id="@+id/rv_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        app:msrv_gravity="start"
+        app:msrv_ms_per_inch="100"
+        app:msrv_snap_count="2" />
+
+</LinearLayout>
