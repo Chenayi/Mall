@@ -1,4 +1,4 @@
-package com.kzj.mall.adapter.provider
+package com.kzj.mall.adapter.provider.home
 
 import android.support.v4.view.PagerAdapter
 import android.support.v4.view.ViewPager

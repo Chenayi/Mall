@@ -1,62 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data></data>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
         <com.kzj.mall.widget.NoScollViewPager
             android:id="@+id/vp_main"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="50dp"/>
+            android:layout_marginBottom="50.5dp" />
 
 
-        <FrameLayout
+        <com.kzj.mall.widget.HomeBottomTabBar
+            android:id="@+id/home_tab_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true">
+            android:layout_alignParentBottom="true" />
 
-            <com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx
-                android:id="@+id/bnve"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_gravity="bottom"
-                android:background="@color/white"
-                app:itemIconTint="@color/colorPrimary"
-                app:itemTextColor="@color/colorPrimary"
-                app:menu="@menu/menu_nav_main" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:elevation="16dp">
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="2" />
-
-                <ImageView
-                    android:id="@+id/navigation_center_image"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:clickable="true"
-                    android:padding="5dp"
-                    android:src="@mipmap/ic_launcher" />
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="2" />
-
-            </LinearLayout>
-        </FrameLayout>
-
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="3dp"
+            android:src="@mipmap/icon_home_tab_center"
+            android:scaleType="centerCrop"/>
     </RelativeLayout>
+
 </layout>

@@ -11,6 +11,7 @@ import com.kzj.mall.ui.fragment.CartFragment
 import com.kzj.mall.ui.fragment.ClassifyFragment
 import com.kzj.mall.ui.fragment.home.HomeFragment
 import com.kzj.mall.ui.fragment.MineFragment
+import com.kzj.mall.widget.HomeBottomTabBar
 
 class MainActivity : BaseActivity<IPresenter, ActivityMainBinding>() {
 
@@ -34,7 +35,6 @@ class MainActivity : BaseActivity<IPresenter, ActivityMainBinding>() {
         fragments?.let {
             it.add(HomeFragment.newInstance())
             it.add(ClassifyFragment.newInstance())
-            it.add(Fragment())
             it.add(CartFragment.newInstance())
             it.add(MineFragment.newInstance())
 
@@ -45,10 +45,10 @@ class MainActivity : BaseActivity<IPresenter, ActivityMainBinding>() {
     }
 
     private fun initBottomBar() {
-        mBinding?.bnve?.enableAnimation(true)
-        mBinding?.bnve?.enableItemShiftingMode(false)
-        mBinding?.bnve?.enableShiftingMode(false)
-        mBinding?.bnve?.setTextSize(10f)
-        mBinding?.bnve?.setupWithViewPager(mBinding?.vpMain, false)
+        mBinding?.homeTabBar?.setOnTabChooseListener(object : HomeBottomTabBar.OnTabChooseListener {
+            override fun onTabChoose(tab: Int) {
+                mBinding?.vpMain?.setCurrentItem(tab, false)
+            }
+        })
     }
 }

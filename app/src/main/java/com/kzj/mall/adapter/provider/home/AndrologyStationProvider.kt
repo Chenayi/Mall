@@ -1,4 +1,4 @@
-package com.kzj.mall.adapter.provider
+package com.kzj.mall.adapter.provider.home
 
 import com.chad.library.adapter.base.BaseViewHolder
 import com.chad.library.adapter.base.provider.BaseItemProvider

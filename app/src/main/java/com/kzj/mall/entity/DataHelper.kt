@@ -1,6 +1,9 @@
 package com.kzj.mall.entity
 
 import com.kzj.mall.R
+import com.kzj.mall.entity.cart.CartGroupEntity
+import com.kzj.mall.entity.cart.CartSingleEntity
+import com.kzj.mall.entity.cart.ICart
 import com.kzj.mall.entity.home.*
 
 class DataHelper {
@@ -243,5 +246,30 @@ class DataHelper {
             return goodsDetailGroups
         }
 
+
+        /**
+         * 购物车数据
+         */
+       fun cartDatas():MutableList<ICart>{
+           val datas = ArrayList<ICart>()
+           datas.add(CartSingleEntity())
+           datas.add(cartGroupDatas())
+           datas.add(CartSingleEntity())
+           return datas
+       }
+
+
+        /**
+         * 购物车组合数据
+         */
+        fun cartGroupDatas() : CartGroupEntity{
+            val cartGroupEntity = CartGroupEntity()
+            val groups = ArrayList<CartGroupEntity.Group>()
+            for (i in 0 until 2){
+                groups.add(CartGroupEntity().Group())
+            }
+            cartGroupEntity.groups = groups
+            return cartGroupEntity
+        }
     }
 }

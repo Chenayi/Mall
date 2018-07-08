@@ -3,7 +3,7 @@ package com.kzj.mall.ui.fragment.home
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import com.chad.library.adapter.base.util.ProviderDelegate
-import com.kzj.mall.adapter.provider.*
+import com.kzj.mall.adapter.provider.home.*
 import com.kzj.mall.base.IPresenter
 import com.kzj.mall.entity.*
 import com.kzj.mall.entity.home.*

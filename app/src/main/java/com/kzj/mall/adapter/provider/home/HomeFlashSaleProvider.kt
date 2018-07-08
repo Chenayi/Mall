@@ -1,4 +1,4 @@
-package com.kzj.mall.adapter.provider
+package com.kzj.mall.adapter.provider.home
 
 import android.content.Intent
 import android.graphics.Paint
