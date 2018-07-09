@@ -14,7 +14,7 @@ class CartAdapter constructor(cartDatas:MutableList<ICart>):MultipleItemRvAdapte
 
     override fun registerItemProvider() {
         mProviderDelegate.registerProvider(CartSingleProvider())
-        mProviderDelegate.registerProvider(CartGroupProvider(this))
+        mProviderDelegate.registerProvider(CartGroupProvider())
     }
 
     override fun getViewType(t: ICart): Int {

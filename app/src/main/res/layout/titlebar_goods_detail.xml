@@ -27,7 +27,7 @@
                     android:paddingRight="8dp"
                     android:text="商品"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="15dp"/>
+                    android:textSize="15dp" />
 
                 <TextView
                     android:id="@+id/tv_detail"
@@ -56,18 +56,20 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
-                android:background="@color/gray_default"
-                android:layout_alignParentBottom="true"/>
+                android:layout_alignParentBottom="true"
+                android:background="@color/gray_default" />
 
         </RelativeLayout>
 
         <ImageView
+            android:id="@+id/iv_back"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="12dp"
-            android:src="@drawable/circle_white"
-            android:id="@+id/iv_back"/>
+            android:background="@drawable/circle_white"
+            android:scaleType="centerInside"
+            android:src="@mipmap/back" />
 
         <ImageView
             android:id="@+id/iv_search"
@@ -75,7 +77,9 @@
             android:layout_height="30dp"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@+id/iv_more"
-            android:src="@drawable/circle_white" />
+            android:background="@drawable/circle_white"
+            android:scaleType="centerInside"
+            android:src="@mipmap/search2" />
 
         <ImageView
             android:id="@+id/iv_more"
@@ -85,7 +89,9 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="12dp"
             android:layout_marginRight="12dp"
-            android:src="@drawable/circle_white" />
+            android:background="@drawable/circle_white"
+            android:scaleType="centerInside"
+            android:src="@mipmap/more_icon" />
 
     </RelativeLayout>
 </layout>

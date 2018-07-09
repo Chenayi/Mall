@@ -271,5 +271,16 @@ class DataHelper {
             cartGroupEntity.groups = groups
             return cartGroupEntity
         }
+
+        /**
+         * 订单商品
+         */
+        fun orderGoods() : MutableList<String>{
+            val goods = ArrayList<String>()
+            for (i in 0 until 4){
+                goods.add("")
+            }
+            return goods
+        }
     }
 }
