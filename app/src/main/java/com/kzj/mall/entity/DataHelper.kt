@@ -282,5 +282,18 @@ class DataHelper {
             }
             return goods
         }
+
+        /**
+         * 地址列表
+         */
+        fun addresses() : MutableList<AddressEntity>{
+            var addresses = ArrayList<AddressEntity>()
+
+            for (i in 0 until 8){
+                addresses.add(AddressEntity())
+            }
+
+            return addresses
+        }
     }
 }

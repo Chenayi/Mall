@@ -44,6 +44,8 @@
         <activity android:name=".ui.activity.GoodsDetailsActivity" />
         <activity android:name=".ui.activity.ConfirmOrderActivity"
             android:windowSoftInputMode="adjustPan"/>
+        <activity android:name=".ui.activity.CreateAddressActivity"/>
+        <activity android:name=".ui.activity.AddressListActivity"/>
     </application>
 
 </manifest>

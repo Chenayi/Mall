@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.kzj.mall.widget.RootLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:titleBarTitle="收货地址">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_address"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+
+    </com.kzj.mall.widget.RootLayout>
+</layout>

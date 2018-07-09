@@ -1,5 +1,6 @@
 package com.kzj.mall.ui.activity
 
+import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.chad.library.adapter.base.BaseViewHolder
@@ -32,6 +33,7 @@ class ConfirmOrderActivity : BaseActivity<IPresenter, ActivityConfirmOrderBindin
 
         mBinding?.rlAlipay?.setOnClickListener(this)
         mBinding?.rlArrivePay?.setOnClickListener(this)
+        mBinding?.rlAddress?.setOnClickListener(this)
     }
 
     inner class GoodsAdapter constructor(val goodsDatas: MutableList<String>)
@@ -56,6 +58,10 @@ class ConfirmOrderActivity : BaseActivity<IPresenter, ActivityConfirmOrderBindin
                     mBinding?.ivAliCheck?.setImageResource(R.color.gray_default)
                     payCheck  =CHECK_ARRIVE_PAY
                 }
+            }
+            R.id.rl_address->{
+                val intent = Intent(this, AddressListActivity::class.java)
+                startActivity(intent)
             }
         }
     }

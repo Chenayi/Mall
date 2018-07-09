@@ -175,6 +175,16 @@ public class RootLayout extends LinearLayout {
         return this;
     }
 
+    public RootLayout setRightTextEnable(boolean enalbe){
+        tvRight.setEnabled(enalbe);
+        if (!enalbe){
+            tvRight.setTextColor(Color.parseColor("#C2C6CC"));
+        }else {
+            tvRight.setTextColor(Color.parseColor("#2E3033"));
+        }
+        return this;
+    }
+
     public RootLayout setRightIcon(int icon) {
         if (ivRight != null) {
             ivRight.setVisibility(VISIBLE);

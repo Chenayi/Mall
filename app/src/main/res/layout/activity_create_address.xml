@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.kzj.mall.widget.RootLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:titleBarRightText="保存"
+        app:titleBarTitle="新建收货地址">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/background_white_corners_8"
+                    android:orientation="vertical">
+
+                    <EditText
+                        android:id="@+id/et_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="@color/tran"
+                        android:hint="收货人姓名"
+                        android:lines="1"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:singleLine="true"
+                        android:textColor="#2E3033"
+                        android:textColorHint="#C2C6CC"
+                        android:textSize="13dp"
+                        />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@color/gray_default" />
+
+                    <EditText
+                        android:id="@+id/et_phone"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="@color/tran"
+                        android:hint="手机号码"
+                        android:lines="1"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:singleLine="true"
+                        android:textColor="#2E3033"
+                        android:textColorHint="#C2C6CC"
+                        android:textSize="13dp"
+                        android:inputType="phone"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@color/gray_default" />
+
+                    <EditText
+                        android:id="@+id/et_area"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="@color/tran"
+                        android:hint="所在地区"
+                        android:lines="1"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:singleLine="true"
+                        android:textColor="#2E3033"
+                        android:textColorHint="#C2C6CC"
+                        android:textSize="13dp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@color/gray_default" />
+
+                    <EditText
+                        android:id="@+id/et_address"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="@color/tran"
+                        android:hint="街道、小区门牌等详细地址"
+                        android:lines="1"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:singleLine="true"
+                        android:textColor="#2E3033"
+                        android:textColorHint="#C2C6CC"
+                        android:textSize="13dp" />
+
+                </LinearLayout>
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/background_white_corners_8"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="设为默认地址"
+                        android:textColor="#2E3033" />
+
+
+                    <android.support.v7.widget.SwitchCompat
+                        android:id="@+id/switch_default"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true" />
+
+
+                </RelativeLayout>
+
+            </LinearLayout>
+        </ScrollView>
+
+    </com.kzj.mall.widget.RootLayout>
+</layout>

@@ -11,4 +11,5 @@
     <color name="orange_default">#FF4F0A</color>
     <color name="fb">#FBFBFB</color>
     <color name="c_2e3033">#2E3033</color>
+    <color name="tran">#00000000</color>
 </resources>
