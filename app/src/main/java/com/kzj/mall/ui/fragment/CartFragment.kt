@@ -4,19 +4,28 @@ import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import com.allen.library.SuperTextView
+import com.kzj.mall.C
 import com.kzj.mall.R
 import com.kzj.mall.adapter.CartAdapter
 import com.kzj.mall.base.BaseFragment
 import com.kzj.mall.base.IPresenter
 import com.kzj.mall.databinding.FragmentCartBinding
-import com.kzj.mall.entity.DataHelper
+import com.kzj.mall.utils.LocalDatas
 import com.kzj.mall.entity.cart.BaseCartEntity
 import com.kzj.mall.ui.activity.ConfirmOrderActivity
+import com.kzj.mall.ui.activity.LoginActivity
+import com.kzj.mall.ui.dialog.ConfirmDialog
 
 class CartFragment : BaseFragment<IPresenter, FragmentCartBinding>(), View.OnClickListener {
     private var cartAdapter: CartAdapter? = null
     private var isDeleteMode = false
     private var isAllCheck = false
+
+    private var headerView: View? = null
+    private var tvContent:TextView?=null
+    private var tvLogin:SuperTextView?=null
 
     companion object {
         fun newInstance(): CartFragment {
@@ -35,7 +44,30 @@ class CartFragment : BaseFragment<IPresenter, FragmentCartBinding>(), View.OnCli
         mBinding?.rvCart?.layoutManager = LinearLayoutManager(context)
         mBinding?.rvCart?.adapter = cartAdapter
 
-        cartAdapter?.setNewData(DataHelper.cartDatas())
+
+        headerView = layoutInflater.inflate(R.layout.header_cart, mBinding?.rvCart?.parent as ViewGroup, false)
+        tvContent = headerView?.findViewById(R.id.tv_content)
+        tvLogin = headerView?.findViewById(R.id.tv_login)
+        if (C.ISLOGIN) {
+            val datas = LocalDatas.cartDatas()
+            if (datas?.size > 0) {
+                cartAdapter?.setNewData(datas)
+            } else {
+                tvContent?.setText("购物车空空如也")
+                tvLogin?.visibility = View.GONE
+                mBinding?.tvEdit?.visibility = View.GONE
+                cartAdapter?.addHeaderView(headerView)
+            }
+        } else {
+            mBinding?.tvEdit?.visibility = View.GONE
+            tvLogin?.setOnClickListener {
+                val intent = Intent(context,LoginActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent)
+            }
+            cartAdapter?.addHeaderView(headerView)
+        }
+        cartAdapter?.addData(LocalDatas.cartRecommendDatas())
 
 
 //        cartAdapter?.setOnItemClickListener { adapter, view, position ->
@@ -59,6 +91,18 @@ class CartFragment : BaseFragment<IPresenter, FragmentCartBinding>(), View.OnCli
                             mBinding?.ivAllCheck?.setImageResource(R.color.gray_default)
                             isAllCheck = false
                         }
+                    } else {
+                        ConfirmDialog.newInstance("狠心删除", "留在购物车", "很抢手哦 ～ 下次不一定能买到确定要删除我吗 ～")
+                                .setOnConfirmClickListener(object : ConfirmDialog.OnConfirmClickListener {
+                                    override fun onLeftClick() {
+                                        cartAdapter?.remove(position)
+                                    }
+
+                                    override fun onRightClick() {
+                                    }
+
+                                })
+                                .show(childFragmentManager)
                     }
                 }
             }

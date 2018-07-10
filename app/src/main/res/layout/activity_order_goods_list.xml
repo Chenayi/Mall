@@ -5,24 +5,15 @@
     <com.kzj.mall.widget.RootLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:titleBarTitle="收货地址">
+        app:titleBarTitle="商品清单">
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_address"
+            android:id="@+id/rv_goods"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1" />
 
 
-        <TextView
-            android:id="@+id/tv_create_address"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@color/colorPrimary"
-            android:gravity="center"
-            android:text="新建收货地址"
-            android:textColor="@color/white"
-            android:textSize="17dp"
-            android:textStyle="bold" />
     </com.kzj.mall.widget.RootLayout>
+
 </layout>

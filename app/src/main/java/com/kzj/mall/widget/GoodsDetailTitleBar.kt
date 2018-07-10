@@ -29,6 +29,7 @@ class GoodsDetailTitleBar : BaseRelativeLayout<TitlebarGoodsDetailBinding>, View
         mBinding?.tvDetail?.setOnClickListener(this)
         mBinding?.tvQuality?.setOnClickListener(this)
         mBinding?.tvQuality?.setOnClickListener(this)
+        mBinding?.ivBack?.setOnClickListener(this)
     }
 
     fun setTabAlpha(alpha: Float) {

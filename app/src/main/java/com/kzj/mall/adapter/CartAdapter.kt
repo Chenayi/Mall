@@ -3,6 +3,7 @@ package com.kzj.mall.adapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.chad.library.adapter.base.MultipleItemRvAdapter
 import com.kzj.mall.adapter.provider.cart.CartGroupProvider
+import com.kzj.mall.adapter.provider.cart.CartRecommendsProvider
 import com.kzj.mall.adapter.provider.cart.CartSingleProvider
 import com.kzj.mall.entity.cart.ICart
 
@@ -15,6 +16,7 @@ class CartAdapter constructor(cartDatas:MutableList<ICart>):MultipleItemRvAdapte
     override fun registerItemProvider() {
         mProviderDelegate.registerProvider(CartSingleProvider())
         mProviderDelegate.registerProvider(CartGroupProvider())
+        mProviderDelegate.registerProvider(CartRecommendsProvider())
     }
 
     override fun getViewType(t: ICart): Int {

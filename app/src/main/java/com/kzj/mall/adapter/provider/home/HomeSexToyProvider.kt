@@ -30,6 +30,8 @@ class HomeSexToyProvider : BaseItemProvider<SexToyEntity, BaseViewHolder>() {
     override fun convert(helper: BaseViewHolder?, data: SexToyEntity?, position: Int) {
         if (isInitialized == false) {
             rv = helper?.getView(R.id.rv_sex_toy_sale)
+            rv?.setFocusableInTouchMode(false);
+            rv?.requestFocus();
             val layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false)
             rv?.setLayoutManager(layoutManager)
             data?.sexToys?.let {

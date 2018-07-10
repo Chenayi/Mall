@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginTop="10dp"
+    android:background="@drawable/background_white_corners_8"
+    android:orientation="vertical"
+    android:paddingBottom="16dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="16dp">
+
+    <LinearLayout
+        android:id="@+id/ll_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <com.allen.library.SuperTextView
+            android:layout_width="32dp"
+            android:layout_height="16dp"
+            app:sCenterTextColor="@color/colorPrimary"
+            app:sCenterTextSize="11dp"
+            app:sCenterTextString="套餐"
+            app:sShapeCornersRadius="9999dp"
+            app:sShapeStrokeColor="@color/colorPrimary"
+            app:sShapeStrokeWidth="1dp"
+            app:sUseShape="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:lines="1"
+            android:singleLine="true"
+            android:text="2盒起495元/盒疗程价！"
+            android:textColor="#2E3033"
+            android:textSize="13dp" />
+
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

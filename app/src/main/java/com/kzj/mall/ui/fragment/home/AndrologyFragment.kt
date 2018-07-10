@@ -5,8 +5,8 @@ import android.support.v7.widget.RecyclerView
 import com.chad.library.adapter.base.util.ProviderDelegate
 import com.kzj.mall.adapter.provider.home.*
 import com.kzj.mall.base.IPresenter
-import com.kzj.mall.entity.*
 import com.kzj.mall.entity.home.*
+import com.kzj.mall.utils.LocalDatas
 
 /**
  * 男科
@@ -70,18 +70,18 @@ class AndrologyFragment : BaseHomeChildListFragment<IPresenter>() {
         list.add(AndrologyStationEntity())
 
         //穿插广告
-        list.add(DataHelper.andrologyAdvBannerData())
+        list.add(LocalDatas.andrologyAdvBannerData())
 
         //品牌
         list.add(AndrologyBrandEntity())
 
         // 专场
-        list.add(DataHelper.andrologySpecialFieldData())
-        list.add(DataHelper.andrologySpecialFieldData())
+        list.add(LocalDatas.andrologySpecialFieldData())
+        list.add(LocalDatas.andrologySpecialFieldData())
         return list
     }
 
     override fun onLoadMore() {
-        finishLoadMore(DataHelper.homeRecommendDatas())
+        finishLoadMore(LocalDatas.homeRecommendDatas())
     }
 }

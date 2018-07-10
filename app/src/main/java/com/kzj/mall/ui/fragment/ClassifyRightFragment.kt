@@ -9,7 +9,7 @@ import com.kzj.mall.adapter.ClassifyRightAdapter
 import com.kzj.mall.base.BaseFragment
 import com.kzj.mall.base.IPresenter
 import com.kzj.mall.databinding.FragmentClassifyRightBinding
-import com.kzj.mall.entity.DataHelper
+import com.kzj.mall.utils.LocalDatas
 
 class ClassifyRightFragment : BaseFragment<IPresenter, FragmentClassifyRightBinding>() {
     private var classifyRightAdapter: ClassifyRightAdapter? = null
@@ -32,7 +32,7 @@ class ClassifyRightFragment : BaseFragment<IPresenter, FragmentClassifyRightBind
         val classifyName = arguments?.getString("classifyName")
 
         classifyRightAdapter = ClassifyRightAdapter(R.layout.item_classify_right_content,
-                R.layout.item_classify_right_header, DataHelper.classifyDatas())
+                R.layout.item_classify_right_header, LocalDatas.classifyDatas())
         mBinding?.rvClassifyRight?.layoutManager = LinearLayoutManager(context)
         mBinding?.rvClassifyRight?.adapter = classifyRightAdapter
         val headerView = layoutInflater.inflate(R.layout.header_classify_right, mBinding?.rvClassifyRight?.parent as ViewGroup, false)

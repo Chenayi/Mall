@@ -35,6 +35,8 @@ class HomeFlashSaleProvider : BaseItemProvider<HomeFlashSaleEntity, BaseViewHold
         val flashSaleListData = data?.flashSaleListData
         flashSaleListData?.let {
             rv = helper?.getView(R.id.rv_flash_sale)
+            rv?.setFocusableInTouchMode(false);
+            rv?.requestFocus();
             var adapter = FlashSaleAdapter(it)
             val layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false)
             rv?.setLayoutManager(layoutManager)

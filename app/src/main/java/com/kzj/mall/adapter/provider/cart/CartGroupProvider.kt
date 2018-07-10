@@ -34,6 +34,8 @@ class CartGroupProvider: BaseItemProvider<CartGroupEntity,BaseViewHolder>() {
         }
 
         val rvGroup = helper?.getView<RecyclerView>(R.id.rv_group)
+        rvGroup?.setFocusableInTouchMode(false);
+        rvGroup?.requestFocus();
         rvGroup?.layoutManager = LinearLayoutManager(mContext)
         val groupAdapter = GroupAdapter(data?.groups!!)
         rvGroup?.adapter = groupAdapter

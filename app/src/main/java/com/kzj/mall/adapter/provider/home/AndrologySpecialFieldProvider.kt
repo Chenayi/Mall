@@ -29,6 +29,8 @@ class AndrologySpecialFieldProvider : BaseItemProvider<AndrologySpecialFieldEnti
 
     override fun convert(helper: BaseViewHolder?, data: AndrologySpecialFieldEntity?, position: Int) {
         rv = helper?.getView(R.id.rv)
+        rv?.setFocusableInTouchMode(false);
+        rv?.requestFocus();
         val layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false)
         rv?.setLayoutManager(layoutManager)
 

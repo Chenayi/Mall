@@ -8,7 +8,7 @@ import com.kzj.mall.adapter.CommomViewPagerAdapter
 import com.kzj.mall.base.BaseFragment
 import com.kzj.mall.base.IPresenter
 import com.kzj.mall.databinding.FragmentClassifyBinding
-import com.kzj.mall.entity.DataHelper
+import com.kzj.mall.utils.LocalDatas
 
 class ClassifyFragment : BaseFragment<IPresenter, FragmentClassifyBinding>() {
     private var classifyleftAdapter: ClassifyLeftAdapter? = null
@@ -31,7 +31,7 @@ class ClassifyFragment : BaseFragment<IPresenter, FragmentClassifyBinding>() {
     }
 
     fun initLeft() {
-        classifyleftAdapter = ClassifyLeftAdapter(DataHelper.classifyLeftDatas())
+        classifyleftAdapter = ClassifyLeftAdapter(LocalDatas.classifyLeftDatas())
         mBinding?.rlClassify?.layoutManager = LinearLayoutManager(context)
         mBinding?.rlClassify?.adapter = classifyleftAdapter
 

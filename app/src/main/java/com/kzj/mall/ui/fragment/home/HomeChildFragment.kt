@@ -5,8 +5,8 @@ import android.support.v7.widget.RecyclerView
 import com.chad.library.adapter.base.util.ProviderDelegate
 import com.kzj.mall.adapter.provider.home.*
 import com.kzj.mall.base.IPresenter
-import com.kzj.mall.entity.*
 import com.kzj.mall.entity.home.*
+import com.kzj.mall.utils.LocalDatas
 
 class HomeChildFragment : BaseHomeChildListFragment<IPresenter>() {
 
@@ -38,9 +38,6 @@ class HomeChildFragment : BaseHomeChildListFragment<IPresenter>() {
                 }
             }
         })
-
-        mBinding?.rvHome?.setFocusableInTouchMode(false);
-        mBinding?.rvHome?.requestFocus();
     }
 
     override fun onSupportInvisible() {
@@ -87,7 +84,7 @@ class HomeChildFragment : BaseHomeChildListFragment<IPresenter>() {
      * 为您推荐
      */
     fun getRecommendDatas(): MutableList<HomeRecommendEntity> {
-        return DataHelper.homeRecommendDatas()
+        return LocalDatas.homeRecommendDatas()
     }
 
 
@@ -103,21 +100,21 @@ class HomeChildFragment : BaseHomeChildListFragment<IPresenter>() {
         //公告精选
         list.add(HomeChoiceEntity())
         //每日闪购
-        list.add(DataHelper.homeFlashData())
+        list.add(LocalDatas.homeFlashData())
         //精选优品
         list.add(HomeChoiceGoodsEntity())
         //穿插广告
-        list.add(DataHelper.homeAdvBannerData())
+        list.add(LocalDatas.homeAdvBannerData())
         //常见疾病
         list.add(HomeSicknessEntity())
         //品牌专区
         list.add(HomeBrandEntity())
         //情趣用品
-        list.add(DataHelper.homeSexToy())
+        list.add(LocalDatas.homeSexToy())
         //问答解惑
         list.add(HomeAskAnswerEntity())
         //穿插广告
-        list.add(DataHelper.homeAdvBannerData())
+        list.add(LocalDatas.homeAdvBannerData())
         return list
     }
 }

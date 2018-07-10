@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <RelativeLayout
+            android:id="@+id/rl_root"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:background="@color/white" />
+
+            <RelativeLayout
+                android:id="@+id/rl_top"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/iv_goods"
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/background_white_corners_8" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="40dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@+id/iv_goods"
+                    android:gravity="bottom"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:lines="1"
+                        android:singleLine="true"
+                        android:text="合计：¥7898.00"
+                        android:textColor="@color/orange_default"
+                        android:textSize="15dp"
+                        android:textStyle="bold" />
+
+                    <com.allen.library.SuperTextView
+                        android:layout_width="80dp"
+                        android:layout_height="20dp"
+                        android:layout_marginTop="4dp"
+                        app:sCenterTextColor="@color/orange_default"
+                        app:sCenterTextSize="9dp"
+                        app:sCenterTextString="立省：￥47.00"
+                        app:sShapeCornersRadius="9999dp"
+                        app:sShapeSelectorNormalColor="#FFF8F5"
+                        app:sShapeSelectorPressedColor="#FFF8F5"
+                        app:sShapeStrokeColor="@color/orange_default"
+                        app:sShapeStrokeWidth="1dp"
+                        app:sUseShape="true" />
+
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="10dp"
+                    android:scaleType="centerInside"
+                    android:src="@mipmap/close2" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_below="@+id/rl_top"
+                android:layout_marginTop="10dp"
+                android:background="@color/gray_default" />
+
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/rl_top"
+                android:layout_marginTop="10.5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="10dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingTop="14dp"
+                        android:text="规格"
+                        android:textColor="#2E3033"/>
+
+
+                    <com.zhy.view.flowlayout.TagFlowLayout
+                        android:id="@+id/id_flowlayout"
+                        app:max_select="1"
+                        app:tag_gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="20dp"/>
+
+
+                </LinearLayout>
+            </ScrollView>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+</layout>

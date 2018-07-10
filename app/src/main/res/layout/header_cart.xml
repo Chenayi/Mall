@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="267dp"
+    android:background="@color/white"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/icon_cart_empty" />
+
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:text="登录后可同步电脑与手机购物车中的商品"
+        android:textColor="#8A9099"
+        android:textSize="12dp" />
+
+    <com.allen.library.SuperTextView
+        android:id="@+id/tv_login"
+        android:layout_width="100dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="16dp"
+        app:sCenterTextColor="@color/white"
+        app:sCenterTextSize="13dp"
+        app:sCenterTextString="立即登录"
+        app:sShapeCornersRadius="9999dp"
+        app:sShapeSelectorNormalColor="@color/colorPrimary"
+        app:sShapeSelectorPressedColor="@color/colorPrimary"
+        app:sUseRipple="true"
+        app:sUseShape="true" />
+
+</LinearLayout>

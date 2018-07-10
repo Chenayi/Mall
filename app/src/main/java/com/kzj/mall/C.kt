@@ -5,5 +5,7 @@ class C {
         val BASE_URL = "http://www.baidu.com/"
 
         val PAGE_SIZE = 10
+
+        var ISLOGIN = true
     }
 }

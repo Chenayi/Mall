@@ -1,5 +1,6 @@
 package com.kzj.mall.ui.activity
 
+import android.app.Activity
 import android.content.Intent
 import android.text.Editable
 import android.text.TextUtils
@@ -27,8 +28,7 @@ class CreateAddressActivity : BaseActivity<IPresenter, ActivityCreateAddressBind
         rootLayout?.setRightTextEnable(false)
         rootLayout?.setOnRightOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
-                val intent = Intent(this@CreateAddressActivity, AddressListActivity::class.java)
-                startActivity(intent)
+                setResult(Activity.RESULT_OK)
                 finish()
             }
         })

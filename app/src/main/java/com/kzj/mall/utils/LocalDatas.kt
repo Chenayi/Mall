@@ -1,12 +1,11 @@
-package com.kzj.mall.entity
+package com.kzj.mall.utils
 
 import com.kzj.mall.R
-import com.kzj.mall.entity.cart.CartGroupEntity
-import com.kzj.mall.entity.cart.CartSingleEntity
-import com.kzj.mall.entity.cart.ICart
+import com.kzj.mall.entity.*
+import com.kzj.mall.entity.cart.*
 import com.kzj.mall.entity.home.*
 
-class DataHelper {
+class LocalDatas {
     companion object {
 
         /**
@@ -238,9 +237,9 @@ class DataHelper {
         /**
          * 商品详情 组合
          */
-        fun goodsDetailGroups() : MutableList<GoodsDetailEntity.Group>{
+        fun goodsDetailGroups(): MutableList<GoodsDetailEntity.Group> {
             val goodsDetailGroups = ArrayList<GoodsDetailEntity.Group>()
-            for (i in 0 until 4){
+            for (i in 0 until 4) {
                 goodsDetailGroups.add(GoodsDetailEntity().Group())
             }
             return goodsDetailGroups
@@ -250,22 +249,40 @@ class DataHelper {
         /**
          * 购物车数据
          */
-       fun cartDatas():MutableList<ICart>{
-           val datas = ArrayList<ICart>()
-           datas.add(CartSingleEntity())
-           datas.add(cartGroupDatas())
-           datas.add(CartSingleEntity())
-           return datas
-       }
+        fun cartDatas(): MutableList<ICart> {
+            val datas = ArrayList<ICart>()
+            datas.add(CartSingleEntity())
+            datas.add(cartGroupDatas())
+            datas.add(CartSingleEntity())
+            return datas
+        }
+
+        /**
+         * 购物车为您推荐
+         */
+        fun cartRecommendDatas(): MutableList<CartRecommendEntity> {
+            val list = ArrayList<CartRecommendEntity>()
+            for (i in 0..8) {
+                val cartRecommendEntity = CartRecommendEntity()
+                cartRecommendEntity.isBackgroundCorners = true
+                if (i == 0) {
+                    cartRecommendEntity.isShowRecommendText = true
+                } else {
+                    cartRecommendEntity.isShowRecommendText = false
+                }
+                list.add(cartRecommendEntity)
+            }
+            return list
+        }
 
 
         /**
          * 购物车组合数据
          */
-        fun cartGroupDatas() : CartGroupEntity{
+        fun cartGroupDatas(): CartGroupEntity {
             val cartGroupEntity = CartGroupEntity()
             val groups = ArrayList<CartGroupEntity.Group>()
-            for (i in 0 until 2){
+            for (i in 0 until 2) {
                 groups.add(CartGroupEntity().Group())
             }
             cartGroupEntity.groups = groups
@@ -275,9 +292,9 @@ class DataHelper {
         /**
          * 订单商品
          */
-        fun orderGoods() : MutableList<String>{
+        fun orderGoods(): MutableList<String> {
             val goods = ArrayList<String>()
-            for (i in 0 until 4){
+            for (i in 0 until 4) {
                 goods.add("")
             }
             return goods
@@ -286,14 +303,39 @@ class DataHelper {
         /**
          * 地址列表
          */
-        fun addresses() : MutableList<AddressEntity>{
+        fun addresses(): MutableList<AddressEntity> {
             var addresses = ArrayList<AddressEntity>()
 
-            for (i in 0 until 8){
+            for (i in 0 until 8) {
                 addresses.add(AddressEntity())
             }
 
             return addresses
+        }
+
+        /**
+         * 商品清单数据
+         */
+        fun goodsListDatas(): MutableList<ICart> {
+            val datas = ArrayList<ICart>()
+            datas.add(GoodsSingleEntity())
+            datas.add(GoodsSingleEntity())
+            datas.add(goodsListGroupDatas())
+            return datas
+        }
+
+
+        /**
+         * 商品清单组合数据
+         */
+        fun goodsListGroupDatas(): GoodsGroupEntity {
+            val goodsGroupEntity = GoodsGroupEntity()
+            val groups = ArrayList<GoodsGroupEntity.Group>()
+            for (i in 0 until 2) {
+                groups.add(GoodsGroupEntity().Group())
+            }
+            goodsGroupEntity.groups = groups
+            return goodsGroupEntity
         }
     }
 }

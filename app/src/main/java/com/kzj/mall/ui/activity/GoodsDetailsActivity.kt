@@ -9,7 +9,6 @@ import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.ScrollView
 import android.widget.TextView
-import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ScreenUtils
 import com.blankj.utilcode.util.SizeUtils
 import com.kzj.mall.GlideApp
@@ -20,11 +19,11 @@ import com.kzj.mall.base.BaseActivity
 import com.kzj.mall.base.IPresenter
 import com.kzj.mall.databinding.ActivityGoodsDetailsBinding
 import com.kzj.mall.di.component.AppComponent
-import com.kzj.mall.entity.DataHelper
+import com.kzj.mall.ui.dialog.GoodsSpecDialog
+import com.kzj.mall.utils.LocalDatas
 import com.kzj.mall.ui.fragment.GoodsDetailDescribeFragment
 import com.kzj.mall.ui.fragment.GoodsDetailExplainFragment
 import com.kzj.mall.widget.GoodsDetailTitleBar
-import com.kzj.mall.widget.NoScollViewPager
 import com.kzj.mall.widget.NoScollWrapViewPager
 import com.kzj.mall.widget.ObservableScrollView
 import com.takusemba.multisnaprecyclerview.MultiSnapRecyclerView
@@ -99,6 +98,7 @@ class GoodsDetailsActivity : BaseActivity<IPresenter, ActivityGoodsDetailsBindin
         //资质
         initZizhi()
 
+        mBinding?.detailSpec?.setOnClickListener(this)
 //        mBinding?.detailGroup?.visibility = View.GONE
 //        measuredDistance()
     }
@@ -121,7 +121,7 @@ class GoodsDetailsActivity : BaseActivity<IPresenter, ActivityGoodsDetailsBindin
      * 组合
      */
     private fun initGroupData() {
-        goodsDetailGroupAdapter = GoodsDetailGroupAdapter(DataHelper.goodsDetailGroups())
+        goodsDetailGroupAdapter = GoodsDetailGroupAdapter(LocalDatas.goodsDetailGroups())
         rvGroup = findViewById(R.id.rv_group)
         rvGroup?.layoutManager = LinearLayoutManager(this.applicationContext, LinearLayoutManager.HORIZONTAL, false)
         rvGroup?.adapter = goodsDetailGroupAdapter
@@ -224,6 +224,11 @@ class GoodsDetailsActivity : BaseActivity<IPresenter, ActivityGoodsDetailsBindin
                 tvExplain?.paint?.isFakeBoldText = true
                 viewExplain?.visibility = View.VISIBLE
                 vpGoodsDetail?.setCurrentItem(1,false)
+            }
+            R.id.detail_spec->{
+                GoodsSpecDialog.newInstance()
+                        .setShowBottom(true)
+                        .show(supportFragmentManager)
             }
         }
     }

@@ -12,7 +12,7 @@ import com.blankj.utilcode.util.ScreenUtils
 import com.chad.library.adapter.base.BaseViewHolder
 import com.kzj.mall.R
 import com.kzj.mall.adapter.BaseAdapter
-import com.kzj.mall.entity.DataHelper
+import com.kzj.mall.utils.LocalDatas
 import com.kzj.mall.entity.home.HomeTabEntity
 import razerdp.basepopup.BasePopupWindow
 
@@ -63,7 +63,7 @@ class HomeTabClassifyPop constructor(val context: Activity) : BasePopupWindow(co
         this.onTabChooseLinstener = l
     }
 
-    inner class MyAdapter : BaseAdapter<HomeTabEntity, BaseViewHolder>(R.layout.item_home_tab, DataHelper.homeTabDatas()) {
+    inner class MyAdapter : BaseAdapter<HomeTabEntity, BaseViewHolder>(R.layout.item_home_tab, LocalDatas.homeTabDatas()) {
         override fun convert(helper: BaseViewHolder?, item: HomeTabEntity?) {
             val llItem = helper?.getView<LinearLayout>(R.id.ll_item)
             var itemWidth = ScreenUtils.getScreenWidth() / 4f
