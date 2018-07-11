@@ -7,7 +7,10 @@ import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.WindowManager
+import com.gyf.barlibrary.ImmersionBar
 import com.kzj.mall.App
+import com.kzj.mall.R
 import com.kzj.mall.di.component.AppComponent
 import com.yatoooon.screenadaptation.ScreenAdapterTools
 import me.yokeyword.fragmentation.SupportActivity
@@ -23,6 +26,8 @@ abstract class BaseActivity<P : IPresenter, D : ViewDataBinding> : SupportActivi
 
     protected var mContext: Context? = null
 
+    var mImmersionBar: ImmersionBar? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
@@ -30,6 +35,7 @@ abstract class BaseActivity<P : IPresenter, D : ViewDataBinding> : SupportActivi
         ScreenAdapterTools.getInstance().loadView(window.decorView);
         mContext = applicationContext
         app = application as App
+        initImmersionBar()
         setupComponent(app?.getAppComponent())
         initData()
     }
@@ -37,6 +43,24 @@ abstract class BaseActivity<P : IPresenter, D : ViewDataBinding> : SupportActivi
     abstract fun getLayoutId(): Int
     abstract fun setupComponent(appComponent: AppComponent?)
     abstract fun initData()
+
+    protected fun initImmersionBar() {
+        mImmersionBar = ImmersionBar.with(this)
+        mImmersionBar?.fitsSystemWindows(true, R.color.fb)
+                ?.statusBarDarkFont(true, 0.5f)
+                ?.keyboardEnable(keyboardEnable())
+                ?.keyboardMode(getKeyboardMode())
+                ?.init()
+    }
+
+    protected fun keyboardEnable(): Boolean {
+        return false
+    }
+
+
+    protected fun getKeyboardMode(): Int {
+        return WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN
+    }
 
     fun jumpActivity(cls: Class<Any>) {
         var intent = Intent()
@@ -47,6 +71,7 @@ abstract class BaseActivity<P : IPresenter, D : ViewDataBinding> : SupportActivi
 
     override fun onDestroy() {
         mBinding?.unbind()
+        mImmersionBar?.destroy()
         if (::mPresenter.isInitialized) {
             mPresenter.onDestory();
         }

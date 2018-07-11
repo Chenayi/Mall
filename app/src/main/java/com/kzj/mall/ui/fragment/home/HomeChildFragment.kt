@@ -1,8 +1,11 @@
 package com.kzj.mall.ui.fragment.home
 
+import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import com.chad.library.adapter.base.util.ProviderDelegate
+import com.gyf.barlibrary.ImmersionBar
+import com.kzj.mall.R
 import com.kzj.mall.adapter.provider.home.*
 import com.kzj.mall.base.IPresenter
 import com.kzj.mall.entity.home.*
@@ -48,6 +51,15 @@ class HomeChildFragment : BaseHomeChildListFragment<IPresenter>() {
     override fun onSupportVisible() {
         super.onSupportVisible()
         headerBannerProvider?.startBanner()
+    }
+
+    override fun isImmersionBarEnabled(): Boolean {
+        return true
+    }
+
+    override fun initImmersionBar() {
+        immersionBarColor = R.color.colorPrimary
+        super.initImmersionBar()
     }
 
     override fun registerItemProvider(providerDelegate: ProviderDelegate) {

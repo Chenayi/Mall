@@ -1,8 +1,11 @@
 package com.kzj.mall.ui.fragment.home
 
+import android.graphics.Color
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import com.chad.library.adapter.base.util.ProviderDelegate
+import com.kzj.mall.R
 import com.kzj.mall.adapter.provider.home.*
 import com.kzj.mall.base.IPresenter
 import com.kzj.mall.entity.home.*
@@ -52,8 +55,17 @@ class AndrologyFragment : BaseHomeChildListFragment<IPresenter>() {
         headerBannerProvider?.startBanner()
     }
 
+    override fun isImmersionBarEnabled(): Boolean {
+        return true
+    }
+
+    override fun initImmersionBar() {
+        immersionBarColor = R.color.colorPrimaryDark
+        super.initImmersionBar()
+    }
+
     override fun registerItemProvider(providerDelegate: ProviderDelegate) {
-        headerBannerProvider = HeaderBannerProvider()
+        headerBannerProvider = HeaderBannerProvider(R.color.colorPrimaryDark)
         providerDelegate.registerProvider(headerBannerProvider)
         providerDelegate.registerProvider(AndrologyClassifyProvider())
         providerDelegate.registerProvider(AndrologyStationProvider())

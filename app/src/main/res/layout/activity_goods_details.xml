@@ -1,111 +1,223 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/gray_default">
+        android:background="@color/gray_default"
+        android:orientation="vertical">
 
-        <com.kzj.mall.widget.ObservableScrollView
-            android:id="@+id/scroll_view"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="0dp"
+            android:layout_weight="1">
 
-            <RelativeLayout
+            <com.kzj.mall.widget.ObservableScrollView
+                android:id="@+id/scroll_view"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
 
                 <RelativeLayout
-                    android:id="@+id/rl_banner"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp">
+                    android:layout_height="wrap_content">
 
-                    <ImageView
+                    <RelativeLayout
+                        android:id="@+id/rl_banner"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:scaleType="centerCrop"
-                        android:src="@mipmap/sextoy_sample" />
+                        android:layout_height="200dp">
 
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="centerCrop"
+                            android:src="@mipmap/sextoy_sample" />
+
+                    </RelativeLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/rl_banner"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="-30dp"
+                        android:orientation="vertical">
+
+                        <!-- 标题 -->
+                        <include
+                            android:id="@+id/detail_title_content"
+                            layout="@layout/include_detail_title_content" />
+
+                        <!-- 规格 -->
+                        <LinearLayout
+                            android:id="@+id/detail_spec"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="10dp" />
+
+                            <include layout="@layout/include_detail_spec" />
+                        </LinearLayout>
+
+                        <!-- 组合 -->
+                        <LinearLayout
+                            android:id="@+id/detail_group"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="10dp" />
+
+                            <include layout="@layout/include_detail_group" />
+                        </LinearLayout>
+
+                        <!-- 详情 -->
+                        <LinearLayout
+                            android:id="@+id/detail_detail"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="10dp" />
+
+                            <include layout="@layout/include_detail_detail" />
+                        </LinearLayout>
+
+                        <!--资质-->
+                        <LinearLayout
+                            android:id="@+id/detail_quality"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="10dp" />
+
+                            <include layout="@layout/include_detail_quality" />
+                        </LinearLayout>
+                    </LinearLayout>
                 </RelativeLayout>
+            </com.kzj.mall.widget.ObservableScrollView>
 
+            <com.kzj.mall.widget.GoodsDetailTitleBar
+                android:id="@+id/goods_detail_titlebar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/white"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/rl_banner"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginTop="-30dp"
+                    android:id="@+id/ll_ask"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
                     android:orientation="vertical">
 
-                    <!-- 标题 -->
-                    <include
-                        android:id="@+id/detail_title_content"
-                        layout="@layout/include_detail_title_content" />
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@mipmap/zixun_icon" />
 
-                    <!-- 规格 -->
-                    <LinearLayout
-                        android:id="@+id/detail_spec"
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:layout_marginTop="4dp"
+                        android:text="咨询"
+                        android:textColor="#6A6E75"
+                        android:textSize="10dp" />
 
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="10dp" />
-
-                        <include layout="@layout/include_detail_spec" />
-                    </LinearLayout>
-
-                    <!-- 组合 -->
-                    <LinearLayout
-                        android:id="@+id/detail_group"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="10dp" />
-
-                        <include layout="@layout/include_detail_group" />
-                    </LinearLayout>
-
-                    <!-- 详情 -->
-                    <LinearLayout
-                        android:id="@+id/detail_detail"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="10dp" />
-
-                        <include layout="@layout/include_detail_detail" />
-                    </LinearLayout>
-
-                    <!--资质-->
-                    <LinearLayout
-                        android:id="@+id/detail_quality"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="10dp" />
-
-                        <include layout="@layout/include_detail_quality" />
-                    </LinearLayout>
                 </LinearLayout>
-            </RelativeLayout>
-        </com.kzj.mall.widget.ObservableScrollView>
 
-        <com.kzj.mall.widget.GoodsDetailTitleBar
-            android:id="@+id/goods_detail_titlebar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </RelativeLayout>
+                <LinearLayout
+                    android:id="@+id/ll_phone"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@mipmap/phone_icon" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="电话"
+                        android:textColor="#6A6E75"
+                        android:textSize="10dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_cart"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@mipmap/cart_icon" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="购物车"
+                        android:textColor="#6A6E75"
+                        android:textSize="10dp" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_add_cart"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:background="#2E3033"
+                android:gravity="center"
+                android:text="加入购物车"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_buy"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:background="@color/orange_default"
+                android:gravity="center"
+                android:text="立即购买"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
 </layout>

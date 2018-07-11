@@ -1,10 +1,13 @@
 package com.kzj.mall.adapter.provider.home
 
+import android.content.Context
+import android.support.v4.content.ContextCompat
 import android.support.v4.view.PagerAdapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.SizeUtils
 import com.chad.library.adapter.base.BaseViewHolder
 import com.chad.library.adapter.base.provider.BaseItemProvider
@@ -15,9 +18,16 @@ import com.kzj.mall.entity.home.IHomeEntity
 import com.kzj.mall.transformer.ScaleInTransformer
 import com.tmall.ultraviewpager.UltraViewPager
 
-class HeaderBannerProvider : BaseItemProvider<IHomeEntity, BaseViewHolder>() {
+class HeaderBannerProvider : BaseItemProvider<IHomeEntity, BaseViewHolder> {
+
     var ultraViewPager: UltraViewPager? = null
     var isInitialized = false
+    var headerColor = 0
+
+    constructor() : this(0)
+    constructor(headerColor: Int) {
+        this.headerColor = headerColor
+    }
 
     override fun layout(): Int {
         return R.layout.home_banner
@@ -39,6 +49,11 @@ class HeaderBannerProvider : BaseItemProvider<IHomeEntity, BaseViewHolder>() {
             ultraViewPager?.setAdapter(adapter)
             ultraViewPager?.setPageTransformer(true, ScaleInTransformer())
             isInitialized = true
+        }
+
+
+        if (headerColor != 0) {
+            helper?.setImageResource(R.id.iv_header, headerColor)
         }
     }
 

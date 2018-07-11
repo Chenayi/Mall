@@ -1,5 +1,6 @@
 package com.kzj.mall.ui.fragment
 
+import com.gyf.barlibrary.ImmersionBar
 import com.kzj.mall.R
 import com.kzj.mall.base.BaseFragment
 import com.kzj.mall.base.IPresenter
@@ -16,6 +17,18 @@ class MineFragment : BaseFragment<IPresenter, FragmentMineBinding>() {
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_mine
+    }
+
+    override fun isImmersionBarEnabled(): Boolean {
+        return true
+    }
+
+    override fun initImmersionBar() {
+        immersionBarColor = R.color.fb
+        mImmersionBar = ImmersionBar.with(this)
+        mImmersionBar?.fitsSystemWindows(true, immersionBarColor)
+                ?.statusBarDarkFont(true,0.5f)
+                ?.init()
     }
 
     override fun initData() {

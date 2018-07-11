@@ -12,8 +12,11 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.CommonNav
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView
 import android.graphics.Color
+import android.support.v4.content.ContextCompat
+import android.support.v4.view.ViewPager
 import android.view.View
 import com.blankj.utilcode.util.SizeUtils
+import com.gyf.barlibrary.ImmersionBar
 import com.kzj.mall.adapter.HomeNavigatorTitleView
 import com.kzj.mall.entity.home.HomeTabEntity
 import com.kzj.mall.ui.dialog.HomeTabClassifyPop
@@ -48,6 +51,34 @@ class HomeFragment : BaseFragment<IPresenter, FragmentHomeBinding>(), View.OnCli
             it?.add(OtherFragment.newInstance())
             mCommomViewPagerAdapter = CommomViewPagerAdapter(childFragmentManager, it)
             mBinding?.vpHome?.adapter = mCommomViewPagerAdapter
+            mBinding?.vpHome?.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+                override fun onPageScrollStateChanged(state: Int) {
+                }
+
+                override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+                }
+
+                override fun onPageSelected(position: Int) {
+                    when (position) {
+                        0 -> {
+                            mBinding?.llTopSearch?.setBackgroundColor(ContextCompat.getColor(context!!, R.color.colorPrimary))
+                            mBinding?.llTab?.setBackgroundColor(ContextCompat.getColor(context!!, R.color.colorPrimary))
+                        }
+                        1 -> {
+                            mBinding?.llTopSearch?.setBackgroundColor(ContextCompat.getColor(context!!, R.color.colorPrimaryDark))
+                            mBinding?.llTab?.setBackgroundColor(ContextCompat.getColor(context!!, R.color.colorPrimaryDark))
+                        }
+                        2 -> {
+                            mBinding?.llTopSearch?.setBackgroundColor(ContextCompat.getColor(context!!, R.color.colorPrimary))
+                            mBinding?.llTab?.setBackgroundColor(ContextCompat.getColor(context!!, R.color.colorPrimary))
+                        }
+                        3 -> {
+                            mBinding?.llTopSearch?.setBackgroundColor(ContextCompat.getColor(context!!, R.color.colorPrimary))
+                            mBinding?.llTab?.setBackgroundColor(ContextCompat.getColor(context!!, R.color.colorPrimary))
+                        }
+                    }
+                }
+            })
         }
 
 
@@ -99,12 +130,12 @@ class HomeFragment : BaseFragment<IPresenter, FragmentHomeBinding>(), View.OnCli
         }
     }
 
-    fun showHomeTabClassifyPop(){
+    fun showHomeTabClassifyPop() {
         val homeTabClassifyPop = HomeTabClassifyPop(activity!!)
         homeTabClassifyPop?.offsetY = SizeUtils.dp2px(8f)
-        homeTabClassifyPop?.setOnTabChooseLinstener(object :HomeTabClassifyPop.OnTabChooseLinstener{
+        homeTabClassifyPop?.setOnTabChooseLinstener(object : HomeTabClassifyPop.OnTabChooseLinstener {
             override fun onTabChoose(p: Int?, homeTabEntity: HomeTabEntity?) {
-                mBinding?.vpHome?.setCurrentItem(p!!,false)
+                mBinding?.vpHome?.setCurrentItem(p!!, false)
             }
         })
         homeTabClassifyPop?.showPopupWindow(mBinding?.llTopSearch)

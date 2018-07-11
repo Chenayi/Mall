@@ -2,6 +2,7 @@ package com.kzj.mall.ui.fragment
 
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
+import com.gyf.barlibrary.ImmersionBar
 import com.kzj.mall.R
 import com.kzj.mall.adapter.ClassifyLeftAdapter
 import com.kzj.mall.adapter.CommomViewPagerAdapter
@@ -23,6 +24,15 @@ class ClassifyFragment : BaseFragment<IPresenter, FragmentClassifyBinding>() {
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_classify
+    }
+
+    override fun isImmersionBarEnabled(): Boolean {
+        return true
+    }
+
+    override fun initImmersionBar() {
+        immersionBarColor = R.color.colorPrimary
+        super.initImmersionBar()
     }
 
     override fun initData() {
@@ -52,7 +62,7 @@ class ClassifyFragment : BaseFragment<IPresenter, FragmentClassifyBinding>() {
                 data?.isChoose = true
 
                 classifyleftAdapter?.notifyDataSetChanged()
-                mBinding?.vpClassify?.setCurrentItem(position,false)
+                mBinding?.vpClassify?.setCurrentItem(position, false)
             }
         }
     }

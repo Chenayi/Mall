@@ -30,7 +30,7 @@ import com.takusemba.multisnaprecyclerview.MultiSnapRecyclerView
 
 
 class GoodsDetailsActivity : BaseActivity<IPresenter, ActivityGoodsDetailsBinding>(),
-        View.OnClickListener,GoodsDetailDescribeFragment.ChangeHeightListener,GoodsDetailExplainFragment.ChangeHeightListener {
+        View.OnClickListener, GoodsDetailDescribeFragment.ChangeHeightListener, GoodsDetailExplainFragment.ChangeHeightListener {
     private var rvGroup: MultiSnapRecyclerView? = null
     private var goodsDetailGroupAdapter: GoodsDetailGroupAdapter? = null
     private var rlDescribe: RelativeLayout? = null
@@ -97,10 +97,16 @@ class GoodsDetailsActivity : BaseActivity<IPresenter, ActivityGoodsDetailsBindin
         initDetail()
         //资质
         initZizhi()
+        //点击事件
+        initListener()
+    }
 
+    /**
+     * 点击事件
+     */
+    private fun initListener() {
         mBinding?.detailSpec?.setOnClickListener(this)
-//        mBinding?.detailGroup?.visibility = View.GONE
-//        measuredDistance()
+        mBinding?.tvAddCart?.setOnClickListener(this)
     }
 
     /**
@@ -151,7 +157,7 @@ class GoodsDetailsActivity : BaseActivity<IPresenter, ActivityGoodsDetailsBindin
         var adapter = CommomViewPagerAdapter(supportFragmentManager, fragments)
         vpGoodsDetail?.adapter = adapter
 
-        vpGoodsDetail?.addOnPageChangeListener(object : ViewPager.OnPageChangeListener{
+        vpGoodsDetail?.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {
             }
 
@@ -213,7 +219,7 @@ class GoodsDetailsActivity : BaseActivity<IPresenter, ActivityGoodsDetailsBindin
                 tvDescribe?.setTextColor(Color.parseColor("#48B828"))
                 tvDescribe?.paint?.isFakeBoldText = true
                 viewDescribe?.visibility = View.VISIBLE
-                vpGoodsDetail?.setCurrentItem(0,false)
+                vpGoodsDetail?.setCurrentItem(0, false)
             }
             R.id.rl_explain -> {
                 tvDescribe?.setTextColor(Color.parseColor("#2E3033"))
@@ -223,19 +229,30 @@ class GoodsDetailsActivity : BaseActivity<IPresenter, ActivityGoodsDetailsBindin
                 tvExplain?.setTextColor(Color.parseColor("#48B828"))
                 tvExplain?.paint?.isFakeBoldText = true
                 viewExplain?.visibility = View.VISIBLE
-                vpGoodsDetail?.setCurrentItem(1,false)
+                vpGoodsDetail?.setCurrentItem(1, false)
             }
-            R.id.detail_spec->{
+            R.id.detail_spec -> {
                 GoodsSpecDialog.newInstance()
                         .setShowBottom(true)
                         .show(supportFragmentManager)
+            }
+            R.id.tv_add_cart -> {
+
             }
         }
     }
 
 
+    /**
+     * 购物车动画
+     */
+    fun setAddCartAnim(v:View , startLocation : IntArray){
+        //动画层
+    }
+
+
     override fun changeData(position: Int, height: Int) {
-        vpGoodsDetail?.addHeight(position,height)
+        vpGoodsDetail?.addHeight(position, height)
         vpGoodsDetail?.resetHeight(position)
         measuredDistance()
     }

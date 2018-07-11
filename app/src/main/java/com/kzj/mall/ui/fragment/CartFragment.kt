@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.allen.library.SuperTextView
+import com.gyf.barlibrary.ImmersionBar
 import com.kzj.mall.C
 import com.kzj.mall.R
 import com.kzj.mall.adapter.CartAdapter
@@ -36,6 +37,18 @@ class CartFragment : BaseFragment<IPresenter, FragmentCartBinding>(), View.OnCli
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_cart
+    }
+
+    override fun isImmersionBarEnabled(): Boolean {
+        return true
+    }
+
+    override fun initImmersionBar() {
+        immersionBarColor = R.color.fb
+        mImmersionBar = ImmersionBar.with(this)
+        mImmersionBar?.fitsSystemWindows(true, immersionBarColor)
+                ?.statusBarDarkFont(true,0.5f)
+                ?.init()
     }
 
     override fun initData() {
