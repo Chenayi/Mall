@@ -9,8 +9,10 @@ import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.ScrollView
 import android.widget.TextView
+import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.ScreenUtils
 import com.blankj.utilcode.util.SizeUtils
+import com.gyf.barlibrary.ImmersionBar
 import com.kzj.mall.GlideApp
 import com.kzj.mall.R
 import com.kzj.mall.adapter.CommomViewPagerAdapter
@@ -53,6 +55,11 @@ class GoodsDetailsActivity : BaseActivity<IPresenter, ActivityGoodsDetailsBindin
     override fun setupComponent(appComponent: AppComponent?) {
     }
 
+    override fun initImmersionBar() {
+        mImmersionBar = ImmersionBar.with(this)
+        mImmersionBar?.init();
+    }
+
     override fun initData() {
         mBinding?.goodsDetailTitlebar?.setTabAlpha(0f)
         var screenWidth = ScreenUtils.getScreenWidth()
@@ -63,12 +70,11 @@ class GoodsDetailsActivity : BaseActivity<IPresenter, ActivityGoodsDetailsBindin
         mBinding?.scrollView?.setOnScrollChangedListener(object : ObservableScrollView.OnScrollChangedListener {
             override fun onScrollChanged(who: ScrollView, x: Int, y: Int, oldx: Int, oldy: Int) {
                 val i = y.toFloat() / bannerHeight.toFloat()
-                if (i <= 1) {
-                    mBinding?.goodsDetailTitlebar?.setTabAlpha(i)
-                } else {
-                    mBinding?.goodsDetailTitlebar?.setTabAlpha(1.0f)
-                }
+                mImmersionBar
+                        ?.statusBarDarkFont(i > 0.5f, 0.5f)
+                        ?.init();
 
+                mBinding?.goodsDetailTitlebar?.setTabAlpha(if (i < 1f) i else 1f)
 
                 if (y < detailDistance) {
                     mBinding?.goodsDetailTitlebar?.switchGoods()
@@ -114,7 +120,7 @@ class GoodsDetailsActivity : BaseActivity<IPresenter, ActivityGoodsDetailsBindin
      */
     private fun measuredDistance() {
         bannerHeight = SizeUtils.getMeasuredHeight(mBinding?.rlBanner)
-        val titleHeight = SizeUtils.getMeasuredHeight(mBinding?.detailTitleContent) - SizeUtils.dp2px(30f)
+        val titleHeight = SizeUtils.getMeasuredHeight(mBinding?.detailTitleContent)-BarUtils.getStatusBarHeight() - SizeUtils.dp2px(30f)
         val specHeight = SizeUtils.getMeasuredHeight(mBinding?.detailSpec)
         val groudHeight = SizeUtils.getMeasuredHeight(mBinding?.detailGroup)
         val detailHeight = SizeUtils.getMeasuredHeight(mBinding?.detailDetail)
@@ -246,7 +252,7 @@ class GoodsDetailsActivity : BaseActivity<IPresenter, ActivityGoodsDetailsBindin
     /**
      * 购物车动画
      */
-    fun setAddCartAnim(v:View , startLocation : IntArray){
+    fun setAddCartAnim(v: View, startLocation: IntArray) {
         //动画层
     }
 

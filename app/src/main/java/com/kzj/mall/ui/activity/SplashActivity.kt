@@ -22,6 +22,9 @@ class SplashActivity : BaseActivity<SplashPresenter, ActivitySplashBinding>(), S
                 .inject(this)
     }
 
+    override fun initImmersionBar() {
+    }
+
     override fun initData() {
         mPresenter?.delayFinish(3)
     }

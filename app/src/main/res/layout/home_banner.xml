@@ -42,6 +42,14 @@
                 android:clipChildren="false"
                 app:upv_autoscroll="3000" />
 
+            <com.kzj.mall.widget.IndictorView
+                android:id="@+id/indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:paddingBottom="10dp" />
+
         </RelativeLayout>
     </RelativeLayout>
 </layout>

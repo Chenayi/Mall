@@ -1,6 +1,7 @@
 package com.kzj.mall.ui.activity
 
 import android.support.v4.app.Fragment
+import com.gyf.barlibrary.ImmersionBar
 import com.kzj.mall.R
 import com.kzj.mall.adapter.CommomViewPagerAdapter
 import com.kzj.mall.base.BaseActivity
@@ -23,6 +24,12 @@ class MainActivity : BaseActivity<IPresenter, ActivityMainBinding>() {
     }
 
     override fun setupComponent(appComponent: AppComponent?) {
+    }
+
+    override fun initImmersionBar() {
+        mImmersionBar = ImmersionBar.with(this)
+        mImmersionBar?.fitsSystemWindows(true, R.color.colorPrimary)
+                ?.init()
     }
 
     override fun initData() {

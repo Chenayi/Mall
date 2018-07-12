@@ -65,7 +65,7 @@ class AndrologyFragment : BaseHomeChildListFragment<IPresenter>() {
     }
 
     override fun registerItemProvider(providerDelegate: ProviderDelegate) {
-        headerBannerProvider = HeaderBannerProvider(R.color.colorPrimaryDark)
+        headerBannerProvider = HeaderBannerProvider(R.color.colorPrimaryDark, false)
         providerDelegate.registerProvider(headerBannerProvider)
         providerDelegate.registerProvider(AndrologyClassifyProvider())
         providerDelegate.registerProvider(AndrologyStationProvider())

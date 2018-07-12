@@ -44,7 +44,7 @@ abstract class BaseActivity<P : IPresenter, D : ViewDataBinding> : SupportActivi
     abstract fun setupComponent(appComponent: AppComponent?)
     abstract fun initData()
 
-    protected fun initImmersionBar() {
+    protected open fun initImmersionBar() {
         mImmersionBar = ImmersionBar.with(this)
         mImmersionBar?.fitsSystemWindows(true, R.color.fb)
                 ?.statusBarDarkFont(true, 0.5f)

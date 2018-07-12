@@ -7,6 +7,8 @@ import android.support.v4.content.ContextCompat
 import android.util.AttributeSet
 import android.view.View
 import android.widget.RelativeLayout
+import com.blankj.utilcode.util.BarUtils
+import com.blankj.utilcode.util.ScreenUtils
 import com.blankj.utilcode.util.SizeUtils
 import com.kzj.mall.R
 import com.kzj.mall.base.BaseRelativeLayout
@@ -24,6 +26,11 @@ class GoodsDetailTitleBar : BaseRelativeLayout<TitlebarGoodsDetailBinding>, View
     }
 
     override fun init(attrs: AttributeSet, defStyleAttr: Int) {
+        var layoutParams = mBinding?.topView?.layoutParams
+        layoutParams?.width = ScreenUtils.getScreenWidth()
+        layoutParams?.height = BarUtils.getStatusBarHeight()
+        mBinding?.topView?.requestLayout()
+
         mBinding?.tvGoods?.paint?.isFakeBoldText = true
         mBinding?.tvGoods?.setOnClickListener(this)
         mBinding?.tvDetail?.setOnClickListener(this)
@@ -33,6 +40,7 @@ class GoodsDetailTitleBar : BaseRelativeLayout<TitlebarGoodsDetailBinding>, View
     }
 
     fun setTabAlpha(alpha: Float) {
+        mBinding?.topView?.alpha = alpha
         mBinding?.rlTab?.alpha = alpha
     }
 
