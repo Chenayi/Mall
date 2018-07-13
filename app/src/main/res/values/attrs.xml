@@ -15,11 +15,11 @@
     </declare-styleable>
 
     <declare-styleable name="IndicatorView">
-        <attr name="indicator_count" format="integer|reference"/>
-        <attr name="indicator_s_resid" format="reference"/>
-        <attr name="indicator_n_resid" format="reference"/>
-        <attr name="indicator_width" format="dimension|reference"/>
-        <attr name="indicator_height" format="dimension|reference"/>
-        <attr name="indicator_margin_left" format="dimension|reference"/>
+        <attr name="i_count" format="integer|reference"/>
+        <attr name="i_s_resid" format="reference"/>
+        <attr name="i_n_resid" format="reference"/>
+        <attr name="i_width" format="dimension|reference"/>
+        <attr name="i_height" format="dimension|reference"/>
+        <attr name="i_margin_left" format="dimension|reference"/>
     </declare-styleable>
 </resources>

@@ -74,4 +74,5 @@ dependencies {
     implementation 'com.hyman:flowlayout-lib:1.1.2'
     implementation 'com.nex3z:flow-layout:1.2.2'
     implementation 'com.gyf.barlibrary:barlibrary:2.3.0'
+    implementation 'cn.bingoogolapple:bga-banner:2.2.4@aar'
 }

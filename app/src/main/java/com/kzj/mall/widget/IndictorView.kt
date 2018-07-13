@@ -29,11 +29,11 @@ class IndictorView : BaseLinearLayout<IndicatorViewBinding> {
 
     override fun init(attrs: AttributeSet, defStyleAttr: Int) {
         val array = context.obtainStyledAttributes(attrs, R.styleable.IndicatorView)
-        selectIndicatorResid = array.getResourceId(R.styleable.IndicatorView_indicator_s_resid, R.drawable.indicator_sel);
-        noSelectIndicatorResid = array.getResourceId(R.styleable.IndicatorView_indicator_n_resid, R.drawable.indicator_default);
-        indicatorWidhtDp = array.getDimensionPixelSize(R.styleable.IndicatorView_indicator_width, SizeUtils.dp2px(12f));
-        indictorHeightDp = array.getDimensionPixelSize(R.styleable.IndicatorView_indicator_width, SizeUtils.dp2px(4f));
-        indicatorMarginLeft = array.getDimensionPixelOffset(R.styleable.IndicatorView_indicator_margin_left, SizeUtils.dp2px(6f));
+        selectIndicatorResid = array.getResourceId(R.styleable.IndicatorView_i_s_resid, R.drawable.indicator_sel);
+        noSelectIndicatorResid = array.getResourceId(R.styleable.IndicatorView_i_n_resid, R.drawable.indicator_default);
+        indicatorWidhtDp = array.getDimensionPixelSize(R.styleable.IndicatorView_i_width, SizeUtils.dp2px(12f));
+        indictorHeightDp = array.getDimensionPixelSize(R.styleable.IndicatorView_i_width, SizeUtils.dp2px(4f));
+        indicatorMarginLeft = array.getDimensionPixelOffset(R.styleable.IndicatorView_i_margin_left, SizeUtils.dp2px(6f));
         array.recycle()
 
         if (count != 0) {

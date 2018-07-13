@@ -29,6 +29,7 @@ import com.kzj.mall.widget.GoodsDetailTitleBar
 import com.kzj.mall.widget.NoScollWrapViewPager
 import com.kzj.mall.widget.ObservableScrollView
 import com.takusemba.multisnaprecyclerview.MultiSnapRecyclerView
+import cn.bingoogolapple.bgabanner.BGABanner
 
 
 class GoodsDetailsActivity : BaseActivity<IPresenter, ActivityGoodsDetailsBinding>(),
@@ -96,7 +97,8 @@ class GoodsDetailsActivity : BaseActivity<IPresenter, ActivityGoodsDetailsBindin
             }
         })
 
-
+        //banner
+        initBanner()
         //组合
         initGroupData()
         //详情
@@ -105,6 +107,44 @@ class GoodsDetailsActivity : BaseActivity<IPresenter, ActivityGoodsDetailsBindin
         initZizhi()
         //点击事件
         initListener()
+    }
+
+    private fun initBanner() {
+        val advDatas = advDatas()
+        mBinding?.banner?.setAdapter(BGABanner.Adapter<ImageView, String> { banner, itemView, model, position ->
+            GlideApp.with(this)
+                    .load(model)
+                    .placeholder(R.color.gray_default)
+                    .centerCrop()
+                    .dontAnimate()
+                    .into(itemView)
+        })
+        mBinding?.banner?.setOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+            override fun onPageScrollStateChanged(state: Int) {
+            }
+
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+            }
+
+            override fun onPageSelected(position: Int) {
+                mBinding?.tvBannerNum?.setText((position + 1).toString() + "/" + advDatas.size)
+            }
+
+        })
+        mBinding?.tvBannerNum?.setText("1/" + advDatas.size)
+        mBinding?.banner?.setData(advDatas, null)
+    }
+
+    private fun advDatas(): MutableList<String> {
+        var banners = ArrayList<String>()
+        val banner1 = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1530510861413&di=c9f7439a5a5d4c57435e5eb7f2772817&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F01a0d4582d8320a84a0e282be8a02e.jpg"
+        val banner3 = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1530523369994&di=60f87ef08f23f8dab2b36d5ed57f5dcd&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F01ac39597adf9da8012193a352df31.jpg"
+        val banner2 = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1530510861412&di=c51db760c9ecc789cdae3b334715aef6&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F0161c95690b86032f87574beaa54c2.jpg"
+        banners.add(banner1)
+        banners.add(banner3)
+        banners.add(banner2)
+        banners.add(banner3)
+        return banners
     }
 
     /**
@@ -120,7 +160,7 @@ class GoodsDetailsActivity : BaseActivity<IPresenter, ActivityGoodsDetailsBindin
      */
     private fun measuredDistance() {
         bannerHeight = SizeUtils.getMeasuredHeight(mBinding?.rlBanner)
-        val titleHeight = SizeUtils.getMeasuredHeight(mBinding?.detailTitleContent)-BarUtils.getStatusBarHeight() - SizeUtils.dp2px(30f)
+        val titleHeight = SizeUtils.getMeasuredHeight(mBinding?.detailTitleContent) - BarUtils.getStatusBarHeight() - SizeUtils.dp2px(30f)
         val specHeight = SizeUtils.getMeasuredHeight(mBinding?.detailSpec)
         val groudHeight = SizeUtils.getMeasuredHeight(mBinding?.detailGroup)
         val detailHeight = SizeUtils.getMeasuredHeight(mBinding?.detailDetail)
