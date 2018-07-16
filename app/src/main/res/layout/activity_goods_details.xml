@@ -26,15 +26,15 @@
                     <RelativeLayout
                         android:id="@+id/rl_banner"
                         android:layout_width="match_parent"
-                        android:layout_height="200dp">
+                        android:layout_height="360dp">
 
                         <cn.bingoogolapple.bgabanner.BGABanner
                             android:id="@+id/banner"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            app:banner_isNumberIndicator="true"
                             app:banner_indicatorGravity="right|bottom"
                             app:banner_isNeedShowIndicatorOnOnlyOnePage="true"
+                            app:banner_isNumberIndicator="true"
                             app:banner_pointAutoPlayAble="false"
                             app:banner_pointContainerBackground="@color/tran"
                             app:banner_transitionEffect="defaultEffect" />
@@ -55,6 +55,53 @@
                             android:text="0/0"
                             android:textColor="@color/white"
                             android:textSize="9dp"
+                            android:textStyle="bold" />
+
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginBottom="40dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="48dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="24dp"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="15dp"
+                                android:background="@drawable/background_orange_corners_9999"
+                                android:gravity="center_vertical"
+                                android:lines="1"
+                                android:minWidth="170dp"
+                                android:paddingLeft="21dp"
+                                android:paddingRight="10dp"
+                                android:singleLine="true"
+                                android:text="下单即可获得赠品肾宝糖浆1盒"
+                                android:textColor="@color/white"
+                                android:textSize="11dp" />
+
+                            <ImageView
+                                android:layout_width="33dp"
+                                android:layout_height="37dp"
+                                android:src="@mipmap/detail_notice_icon" />
+
+
+                        </RelativeLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="18dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="84dp"
+                            android:background="@drawable/background_green_stroke_corners_9999"
+                            android:gravity="center"
+                            android:paddingLeft="6dp"
+                            android:paddingRight="6dp"
+                            android:text="OTC"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="11dp"
                             android:textStyle="bold" />
 
                     </RelativeLayout>
@@ -135,22 +182,10 @@
             </com.kzj.mall.widget.ObservableScrollView>
 
 
-            <LinearLayout
+            <com.kzj.mall.widget.GoodsDetailTitleBar
+                android:id="@+id/goods_detail_titlebar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <View
-                    android:id="@+id/top_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp" />
-
-                <com.kzj.mall.widget.GoodsDetailTitleBar
-                    android:id="@+id/goods_detail_titlebar"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-            </LinearLayout>
+                android:layout_height="wrap_content" />
 
         </FrameLayout>
 
@@ -212,28 +247,53 @@
 
                 </LinearLayout>
 
-                <LinearLayout
-                    android:id="@+id/ll_cart"
+                <RelativeLayout
+                    android:id="@+id/rl_cart"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:orientation="vertical">
 
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:src="@mipmap/cart_icon" />
+                    <LinearLayout
+                        android:id="@+id/ll_cart"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@mipmap/cart_icon" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="购物车"
+                            android:textColor="#6A6E75"
+                            android:textSize="10dp" />
+
+                    </LinearLayout>
+
 
                     <TextView
+                        android:id="@+id/tv_cart_num"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="购物车"
-                        android:textColor="#6A6E75"
-                        android:textSize="10dp" />
+                        android:layout_height="14dp"
+                        android:layout_alignParentRight="true"
+                        android:background="@drawable/background_orange_corners_9999"
+                        android:gravity="center"
+                        android:paddingLeft="4dp"
+                        android:paddingRight="4dp"
+                        android:text="19"
+                        android:textColor="@color/white"
+                        android:textSize="9dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="4dp"/>
+                </RelativeLayout>
 
-                </LinearLayout>
             </LinearLayout>
 
             <TextView

@@ -30,10 +30,18 @@ import com.kzj.mall.widget.NoScollWrapViewPager
 import com.kzj.mall.widget.ObservableScrollView
 import com.takusemba.multisnaprecyclerview.MultiSnapRecyclerView
 import cn.bingoogolapple.bgabanner.BGABanner
+import com.kzj.mall.event.BackCartEvent
+import com.kzj.mall.event.BackHomeEvent
+import com.kzj.mall.event.BackMinetEvent
+import com.kzj.mall.event.CloseActivityEvent
+import com.kzj.mall.ui.dialog.DetailMorePop
+import org.greenrobot.eventbus.EventBus
 
 
 class GoodsDetailsActivity : BaseActivity<IPresenter, ActivityGoodsDetailsBinding>(),
-        View.OnClickListener, GoodsDetailDescribeFragment.ChangeHeightListener, GoodsDetailExplainFragment.ChangeHeightListener {
+        View.OnClickListener,
+        GoodsDetailDescribeFragment.ChangeHeightListener,
+        GoodsDetailExplainFragment.ChangeHeightListener {
     private var rvGroup: MultiSnapRecyclerView? = null
     private var goodsDetailGroupAdapter: GoodsDetailGroupAdapter? = null
     private var rlDescribe: RelativeLayout? = null
@@ -62,12 +70,22 @@ class GoodsDetailsActivity : BaseActivity<IPresenter, ActivityGoodsDetailsBindin
     }
 
     override fun initData() {
+        //titlebar
+        initTitleBar()
+        //banner
+        initBanner()
+        //组合
+        initGroupData()
+        //详情
+        initDetail()
+        //资质
+        initZizhi()
+        //点击事件
+        initListener()
+    }
+
+    private fun initTitleBar() {
         mBinding?.goodsDetailTitlebar?.setTabAlpha(0f)
-        var screenWidth = ScreenUtils.getScreenWidth()
-        var params: RelativeLayout.LayoutParams = RelativeLayout.LayoutParams(screenWidth, screenWidth)
-        mBinding?.rlBanner?.layoutParams = params
-
-
         mBinding?.scrollView?.setOnScrollChangedListener(object : ObservableScrollView.OnScrollChangedListener {
             override fun onScrollChanged(who: ScrollView, x: Int, y: Int, oldx: Int, oldy: Int) {
                 val i = y.toFloat() / bannerHeight.toFloat()
@@ -97,19 +115,52 @@ class GoodsDetailsActivity : BaseActivity<IPresenter, ActivityGoodsDetailsBindin
             }
         })
 
-        //banner
-        initBanner()
-        //组合
-        initGroupData()
-        //详情
-        initDetail()
-        //资质
-        initZizhi()
-        //点击事件
-        initListener()
+        mBinding?.goodsDetailTitlebar?.setOnMoreClickListener(object : GoodsDetailTitleBar.OnMoreClickListener {
+            override fun onMoreClick() {
+                showMore()
+            }
+        })
     }
 
+    private fun showMore() {
+        val detailMorePop = DetailMorePop(this)
+        detailMorePop?.setOnItemClickLinstener(object : DetailMorePop.OnItemClickLinstener {
+            override fun onItemClick(p: Int) {
+                when (p) {
+                //消息
+                    DetailMorePop.MSG -> {
+
+                    }
+                //首页
+                    DetailMorePop.HOME -> {
+                        EventBus.getDefault().post(CloseActivityEvent())
+                        EventBus.getDefault().post(BackHomeEvent())
+                    }
+                //购物车
+                    DetailMorePop.CART -> {
+                        EventBus.getDefault().post(CloseActivityEvent())
+                        EventBus.getDefault().post(BackCartEvent())
+                    }
+                //个人中心
+                    DetailMorePop.PERSON -> {
+                        EventBus.getDefault().post(CloseActivityEvent())
+                        EventBus.getDefault().post(BackMinetEvent())
+                    }
+                }
+            }
+        })
+        detailMorePop?.showPopupWindow(mBinding?.goodsDetailTitlebar)
+    }
+
+
+    /**
+     * banner
+     */
     private fun initBanner() {
+        var screenWidth = ScreenUtils.getScreenWidth()
+        var params: RelativeLayout.LayoutParams = RelativeLayout.LayoutParams(screenWidth, screenWidth)
+        mBinding?.rlBanner?.layoutParams = params
+
         val advDatas = advDatas()
         mBinding?.banner?.setAdapter(BGABanner.Adapter<ImageView, String> { banner, itemView, model, position ->
             GlideApp.with(this)
@@ -134,6 +185,7 @@ class GoodsDetailsActivity : BaseActivity<IPresenter, ActivityGoodsDetailsBindin
         mBinding?.tvBannerNum?.setText("1/" + advDatas.size)
         mBinding?.banner?.setData(advDatas, null)
     }
+
 
     private fun advDatas(): MutableList<String> {
         var banners = ArrayList<String>()

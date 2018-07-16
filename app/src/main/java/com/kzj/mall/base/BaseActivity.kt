@@ -12,8 +12,11 @@ import com.gyf.barlibrary.ImmersionBar
 import com.kzj.mall.App
 import com.kzj.mall.R
 import com.kzj.mall.di.component.AppComponent
+import com.kzj.mall.event.CloseActivityEvent
 import com.yatoooon.screenadaptation.ScreenAdapterTools
 import me.yokeyword.fragmentation.SupportActivity
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 import javax.inject.Inject
 
 abstract class BaseActivity<P : IPresenter, D : ViewDataBinding> : SupportActivity() {
@@ -37,12 +40,28 @@ abstract class BaseActivity<P : IPresenter, D : ViewDataBinding> : SupportActivi
         app = application as App
         initImmersionBar()
         setupComponent(app?.getAppComponent())
+        EventBus.getDefault().register(this)
         initData()
     }
 
     abstract fun getLayoutId(): Int
     abstract fun setupComponent(appComponent: AppComponent?)
     abstract fun initData()
+
+    protected open fun enableEventBus(): Boolean {
+        return true
+    }
+
+    protected open fun enableEventBusCloseActivity(): Boolean {
+        return true
+    }
+
+    @Subscribe
+    fun closeActivity(closeActivityEvent: CloseActivityEvent) {
+        if (enableEventBusCloseActivity()) {
+            finish()
+        }
+    }
 
     protected open fun initImmersionBar() {
         mImmersionBar = ImmersionBar.with(this)
@@ -75,6 +94,7 @@ abstract class BaseActivity<P : IPresenter, D : ViewDataBinding> : SupportActivi
         if (::mPresenter.isInitialized) {
             mPresenter.onDestory();
         }
+        EventBus.getDefault().unregister(this)
         super.onDestroy()
     }
 }

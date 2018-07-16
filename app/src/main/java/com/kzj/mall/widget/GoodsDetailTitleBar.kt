@@ -16,6 +16,7 @@ import com.kzj.mall.databinding.TitlebarGoodsDetailBinding
 
 class GoodsDetailTitleBar : BaseRelativeLayout<TitlebarGoodsDetailBinding>, View.OnClickListener {
     private var onTabClickListener: OnTabClickListener? = null
+    private var onMoreClickListener: OnMoreClickListener? = null
 
     constructor(context: Context?) : super(context)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
@@ -37,6 +38,7 @@ class GoodsDetailTitleBar : BaseRelativeLayout<TitlebarGoodsDetailBinding>, View
         mBinding?.tvQuality?.setOnClickListener(this)
         mBinding?.tvQuality?.setOnClickListener(this)
         mBinding?.ivBack?.setOnClickListener(this)
+        mBinding?.ivMore?.setOnClickListener(this)
     }
 
     fun setTabAlpha(alpha: Float) {
@@ -60,6 +62,9 @@ class GoodsDetailTitleBar : BaseRelativeLayout<TitlebarGoodsDetailBinding>, View
             }
             R.id.iv_back->{
                 (context as Activity).finish()
+            }
+            R.id.iv_more->{
+                onMoreClickListener?.onMoreClick()
             }
         }
     }
@@ -95,6 +100,10 @@ class GoodsDetailTitleBar : BaseRelativeLayout<TitlebarGoodsDetailBinding>, View
         this.onTabClickListener = onTabClickListener
     }
 
+    fun setOnMoreClickListener(onMoreClickListener: OnMoreClickListener) {
+        this.onMoreClickListener = onMoreClickListener
+    }
+
     private fun setDefault() {
         mBinding?.tvGoods?.paint?.isFakeBoldText = false
         mBinding?.tvGoods?.setTextColor(Color.parseColor("#2E3033"))
@@ -108,5 +117,9 @@ class GoodsDetailTitleBar : BaseRelativeLayout<TitlebarGoodsDetailBinding>, View
 
     interface OnTabClickListener {
         fun onTabClick(p: Int)
+    }
+
+    interface OnMoreClickListener{
+        fun onMoreClick()
     }
 }
