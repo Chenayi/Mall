@@ -1,10 +1,11 @@
 package com.kzj.mall.ui.fragment.home
 
-import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.View
+import android.view.animation.*
+import com.blankj.utilcode.util.LogUtils
 import com.chad.library.adapter.base.util.ProviderDelegate
-import com.gyf.barlibrary.ImmersionBar
 import com.kzj.mall.R
 import com.kzj.mall.adapter.provider.home.*
 import com.kzj.mall.base.IPresenter
@@ -12,8 +13,7 @@ import com.kzj.mall.entity.home.*
 import com.kzj.mall.utils.LocalDatas
 
 class HomeChildFragment : BaseHomeChildListFragment<IPresenter>() {
-
-    var headerBannerProvider: HeaderBannerProvider? = null
+    private var headerBannerProvider: HeaderBannerProvider? = null
 
     companion object {
         fun newInstance(): HomeChildFragment {
@@ -24,6 +24,8 @@ class HomeChildFragment : BaseHomeChildListFragment<IPresenter>() {
 
     override fun initData() {
         super.initData()
+        mBinding?.ivAsk?.visibility = View.VISIBLE
+
         setListDatas(getNormalMultipleEntities())
 
         mBinding?.rvHome?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -39,8 +41,48 @@ class HomeChildFragment : BaseHomeChildListFragment<IPresenter>() {
                         headerBannerProvider?.pauseBanner()
                     }
                 }
+
+//                recyclerView?.canScrollVertically(1)
+//                recyclerView?.canScrollVertically(-1)
+                //不滚动时
+                if (newState == RecyclerView.SCROLL_STATE_IDLE){
+                    showAskWithAnim()
+                }
+                //拖动中
+                else if (newState == RecyclerView.SCROLL_STATE_DRAGGING ){
+                    hideAskWithAnim()
+                }
             }
         })
+    }
+
+    private fun hideAskWithAnim(){
+        LogUtils.e("隐藏咨询...")
+        val set = AnimationSet(false)
+        val toX = mBinding?.ivAsk?.width!! * 0.67f
+        val shakeAnimaw = TranslateAnimation(0f, toX, 0f, 0f)
+        shakeAnimaw.duration = 200
+        set.fillAfter = true
+        set.addAnimation(shakeAnimaw)
+        mBinding?.ivAsk?.startAnimation(set)
+    }
+
+    fun getDefaultAlphaAnimation(`in`: Boolean): Animation {
+        val alphaAnimation = AlphaAnimation(if (`in`) 0f else 0.5f, if (`in`) 0.5f else 0f)
+        alphaAnimation.duration = 360
+        alphaAnimation.interpolator = AccelerateInterpolator()
+        return alphaAnimation
+    }
+
+    private fun showAskWithAnim(){
+        LogUtils.e("显示咨询...")
+        val set = AnimationSet(false)
+        val fromX = mBinding?.ivAsk?.width!! * 0.67f
+        val shakeAnimaw = TranslateAnimation(fromX, 0f, 0f, 0f)
+        shakeAnimaw.duration = 200
+        set.fillAfter = true
+        set.addAnimation(shakeAnimaw)
+        mBinding?.ivAsk?.startAnimation(set)
     }
 
     override fun onSupportInvisible() {

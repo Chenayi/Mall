@@ -18,6 +18,16 @@
 
         </android.support.v4.widget.SwipeRefreshLayout>
 
+        <ImageView
+            android:id="@+id/iv_ask"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="40dp"
+            android:src="@mipmap/ask_icon"
+            android:visibility="gone" />
+
     </RelativeLayout>
 
 </layout>

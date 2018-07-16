@@ -16,6 +16,7 @@ import com.kzj.mall.databinding.FragmentCartBinding
 import com.kzj.mall.utils.LocalDatas
 import com.kzj.mall.entity.cart.BaseCartEntity
 import com.kzj.mall.ui.activity.ConfirmOrderActivity
+import com.kzj.mall.ui.activity.GoodsDetailsActivity
 import com.kzj.mall.ui.activity.LoginActivity
 import com.kzj.mall.ui.dialog.ConfirmDialog
 
@@ -83,11 +84,11 @@ class CartFragment : BaseFragment<IPresenter, FragmentCartBinding>(), View.OnCli
         cartAdapter?.addData(LocalDatas.cartRecommendDatas())
 
 
-//        cartAdapter?.setOnItemClickListener { adapter, view, position ->
-//            var cartEntity = cartAdapter?.data?.get(position) as BaseCartEntity
-//            cartEntity?.isCheck = !cartEntity?.isCheck
-//            cartAdapter?.notifyItemChanged(position)
-//        }
+        cartAdapter?.setOnItemClickListener { adapter, view, position ->
+            val intent = Intent(context,GoodsDetailsActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
+        }
 
         cartAdapter?.setOnItemChildClickListener { adapter, view, position ->
             when (view.id) {

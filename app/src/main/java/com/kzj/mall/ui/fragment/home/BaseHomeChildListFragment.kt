@@ -12,6 +12,7 @@ import com.kzj.mall.base.IPresenter
 import com.kzj.mall.databinding.FragmentBaseHomeChildListBinding
 import com.kzj.mall.entity.home.HomeRecommendEntity
 import com.kzj.mall.entity.home.IHomeEntity
+import com.kzj.mall.widget.ExpandLoadMoewView
 
 abstract class BaseHomeChildListFragment<P : IPresenter> : BaseFragment<P, FragmentBaseHomeChildListBinding>() {
     private var listAdapter: ListAdapter? = null
@@ -28,6 +29,7 @@ abstract class BaseHomeChildListFragment<P : IPresenter> : BaseFragment<P, Fragm
         layoutManager.recycleChildrenOnDetach = true
         mBinding?.rvHome?.layoutManager = layoutManager
         listAdapter = ListAdapter(ArrayList())
+        listAdapter?.setLoadMoreView(ExpandLoadMoewView())
         mBinding?.rvHome?.adapter = listAdapter
         listAdapter?.setEnableLoadMore(enableLoadMore())
         if (enableLoadMore()) {
