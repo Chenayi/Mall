@@ -1,5 +1,6 @@
 package com.kzj.mall.adapter.provider.cart
 
+import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.widget.ImageView
@@ -10,6 +11,7 @@ import com.kzj.mall.adapter.BaseAdapter
 import com.kzj.mall.adapter.CartAdapter
 import com.kzj.mall.entity.cart.CartGroupEntity
 import com.kzj.mall.entity.cart.ICart
+import com.kzj.mall.ui.activity.GoodsDetailsActivity
 
 class CartGroupProvider: BaseItemProvider<CartGroupEntity,BaseViewHolder>() {
     override fun layout(): Int {
@@ -38,6 +40,11 @@ class CartGroupProvider: BaseItemProvider<CartGroupEntity,BaseViewHolder>() {
         rvGroup?.requestFocus();
         rvGroup?.layoutManager = LinearLayoutManager(mContext)
         val groupAdapter = GroupAdapter(data?.groups!!)
+        groupAdapter?.setOnItemClickListener { adapter, view, position ->
+            val intent = Intent(mContext, GoodsDetailsActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            mContext?.startActivity(intent)
+        }
         rvGroup?.adapter = groupAdapter
     }
 

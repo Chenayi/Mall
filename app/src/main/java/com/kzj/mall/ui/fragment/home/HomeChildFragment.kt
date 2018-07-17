@@ -3,6 +3,7 @@ package com.kzj.mall.ui.fragment.home
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
+import android.view.ViewConfiguration
 import android.view.animation.*
 import com.blankj.utilcode.util.LogUtils
 import com.chad.library.adapter.base.util.ProviderDelegate
@@ -14,6 +15,8 @@ import com.kzj.mall.utils.LocalDatas
 
 class HomeChildFragment : BaseHomeChildListFragment<IPresenter>() {
     private var headerBannerProvider: HeaderBannerProvider? = null
+    private var isAskVisible = true
+    private var distance = 0
 
     companion object {
         fun newInstance(): HomeChildFragment {
@@ -29,6 +32,26 @@ class HomeChildFragment : BaseHomeChildListFragment<IPresenter>() {
         setListDatas(getNormalMultipleEntities())
 
         mBinding?.rvHome?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+
+            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (distance < -ViewConfiguration.get(context).getScaledEdgeSlop() && !isAskVisible) {
+                    //显示
+                    showAskWithAnim();
+                    distance = 0;
+                    isAskVisible = true;
+                } else if (distance > ViewConfiguration.get(context).getScaledEdgeSlop() && isAskVisible) {
+                    //隐藏
+                    hideAskWithAnim();
+                    distance = 0;
+                    isAskVisible = false;
+                }
+                //向下滑并且可见 或者 向上滑并且不可见
+                if ((dy > 0 && isAskVisible) || (dy < 0 && !isAskVisible)) {
+                    distance += dy;
+                }
+            }
+
             override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 val layoutManager = recyclerView?.layoutManager
@@ -41,47 +64,35 @@ class HomeChildFragment : BaseHomeChildListFragment<IPresenter>() {
                         headerBannerProvider?.pauseBanner()
                     }
                 }
-
-//                recyclerView?.canScrollVertically(1)
-//                recyclerView?.canScrollVertically(-1)
-                //不滚动时
-                if (newState == RecyclerView.SCROLL_STATE_IDLE){
-                    showAskWithAnim()
-                }
-                //拖动中
-                else if (newState == RecyclerView.SCROLL_STATE_DRAGGING ){
-                    hideAskWithAnim()
-                }
             }
         })
     }
 
-    private fun hideAskWithAnim(){
-        LogUtils.e("隐藏咨询...")
+    private fun hideAskWithAnim() {
         val set = AnimationSet(false)
-        val toX = mBinding?.ivAsk?.width!! * 0.67f
+        val toX = mBinding?.ivAsk?.width!! * 0.7f
         val shakeAnimaw = TranslateAnimation(0f, toX, 0f, 0f)
-        shakeAnimaw.duration = 200
-        set.fillAfter = true
+        set.duration = 300
         set.addAnimation(shakeAnimaw)
+        set.addAnimation(getDefaultAlphaAnimation(false))
+        set.fillAfter = true
         mBinding?.ivAsk?.startAnimation(set)
     }
 
     fun getDefaultAlphaAnimation(`in`: Boolean): Animation {
-        val alphaAnimation = AlphaAnimation(if (`in`) 0f else 0.5f, if (`in`) 0.5f else 0f)
-        alphaAnimation.duration = 360
+        val alphaAnimation = AlphaAnimation(if (`in`) 0.5f else 1.0f, if (`in`) 1.0f else 0.5f)
         alphaAnimation.interpolator = AccelerateInterpolator()
         return alphaAnimation
     }
 
-    private fun showAskWithAnim(){
-        LogUtils.e("显示咨询...")
+    private fun showAskWithAnim() {
         val set = AnimationSet(false)
-        val fromX = mBinding?.ivAsk?.width!! * 0.67f
+        val fromX = mBinding?.ivAsk?.width!! * 0.7f
         val shakeAnimaw = TranslateAnimation(fromX, 0f, 0f, 0f)
-        shakeAnimaw.duration = 200
-        set.fillAfter = true
+        set.duration = 300
         set.addAnimation(shakeAnimaw)
+        set.addAnimation(getDefaultAlphaAnimation(true))
+        set.fillAfter = true
         mBinding?.ivAsk?.startAnimation(set)
     }
 

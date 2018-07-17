@@ -35,6 +35,7 @@ class HeaderBannerProvider : BaseItemProvider<IHomeEntity, BaseViewHolder> {
     var isInitialized = false
     var headerColor = 0
     var useRoundedCorners = true
+    var bannerPlaying = true
 
     constructor() : this(0, true)
     constructor(headerColor: Int, useRoundedCorners: Boolean) {
@@ -107,11 +108,17 @@ class HeaderBannerProvider : BaseItemProvider<IHomeEntity, BaseViewHolder> {
     }
 
     fun startBanner() {
-        ultraViewPager?.setAutoScroll(3000)
+        if (bannerPlaying == false){
+            ultraViewPager?.setAutoScroll(3000)
+        }
+        bannerPlaying = true
     }
 
     fun pauseBanner() {
-        ultraViewPager?.disableAutoScroll()
+        if (bannerPlaying == true){
+            ultraViewPager?.disableAutoScroll()
+        }
+        bannerPlaying = false
     }
 
     inner class UltraPagerAdapter constructor(val advDatas: MutableList<HomeEntity.AdvBanner>) : PagerAdapter() {
