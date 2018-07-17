@@ -5,7 +5,6 @@ import android.support.v4.app.Fragment
 import android.support.v4.view.ViewPager
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
-import android.view.ViewGroup
 import android.widget.*
 import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.ScreenUtils
@@ -32,7 +31,7 @@ import com.kzj.mall.event.BackCartEvent
 import com.kzj.mall.event.BackHomeEvent
 import com.kzj.mall.event.BackMinetEvent
 import com.kzj.mall.event.CloseActivityEvent
-import com.kzj.mall.helper.AniManager
+import com.kzj.mall.anim.AniManager
 import com.kzj.mall.ui.dialog.DetailMorePop
 import org.greenrobot.eventbus.EventBus
 
@@ -50,16 +49,11 @@ class GoodsDetailsActivity : BaseActivity<IPresenter, ActivityGoodsDetailsBindin
     private var viewDescribe: View? = null
     private var viewExplain: View? = null
     private var vpGoodsDetail: NoScollWrapViewPager? = null
-    private var tvGroupAddCart:TextView?=null
-
-
-    private var cartImageView: ImageView? = null
+    private var tvGroupAddCart: TextView? = null
 
     var detailDistance = 0
     var qualityDistance = 0
     var bannerHeight = 0
-
-    var aniManager: AniManager? = null
 
 
     override fun getLayoutId(): Int {
@@ -87,8 +81,6 @@ class GoodsDetailsActivity : BaseActivity<IPresenter, ActivityGoodsDetailsBindin
         initZizhi()
         //点击事件
         initListener()
-
-        aniManager = AniManager()
     }
 
     private fun initTitleBar() {
@@ -343,20 +335,20 @@ class GoodsDetailsActivity : BaseActivity<IPresenter, ActivityGoodsDetailsBindin
                         .setShowBottom(true)
                         .show(supportFragmentManager)
             }
-            R.id.tv_group_add_cart->{
-                setAddCartAnim(tvGroupAddCart!!,mBinding?.ivCart!!)
+            R.id.tv_group_add_cart -> {
+                setAddCartAnim(true, tvGroupAddCart!!, mBinding?.ivCart!!)
             }
             R.id.tv_add_cart -> {
-                setAddCartAnim(mBinding?.tvAddCart!!,mBinding?.ivCart!!)
+                setAddCartAnim(false, mBinding?.tvAddCart!!, mBinding?.ivCart!!)
             }
         }
     }
 
 
     /**
-     * 购物车动画
+     * 加入购物车动画
      */
-    fun setAddCartAnim(startView: View, endView: View) {
+    fun setAddCartAnim(isGroup: Boolean, startView: View, endView: View) {
 
         // 动画开始的坐标
         val startLocation = IntArray(2)
@@ -367,10 +359,11 @@ class GoodsDetailsActivity : BaseActivity<IPresenter, ActivityGoodsDetailsBindin
         endView?.getLocationInWindow(endLocation)
 
 
-        cartImageView = ImageView(this)
-        cartImageView?.setImageResource(R.mipmap.sign)
-        aniManager?.setAnim(this, cartImageView, startLocation, endLocation)
-        aniManager?.setOnAnimListener(object : AniManager.AnimListener{
+        var cartImageView = ImageView(this)
+        cartImageView?.setImageResource(R.drawable.circle_orange)
+
+        val aniManager = AniManager(this)
+        aniManager?.setOnAnimListener(object : AniManager.AnimListener {
             override fun setAnimBegin(a: AniManager?) {
             }
 
@@ -378,6 +371,11 @@ class GoodsDetailsActivity : BaseActivity<IPresenter, ActivityGoodsDetailsBindin
             }
 
         })
+        if (isGroup) {
+            aniManager?.startGroupCartAnim(cartImageView, startLocation, endLocation)
+        } else {
+            aniManager?.startCartAnim(cartImageView, startView, startLocation, endLocation)
+        }
     }
 
 
