@@ -368,6 +368,8 @@ class GoodsDetailsActivity : BaseActivity<IPresenter, ActivityGoodsDetailsBindin
             }
 
             override fun setAnimEnd(a: AniManager?) {
+                var num = mBinding?.tvCartNum?.text.toString().toInt()
+                mBinding?.tvCartNum?.text = (num + 1).toString()
             }
 
         })

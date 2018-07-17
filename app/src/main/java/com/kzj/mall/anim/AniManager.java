@@ -165,7 +165,7 @@ public class AniManager {
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
                 v.setVisibility(View.GONE);
-                mListener.setAnimBegin(AniManager.this);
+                mListener.setAnimEnd(AniManager.this);
             }
         });
         set.start();
