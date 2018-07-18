@@ -32,7 +32,7 @@ class GoodsDetailExplainFragment : BaseFragment<IPresenter, FragmentGoodsDetailE
 
     override fun initData() {
         val height = SizeUtils.getMeasuredHeight(mBinding?.llRoot)
-        listener?.changeData(1, height)
+        listener?.changeDetailData(1, height)
     }
 
     override fun onDetach() {
@@ -41,6 +41,6 @@ class GoodsDetailExplainFragment : BaseFragment<IPresenter, FragmentGoodsDetailE
     }
 
     interface ChangeHeightListener {
-        fun changeData(position: Int, height: Int)
+        fun changeDetailData(position: Int, height: Int)
     }
 }

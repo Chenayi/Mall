@@ -189,6 +189,7 @@
 
         </FrameLayout>
 
+        <!--底部-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -263,10 +264,10 @@
                         android:orientation="vertical">
 
                         <ImageView
+                            android:id="@+id/iv_cart"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
-                            android:src="@mipmap/cart_icon"
-                            android:id="@+id/iv_cart"/>
+                            android:src="@mipmap/cart_icon" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -284,15 +285,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="14dp"
                         android:layout_alignParentRight="true"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="4dp"
                         android:background="@drawable/background_orange_corners_9999"
                         android:gravity="center"
                         android:paddingLeft="4dp"
                         android:paddingRight="4dp"
                         android:text="19"
                         android:textColor="@color/white"
-                        android:textSize="9dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginTop="4dp"/>
+                        android:textSize="9dp" />
                 </RelativeLayout>
 
             </LinearLayout>
@@ -317,5 +318,7 @@
                 android:textColor="@color/white"
                 android:textStyle="bold" />
         </LinearLayout>
+
+
     </LinearLayout>
 </layout>

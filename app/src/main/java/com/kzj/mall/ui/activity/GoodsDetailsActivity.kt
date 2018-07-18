@@ -116,12 +116,15 @@ class GoodsDetailsActivity : BaseActivity<IPresenter, ActivityGoodsDetailsBindin
 
         mBinding?.goodsDetailTitlebar?.setOnMoreClickListener(object : GoodsDetailTitleBar.OnMoreClickListener {
             override fun onMoreClick() {
-                showMore()
+                showMorePop()
             }
         })
     }
 
-    private fun showMore() {
+    /**
+     * 更多弹窗
+     */
+    private fun showMorePop() {
         val detailMorePop = DetailMorePop(this)
         detailMorePop?.setOnItemClickLinstener(object : DetailMorePop.OnItemClickLinstener {
             override fun onItemClick(p: Int) {
@@ -331,9 +334,7 @@ class GoodsDetailsActivity : BaseActivity<IPresenter, ActivityGoodsDetailsBindin
                 vpGoodsDetail?.setCurrentItem(1, false)
             }
             R.id.detail_spec -> {
-                GoodsSpecDialog.newInstance()
-                        .setShowBottom(true)
-                        .show(supportFragmentManager)
+                showSpecDialog()
             }
             R.id.tv_group_add_cart -> {
                 setAddCartAnim(true, tvGroupAddCart!!, mBinding?.ivCart!!)
@@ -342,6 +343,15 @@ class GoodsDetailsActivity : BaseActivity<IPresenter, ActivityGoodsDetailsBindin
                 setAddCartAnim(false, mBinding?.tvAddCart!!, mBinding?.ivCart!!)
             }
         }
+    }
+
+    /**
+     * 规格弹窗
+     */
+    fun showSpecDialog() {
+        GoodsSpecDialog.newInstance()
+                .setShowBottom(true)
+                .show(supportFragmentManager)
     }
 
 
@@ -381,7 +391,10 @@ class GoodsDetailsActivity : BaseActivity<IPresenter, ActivityGoodsDetailsBindin
     }
 
 
-    override fun changeData(position: Int, height: Int) {
+    /**
+     * 详情 说明 切换
+     */
+    override fun changeDetailData(position: Int, height: Int) {
         vpGoodsDetail?.addHeight(position, height)
         vpGoodsDetail?.resetHeight(position)
         measuredDistance()

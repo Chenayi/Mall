@@ -63,6 +63,9 @@ class SuperFlowLayout : BaseRelativeLayout<SuperFlowLayoutBinding>, View.OnClick
         }
     }
 
+    /**
+     * 选择
+     */
     fun switchTag(position: Int) {
         for (i in 0 until textViews?.size!!) {
             val tv = textViews?.get(i)
@@ -78,6 +81,25 @@ class SuperFlowLayout : BaseRelativeLayout<SuperFlowLayoutBinding>, View.OnClick
 
         onTagClickListener?.onTagClick(position, datas?.get(position))
     }
+
+    /**
+     * 重置
+     */
+    fun reset(){
+        for (i in 0 until textViews?.size!!) {
+            val tv = textViews?.get(i)
+            tv?.setPadding(SizeUtils.dp2px(12f), SizeUtils.dp2px(8f), SizeUtils.dp2px(12f), SizeUtils.dp2px(8f))
+            if (i==0) {
+                tv?.setBackgroundResource(R.drawable.background_green_stroke_corners_9999)
+                tv?.setTextColor(Color.parseColor("#48B828"))
+            } else {
+                tv?.setBackgroundResource(R.drawable.background_f0_corners_9999)
+                tv?.setTextColor(Color.parseColor("#2E3033"))
+            }
+        }
+        curPosition = 0
+    }
+
 
     fun setOnTagClickListener(onTagClickListener: OnTagClickListener) {
         this.onTagClickListener = onTagClickListener

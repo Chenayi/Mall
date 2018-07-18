@@ -1,5 +1,6 @@
 package com.kzj.mall.ui.dialog
 
+import android.view.View
 import com.blankj.utilcode.util.ScreenUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.kzj.mall.R
@@ -10,8 +11,7 @@ import com.kzj.mall.di.component.AppComponent
 import com.kzj.mall.widget.SuperFlowLayout
 
 
-class GoodsSpecDialog : BaseDialog<IPresenter, DialogGoodsSpecBinding>() {
-    var tags: MutableList<String> = ArrayList()
+class GoodsSpecDialog : BaseDialog<IPresenter, DialogGoodsSpecBinding>(), View.OnClickListener {
 
     companion object {
         fun newInstance(): GoodsSpecDialog {
@@ -24,15 +24,28 @@ class GoodsSpecDialog : BaseDialog<IPresenter, DialogGoodsSpecBinding>() {
         mBinding?.rlRoot?.layoutParams?.height = (ScreenUtils.getScreenHeight() * 0.65f).toInt()
 
 
-        tags.clear()
-        tags.addAll(specTags())
-        mBinding?.sfl?.setDatas(tags)
-        mBinding?.sfl?.switchTag(0)
-        mBinding?.sfl?.setOnTagClickListener(object : SuperFlowLayout.OnTagClickListener {
+        val tags = specTags()
+        mBinding?.sflGoodsSpec?.setDatas(tags)
+        mBinding?.sflGoodsSpec?.switchTag(0)
+        mBinding?.sflGoodsSpec?.setOnTagClickListener(object : SuperFlowLayout.OnTagClickListener {
             override fun onTagClick(position: Int, tag: String?) {
-                ToastUtils.showShort(position.toString() + " , " + tag)
+                mBinding?.sflGoodsGroup?.reset()
             }
         })
+
+
+        val groups = goodsgroup()
+        mBinding?.sflGoodsGroup?.setDatas(groups)
+        mBinding?.sflGoodsGroup?.switchTag(0)
+        mBinding?.sflGoodsGroup?.setOnTagClickListener(object : SuperFlowLayout.OnTagClickListener {
+            override fun onTagClick(position: Int, tag: String?) {
+
+            }
+        })
+
+
+        mBinding?.ivPlus?.setOnClickListener(this)
+        mBinding?.ivMinus?.setOnClickListener(this)
     }
 
 
@@ -43,6 +56,14 @@ class GoodsSpecDialog : BaseDialog<IPresenter, DialogGoodsSpecBinding>() {
         return specTags
     }
 
+    private fun goodsgroup(): MutableList<String> {
+        val goodsgroup = ArrayList<String>()
+        goodsgroup.add("一盒标准装")
+        goodsgroup.add("2盒起288元/盒")
+        goodsgroup.add("4盒起278元/盒")
+        return goodsgroup
+    }
+
     override fun setUpComponent(appComponent: AppComponent?) {
     }
 
@@ -50,4 +71,35 @@ class GoodsSpecDialog : BaseDialog<IPresenter, DialogGoodsSpecBinding>() {
         return R.layout.dialog_goods_spec
     }
 
+
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            R.id.iv_plus -> plus()
+            R.id.iv_minus -> minus()
+        }
+    }
+
+    /**
+     * 数量 -
+     */
+    private fun minus() {
+        var num = mBinding?.tvNum?.text?.toString()?.toInt()
+        num?.let {
+            if (it > 1) {
+                mBinding?.tvNum?.text = (it - 1).toString()
+            }
+        }
+    }
+
+    /**
+     * 数量 +
+     */
+    private fun plus() {
+        var num = mBinding?.tvNum?.text?.toString()?.toInt()
+        num?.let {
+            if (it < 9999) {
+                mBinding?.tvNum?.text = (it + 1).toString()
+            }
+        }
+    }
 }
