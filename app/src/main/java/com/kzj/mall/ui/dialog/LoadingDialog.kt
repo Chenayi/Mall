@@ -13,16 +13,12 @@ class LoadingDialog  :Dialog {
     constructor(context: Context?) : super(context)
     constructor(context: Context?, themeResId: Int) : super(context, themeResId)
 
-    inner class Builder{
-        private var context: Context? = null
+    class Builder(val context: Context){
         private var message: String? = null
         private var isShowMessage = true
         private var isCancelable = false
         private var isCancelOutside = false
 
-        constructor(context: Context) {
-            this.context = context
-        }
 
         /**
          * 设置提示信息
