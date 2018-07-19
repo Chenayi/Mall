@@ -64,9 +64,9 @@ abstract class BasePresenter<M : IModel, V : IView>(val model: M?, val view: V?,
                 })
     }
 
-    abstract fun updateSecond(second: Int)
+    open fun updateSecond(second: Int){}
 
-    abstract fun close()
+    open fun close(){}
 
     override fun onDestory() {
         disposable()

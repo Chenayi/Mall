@@ -8,6 +8,7 @@ import com.kzj.mall.base.BaseActivity
 import com.kzj.mall.base.IPresenter
 import com.kzj.mall.databinding.ActivityLoginBinding
 import com.kzj.mall.di.component.AppComponent
+import com.kzj.mall.widget.RootLayout
 
 class LoginActivity : BaseActivity<IPresenter, ActivityLoginBinding>(), View.OnClickListener {
     override fun getLayoutId(): Int {
@@ -19,6 +20,10 @@ class LoginActivity : BaseActivity<IPresenter, ActivityLoginBinding>(), View.OnC
 
     override fun initData() {
         mBinding?.tvLogin?.setOnClickListener(this)
+        RootLayout.getInstance(this)
+                .setOnRightOnClickListener {
+                    jumpActivity(RegisterActivity().javaClass)
+                }
     }
 
     override fun onClick(v: View?) {

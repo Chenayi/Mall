@@ -13,6 +13,7 @@ import com.kzj.mall.App
 import com.kzj.mall.R
 import com.kzj.mall.di.component.AppComponent
 import com.kzj.mall.event.CloseActivityEvent
+import com.kzj.mall.ui.dialog.LoadingDialog
 import com.yatoooon.screenadaptation.ScreenAdapterTools
 import me.yokeyword.fragmentation.SupportActivity
 import org.greenrobot.eventbus.EventBus
@@ -29,7 +30,9 @@ abstract class BaseActivity<P : IPresenter, D : ViewDataBinding> : SupportActivi
 
     protected var mContext: Context? = null
 
-    var mImmersionBar: ImmersionBar? = null
+    protected var mImmersionBar: ImmersionBar? = null
+
+    protected var mLoadingDialog: LoadingDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,13 +75,29 @@ abstract class BaseActivity<P : IPresenter, D : ViewDataBinding> : SupportActivi
                 ?.init()
     }
 
-    protected fun keyboardEnable(): Boolean {
+    protected open fun keyboardEnable(): Boolean {
         return false
     }
 
 
-    protected fun getKeyboardMode(): Int {
+    protected open fun getKeyboardMode(): Int {
         return WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN
+    }
+
+    protected fun showLoadingDialog() {
+        if (mLoadingDialog == null) {
+            mLoadingDialog = LoadingDialog(this)
+                    .Builder(this)
+                    .setCancelOutside(false)
+                    .setBackCancelable(false)
+                    .setShowMessage(false)
+                    .create()
+        }
+        mLoadingDialog?.show()
+    }
+
+    protected fun dismissLoadingDialog() {
+        mLoadingDialog?.dismiss()
     }
 
     fun jumpActivity(cls: Class<Any>) {

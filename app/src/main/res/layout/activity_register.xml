@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.kzj.mall.widget.RootLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:titleBarTitle="注册">
+
+
+        <EditText
+            android:id="@+id/et_phone"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:hint="输入手机号"
+            android:textSize="14dp" />
+
+        <EditText
+            android:id="@+id/et_code"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:hint="输入验证码"
+            android:textSize="14dp" />
+
+        <Button
+            android:id="@+id/btn_request_code"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="获取验证码" />
+
+    </com.kzj.mall.widget.RootLayout>
+
+</layout>

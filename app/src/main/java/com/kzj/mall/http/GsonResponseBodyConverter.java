@@ -26,7 +26,7 @@ public class GsonResponseBodyConverter<T> implements Converter<ResponseBody, T> 
         String response = value.string();
         ResultResponse resultResponse = gson.fromJson(response, ResultResponse.class);
         //成功
-        if (resultResponse.code == 200) {
+        if (resultResponse.code == 1) {
             return gson.fromJson(response, type);
         }
         throw new ResultException(resultResponse.code, resultResponse.message);

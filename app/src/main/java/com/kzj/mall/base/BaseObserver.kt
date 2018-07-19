@@ -1,22 +1,42 @@
 package com.kzj.mall.base
 
+import com.kzj.mall.entity.BaseResponse
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
 
-class BaseObserver<T> : Observer<BaseObserver<T>> {
+abstract class BaseObserver<T> : Observer<BaseResponse<T>> {
     override fun onComplete() {
-
+        onHandleAfter()
     }
 
-    override fun onSubscribe(d: Disposable) {
+    override abstract fun onSubscribe(d: Disposable)
 
-    }
-
-    override fun onNext(t: BaseObserver<T>) {
-
+    override fun onNext(t: BaseResponse<T>) {
+        onHandleSuccess(t.data)
     }
 
     override fun onError(e: Throwable) {
-
+        onHandleError(-1,e?.message)
+        onHandleAfter()
     }
+
+    /**
+     * 成功回调
+     *
+     * @param t
+     */
+    protected abstract fun onHandleSuccess(t: T?)
+
+    /**
+     * 失败回调
+     *
+     * @param code
+     * @param msg
+     */
+    protected abstract fun onHandleError(code: Int, msg: String?)
+
+    /**
+     * 成功或失败处理完后的回调
+     */
+    protected abstract fun onHandleAfter()
 }
