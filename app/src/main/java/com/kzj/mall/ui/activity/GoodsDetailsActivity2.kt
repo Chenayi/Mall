@@ -17,7 +17,6 @@ import com.kzj.mall.adapter.CommomViewPagerAdapter
 import com.kzj.mall.adapter.GoodsDetailGroupAdapter
 import com.kzj.mall.base.BaseActivity
 import com.kzj.mall.base.IPresenter
-import com.kzj.mall.databinding.ActivityGoodsDetailsBinding
 import com.kzj.mall.di.component.AppComponent
 import com.kzj.mall.ui.dialog.GoodsSpecDialog
 import com.kzj.mall.utils.LocalDatas
@@ -33,11 +32,12 @@ import com.kzj.mall.event.BackHomeEvent
 import com.kzj.mall.event.BackMinetEvent
 import com.kzj.mall.event.CloseActivityEvent
 import com.kzj.mall.anim.AniManager
+import com.kzj.mall.databinding.ActivityGoodsDetails2Binding
 import com.kzj.mall.ui.dialog.DetailMorePop
 import org.greenrobot.eventbus.EventBus
 
 
-class GoodsDetailsActivity : BaseActivity<IPresenter, ActivityGoodsDetailsBinding>(),
+class GoodsDetailsActivity2 : BaseActivity<IPresenter, ActivityGoodsDetails2Binding>(),
         View.OnClickListener,
         GoodsDetailDescribeFragment.ChangeHeightListener,
         GoodsDetailExplainFragment.ChangeHeightListener {
@@ -58,7 +58,7 @@ class GoodsDetailsActivity : BaseActivity<IPresenter, ActivityGoodsDetailsBindin
 
 
     override fun getLayoutId(): Int {
-        return R.layout.activity_goods_details
+        return R.layout.activity_goods_details2
     }
 
     override fun setupComponent(appComponent: AppComponent?) {

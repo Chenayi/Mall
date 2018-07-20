@@ -16,7 +16,7 @@ import com.kzj.mall.databinding.FragmentCartBinding
 import com.kzj.mall.utils.LocalDatas
 import com.kzj.mall.entity.cart.BaseCartEntity
 import com.kzj.mall.ui.activity.ConfirmOrderActivity
-import com.kzj.mall.ui.activity.GoodsDetailsActivity
+import com.kzj.mall.ui.activity.GoodsDetailsActivity2
 import com.kzj.mall.ui.activity.LoginActivity
 import com.kzj.mall.ui.dialog.ConfirmDialog
 
@@ -85,7 +85,7 @@ class CartFragment : BaseFragment<IPresenter, FragmentCartBinding>(), View.OnCli
 
 
         cartAdapter?.setOnItemClickListener { adapter, view, position ->
-            val intent = Intent(context,GoodsDetailsActivity::class.java)
+            val intent = Intent(context,GoodsDetailsActivity2::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
         }

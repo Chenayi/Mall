@@ -8,10 +8,9 @@ import com.chad.library.adapter.base.BaseViewHolder
 import com.chad.library.adapter.base.provider.BaseItemProvider
 import com.kzj.mall.R
 import com.kzj.mall.adapter.BaseAdapter
-import com.kzj.mall.adapter.CartAdapter
 import com.kzj.mall.entity.cart.CartGroupEntity
 import com.kzj.mall.entity.cart.ICart
-import com.kzj.mall.ui.activity.GoodsDetailsActivity
+import com.kzj.mall.ui.activity.GoodsDetailsActivity2
 
 class CartGroupProvider: BaseItemProvider<CartGroupEntity,BaseViewHolder>() {
     override fun layout(): Int {
@@ -41,7 +40,7 @@ class CartGroupProvider: BaseItemProvider<CartGroupEntity,BaseViewHolder>() {
         rvGroup?.layoutManager = LinearLayoutManager(mContext)
         val groupAdapter = GroupAdapter(data?.groups!!)
         groupAdapter?.setOnItemClickListener { adapter, view, position ->
-            val intent = Intent(mContext, GoodsDetailsActivity::class.java)
+            val intent = Intent(mContext, GoodsDetailsActivity2::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             mContext?.startActivity(intent)
         }

@@ -13,7 +13,7 @@ import com.blankj.utilcode.util.SizeUtils
 import com.kzj.mall.adapter.BaseAdapter
 import com.kzj.mall.entity.home.HomeFlashSaleEntity
 import com.kzj.mall.entity.home.IHomeEntity
-import com.kzj.mall.ui.activity.GoodsDetailsActivity
+import com.kzj.mall.ui.activity.GoodsDetailsActivity2
 import com.takusemba.multisnaprecyclerview.MultiSnapRecyclerView
 import com.takusemba.multisnaprecyclerview.OnSnapListener
 
@@ -48,7 +48,7 @@ class HomeFlashSaleProvider : BaseItemProvider<HomeFlashSaleEntity, BaseViewHold
                 }
             })
             adapter.setOnItemClickListener { adapter, view, position ->
-                var intent = Intent(mContext, GoodsDetailsActivity::class.java)
+                var intent = Intent(mContext, GoodsDetailsActivity2::class.java)
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 mContext.startActivity(intent)
             }

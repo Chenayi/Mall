@@ -42,7 +42,7 @@
         </activity>
 
         <activity android:name=".ui.activity.MainActivity" />
-        <activity android:name=".ui.activity.GoodsDetailsActivity" />
+        <activity android:name=".ui.activity.GoodsDetailsActivity2" />
         <activity
             android:name=".ui.activity.ConfirmOrderActivity"
             android:windowSoftInputMode="adjustPan" />
@@ -51,6 +51,7 @@
         <activity android:name=".ui.activity.OrderGoodsListActivity" />
         <activity android:name=".ui.activity.LoginActivity" />
         <activity android:name=".ui.activity.RegisterActivity" />
+        <activity android:name=".ui.activity.GoodsDetailActivity" />
     </application>
 
 </manifest>
