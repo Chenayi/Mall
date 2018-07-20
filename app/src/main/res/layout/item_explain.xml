@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:minHeight="34dp"
+            android:padding="10dp"
+            android:text="药名名称"
+            android:textColor="#8A9099"
+            android:textSize="12dp" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#C2C6CC" />
+
+
+        <TextView
+            android:id="@+id/tv_content"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:minHeight="34dp"
+            android:padding="10dp"
+            android:text="金戈 枸橼酸西地那非片"
+            android:textColor="#2E3033"
+            android:textSize="12dp" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#C2C6CC" />
+</LinearLayout>

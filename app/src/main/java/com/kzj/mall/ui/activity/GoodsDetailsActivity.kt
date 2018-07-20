@@ -3,6 +3,7 @@ package com.kzj.mall.ui.activity
 import android.graphics.Color
 import android.support.v4.app.Fragment
 import android.support.v4.view.ViewPager
+import android.support.v4.widget.NestedScrollView
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.*
@@ -86,7 +87,7 @@ class GoodsDetailsActivity : BaseActivity<IPresenter, ActivityGoodsDetailsBindin
     private fun initTitleBar() {
         mBinding?.goodsDetailTitlebar?.setTabAlpha(0f)
         mBinding?.scrollView?.setOnScrollChangedListener(object : ObservableScrollView.OnScrollChangedListener {
-            override fun onScrollChanged(who: ScrollView, x: Int, y: Int, oldx: Int, oldy: Int) {
+            override fun onScrollChanged(who: NestedScrollView, x: Int, y: Int, oldx: Int, oldy: Int) {
                 val i = y.toFloat() / bannerHeight.toFloat()
                 mImmersionBar
                         ?.statusBarDarkFont(i > 0.5f, 0.5f)
@@ -255,7 +256,7 @@ class GoodsDetailsActivity : BaseActivity<IPresenter, ActivityGoodsDetailsBindin
 
         var fragments = ArrayList<Fragment>()
         fragments.add(GoodsDetailDescribeFragment.newInstance())
-        fragments.add(GoodsDetailExplainFragment.newInstance())
+        fragments.add(GoodsDetailExplainFragment.newInstance(LocalDatas.explainDatas()))
         var adapter = CommomViewPagerAdapter(supportFragmentManager, fragments)
         vpGoodsDetail?.adapter = adapter
 

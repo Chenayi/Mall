@@ -337,5 +337,48 @@ class LocalDatas {
             goodsGroupEntity.groups = groups
             return goodsGroupEntity
         }
+
+        fun explainDatas(): MutableList<GoodsDetailEntity.Explain> {
+            val explainDatas = ArrayList<GoodsDetailEntity.Explain>()
+            for (i in 0 until 9) {
+                val explain = GoodsDetailEntity().Explain()
+                when (i) {
+                    0 -> {
+                        explain.title = "药品名称"
+                        explain.content = "金戈 枸橼酸西地那非片"
+                    }
+                    1 -> {
+                        explain.title = "商品编码"
+                        explain.content = "10803050"
+                    }
+                    2 -> {
+                        explain.title = "生产厂家"
+                        explain.content = "广州白云山制药股份有限公司广州白云山制药总厂"
+                    }
+                    3 -> {
+                        explain.title = "适应症/功能主治"
+                        explain.content = "金戈 枸橼酸西地那非适用于治疗勃起功能障碍"
+                    }
+                    4 -> {
+                        explain.title = "成分"
+                        explain.content = "枸橼酸西地那非片"
+                    }
+                    5 -> {
+                        explain.title = "药品性状"
+                        explain.content = "本品为薄膜衣片，除去包衣后显白色至类白色。"
+                    }
+                    6 -> {
+                        explain.title = "药理毒理"
+                        explain.content = "本品是治疗勃起功能障碍的口服药物。它是西地那非的枸橼酸盐，一种环磷酸鸟苷（cGMP）特异的5 型磷酸二酯酶（PDE5）的选择性抑制剂。"
+                    }
+                    else ->{
+                        explain.title = "药品性状"
+                        explain.content = "本品为薄膜衣片，除去包衣后显白色至类白色。"
+                    }
+                }
+                explainDatas.add(explain)
+            }
+            return explainDatas
+        }
     }
 }
