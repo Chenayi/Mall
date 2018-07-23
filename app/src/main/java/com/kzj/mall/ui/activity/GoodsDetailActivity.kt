@@ -19,6 +19,7 @@ import com.kzj.mall.ui.fragment.GoodsDetailFragment
 import com.kzj.mall.ui.fragment.GoodsInfoFragment
 import com.kzj.mall.ui.fragment.GoodsZizhiFragment
 import com.kzj.mall.widget.GoodsDetailTitleBar
+import com.kzj.mall.widget.SlideDetailsLayout
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 
@@ -66,6 +67,13 @@ class GoodsDetailActivity : BaseActivity<IPresenter, ActivityGoodsDetailsBinding
         mImmersionBar
                 ?.statusBarDarkFont(scrollChangedEvent.alpha > 0.5f, 0.5f)
                 ?.init();
+        if (scrollChangedEvent?.status == SlideDetailsLayout.Status.OPEN) {
+            mBinding?.vpGoodsDetail?.setNoScroll(true)
+            mBinding?.goodsDetailBar?.titleSwitch(true)
+        } else if (scrollChangedEvent?.status == SlideDetailsLayout.Status.CLOSE) {
+            mBinding?.vpGoodsDetail?.setNoScroll(false)
+            mBinding?.goodsDetailBar?.titleSwitch(false)
+        }
     }
 
     @Subscribe
@@ -141,7 +149,7 @@ class GoodsDetailActivity : BaseActivity<IPresenter, ActivityGoodsDetailsBinding
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.tv_add_cart -> {
-                startAddCartAnim(false,mBinding?.tvAddCart!!,mBinding?.ivCart!!)
+                startAddCartAnim(false, mBinding?.tvAddCart!!, mBinding?.ivCart!!)
             }
         }
     }

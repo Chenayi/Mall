@@ -6,10 +6,7 @@ import android.support.v4.view.ViewPager
 import android.support.v4.widget.NestedScrollView
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.RelativeLayout
-import android.widget.TextView
+import android.widget.*
 import cn.bingoogolapple.bgabanner.BGABanner
 import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.LogUtils
@@ -31,7 +28,6 @@ import com.takusemba.multisnaprecyclerview.MultiSnapRecyclerView
 import org.greenrobot.eventbus.EventBus
 
 class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), View.OnClickListener {
-    private var llItemTabRoot: LinearLayout? = null
     private var tvGroupAddCart: TextView? = null
     private var goodsDetailGroupAdapter: GoodsDetailGroupAdapter? = null
     private var rvGroup: MultiSnapRecyclerView? = null
@@ -57,13 +53,11 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
     override fun initData() {
         arguments?.getInt("barHeight")?.let {
             barHeight = it
-            LogUtils.e("barHeight ===> " + it)
         }
 
-        llItemTabRoot = view?.findViewById(R.id.ll_item_tab_root)
-        val layoutParams = llItemTabRoot?.layoutParams as LinearLayout.LayoutParams
+        val layoutParams = mBinding?.flContent?.layoutParams as FrameLayout.LayoutParams
         layoutParams.topMargin = barHeight
-        llItemTabRoot?.requestLayout()
+        mBinding?.flContent?.requestLayout()
 
         //banner
         initBanner()
@@ -73,9 +67,13 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
         mBinding?.slideDetailsLayout?.setOnSlideDetailsListener(object : SlideDetailsLayout.OnSlideDetailsListener {
             override fun onStatucChanged(status: SlideDetailsLayout.Status?) {
                 if (status == SlideDetailsLayout.Status.CLOSE) {
-                    EventBus.getDefault().post(ScrollChangedEvent(alpha))
+                    EventBus.getDefault().post(ScrollChangedEvent(status, alpha))
+                    mBinding?.ivArrow?.setImageResource(R.mipmap.up)
+                    mBinding?.tvDetailTips?.text = "上拉查看图文详情"
                 } else if (status == SlideDetailsLayout.Status.OPEN) {
-                    EventBus.getDefault().post(ScrollChangedEvent(1.0f))
+                    EventBus.getDefault().post(ScrollChangedEvent(status, 1.0f))
+                    mBinding?.ivArrow?.setImageResource(R.mipmap.down)
+                    mBinding?.tvDetailTips?.text = "下拉收起图文详情"
                 }
             }
         })
@@ -84,7 +82,7 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
             override fun onScrollChanged(who: NestedScrollView, x: Int, y: Int, oldx: Int, oldy: Int) {
                 val i = y.toFloat() / bannerHeight.toFloat()
                 alpha = if (i < 1f) i else 1f
-                EventBus.getDefault().post(ScrollChangedEvent(alpha))
+                EventBus.getDefault().post(ScrollChangedEvent(SlideDetailsLayout.Status.CLOSE, alpha))
             }
         })
 

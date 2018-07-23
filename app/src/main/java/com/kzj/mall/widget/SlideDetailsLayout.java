@@ -582,4 +582,8 @@ public class SlideDetailsLayout extends ViewGroup {
                     }
                 };
     }
+
+    public Status getStatus() {
+        return mStatus;
+    }
 }

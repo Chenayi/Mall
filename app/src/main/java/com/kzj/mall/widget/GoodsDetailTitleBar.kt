@@ -40,7 +40,7 @@ class GoodsDetailTitleBar : BaseRelativeLayout<TitlebarGoodsDetailBinding>, View
         mBinding?.topView?.requestLayout()
     }
 
-    fun setVp(viewPager: ViewPager?){
+    fun setVp(viewPager: ViewPager?) {
         var commonNavigator = CommonNavigator(context)
         commonNavigator.adapter = object : CommonNavigatorAdapter() {
             override fun getTitleView(p0: Context?, index: Int): IPagerTitleView {
@@ -74,7 +74,7 @@ class GoodsDetailTitleBar : BaseRelativeLayout<TitlebarGoodsDetailBinding>, View
         }
 
         mBinding?.magicIndicator?.navigator = commonNavigator
-        ViewPagerHelper.bind(mBinding?.magicIndicator,viewPager);
+        ViewPagerHelper.bind(mBinding?.magicIndicator, viewPager);
     }
 
     fun setTabAlpha(alpha: Float) {
@@ -90,6 +90,16 @@ class GoodsDetailTitleBar : BaseRelativeLayout<TitlebarGoodsDetailBinding>, View
             R.id.iv_more -> {
                 onMoreClickListener?.onMoreClick()
             }
+        }
+    }
+
+    fun titleSwitch(isShowDetail: Boolean) {
+        if (isShowDetail == true) {
+            mBinding?.magicIndicator?.visibility = View.INVISIBLE
+            mBinding?.tvTitleDetail?.visibility = View.VISIBLE
+        } else {
+            mBinding?.magicIndicator?.visibility = View.VISIBLE
+            mBinding?.tvTitleDetail?.visibility = View.INVISIBLE
         }
     }
 
