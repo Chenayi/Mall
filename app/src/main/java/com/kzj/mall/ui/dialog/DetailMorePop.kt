@@ -1,6 +1,7 @@
 package com.kzj.mall.ui.dialog
 
 import android.app.Activity
+import android.content.Context
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationSet
@@ -9,7 +10,7 @@ import android.widget.LinearLayout
 import com.kzj.mall.R
 import razerdp.basepopup.BasePopupWindow
 
-class DetailMorePop constructor(val context: Activity) : BasePopupWindow(context), View.OnClickListener {
+class DetailMorePop constructor(val mContext: Context) : BasePopupWindow(mContext), View.OnClickListener {
 
     companion object {
         val MSG = 0

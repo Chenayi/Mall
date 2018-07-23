@@ -46,6 +46,7 @@ class GoodsSpecDialog : BaseDialog<IPresenter, DialogGoodsSpecBinding>(), View.O
 
         mBinding?.ivPlus?.setOnClickListener(this)
         mBinding?.ivMinus?.setOnClickListener(this)
+        mBinding?.ivClose?.setOnClickListener(this)
     }
 
 
@@ -76,6 +77,7 @@ class GoodsSpecDialog : BaseDialog<IPresenter, DialogGoodsSpecBinding>(), View.O
         when (v?.id) {
             R.id.iv_plus -> plus()
             R.id.iv_minus -> minus()
+            R.id.iv_close -> dismiss()
         }
     }
 
