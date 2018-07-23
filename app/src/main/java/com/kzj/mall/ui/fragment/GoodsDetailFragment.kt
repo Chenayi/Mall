@@ -1,6 +1,6 @@
 package com.kzj.mall.ui.fragment
 
-import android.support.v4.app.Fragment
+import com.blankj.utilcode.util.LogUtils
 import com.kzj.mall.R
 import com.kzj.mall.base.BaseFragment
 import com.kzj.mall.base.IPresenter
@@ -9,7 +9,7 @@ import com.kzj.mall.databinding.FragmentGoodsDetailBinding
 class GoodsDetailFragment : BaseFragment<IPresenter, FragmentGoodsDetailBinding>() {
 
     companion object {
-        fun newInstance(): Fragment {
+        fun newInstance(): GoodsDetailFragment {
             val goodsDetailFragment = GoodsDetailFragment()
             return goodsDetailFragment
         }
@@ -20,5 +20,7 @@ class GoodsDetailFragment : BaseFragment<IPresenter, FragmentGoodsDetailBinding>
     }
 
     override fun initData() {
+
+        LogUtils.e("initData ... ")
     }
 }

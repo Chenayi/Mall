@@ -25,6 +25,7 @@ import com.kzj.mall.utils.LocalDatas
 import com.kzj.mall.widget.ObservableScrollView
 import com.kzj.mall.widget.SlideDetailsLayout
 import com.takusemba.multisnaprecyclerview.MultiSnapRecyclerView
+import me.yokeyword.fragmentation.ISupportFragment
 import org.greenrobot.eventbus.EventBus
 
 class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), View.OnClickListener {
@@ -33,8 +34,9 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
     private var rvGroup: MultiSnapRecyclerView? = null
 
     private var barHeight = 0
-    var bannerHeight = 0
-    var alpha = 0.0f
+    private var bannerHeight = 0
+    private var alpha = 0.0f
+    private var isLoadDetailFragment = false
 
     companion object {
         fun newInstance(barHeight: Int): Fragment {
@@ -74,6 +76,11 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
                     EventBus.getDefault().post(ScrollChangedEvent(status, 1.0f))
                     mBinding?.ivArrow?.setImageResource(R.mipmap.down)
                     mBinding?.tvDetailTips?.text = "下拉收起图文详情"
+
+                    if (!isLoadDetailFragment) {
+                        loadRootFragment(R.id.fl_content, GoodsDetailFragment.newInstance())
+                        isLoadDetailFragment = true
+                    }
                 }
             }
         })
