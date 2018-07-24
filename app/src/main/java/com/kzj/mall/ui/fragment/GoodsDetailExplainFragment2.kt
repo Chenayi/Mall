@@ -5,25 +5,25 @@ import com.kzj.mall.R
 import com.kzj.mall.adapter.ExplainAdapter
 import com.kzj.mall.base.BaseFragment
 import com.kzj.mall.base.IPresenter
-import com.kzj.mall.databinding.FragmentGoodsDetailExplainBinding
+import com.kzj.mall.databinding.FragmentGoodsDetailExplain2Binding
 import com.kzj.mall.entity.GoodsDetailEntity
 import java.io.Serializable
 
 /**
  * 说明书
  */
-class GoodsDetailExplainFragment : BaseFragment<IPresenter, FragmentGoodsDetailExplainBinding>() {
+class GoodsDetailExplainFragment2 : BaseFragment<IPresenter, FragmentGoodsDetailExplain2Binding>() {
     private var explains: MutableList<GoodsDetailEntity.Explain>? = null
     private var explainAdapter: ExplainAdapter? = null
 
     companion object {
-        fun newInstance(): GoodsDetailExplainFragment {
-            val goodsDetailExplainBinding = GoodsDetailExplainFragment()
+        fun newInstance(): GoodsDetailExplainFragment2 {
+            val goodsDetailExplainBinding = GoodsDetailExplainFragment2()
             return goodsDetailExplainBinding
         }
 
-        fun newInstance(explains: MutableList<GoodsDetailEntity.Explain>): GoodsDetailExplainFragment {
-            val goodsDetailExplainBinding = GoodsDetailExplainFragment()
+        fun newInstance(explains: MutableList<GoodsDetailEntity.Explain>): GoodsDetailExplainFragment2 {
+            val goodsDetailExplainBinding = GoodsDetailExplainFragment2()
             val arguments = Bundle()
             arguments.putSerializable("explains", explains as Serializable)
             goodsDetailExplainBinding?.arguments = arguments
@@ -33,7 +33,7 @@ class GoodsDetailExplainFragment : BaseFragment<IPresenter, FragmentGoodsDetailE
 
 
     override fun getLayoutId(): Int {
-        return R.layout.fragment_goods_detail_explain
+        return R.layout.fragment_goods_detail_explain2
     }
 
     override fun initData() {

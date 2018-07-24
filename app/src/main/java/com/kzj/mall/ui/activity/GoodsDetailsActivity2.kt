@@ -38,9 +38,7 @@ import org.greenrobot.eventbus.EventBus
 
 
 class GoodsDetailsActivity2 : BaseActivity<IPresenter, ActivityGoodsDetails2Binding>(),
-        View.OnClickListener,
-        GoodsDetailDescribeFragment.ChangeHeightListener,
-        GoodsDetailExplainFragment.ChangeHeightListener {
+        View.OnClickListener {
     private var rvGroup: MultiSnapRecyclerView? = null
     private var goodsDetailGroupAdapter: GoodsDetailGroupAdapter? = null
     private var rlDescribe: RelativeLayout? = null
@@ -395,9 +393,9 @@ class GoodsDetailsActivity2 : BaseActivity<IPresenter, ActivityGoodsDetails2Bind
     /**
      * 详情 说明 切换
      */
-    override fun changeDetailData(position: Int, height: Int) {
-        vpGoodsDetail?.addHeight(position, height)
-        vpGoodsDetail?.resetHeight(position)
-        measuredDistance()
-    }
+//    override fun changeDetailData(position: Int, height: Int) {
+//        vpGoodsDetail?.addHeight(position, height)
+//        vpGoodsDetail?.resetHeight(position)
+//        measuredDistance()
+//    }
 }

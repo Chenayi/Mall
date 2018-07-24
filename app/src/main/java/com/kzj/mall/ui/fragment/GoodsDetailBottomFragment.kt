@@ -2,13 +2,11 @@ package com.kzj.mall.ui.fragment
 
 import android.graphics.Color
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.blankj.utilcode.util.SizeUtils
 import com.kzj.mall.R
-import com.kzj.mall.adapter.CommomViewPagerAdapter
 import com.kzj.mall.base.BaseFragment
 import com.kzj.mall.base.IPresenter
 import com.kzj.mall.databinding.FragmentGoodsDetailBinding
@@ -16,7 +14,7 @@ import com.kzj.mall.utils.LocalDatas
 import me.yokeyword.fragmentation.SupportFragment
 
 
-class GoodsDetailFragment : BaseFragment<IPresenter, FragmentGoodsDetailBinding>(), View.OnClickListener {
+class GoodsDetailBottomFragment : BaseFragment<IPresenter, FragmentGoodsDetailBinding>(), View.OnClickListener {
     private var barHeight = 0
     private val mFragments = arrayOfNulls<SupportFragment>(4)
     val FIRST = 0
@@ -24,12 +22,12 @@ class GoodsDetailFragment : BaseFragment<IPresenter, FragmentGoodsDetailBinding>
     private var curFragment = FIRST
 
     companion object {
-        fun newInstance(barHeight: Int): GoodsDetailFragment {
-            val goodsDetailFragment = GoodsDetailFragment()
+        fun newInstance(barHeight: Int): GoodsDetailBottomFragment {
+            val goodsDetailBottomFragment = GoodsDetailBottomFragment()
             var b = Bundle()
             b.putInt("barHeight", barHeight)
-            goodsDetailFragment.arguments = b
-            return goodsDetailFragment
+            goodsDetailBottomFragment.arguments = b
+            return goodsDetailBottomFragment
         }
     }
 
@@ -51,15 +49,15 @@ class GoodsDetailFragment : BaseFragment<IPresenter, FragmentGoodsDetailBinding>
 
         val firstFragment = findChildFragment(GoodsDetailDescribeFragment::class.java)
         if (firstFragment == null) {
-            mFragments[FIRST] = GoodsDetailDescribeFragment2.newInstance();
-            mFragments[SECOND] = GoodsDetailExplainFragment2.newInstance(LocalDatas.explainDatas());
+            mFragments[FIRST] = GoodsDetailDescribeFragment.newInstance();
+            mFragments[SECOND] = GoodsDetailExplainFragment.newInstance(LocalDatas.explainDatas());
 
             loadMultipleRootFragment(R.id.fl_goods_detail, FIRST,
                     mFragments[FIRST],
                     mFragments[SECOND]);
         }else{
             mFragments[FIRST] = firstFragment
-            mFragments[SECOND] = findFragment(GoodsDetailExplainFragment2::class.java)
+            mFragments[SECOND] = findFragment(GoodsDetailExplainFragment::class.java)
         }
 
 

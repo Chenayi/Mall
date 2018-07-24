@@ -57,10 +57,6 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
             barHeight = it
         }
 
-        val layoutParams = mBinding?.flContent?.layoutParams as FrameLayout.LayoutParams
-        layoutParams.topMargin = barHeight
-        mBinding?.flContent?.requestLayout()
-
         //banner
         initBanner()
         //套餐组合
@@ -78,7 +74,7 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
                     mBinding?.tvDetailTips?.text = "下拉收起图文详情"
 
                     if (!isLoadDetailFragment) {
-                        loadRootFragment(R.id.fl_content, GoodsDetailFragment.newInstance())
+                        loadRootFragment(R.id.fl_content, GoodsDetailBottomFragment.newInstance(barHeight))
                         isLoadDetailFragment = true
                     }
                 }

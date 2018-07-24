@@ -38,6 +38,8 @@ class GoodsDetailTitleBar : BaseRelativeLayout<TitlebarGoodsDetailBinding>, View
         layoutParams?.width = ScreenUtils.getScreenWidth()
         layoutParams?.height = BarUtils.getStatusBarHeight()
         mBinding?.topView?.requestLayout()
+        mBinding?.ivBack?.setOnClickListener(this)
+        mBinding?.ivMore?.setOnClickListener(this)
     }
 
     fun setVp(viewPager: ViewPager?) {

@@ -1,9 +1,11 @@
 package com.kzj.mall.ui.activity
 
 import android.support.v4.app.Fragment
+import android.support.v4.view.ViewPager
 import android.view.View
 import android.widget.ImageView
 import com.blankj.utilcode.util.BarUtils
+import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.SizeUtils
 import com.gyf.barlibrary.ImmersionBar
 import com.kzj.mall.R
@@ -26,6 +28,8 @@ import org.greenrobot.eventbus.Subscribe
 class GoodsDetailActivity : BaseActivity<IPresenter, ActivityGoodsDetailsBinding>(), View.OnClickListener {
     private var commomViewPagerAdapter: CommomViewPagerAdapter? = null
     private var fragments: MutableList<Fragment>? = null
+    private var barAlpha = 0.0f
+    private var mViewPagerIndex = 0
 
 
     override fun getLayoutId(): Int {
@@ -41,15 +45,68 @@ class GoodsDetailActivity : BaseActivity<IPresenter, ActivityGoodsDetailsBinding
     }
 
     override fun initData() {
-        mBinding?.goodsDetailBar?.setTabAlpha(0f)
+        mBinding?.goodsDetailBar?.setTabAlpha(barAlpha)
         val barHeight = SizeUtils.getMeasuredHeight(mBinding?.goodsDetailBar)
         fragments = ArrayList()
         fragments?.add(GoodsInfoFragment.newInstance(barHeight))
-        fragments?.add(GoodsDetailFragment.newInstance())
-        fragments?.add(GoodsZizhiFragment.newInstance())
+        fragments?.add(GoodsDetailFragment.newInstance(barHeight))
+        fragments?.add(GoodsZizhiFragment.newInstance(barHeight))
         commomViewPagerAdapter = CommomViewPagerAdapter(supportFragmentManager, fragments!!)
         mBinding?.vpGoodsDetail?.adapter = commomViewPagerAdapter
         mBinding?.vpGoodsDetail?.offscreenPageLimit = fragments?.size!!
+
+        mBinding?.vpGoodsDetail?.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+            override fun onPageScrollStateChanged(state: Int) {
+                if (state == 1){
+                    mViewPagerIndex = mBinding?.vpGoodsDetail?.currentItem!!
+                }
+            }
+
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+
+                if (positionOffset != 0f){
+                    //向左
+                    if (mViewPagerIndex == position){
+                        if (mViewPagerIndex == 0){
+                            var alpha = barAlpha + positionOffset
+                            if (alpha > 1f){
+                                alpha = 1f
+                            }else if (alpha < 0f){
+                                alpha = 0f
+                            }
+                            mBinding?.goodsDetailBar?.setTabAlpha(alpha)
+                        }
+                    }
+                    //向右
+                    else{
+                        if (mViewPagerIndex == 1){
+                            var alpha = positionOffset
+                            if (alpha < barAlpha){
+                                alpha = barAlpha
+                            }else if (alpha > 1f){
+                                alpha = 1f
+                            }
+                            mBinding?.goodsDetailBar?.setTabAlpha(alpha)
+                        }
+                    }
+                }
+            }
+
+            override fun onPageSelected(position: Int) {
+                if (position == 0) {
+                    mBinding?.goodsDetailBar?.setTabAlpha(barAlpha)
+                    mImmersionBar
+                            ?.statusBarDarkFont(barAlpha > 0.5f, 0.5f)
+                            ?.init();
+                } else {
+                    mBinding?.goodsDetailBar?.setTabAlpha(1f)
+                    mImmersionBar
+                            ?.statusBarDarkFont(true, 0.5f)
+                            ?.init();
+                }
+            }
+
+        })
 
         mBinding?.goodsDetailBar?.setOnMoreClickListener(object : GoodsDetailTitleBar.OnMoreClickListener {
             override fun onMoreClick() {
@@ -63,9 +120,10 @@ class GoodsDetailActivity : BaseActivity<IPresenter, ActivityGoodsDetailsBinding
 
     @Subscribe
     fun scrollChangedEvent(scrollChangedEvent: ScrollChangedEvent) {
-        mBinding?.goodsDetailBar?.setTabAlpha(scrollChangedEvent.alpha)
+        barAlpha = scrollChangedEvent.alpha
+        mBinding?.goodsDetailBar?.setTabAlpha(barAlpha)
         mImmersionBar
-                ?.statusBarDarkFont(scrollChangedEvent.alpha > 0.5f, 0.5f)
+                ?.statusBarDarkFont(barAlpha > 0.5f, 0.5f)
                 ?.init();
         if (scrollChangedEvent?.status == SlideDetailsLayout.Status.OPEN) {
             mBinding?.vpGoodsDetail?.setNoScroll(true)
