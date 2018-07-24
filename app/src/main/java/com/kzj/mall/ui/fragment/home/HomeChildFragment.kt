@@ -106,14 +106,14 @@ class HomeChildFragment : BaseHomeChildListFragment<IPresenter>() {
         headerBannerProvider?.startBanner()
     }
 
-    override fun isImmersionBarEnabled(): Boolean {
-        return true
-    }
-
-    override fun initImmersionBar() {
-        immersionBarColor = R.color.colorPrimary
-        super.initImmersionBar()
-    }
+//    override fun isImmersionBarEnabled(): Boolean {
+//        return true
+//    }
+//
+//    override fun initImmersionBar() {
+//        immersionBarColor = R.color.colorPrimary
+//        super.initImmersionBar()
+//    }
 
     override fun registerItemProvider(providerDelegate: ProviderDelegate) {
         //头部广告

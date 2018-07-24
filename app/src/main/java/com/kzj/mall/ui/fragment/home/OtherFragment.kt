@@ -21,13 +21,13 @@ class OtherFragment :BaseFragment<IPresenter,FragmentHomeOtherBinding>() {
     override fun initData() {
     }
 
-    override fun isImmersionBarEnabled(): Boolean {
-        return true
-    }
-
-    override fun initImmersionBar() {
-        immersionBarColor = R.color.colorPrimary
-        super.initImmersionBar()
-    }
+//    override fun isImmersionBarEnabled(): Boolean {
+//        return true
+//    }
+//
+//    override fun initImmersionBar() {
+//        immersionBarColor = R.color.colorPrimary
+//        super.initImmersionBar()
+//    }
 
 }

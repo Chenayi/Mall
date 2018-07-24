@@ -55,14 +55,14 @@ class AndrologyFragment : BaseHomeChildListFragment<IPresenter>() {
         headerBannerProvider?.startBanner()
     }
 
-    override fun isImmersionBarEnabled(): Boolean {
-        return true
-    }
-
-    override fun initImmersionBar() {
-        immersionBarColor = R.color.colorPrimaryDark
-        super.initImmersionBar()
-    }
+//    override fun isImmersionBarEnabled(): Boolean {
+//        return true
+//    }
+//
+//    override fun initImmersionBar() {
+//        immersionBarColor = R.color.colorPrimaryDark
+//        super.initImmersionBar()
+//    }
 
     override fun registerItemProvider(providerDelegate: ProviderDelegate) {
         headerBannerProvider = HeaderBannerProvider(R.color.colorPrimaryDark, false)

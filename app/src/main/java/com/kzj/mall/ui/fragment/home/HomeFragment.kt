@@ -61,18 +61,30 @@ class HomeFragment : BaseFragment<IPresenter, FragmentHomeBinding>(), View.OnCli
                 override fun onPageSelected(position: Int) {
                     when (position) {
                         0 -> {
+                            mImmersionBar = ImmersionBar.with(this@HomeFragment)
+                            mImmersionBar?.fitsSystemWindows(true, R.color.colorPrimary)
+                                    ?.init()
                             mBinding?.llTopSearch?.setBackgroundColor(ContextCompat.getColor(context!!, R.color.colorPrimary))
                             mBinding?.llTab?.setBackgroundColor(ContextCompat.getColor(context!!, R.color.colorPrimary))
                         }
                         1 -> {
+                            mImmersionBar = ImmersionBar.with(this@HomeFragment)
+                            mImmersionBar?.fitsSystemWindows(true, R.color.colorPrimaryDark)
+                                    ?.init()
                             mBinding?.llTopSearch?.setBackgroundColor(ContextCompat.getColor(context!!, R.color.colorPrimaryDark))
                             mBinding?.llTab?.setBackgroundColor(ContextCompat.getColor(context!!, R.color.colorPrimaryDark))
                         }
                         2 -> {
+                            mImmersionBar = ImmersionBar.with(this@HomeFragment)
+                            mImmersionBar?.fitsSystemWindows(true, R.color.colorPrimary)
+                                    ?.init()
                             mBinding?.llTopSearch?.setBackgroundColor(ContextCompat.getColor(context!!, R.color.colorPrimary))
                             mBinding?.llTab?.setBackgroundColor(ContextCompat.getColor(context!!, R.color.colorPrimary))
                         }
                         3 -> {
+                            mImmersionBar = ImmersionBar.with(this@HomeFragment)
+                            mImmersionBar?.fitsSystemWindows(true, R.color.colorPrimary)
+                                    ?.init()
                             mBinding?.llTopSearch?.setBackgroundColor(ContextCompat.getColor(context!!, R.color.colorPrimary))
                             mBinding?.llTab?.setBackgroundColor(ContextCompat.getColor(context!!, R.color.colorPrimary))
                         }
@@ -120,6 +132,22 @@ class HomeFragment : BaseFragment<IPresenter, FragmentHomeBinding>(), View.OnCli
 
 
         mBinding?.ivClassify?.setOnClickListener(this)
+    }
+
+    override fun isImmersionBarEnabled(): Boolean {
+        return true
+    }
+
+    override fun initImmersionBar() {
+        val currentItem = mBinding?.vpHome?.currentItem
+        if (currentItem == 1){
+            immersionBarColor = R.color.colorPrimaryDark
+        }else{
+            immersionBarColor = R.color.colorPrimary
+        }
+        mImmersionBar = ImmersionBar.with(this)
+        mImmersionBar?.fitsSystemWindows(true, immersionBarColor)
+                ?.init()
     }
 
     override fun onClick(v: View?) {
