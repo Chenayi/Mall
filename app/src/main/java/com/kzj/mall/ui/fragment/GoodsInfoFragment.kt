@@ -57,6 +57,8 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
             barHeight = it
         }
 
+        mBinding?.fabUpSlide?.hide()
+
         //banner
         initBanner()
         //套餐组合
@@ -66,11 +68,13 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
             override fun onStatucChanged(status: SlideDetailsLayout.Status?) {
                 if (status == SlideDetailsLayout.Status.CLOSE) {
                     EventBus.getDefault().post(ScrollChangedEvent(status, alpha))
+                    mBinding?.fabUpSlide?.hide()
                     mBinding?.ivArrow?.setImageResource(R.mipmap.up)
                     mBinding?.tvDetailTips?.text = "上拉查看图文详情"
                 } else if (status == SlideDetailsLayout.Status.OPEN) {
                     EventBus.getDefault().post(ScrollChangedEvent(status, 1.0f))
                     mBinding?.ivArrow?.setImageResource(R.mipmap.down)
+                    mBinding?.fabUpSlide?.show()
                     mBinding?.tvDetailTips?.text = "下拉收起图文详情"
 
                     if (!isLoadDetailFragment) {
@@ -91,6 +95,7 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
 
 
         mBinding?.detailSpec?.setOnClickListener(this)
+        mBinding?.fabUpSlide?.setOnClickListener(this)
     }
 
 
@@ -170,6 +175,9 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
             }
             R.id.tv_group_add_cart -> {
                 EventBus.getDefault().post(AddCartEvent(true, tvGroupAddCart))
+            }
+            R.id.fab_up_slide->{
+                mBinding?.slideDetailsLayout?.smoothClose(true)
             }
         }
     }
