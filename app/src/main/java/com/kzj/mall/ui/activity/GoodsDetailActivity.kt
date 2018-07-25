@@ -57,33 +57,33 @@ class GoodsDetailActivity : BaseActivity<IPresenter, ActivityGoodsDetailsBinding
 
         mBinding?.vpGoodsDetail?.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {
-                if (state == 1){
+                if (state == 1) {
                     mViewPagerIndex = mBinding?.vpGoodsDetail?.currentItem!!
                 }
             }
 
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
 
-                if (positionOffset != 0f){
+                if (positionOffset != 0f) {
                     //向左
-                    if (mViewPagerIndex == position){
-                        if (mViewPagerIndex == 0){
+                    if (mViewPagerIndex == position) {
+                        if (mViewPagerIndex == 0) {
                             var alpha = barAlpha + positionOffset
-                            if (alpha > 1f){
+                            if (alpha > 1f) {
                                 alpha = 1f
-                            }else if (alpha < 0f){
+                            } else if (alpha < 0f) {
                                 alpha = 0f
                             }
                             mBinding?.goodsDetailBar?.setTabAlpha(alpha)
                         }
                     }
                     //向右
-                    else{
-                        if (mViewPagerIndex == 1){
+                    else {
+                        if (mViewPagerIndex == 1) {
                             var alpha = positionOffset
-                            if (alpha < barAlpha){
+                            if (alpha < barAlpha) {
                                 alpha = barAlpha
-                            }else if (alpha > 1f){
+                            } else if (alpha > 1f) {
                                 alpha = 1f
                             }
                             mBinding?.goodsDetailBar?.setTabAlpha(alpha)
@@ -111,6 +111,12 @@ class GoodsDetailActivity : BaseActivity<IPresenter, ActivityGoodsDetailsBinding
         mBinding?.goodsDetailBar?.setOnMoreClickListener(object : GoodsDetailTitleBar.OnMoreClickListener {
             override fun onMoreClick() {
                 showMorePop()
+            }
+        })
+
+        mBinding?.goodsDetailBar?.setOnBackClickListener(object : GoodsDetailTitleBar.OnBackClickListener {
+            override fun onBackClick() {
+                onBackPressedSupport()
             }
         })
 
@@ -209,6 +215,16 @@ class GoodsDetailActivity : BaseActivity<IPresenter, ActivityGoodsDetailsBinding
             R.id.tv_add_cart -> {
                 startAddCartAnim(false, mBinding?.tvAddCart!!, mBinding?.ivCart!!)
             }
+        }
+    }
+
+    override fun onBackPressedSupport() {
+        val currentItem = mBinding?.vpGoodsDetail?.currentItem
+        if (currentItem != 0) {
+            mBinding?.vpGoodsDetail?.currentItem = 0
+        } else {
+            val goodsInfoFragment = commomViewPagerAdapter?.fragments?.get(currentItem) as GoodsInfoFragment
+            goodsInfoFragment.onBackClick()
         }
     }
 }

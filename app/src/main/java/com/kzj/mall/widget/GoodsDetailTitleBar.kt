@@ -1,6 +1,5 @@
 package com.kzj.mall.widget
 
-import android.app.Activity
 import android.content.Context
 import android.graphics.Color
 import android.support.v4.view.ViewPager
@@ -24,6 +23,7 @@ class GoodsDetailTitleBar : BaseRelativeLayout<TitlebarGoodsDetailBinding>, View
     private val mTitles: Array<String> = arrayOf("商品", "详情", "资质")
     private var onTabClickListener: OnTabClickListener? = null
     private var onMoreClickListener: OnMoreClickListener? = null
+    private var onBackClickListener: OnBackClickListener? = null
 
     constructor(context: Context?) : super(context)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
@@ -87,7 +87,7 @@ class GoodsDetailTitleBar : BaseRelativeLayout<TitlebarGoodsDetailBinding>, View
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.iv_back -> {
-                (context as Activity).finish()
+                onBackClickListener?.onBackClick()
             }
             R.id.iv_more -> {
                 onMoreClickListener?.onMoreClick()
@@ -131,6 +131,10 @@ class GoodsDetailTitleBar : BaseRelativeLayout<TitlebarGoodsDetailBinding>, View
         this.onMoreClickListener = onMoreClickListener
     }
 
+    fun setOnBackClickListener(onBackClickListener: OnBackClickListener) {
+        this.onBackClickListener = onBackClickListener
+    }
+
 
     interface OnTabClickListener {
         fun onTabClick(p: Int)
@@ -138,5 +142,9 @@ class GoodsDetailTitleBar : BaseRelativeLayout<TitlebarGoodsDetailBinding>, View
 
     interface OnMoreClickListener {
         fun onMoreClick()
+    }
+
+    interface OnBackClickListener {
+        fun onBackClick()
     }
 }

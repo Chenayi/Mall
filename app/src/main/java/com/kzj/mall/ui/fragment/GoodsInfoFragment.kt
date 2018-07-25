@@ -173,4 +173,12 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
             }
         }
     }
+
+    fun onBackClick(){
+        if (mBinding?.slideDetailsLayout?.status == SlideDetailsLayout.Status.OPEN){
+            mBinding?.slideDetailsLayout?.smoothClose(true)
+        }else{
+            activity?.finish()
+        }
+    }
 }

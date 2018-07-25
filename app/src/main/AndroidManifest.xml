@@ -42,7 +42,6 @@
         </activity>
 
         <activity android:name=".ui.activity.MainActivity" />
-        <activity android:name=".ui.activity.GoodsDetailsActivity2" />
         <activity
             android:name=".ui.activity.ConfirmOrderActivity"
             android:windowSoftInputMode="adjustPan" />
