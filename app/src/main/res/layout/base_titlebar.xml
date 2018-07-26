@@ -1,56 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/titleBarHeight"
-    android:background="#FBFBFB">
+    android:layout_height="wrap_content"
+    android:background="@color/fb"
+    android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/iv_left"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="12dp"
-        android:background="@drawable/circle_white"
-        android:scaleType="centerInside"
-        android:src="@mipmap/back" />
-
-    <TextView
-        android:id="@+id/tv_title"
+    <View
+        android:id="@+id/status_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_marginLeft="60dp"
-        android:layout_marginRight="60dp"
-        android:gravity="center"
-        android:lines="1"
-        android:singleLine="true"
-        android:text="title"
-        android:textColor="@color/white"
-        android:textSize="@dimen/titleSize"
-        android:textStyle="bold"/>
+        android:layout_height="0dp" />
 
-    <ImageView
-        android:id="@+id/iv_right"
-        android:layout_width="@dimen/titleBarHeight"
-        android:layout_height="@dimen/titleBarHeight"
-        android:layout_alignParentRight="true"
-        android:scaleType="centerInside"
-        android:visibility="gone" />
+    <RelativeLayout
+        android:id="@+id/rl_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/titleBarHeight">
 
-    <TextView
-        android:id="@+id/tv_right"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:gravity="center"
-        android:lines="1"
-        android:paddingLeft="12dp"
-        android:paddingRight="12dp"
-        android:singleLine="true"
-        android:textColor="#2E3033"
-        android:textSize="13dp"
-        android:visibility="gone"
-        android:textStyle="bold"/>
+        <ImageView
+            android:id="@+id/iv_left"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="12dp"
+            android:background="@drawable/circle_white"
+            android:scaleType="centerInside"
+            android:src="@mipmap/back" />
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"
+            android:gravity="center"
+            android:lines="1"
+            android:singleLine="true"
+            android:text="title"
+            android:textColor="@color/white"
+            android:textSize="@dimen/titleSize"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/iv_right"
+            android:layout_width="@dimen/titleBarHeight"
+            android:layout_height="@dimen/titleBarHeight"
+            android:layout_alignParentRight="true"
+            android:scaleType="centerInside"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tv_right"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:lines="1"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:singleLine="true"
+            android:textColor="#2E3033"
+            android:textSize="13dp"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+    </RelativeLayout>
+</LinearLayout>

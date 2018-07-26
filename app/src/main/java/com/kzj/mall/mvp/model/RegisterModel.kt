@@ -12,10 +12,6 @@ import javax.inject.Inject
 
 @ActivityScope
 class RegisterModel @Inject
-constructor(httpUtils: HttpUtils?) : BaseModel(httpUtils),RegisterContract.Model {
-    override fun requestRegisterCode(mobile: String?): Observable<BaseResponse<RegisterCodeEntity>>? {
-        val requestRegisterCode
-                = httpUtils?.obtainRetrofitService(ApiService::class.java)?.requestRegisterCode(mobile)
-        return requestRegisterCode
-    }
+constructor(httpUtils: HttpUtils?) : BaseModel(httpUtils), RegisterContract.Model {
+    override fun requestRegisterCode(mobile: String?) = httpUtils?.obtainRetrofitService(ApiService::class.java)?.requestRegisterCode(mobile)
 }

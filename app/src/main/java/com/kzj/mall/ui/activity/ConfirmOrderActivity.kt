@@ -48,16 +48,7 @@ class ConfirmOrderActivity : BaseActivity<IPresenter, ActivityConfirmOrderBindin
 
         RootLayout.getInstance(this)
                 ?.setOnLeftOnClickListener {
-                    ConfirmDialog.newInstance("优惠不等人,真的要走么？")
-                            .setOnConfirmClickListener(object : ConfirmDialog.OnConfirmClickListener {
-                                override fun onLeftClick() {
-                                    finish()
-                                }
-
-                                override fun onRightClick() {
-                                }
-                            })
-                            .show(supportFragmentManager)
+                    onBackPressedSupport()
                 }
     }
 
@@ -76,6 +67,19 @@ class ConfirmOrderActivity : BaseActivity<IPresenter, ActivityConfirmOrderBindin
                 hasAddress = true
             }
         }
+    }
+
+    override fun onBackPressedSupport() {
+        ConfirmDialog.newInstance("优惠不等人,真的要走么？")
+                .setOnConfirmClickListener(object : ConfirmDialog.OnConfirmClickListener {
+                    override fun onLeftClick() {
+                        finish()
+                    }
+
+                    override fun onRightClick() {
+                    }
+                })
+                .show(supportFragmentManager)
     }
 
     override fun onClick(v: View?) {

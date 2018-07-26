@@ -1,5 +1,6 @@
 package com.kzj.mall.ui.activity
 
+import android.content.Intent
 import android.support.v4.app.Fragment
 import android.support.v4.view.ViewPager
 import android.view.View
@@ -120,6 +121,7 @@ class GoodsDetailActivity : BaseActivity<IPresenter, ActivityGoodsDetailsBinding
             }
         })
 
+        mBinding?.tvBuy?.setOnClickListener(this)
         mBinding?.tvAddCart?.setOnClickListener(this)
         mBinding?.goodsDetailBar?.setVp(mBinding?.vpGoodsDetail)
     }
@@ -214,6 +216,11 @@ class GoodsDetailActivity : BaseActivity<IPresenter, ActivityGoodsDetailsBinding
         when (v?.id) {
             R.id.tv_add_cart -> {
                 startAddCartAnim(false, mBinding?.tvAddCart!!, mBinding?.ivCart!!)
+            }
+            R.id.tv_buy->{
+                val intent = Intent(this, ConfirmOrderActivity::class.java)
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent)
             }
         }
     }

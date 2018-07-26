@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.kzj.mall.R;
@@ -24,6 +25,8 @@ import com.yatoooon.screenadaptation.ScreenAdapterTools;
  */
 
 public class RootLayout extends LinearLayout {
+    private View statusView;
+
     private TextView tvTitle;
     private ImageView ivLeft;
     private ImageView ivRight;
@@ -101,7 +104,7 @@ public class RootLayout extends LinearLayout {
         TypedArray t = context.obtainStyledAttributes(attrs, R.styleable.RootLayout);
         mTitleBarColor = t.getColor(R.styleable.RootLayout_titleBarColor, ContextCompat.getColor(context, R.color.fb));
         mTitleBarTitle = t.getString(R.styleable.RootLayout_titleBarTitle);
-        mTitleBarTitleColor = t.getColor(R.styleable.RootLayout_titleBarTitleColor,ContextCompat.getColor(context, R.color.c_2e3033));
+        mTitleBarTitleColor = t.getColor(R.styleable.RootLayout_titleBarTitleColor, ContextCompat.getColor(context, R.color.c_2e3033));
         mTitleBarHeight = t.getDimension(R.styleable.RootLayout_titleBarHeight, getResources().getDimension(R.dimen.titleBarHeight));
         mTitleBarLeftIcon = t.getResourceId(R.styleable.RootLayout_titleBarLeftIcon, R.mipmap.back);
         mTitleBarRightIcon = t.getResourceId(R.styleable.RootLayout_titleBarRightIcon, 0);
@@ -130,7 +133,8 @@ public class RootLayout extends LinearLayout {
         init();
     }
 
-    private void initViews(){
+    private void initViews() {
+        statusView = findViewById(R.id.status_view);
         tvTitle = findViewById(R.id.tv_title);
         ivLeft = findViewById(R.id.iv_left);
         ivRight = findViewById(R.id.iv_right);
@@ -175,11 +179,11 @@ public class RootLayout extends LinearLayout {
         return this;
     }
 
-    public RootLayout setRightTextEnable(boolean enalbe){
+    public RootLayout setRightTextEnable(boolean enalbe) {
         tvRight.setEnabled(enalbe);
-        if (!enalbe){
+        if (!enalbe) {
             tvRight.setTextColor(Color.parseColor("#C2C6CC"));
-        }else {
+        } else {
             tvRight.setTextColor(Color.parseColor("#2E3033"));
         }
         return this;
@@ -200,7 +204,7 @@ public class RootLayout extends LinearLayout {
         }
 
 
-        if (tvRight != null && tvRight.getVisibility() == VISIBLE){
+        if (tvRight != null && tvRight.getVisibility() == VISIBLE) {
             tvRight.setOnClickListener(l);
         }
         return this;
@@ -208,6 +212,17 @@ public class RootLayout extends LinearLayout {
 
     public View getTitleBarView() {
         return mTitleBarView;
+    }
+
+
+    public RootLayout setStatusBarViewHeight(int height) {
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, height);
+        statusView.setLayoutParams(params);
+        int barHeight = (int) (mTitleBarHeight + height);
+        ViewGroup.LayoutParams layoutParams = mTitleBarView.getLayoutParams();
+        layoutParams.height = barHeight;
+        mTitleBarView.requestLayout();
+        return this;
     }
 
     public static RootLayout getInstance(Activity context) {

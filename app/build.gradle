@@ -74,4 +74,6 @@ dependencies {
     implementation 'com.gyf.barlibrary:barlibrary:2.3.0'
     implementation 'cn.bingoogolapple:bga-banner:2.2.4@aar'
     implementation 'org.greenrobot:eventbus:3.1.1'
+    implementation 'com.contrarywind:Android-PickerView:4.1.6'
+    implementation 'com.kyleduo.switchbutton:library:2.0.0'
 }
