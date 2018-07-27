@@ -270,10 +270,10 @@
 
                     <ImageView
                         android:id="@+id/iv_wechat"
-                        android:layout_width="43dp"
-                        android:layout_height="43dp"
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
                         android:layout_gravity="center"
-                        android:src="@drawable/circle_white" />
+                        android:src="@drawable/selector_wechat" />
                 </FrameLayout>
 
                 <FrameLayout
@@ -283,10 +283,10 @@
 
                     <ImageView
                         android:id="@+id/iv_qq"
-                        android:layout_width="43dp"
-                        android:layout_height="43dp"
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
                         android:layout_gravity="center"
-                        android:src="@drawable/circle_white" />
+                        android:src="@drawable/selector_qq" />
                 </FrameLayout>
 
                 <FrameLayout
@@ -296,10 +296,10 @@
 
                     <ImageView
                         android:id="@+id/iv_sina"
-                        android:layout_width="43dp"
-                        android:layout_height="43dp"
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
                         android:layout_gravity="center"
-                        android:src="@drawable/circle_white" />
+                        android:src="@drawable/selector_sina" />
                 </FrameLayout>
             </LinearLayout>
 

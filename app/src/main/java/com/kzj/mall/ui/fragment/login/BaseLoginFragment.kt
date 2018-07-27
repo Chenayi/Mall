@@ -13,6 +13,9 @@ import com.kzj.mall.di.module.LoginModule
 import com.kzj.mall.mvp.contract.LoginContract
 import com.kzj.mall.mvp.presenter.LoginPresenter
 import com.kzj.mall.ui.activity.RegisterActivity
+import android.R.attr.phoneNumber
+import android.net.Uri
+
 
 abstract class BaseLoginFragment : BaseFragment<LoginPresenter, FragmentLoginBinding>(), View.OnClickListener, LoginContract.View {
     override fun getLayoutId(): Int {
@@ -43,6 +46,10 @@ abstract class BaseLoginFragment : BaseFragment<LoginPresenter, FragmentLoginBin
 
         mBinding?.tvRegister?.setOnClickListener(this)
         mBinding?.tvLogin?.setOnClickListener(this)
+        mBinding?.ivWechat?.setOnClickListener(this)
+        mBinding?.ivQq?.setOnClickListener(this)
+        mBinding?.ivSina?.setOnClickListener(this)
+        mBinding?.tvCustomer?.setOnClickListener(this)
     }
 
     abstract fun isCode(): Boolean
@@ -62,6 +69,10 @@ abstract class BaseLoginFragment : BaseFragment<LoginPresenter, FragmentLoginBin
             }
             R.id.tv_login -> {
                 mPresenter?.login()
+            }
+            R.id.tv_customer->{
+                val dialIntent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:123456"))
+                startActivity(dialIntent)
             }
         }
     }
