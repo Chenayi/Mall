@@ -13,102 +13,40 @@
             android:layout_height="match_parent"
             android:background="@color/gray_default">
 
-            <FrameLayout
-                android:id="@+id/fl_bg"
+            <ImageView
+                android:id="@+id/iv_login_bg"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/login_bg1" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/rl_content">
+
+                <net.lucode.hackware.magicindicator.MagicIndicator
+                    android:id="@+id/magic_indicator"
+                    android:layout_width="match_parent"
+                    android:layout_height="46dp"
+                    android:layout_marginTop="50dp" />
+
+                <com.kzj.mall.widget.NoScollViewPager
+                    android:id="@+id/vp_login"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/magic_indicator"
+                    android:layout_marginTop="20dp" />
+
 
                 <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:scaleType="centerCrop"
-                    android:src="@color/colorPrimary" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:id="@+id/ll_code"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/tv_code"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="验证码登录"
-                            android:textColor="@color/white"
-                            android:textSize="17dp" />
-
-                        <View
-                            android:id="@+id/view_code"
-                            android:layout_width="86dp"
-                            android:layout_height="4dp"
-                            android:layout_marginTop="10dp"
-                            android:background="@color/white" />
-
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="0.5dp"
-                        android:layout_height="12dp"
-                        android:background="@color/white" />
-
-                    <LinearLayout
-                        android:id="@+id/ll_password"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/tv_password"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="密码登录"
-                            android:textColor="@color/white"
-                            android:textSize="17dp" />
-
-                        <View
-                            android:id="@+id/view_password"
-                            android:layout_width="86dp"
-                            android:layout_height="4dp"
-                            android:layout_marginTop="10dp"
-                            android:background="@color/white"
-                            android:visibility="invisible" />
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <ImageView
-                    android:id="@+id/iv_back"
+                    android:id="@+id/iv_close"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginTop="30dp"
-                    android:background="@drawable/circle_white"
-                    android:scaleType="centerInside"
-                    android:src="@mipmap/back"
-                    android:visibility="gone" />
-
-            </FrameLayout>
-
-            <com.kzj.mall.widget.NoScollViewPager
-                android:id="@+id/vp_login"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@+id/fl_bg"
-                android:layout_marginTop="-50dp" />
-
+                    android:layout_marginTop="10dp"
+                    android:src="@mipmap/close_icon" />
+            </RelativeLayout>
         </RelativeLayout>
     </ScrollView>
 

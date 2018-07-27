@@ -1,6 +1,7 @@
 package com.kzj.mall.ui.fragment.login
 
 import android.content.Intent
+import android.text.InputType
 import android.view.View
 import com.kzj.mall.R
 import com.kzj.mall.base.BaseFragment
@@ -30,11 +31,18 @@ abstract class BaseLoginFragment : BaseFragment<LoginPresenter, FragmentLoginBin
     override fun initData() {
         if (isCode()) {
             mBinding?.tvRequestCode?.visibility = View.VISIBLE
+            mBinding?.llPwd?.visibility = View.GONE
+            mBinding?.etCode?.visibility = View.VISIBLE
+            mBinding?.etPwd?.visibility = View.GONE
         } else {
             mBinding?.tvRequestCode?.visibility = View.GONE
+            mBinding?.llPwd?.visibility = View.VISIBLE
+            mBinding?.etCode?.visibility = View.GONE
+            mBinding?.etPwd?.visibility = View.VISIBLE
         }
 
         mBinding?.tvRegister?.setOnClickListener(this)
+        mBinding?.tvLogin?.setOnClickListener(this)
     }
 
     abstract fun isCode(): Boolean
@@ -51,6 +59,9 @@ abstract class BaseLoginFragment : BaseFragment<LoginPresenter, FragmentLoginBin
                 val intent = Intent(context, RegisterActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(intent)
+            }
+            R.id.tv_login -> {
+                mPresenter?.login()
             }
         }
     }
