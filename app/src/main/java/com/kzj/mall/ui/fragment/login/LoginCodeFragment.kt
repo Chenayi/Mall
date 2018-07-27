@@ -19,6 +19,5 @@ class LoginCodeFragment : BaseLoginFragment() {
 
     override fun initData() {
         super.initData()
-
     }
 }

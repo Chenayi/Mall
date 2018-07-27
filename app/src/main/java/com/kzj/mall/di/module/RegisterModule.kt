@@ -14,7 +14,5 @@ class RegisterModule(val view: RegisterContract.View) {
 
     @ActivityScope
     @Provides
-    fun provideRegisterModel(model: RegisterModel): RegisterContract.Model {
-        return model
-    }
+    fun provideRegisterModel(model: RegisterModel): RegisterContract.Model = model
 }

@@ -5,6 +5,7 @@ import com.kzj.mall.R
 import com.kzj.mall.base.BaseFragment
 import com.kzj.mall.base.IPresenter
 import com.kzj.mall.databinding.FragmentMineBinding
+import com.kzj.mall.di.component.AppComponent
 
 class MineFragment : BaseFragment<IPresenter, FragmentMineBinding>() {
 
@@ -30,6 +31,10 @@ class MineFragment : BaseFragment<IPresenter, FragmentMineBinding>() {
                 ?.statusBarDarkFont(true,0.5f)
                 ?.init()
     }
+
+    override fun setupComponent(appComponent: AppComponent?) {
+    }
+
 
     override fun initData() {
     }

@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 @ActivityScope
 class RegisterPresenter @Inject
-constructor(model: RegisterContract.Model, view: RegisterContract.View?, context: Context?)
+constructor(model: RegisterContract.Model?, view: RegisterContract.View?, context: Context?)
     : BasePresenter<RegisterContract.Model, RegisterContract.View>(model, view, context) {
     fun requestRegisterCode(mobile: String?) {
         model?.requestRegisterCode(mobile)

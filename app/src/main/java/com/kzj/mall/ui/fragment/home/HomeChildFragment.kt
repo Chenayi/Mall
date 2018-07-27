@@ -10,6 +10,7 @@ import com.chad.library.adapter.base.util.ProviderDelegate
 import com.kzj.mall.R
 import com.kzj.mall.adapter.provider.home.*
 import com.kzj.mall.base.IPresenter
+import com.kzj.mall.di.component.AppComponent
 import com.kzj.mall.entity.home.*
 import com.kzj.mall.utils.LocalDatas
 
@@ -23,6 +24,8 @@ class HomeChildFragment : BaseHomeChildListFragment<IPresenter>() {
             val homeChildFragment = HomeChildFragment()
             return homeChildFragment
         }
+    }
+    override fun setupComponent(appComponent: AppComponent?) {
     }
 
     override fun initData() {

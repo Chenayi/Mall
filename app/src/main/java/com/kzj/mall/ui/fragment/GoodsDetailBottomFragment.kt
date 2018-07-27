@@ -10,6 +10,7 @@ import com.kzj.mall.R
 import com.kzj.mall.base.BaseFragment
 import com.kzj.mall.base.IPresenter
 import com.kzj.mall.databinding.FragmentGoodsDetailBinding
+import com.kzj.mall.di.component.AppComponent
 import com.kzj.mall.utils.LocalDatas
 import me.yokeyword.fragmentation.SupportFragment
 
@@ -44,6 +45,10 @@ class GoodsDetailBottomFragment : BaseFragment<IPresenter, FragmentGoodsDetailBi
         mBinding?.llDetailRoot?.setPadding(margin, barHeight, margin, margin)
         return view
     }
+
+    override fun setupComponent(appComponent: AppComponent?) {
+    }
+
 
     override fun initData() {
 

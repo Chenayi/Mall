@@ -4,6 +4,7 @@ import com.kzj.mall.R
 import com.kzj.mall.base.BaseFragment
 import com.kzj.mall.base.IPresenter
 import com.kzj.mall.databinding.FragmentHomeOtherBinding
+import com.kzj.mall.di.component.AppComponent
 
 class OtherFragment :BaseFragment<IPresenter,FragmentHomeOtherBinding>() {
 
@@ -16,6 +17,9 @@ class OtherFragment :BaseFragment<IPresenter,FragmentHomeOtherBinding>() {
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_home_other
+    }
+
+    override fun setupComponent(appComponent: AppComponent?) {
     }
 
     override fun initData() {

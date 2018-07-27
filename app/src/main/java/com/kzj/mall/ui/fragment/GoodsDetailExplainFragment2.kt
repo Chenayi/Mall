@@ -6,6 +6,7 @@ import com.kzj.mall.adapter.ExplainAdapter
 import com.kzj.mall.base.BaseFragment
 import com.kzj.mall.base.IPresenter
 import com.kzj.mall.databinding.FragmentGoodsDetailExplain2Binding
+import com.kzj.mall.di.component.AppComponent
 import com.kzj.mall.entity.GoodsDetailEntity
 import java.io.Serializable
 
@@ -35,6 +36,10 @@ class GoodsDetailExplainFragment2 : BaseFragment<IPresenter, FragmentGoodsDetail
     override fun getLayoutId(): Int {
         return R.layout.fragment_goods_detail_explain2
     }
+
+    override fun setupComponent(appComponent: AppComponent?) {
+    }
+
 
     override fun initData() {
         val datas = arguments?.getSerializable("explains")

@@ -10,7 +10,9 @@ import com.yatoooon.screenadaptation.ScreenAdapterTools
 import me.yokeyword.fragmentation.SupportFragment
 import javax.inject.Inject
 import com.gyf.barlibrary.ImmersionBar
+import com.kzj.mall.App
 import com.kzj.mall.R
+import com.kzj.mall.di.component.AppComponent
 
 
 abstract class BaseFragment<P : IPresenter, D : ViewDataBinding> : SupportFragment() {
@@ -23,6 +25,8 @@ abstract class BaseFragment<P : IPresenter, D : ViewDataBinding> : SupportFragme
 
     protected var immersionBarColor = R.color.fb
 
+    protected var mApp: App? = null
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         var view = inflater.inflate(getLayoutId(), container, false)
         mBinding = DataBindingUtil.bind(view)
@@ -32,17 +36,19 @@ abstract class BaseFragment<P : IPresenter, D : ViewDataBinding> : SupportFragme
 
     override fun onLazyInitView(savedInstanceState: Bundle?) {
         super.onLazyInitView(savedInstanceState)
+        mApp = activity?.application as App
+        setupComponent(mApp?.getAppComponent())
         initData()
     }
 
     abstract fun getLayoutId(): Int
-
+    abstract fun setupComponent(appComponent: AppComponent?)
     abstract fun initData()
 
 
     override fun onSupportVisible() {
         super.onSupportVisible()
-        if (isImmersionBarEnabled()){
+        if (isImmersionBarEnabled()) {
             initImmersionBar()
         }
     }

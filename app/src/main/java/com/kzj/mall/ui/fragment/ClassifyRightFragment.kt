@@ -9,6 +9,7 @@ import com.kzj.mall.adapter.ClassifyRightAdapter
 import com.kzj.mall.base.BaseFragment
 import com.kzj.mall.base.IPresenter
 import com.kzj.mall.databinding.FragmentClassifyRightBinding
+import com.kzj.mall.di.component.AppComponent
 import com.kzj.mall.utils.LocalDatas
 
 class ClassifyRightFragment : BaseFragment<IPresenter, FragmentClassifyRightBinding>() {
@@ -27,6 +28,10 @@ class ClassifyRightFragment : BaseFragment<IPresenter, FragmentClassifyRightBind
     override fun getLayoutId(): Int {
         return R.layout.fragment_classify_right
     }
+
+    override fun setupComponent(appComponent: AppComponent?) {
+    }
+
 
     override fun initData() {
         val classifyName = arguments?.getString("classifyName")

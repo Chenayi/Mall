@@ -13,6 +13,7 @@ import com.kzj.mall.adapter.CartAdapter
 import com.kzj.mall.base.BaseFragment
 import com.kzj.mall.base.IPresenter
 import com.kzj.mall.databinding.FragmentCartBinding
+import com.kzj.mall.di.component.AppComponent
 import com.kzj.mall.utils.LocalDatas
 import com.kzj.mall.entity.cart.BaseCartEntity
 import com.kzj.mall.ui.activity.ConfirmOrderActivity
@@ -51,6 +52,10 @@ class CartFragment : BaseFragment<IPresenter, FragmentCartBinding>(), View.OnCli
                 ?.statusBarDarkFont(true,0.5f)
                 ?.init()
     }
+
+    override fun setupComponent(appComponent: AppComponent?) {
+    }
+
 
     override fun initData() {
         cartAdapter = CartAdapter(ArrayList())

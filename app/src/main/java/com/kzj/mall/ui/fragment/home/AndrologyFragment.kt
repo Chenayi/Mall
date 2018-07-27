@@ -8,6 +8,7 @@ import com.chad.library.adapter.base.util.ProviderDelegate
 import com.kzj.mall.R
 import com.kzj.mall.adapter.provider.home.*
 import com.kzj.mall.base.IPresenter
+import com.kzj.mall.di.component.AppComponent
 import com.kzj.mall.entity.home.*
 import com.kzj.mall.utils.LocalDatas
 
@@ -22,6 +23,9 @@ class AndrologyFragment : BaseHomeChildListFragment<IPresenter>() {
             val andrologyFragment = AndrologyFragment()
             return andrologyFragment
         }
+    }
+
+    override fun setupComponent(appComponent: AppComponent?) {
     }
 
     override fun initData() {
@@ -54,15 +58,6 @@ class AndrologyFragment : BaseHomeChildListFragment<IPresenter>() {
         super.onSupportVisible()
         headerBannerProvider?.startBanner()
     }
-
-//    override fun isImmersionBarEnabled(): Boolean {
-//        return true
-//    }
-//
-//    override fun initImmersionBar() {
-//        immersionBarColor = R.color.colorPrimaryDark
-//        super.initImmersionBar()
-//    }
 
     override fun registerItemProvider(providerDelegate: ProviderDelegate) {
         headerBannerProvider = HeaderBannerProvider(R.color.colorPrimaryDark, false)

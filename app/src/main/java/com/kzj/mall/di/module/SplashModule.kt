@@ -14,7 +14,5 @@ class SplashModule(val view: SplashContract.View) {
 
     @ActivityScope
     @Provides
-    fun provideSplashModel(model: SplashModel): SplashContract.Model {
-        return model
-    }
+    fun provideSplashModel(model: SplashModel): SplashContract.Model = model
 }

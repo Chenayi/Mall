@@ -18,6 +18,7 @@ import android.view.View
 import com.blankj.utilcode.util.SizeUtils
 import com.gyf.barlibrary.ImmersionBar
 import com.kzj.mall.adapter.HomeNavigatorTitleView
+import com.kzj.mall.di.component.AppComponent
 import com.kzj.mall.entity.home.HomeTabEntity
 import com.kzj.mall.ui.dialog.HomeTabClassifyPop
 import net.lucode.hackware.magicindicator.ViewPagerHelper
@@ -38,6 +39,9 @@ class HomeFragment : BaseFragment<IPresenter, FragmentHomeBinding>(), View.OnCli
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_home
+    }
+
+    override fun setupComponent(appComponent: AppComponent?) {
     }
 
     override fun initData() {

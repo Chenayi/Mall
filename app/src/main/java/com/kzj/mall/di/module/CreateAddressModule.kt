@@ -14,7 +14,5 @@ class CreateAddressModule(val view: CreateAddressContract.View) {
 
     @ActivityScope
     @Provides
-    fun provideCreateAddressModel(model: CreateAddressModel): CreateAddressContract.Model {
-        return model
-    }
+    fun provideCreateAddressModel(model: CreateAddressModel): CreateAddressContract.Model = model
 }

@@ -18,6 +18,7 @@ import com.kzj.mall.adapter.GoodsDetailGroupAdapter
 import com.kzj.mall.base.BaseFragment
 import com.kzj.mall.base.IPresenter
 import com.kzj.mall.databinding.FragmentGoodsInfoBinding
+import com.kzj.mall.di.component.AppComponent
 import com.kzj.mall.event.*
 import com.kzj.mall.ui.dialog.DetailMorePop
 import com.kzj.mall.ui.dialog.GoodsSpecDialog
@@ -51,6 +52,9 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
     override fun getLayoutId(): Int {
         return R.layout.fragment_goods_info
     }
+    override fun setupComponent(appComponent: AppComponent?) {
+    }
+
 
     override fun initData() {
         arguments?.getInt("barHeight")?.let {

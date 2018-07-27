@@ -12,6 +12,7 @@ import com.kzj.mall.R
 import com.kzj.mall.base.BaseFragment
 import com.kzj.mall.base.IPresenter
 import com.kzj.mall.databinding.FragmentGoodsZizhiBinding
+import com.kzj.mall.di.component.AppComponent
 
 class GoodsZizhiFragment : BaseFragment<IPresenter, FragmentGoodsZizhiBinding>() {
     private var barHeight = 0
@@ -38,6 +39,10 @@ class GoodsZizhiFragment : BaseFragment<IPresenter, FragmentGoodsZizhiBinding>()
         mBinding?.llZizhiRoot?.setPadding(margin,barHeight,margin,margin)
         return view
     }
+
+    override fun setupComponent(appComponent: AppComponent?) {
+    }
+
 
     override fun initData() {
         GlideApp.with(this)

@@ -9,6 +9,7 @@ import com.kzj.mall.adapter.CommomViewPagerAdapter
 import com.kzj.mall.base.BaseFragment
 import com.kzj.mall.base.IPresenter
 import com.kzj.mall.databinding.FragmentClassifyBinding
+import com.kzj.mall.di.component.AppComponent
 import com.kzj.mall.utils.LocalDatas
 
 class ClassifyFragment : BaseFragment<IPresenter, FragmentClassifyBinding>() {
@@ -34,6 +35,10 @@ class ClassifyFragment : BaseFragment<IPresenter, FragmentClassifyBinding>() {
         immersionBarColor = R.color.colorPrimary
         super.initImmersionBar()
     }
+
+    override fun setupComponent(appComponent: AppComponent?) {
+    }
+
 
     override fun initData() {
         initLeft()
