@@ -1,5 +1,9 @@
 package com.kzj.mall.ui.activity
 
+import android.content.Intent
+import android.graphics.Color
+import android.net.Uri
+import android.support.v4.content.ContextCompat
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
@@ -15,8 +19,10 @@ import com.kzj.mall.databinding.ActivityRegisterBinding
 import com.kzj.mall.di.component.AppComponent
 import com.kzj.mall.di.component.DaggerRegisterComponent
 import com.kzj.mall.di.module.RegisterModule
+import com.kzj.mall.event.RegisterSuccessEvent
 import com.kzj.mall.mvp.contract.RegisterContract
 import com.kzj.mall.mvp.presenter.RegisterPresenter
+import org.greenrobot.eventbus.EventBus
 
 /**
  * 注册
@@ -49,6 +55,14 @@ class RegisterActivity : BaseActivity<RegisterPresenter, ActivityRegisterBinding
             override fun afterTextChanged(s: Editable?) {
                 mBinding?.tvRegister?.isEnabled = canRegister()
                 mBinding?.ivClearMobile?.visibility = if (TextUtils.isEmpty(mobile())) View.GONE else View.VISIBLE
+
+                if (!TextUtils.isEmpty(s)) {
+                    mBinding?.tvRequestCode?.isEnabled = true
+                    mBinding?.tvRequestCode?.setTextColor(ContextCompat.getColor(applicationContext, R.color.colorPrimary))
+                } else {
+                    mBinding?.tvRequestCode?.isEnabled = false
+                    mBinding?.tvRequestCode?.setTextColor(Color.parseColor("#C2C6CC"))
+                }
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -108,6 +122,9 @@ class RegisterActivity : BaseActivity<RegisterPresenter, ActivityRegisterBinding
         mBinding?.ivClearMobile?.setOnClickListener(this)
         mBinding?.ivClearCode?.setOnClickListener(this)
         mBinding?.ivClearPwd?.setOnClickListener(this)
+        mBinding?.ivClose?.setOnClickListener(this)
+        mBinding?.tvRegister?.setOnClickListener(this)
+        mBinding?.tvCustomer?.setOnClickListener(this)
     }
 
     override fun showLoading() {
@@ -127,13 +144,21 @@ class RegisterActivity : BaseActivity<RegisterPresenter, ActivityRegisterBinding
         LogUtils.e(errorMsg)
     }
 
+    override fun registerSuccess(mobile:String?) {
+        EventBus.getDefault().post(RegisterSuccessEvent(mobile!!))
+        onBackPressedSupport()
+    }
+
     override fun onClick(v: View?) {
         when (v?.id) {
+            R.id.iv_close -> {
+                onBackPressedSupport()
+            }
             R.id.tv_request_code -> {
                 mPresenter?.requestRegisterCode(mobile())
             }
             R.id.tv_register -> {
-
+                mPresenter?.register(mobile(), code(), password())
             }
             R.id.iv_clear_mobile -> {
                 mBinding?.etMobile?.setText("")
@@ -143,6 +168,10 @@ class RegisterActivity : BaseActivity<RegisterPresenter, ActivityRegisterBinding
             }
             R.id.iv_clear_pwd -> {
                 mBinding?.etPwd?.setText("")
+            }
+            R.id.tv_customer -> {
+                val dialIntent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:123456"))
+                startActivity(dialIntent)
             }
         }
     }

@@ -15,6 +15,8 @@ import com.kzj.mall.base.BaseActivity
 import com.kzj.mall.base.IPresenter
 import com.kzj.mall.databinding.ActivityLoginBinding
 import com.kzj.mall.di.component.AppComponent
+import com.kzj.mall.event.RegisterSuccessEvent
+import com.kzj.mall.ui.fragment.login.BaseLoginFragment
 import com.kzj.mall.ui.fragment.login.LoginCodeFragment
 import com.kzj.mall.ui.fragment.login.LoginPasswordFragment
 import net.lucode.hackware.magicindicator.ViewPagerHelper
@@ -24,11 +26,16 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerInd
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorTransitionPagerTitleView
+import org.greenrobot.eventbus.Subscribe
 
 class LoginActivity : BaseActivity<IPresenter, ActivityLoginBinding>(), View.OnClickListener {
     private val mTitles: Array<String> = arrayOf("验证码登录", "密码登录")
     private var commomViewPagerAdapter: CommomViewPagerAdapter? = null
     private var fragments: MutableList<Fragment>? = null
+
+    private var restart = false
+    private var register = false
+    private var mobile: String? = null
 
 
     override fun getLayoutId(): Int {
@@ -52,7 +59,7 @@ class LoginActivity : BaseActivity<IPresenter, ActivityLoginBinding>(), View.OnC
         commomViewPagerAdapter = CommomViewPagerAdapter(supportFragmentManager, fragments!!)
         mBinding?.vpLogin?.adapter = commomViewPagerAdapter
         setUpViewPager()
-        mBinding?.vpLogin?.addOnPageChangeListener(object : ViewPager.OnPageChangeListener{
+        mBinding?.vpLogin?.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {
             }
 
@@ -60,9 +67,9 @@ class LoginActivity : BaseActivity<IPresenter, ActivityLoginBinding>(), View.OnC
             }
 
             override fun onPageSelected(position: Int) {
-                if (position == 0){
+                if (position == 0) {
                     mBinding?.ivLoginBg?.setImageResource(R.mipmap.login_bg1)
-                }else{
+                } else {
                     mBinding?.ivLoginBg?.setImageResource(R.mipmap.login_bg2)
                 }
 
@@ -113,6 +120,31 @@ class LoginActivity : BaseActivity<IPresenter, ActivityLoginBinding>(), View.OnC
 
         mBinding?.magicIndicator?.navigator = commonNavigator
         ViewPagerHelper.bind(mBinding?.magicIndicator, mBinding?.vpLogin);
+    }
+
+    @Subscribe
+    fun register(registerSuccessEvent: RegisterSuccessEvent) {
+        mobile = registerSuccessEvent?.mobile
+        register = true
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        restart = true
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        if (restart && register) {
+
+            for (i in 0 until fragments?.size!!) {
+                (fragments?.get(i) as BaseLoginFragment).setMobile(mobile)
+            }
+
+            register = false
+            restart = false
+        }
     }
 
     override fun onClick(v: View?) {

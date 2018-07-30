@@ -166,7 +166,7 @@
                                     android:hint="密码（长度在6～16位，请牢记您的密码）"
                                     android:inputType="textPassword"
                                     android:lines="1"
-                                    android:maxLength="6"
+                                    android:maxLength="16"
                                     android:singleLine="true"
                                     android:textColor="#2E3033"
                                     android:textColorHint="#C2C6CC"

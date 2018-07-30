@@ -18,6 +18,9 @@ import android.text.TextWatcher
 
 
 abstract class BaseLoginFragment : BaseFragment<LoginPresenter, FragmentLoginBinding>(), View.OnClickListener, LoginContract.View {
+    private var isInit = false
+    private var mobile: String? = null
+
     override fun getLayoutId(): Int {
         return R.layout.fragment_login
     }
@@ -29,7 +32,6 @@ abstract class BaseLoginFragment : BaseFragment<LoginPresenter, FragmentLoginBin
                 .build()
                 .inject(this)
     }
-
 
     override fun initData() {
         if (isCode()) {
@@ -44,6 +46,24 @@ abstract class BaseLoginFragment : BaseFragment<LoginPresenter, FragmentLoginBin
             mBinding?.etPwd?.visibility = View.VISIBLE
         }
 
+        mobile?.let {
+            mBinding?.etMobile?.setText(it)
+            mBinding?.etMobile?.setSelection(it.length)
+        }
+        isInit = true
+        initLinstener()
+    }
+
+    fun setMobile(mobile:String?){
+        this.mobile = mobile
+        if (isInit){
+            mBinding?.etMobile?.setText(mobile)
+            mBinding?.etMobile?.setSelection(mobile?.length!!)
+        }
+    }
+
+
+    private fun initLinstener() {
         mBinding?.etMobile?.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 mBinding?.tvLogin?.isEnabled = canLogin()

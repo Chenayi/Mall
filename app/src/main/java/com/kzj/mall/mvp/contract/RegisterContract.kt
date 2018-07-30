@@ -10,6 +10,7 @@ interface RegisterContract {
     interface View : IView {
         fun sendCodeSuccess()
         fun sendCodeError(code: Int, errorMsg: String?)
+        fun registerSuccess(mobile:String?)
     }
 
     interface Model : IModel {

@@ -14,6 +14,7 @@ import com.kzj.mall.App
 import com.kzj.mall.R
 import com.kzj.mall.di.component.AppComponent
 import com.yinglan.keyboard.HideUtil
+import org.greenrobot.eventbus.EventBus
 
 
 abstract class BaseFragment<P : IPresenter, D : ViewDataBinding> : SupportFragment() {
@@ -44,12 +45,16 @@ abstract class BaseFragment<P : IPresenter, D : ViewDataBinding> : SupportFragme
         super.onLazyInitView(savedInstanceState)
         mApp = activity?.application as App
         setupComponent(mApp?.getAppComponent())
+        if (enableEventBus()){
+            EventBus.getDefault().register(this)
+        }
         initData()
     }
 
     abstract fun getLayoutId(): Int
     abstract fun setupComponent(appComponent: AppComponent?)
     abstract fun initData()
+    protected open fun enableEventBus() = false
 
 
     override fun onSupportVisible() {
@@ -74,6 +79,9 @@ abstract class BaseFragment<P : IPresenter, D : ViewDataBinding> : SupportFragme
         mImmersionBar?.destroy()
         if (::mPresenter.isInitialized) {
             mPresenter.onDestory();
+        }
+        if (enableEventBus()){
+            EventBus.getDefault().unregister(this)
         }
         super.onDestroy()
     }
