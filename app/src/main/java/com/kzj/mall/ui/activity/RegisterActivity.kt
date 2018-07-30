@@ -1,8 +1,14 @@
 package com.kzj.mall.ui.activity
 
+import android.text.Editable
+import android.text.TextUtils
+import android.text.TextWatcher
 import android.view.View
+import com.blankj.utilcode.util.BarUtils
+import com.blankj.utilcode.util.KeyboardUtils
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ToastUtils
+import com.gyf.barlibrary.ImmersionBar
 import com.kzj.mall.R
 import com.kzj.mall.base.BaseActivity
 import com.kzj.mall.databinding.ActivityRegisterBinding
@@ -28,8 +34,80 @@ class RegisterActivity : BaseActivity<RegisterPresenter, ActivityRegisterBinding
                 .inject(this)
     }
 
+    override fun initImmersionBar() {
+        mImmersionBar = ImmersionBar.with(this)
+        mImmersionBar?.init()
+    }
+
     override fun initData() {
-        mBinding?.btnRequestCode?.setOnClickListener(this)
+        mBinding?.rlContent?.setPadding(0, BarUtils.getStatusBarHeight(), 0, 0)
+        initListener()
+    }
+
+    private fun initListener() {
+        mBinding?.etMobile?.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                mBinding?.tvRegister?.isEnabled = canRegister()
+                mBinding?.ivClearMobile?.visibility = if (TextUtils.isEmpty(mobile())) View.GONE else View.VISIBLE
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+        })
+
+
+        mBinding?.etCode?.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                mBinding?.tvRegister?.isEnabled = canRegister()
+                mBinding?.ivClearCode?.visibility = if (TextUtils.isEmpty(code())) View.GONE else View.VISIBLE
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+        })
+
+
+
+        mBinding?.etPwd?.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                mBinding?.tvRegister?.isEnabled = canRegister()
+                mBinding?.ivClearPwd?.visibility = if (TextUtils.isEmpty(password())) View.GONE else View.VISIBLE
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+        })
+
+
+        mBinding?.etMobile?.setOnFocusChangeListener { v, hasFocus ->
+            mBinding?.ivClearMobile?.visibility = if (!hasFocus || TextUtils.isEmpty(mobile())) View.GONE else View.VISIBLE
+        }
+
+        mBinding?.etCode?.setOnFocusChangeListener { v, hasFocus ->
+            mBinding?.ivClearCode?.visibility = if (!hasFocus || TextUtils.isEmpty(code())) View.GONE else View.VISIBLE
+        }
+
+        mBinding?.etPwd?.setOnFocusChangeListener { v, hasFocus ->
+            mBinding?.ivClearPwd?.visibility = if (!hasFocus || TextUtils.isEmpty(password())) View.GONE else View.VISIBLE
+        }
+
+        mBinding?.tvRequestCode?.setOnClickListener(this)
+        mBinding?.tvRegister?.setOnClickListener(this)
+        mBinding?.ivClearMobile?.setOnClickListener(this)
+        mBinding?.ivClearCode?.setOnClickListener(this)
+        mBinding?.ivClearPwd?.setOnClickListener(this)
     }
 
     override fun showLoading() {
@@ -51,10 +129,34 @@ class RegisterActivity : BaseActivity<RegisterPresenter, ActivityRegisterBinding
 
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.btn_request_code -> {
-                val mobile = mBinding?.etPhone?.text?.toString()
-                mPresenter?.requestRegisterCode(mobile)
+            R.id.tv_request_code -> {
+                mPresenter?.requestRegisterCode(mobile())
+            }
+            R.id.tv_register -> {
+
+            }
+            R.id.iv_clear_mobile -> {
+                mBinding?.etMobile?.setText("")
+            }
+            R.id.iv_clear_code -> {
+                mBinding?.etCode?.setText("")
+            }
+            R.id.iv_clear_pwd -> {
+                mBinding?.etPwd?.setText("")
             }
         }
+    }
+
+    private fun canRegister() = !TextUtils.isEmpty(mobile()) && !TextUtils.isEmpty(code()) && !TextUtils.isEmpty(password())
+
+    private fun mobile() = mBinding?.etMobile?.text?.toString()?.trim()
+
+    private fun code() = mBinding?.etCode?.text?.toString()?.trim()
+
+    private fun password() = mBinding?.etPwd?.text?.toString()?.trim()
+
+    override fun onBackPressedSupport() {
+        KeyboardUtils.hideSoftInput(this)
+        super.onBackPressedSupport()
     }
 }

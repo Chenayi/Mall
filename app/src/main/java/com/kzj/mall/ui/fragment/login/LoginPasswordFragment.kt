@@ -40,12 +40,14 @@ class LoginPasswordFragment : BaseLoginFragment() {
                 mBinding?.ivEye?.setImageResource(R.mipmap.eye_close)
                 mBinding?.etPwd?.setTransformationMethod(PasswordTransformationMethod.getInstance());
             }
-            val pwd = mBinding?.etPwd?.text?.toString()
-            pwd?.let {
-                mBinding?.etPwd?.setSelection(it.length)
-            }
             mBinding?.etPwd?.requestFocus()
             isShowPwd = !isShowPwd
+        } else if (id == R.id.tv_login) {
+            val password = mBinding?.etPwd?.text?.toString()?.trim()
+            val mobile = mBinding?.etMobile?.text?.toString()?.trim()
+            mPresenter?.loginByPassword(mobile, password)
+        }else if (id == R.id.iv_clear_code){
+            mBinding?.etPwd?.setText("")
         }
     }
 }

@@ -108,7 +108,7 @@
                         android:textColor="#2E3033"
                         android:textColorHint="#C2C6CC"
                         android:textSize="13dp"
-                        android:visibility="gone"/>
+                        android:visibility="gone" />
                 </FrameLayout>
 
                 <ImageView
@@ -128,10 +128,10 @@
                     android:visibility="gone">
 
                     <ImageView
+                        android:id="@+id/iv_eye"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@mipmap/eye_close"
-                        android:id="@+id/iv_eye"/>
+                        android:src="@mipmap/eye_close" />
 
                     <View
                         android:layout_width="0.5dp"
@@ -162,11 +162,12 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="20dp"
-            android:background="@mipmap/login_bg_no"
+            android:background="@drawable/selector_login_bg"
+            android:enabled="false"
             android:gravity="center"
             android:paddingBottom="10dp"
             android:text="登录"
-            android:textColor="#7fffffff"
+            android:textColor="@drawable/selector_login_text"
             android:textSize="17dp" />
 
 

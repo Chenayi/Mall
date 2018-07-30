@@ -3,8 +3,10 @@ package com.kzj.mall.ui.activity
 import android.content.Context
 import android.graphics.Color
 import android.support.v4.app.Fragment
+import android.support.v4.view.ViewPager
 import android.view.View
 import com.blankj.utilcode.util.BarUtils
+import com.blankj.utilcode.util.KeyboardUtils
 import com.blankj.utilcode.util.SizeUtils
 import com.gyf.barlibrary.ImmersionBar
 import com.kzj.mall.R
@@ -49,12 +51,29 @@ class LoginActivity : BaseActivity<IPresenter, ActivityLoginBinding>(), View.OnC
         mBinding?.vpLogin?.setNoScroll(false)
         commomViewPagerAdapter = CommomViewPagerAdapter(supportFragmentManager, fragments!!)
         mBinding?.vpLogin?.adapter = commomViewPagerAdapter
-        setVp()
+        setUpViewPager()
+        mBinding?.vpLogin?.addOnPageChangeListener(object : ViewPager.OnPageChangeListener{
+            override fun onPageScrollStateChanged(state: Int) {
+            }
+
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+            }
+
+            override fun onPageSelected(position: Int) {
+                if (position == 0){
+                    mBinding?.ivLoginBg?.setImageResource(R.mipmap.login_bg1)
+                }else{
+                    mBinding?.ivLoginBg?.setImageResource(R.mipmap.login_bg2)
+                }
+
+            }
+
+        })
 
         mBinding?.ivClose?.setOnClickListener(this)
     }
 
-    fun setVp() {
+    private fun setUpViewPager() {
         var commonNavigator = CommonNavigator(applicationContext)
         commonNavigator?.isAdjustMode = true
         commonNavigator.adapter = object : CommonNavigatorAdapter() {
@@ -99,8 +118,13 @@ class LoginActivity : BaseActivity<IPresenter, ActivityLoginBinding>(), View.OnC
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.iv_close -> {
-                finish()
+                onBackPressedSupport()
             }
         }
+    }
+
+    override fun onBackPressedSupport() {
+        KeyboardUtils.hideSoftInput(this)
+        super.onBackPressedSupport()
     }
 }

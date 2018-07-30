@@ -1,6 +1,8 @@
 package com.kzj.mall
 
 import android.app.Application
+import android.view.Gravity
+import com.blankj.utilcode.util.ToastUtils
 import com.blankj.utilcode.util.Utils
 import com.kzj.mall.di.component.AppComponent
 import com.kzj.mall.di.component.DaggerAppComponent
@@ -17,6 +19,7 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         Utils.init(this);
+        ToastUtils.setGravity(Gravity.CENTER,0,0)
         ScreenAdapterTools.init(this);
     }
 

@@ -5,6 +5,7 @@ import android.support.v4.content.ContextCompat
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
+import android.view.View
 import com.kzj.mall.R
 
 
@@ -27,12 +28,12 @@ class LoginCodeFragment : BaseLoginFragment() {
     override fun initData() {
         super.initData()
 
-        mBinding?.etMobile?.addTextChangedListener(object : TextWatcher{
+        mBinding?.etMobile?.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                if (!TextUtils.isEmpty(s)){
+                if (!TextUtils.isEmpty(s)) {
                     mBinding?.tvRequestCode?.isEnabled = true
                     mBinding?.tvRequestCode?.setTextColor(ContextCompat.getColor(context!!, R.color.colorPrimary))
-                }else{
+                } else {
                     mBinding?.tvRequestCode?.isEnabled = false
                     mBinding?.tvRequestCode?.setTextColor(Color.parseColor("#C2C6CC"))
                 }
@@ -47,5 +48,17 @@ class LoginCodeFragment : BaseLoginFragment() {
         })
 
         mBinding?.tvRequestCode?.setOnClickListener(this)
+    }
+
+    override fun onClick(v: View?) {
+        super.onClick(v)
+        val id = v?.id
+        if (id == R.id.tv_login) {
+            val code = code()
+            val mobile = mobile()
+            mPresenter?.loginByCode(mobile, code)
+        }else if (id == R.id.iv_clear_code){
+            mBinding?.etCode?.setText("")
+        }
     }
 }

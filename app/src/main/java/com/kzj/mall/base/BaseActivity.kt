@@ -15,6 +15,7 @@ import com.kzj.mall.di.component.AppComponent
 import com.kzj.mall.event.CloseActivityEvent
 import com.kzj.mall.ui.dialog.LoadingDialog
 import com.yatoooon.screenadaptation.ScreenAdapterTools
+import com.yinglan.keyboard.HideUtil
 import me.yokeyword.fragmentation.SupportActivity
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -43,6 +44,7 @@ abstract class BaseActivity<P : IPresenter, D : ViewDataBinding> : SupportActivi
         app = application as App
         initImmersionBar()
         setupComponent(app?.getAppComponent())
+        HideUtil.init(this)
         EventBus.getDefault().register(this)
         initData()
     }

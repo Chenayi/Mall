@@ -13,6 +13,7 @@ import com.gyf.barlibrary.ImmersionBar
 import com.kzj.mall.App
 import com.kzj.mall.R
 import com.kzj.mall.di.component.AppComponent
+import com.yinglan.keyboard.HideUtil
 
 
 abstract class BaseFragment<P : IPresenter, D : ViewDataBinding> : SupportFragment() {
@@ -32,6 +33,11 @@ abstract class BaseFragment<P : IPresenter, D : ViewDataBinding> : SupportFragme
         mBinding = DataBindingUtil.bind(view)
         ScreenAdapterTools.getInstance().loadView(view);
         return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        HideUtil.init(activity)
     }
 
     override fun onLazyInitView(savedInstanceState: Bundle?) {

@@ -1,6 +1,7 @@
 package com.kzj.mall.mvp.presenter
 
 import android.content.Context
+import com.blankj.utilcode.util.RegexUtils
 import com.kzj.mall.base.BaseObserver
 import com.kzj.mall.base.BasePresenter
 import com.kzj.mall.di.scope.ActivityScope
@@ -28,12 +29,19 @@ constructor(model: RegisterContract.Model?, view: RegisterContract.View?, contex
                     }
 
                     override fun onHandleError(code: Int, msg: String?) {
-                        view?.sendCodeError(code,msg)
+                        view?.sendCodeError(code, msg)
                     }
 
                     override fun onHandleAfter() {
                         view?.hideLoading()
                     }
                 })
+    }
+
+    fun register(mobile: String?, code: String?, password: String?) {
+        if (!RegexUtils.isMobileSimple(mobile)){
+
+            return
+        }
     }
 }
