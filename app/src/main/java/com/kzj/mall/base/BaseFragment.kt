@@ -29,6 +29,11 @@ abstract class BaseFragment<P : IPresenter, D : ViewDataBinding> : SupportFragme
 
     protected var mApp: App? = null
 
+    /**
+     * 是否已获取过数据
+     */
+    protected var isAcquired = false
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         var view = inflater.inflate(getLayoutId(), container, false)
         mBinding = DataBindingUtil.bind(view)
@@ -49,6 +54,7 @@ abstract class BaseFragment<P : IPresenter, D : ViewDataBinding> : SupportFragme
             EventBus.getDefault().register(this)
         }
         initData()
+        isAcquired = true
     }
 
     abstract fun getLayoutId(): Int

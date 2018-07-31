@@ -35,7 +35,7 @@ constructor(model: LoginContract.Model?, view: LoginContract.View?, context: Con
             return
         }
 
-        LogUtils.e("验证码登录...")
+        view?.loginSuccess()
     }
 
     fun loginByPassword(mobile: String?, password: String?){
@@ -51,7 +51,7 @@ constructor(model: LoginContract.Model?, view: LoginContract.View?, context: Con
             return
         }
 
-        LogUtils.e("密码登录...")
+        view?.loginSuccess()
     }
 
 }

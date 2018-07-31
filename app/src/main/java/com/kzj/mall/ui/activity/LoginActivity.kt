@@ -1,5 +1,6 @@
 package com.kzj.mall.ui.activity
 
+import android.app.Activity
 import android.content.Context
 import android.graphics.Color
 import android.support.v4.app.Fragment
@@ -9,16 +10,19 @@ import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.KeyboardUtils
 import com.blankj.utilcode.util.SizeUtils
 import com.gyf.barlibrary.ImmersionBar
+import com.kzj.mall.C
 import com.kzj.mall.R
 import com.kzj.mall.adapter.CommomViewPagerAdapter
 import com.kzj.mall.base.BaseActivity
 import com.kzj.mall.base.IPresenter
 import com.kzj.mall.databinding.ActivityLoginBinding
 import com.kzj.mall.di.component.AppComponent
+import com.kzj.mall.event.LoginSuccessEvent
 import com.kzj.mall.event.RegisterSuccessEvent
 import com.kzj.mall.ui.fragment.login.BaseLoginFragment
 import com.kzj.mall.ui.fragment.login.LoginCodeFragment
 import com.kzj.mall.ui.fragment.login.LoginPasswordFragment
+import me.yokeyword.fragmentation.ISupportFragment
 import net.lucode.hackware.magicindicator.ViewPagerHelper
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.CommonNavigatorAdapter
@@ -26,6 +30,7 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerInd
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorTransitionPagerTitleView
+import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 
 class LoginActivity : BaseActivity<IPresenter, ActivityLoginBinding>(), View.OnClickListener {
@@ -158,5 +163,12 @@ class LoginActivity : BaseActivity<IPresenter, ActivityLoginBinding>(), View.OnC
     override fun onBackPressedSupport() {
         KeyboardUtils.hideSoftInput(this)
         super.onBackPressedSupport()
+    }
+
+    fun loginSuccess(){
+        C.ISLOGIN = true
+        EventBus.getDefault().post(LoginSuccessEvent())
+        KeyboardUtils.hideSoftInput(this)
+        finish()
     }
 }

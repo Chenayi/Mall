@@ -251,9 +251,9 @@ class LocalDatas {
          */
         fun cartDatas(): MutableList<ICart> {
             val datas = ArrayList<ICart>()
-            datas.add(CartSingleEntity())
-            datas.add(cartGroupDatas())
-            datas.add(CartSingleEntity())
+//            datas.add(CartSingleEntity())
+//            datas.add(cartGroupDatas())
+//            datas.add(CartSingleEntity())
             return datas
         }
 

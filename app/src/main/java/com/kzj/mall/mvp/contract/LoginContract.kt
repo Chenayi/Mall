@@ -5,7 +5,7 @@ import com.kzj.mall.base.IView
 
 interface LoginContract {
     interface View : IView {
-
+        fun loginSuccess()
     }
 
     interface Model : IModel {

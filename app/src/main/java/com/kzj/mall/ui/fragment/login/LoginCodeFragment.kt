@@ -7,6 +7,7 @@ import android.text.TextUtils
 import android.text.TextWatcher
 import android.view.View
 import com.kzj.mall.R
+import com.kzj.mall.ui.activity.LoginActivity
 
 
 /**
@@ -48,6 +49,10 @@ class LoginCodeFragment : BaseLoginFragment() {
         })
 
         mBinding?.tvRequestCode?.setOnClickListener(this)
+    }
+
+    override fun loginSuccess() {
+        (activity as LoginActivity).loginSuccess()
     }
 
     override fun onClick(v: View?) {

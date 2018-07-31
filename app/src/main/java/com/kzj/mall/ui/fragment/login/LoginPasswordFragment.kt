@@ -4,6 +4,7 @@ import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.view.View
 import com.kzj.mall.R
+import com.kzj.mall.ui.activity.LoginActivity
 
 
 /**
@@ -27,6 +28,10 @@ class LoginPasswordFragment : BaseLoginFragment() {
     override fun initData() {
         super.initData()
         mBinding?.ivEye?.setOnClickListener(this)
+    }
+
+    override fun loginSuccess() {
+        (activity as LoginActivity).loginSuccess()
     }
 
     override fun onClick(v: View?) {

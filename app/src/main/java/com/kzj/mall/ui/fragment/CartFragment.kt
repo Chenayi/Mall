@@ -16,10 +16,12 @@ import com.kzj.mall.databinding.FragmentCartBinding
 import com.kzj.mall.di.component.AppComponent
 import com.kzj.mall.utils.LocalDatas
 import com.kzj.mall.entity.cart.BaseCartEntity
+import com.kzj.mall.event.LoginSuccessEvent
 import com.kzj.mall.ui.activity.ConfirmOrderActivity
 import com.kzj.mall.ui.activity.GoodsDetailActivity
 import com.kzj.mall.ui.activity.LoginActivity
 import com.kzj.mall.ui.dialog.ConfirmDialog
+import org.greenrobot.eventbus.Subscribe
 
 class CartFragment : BaseFragment<IPresenter, FragmentCartBinding>(), View.OnClickListener {
     private var cartAdapter: CartAdapter? = null
@@ -27,8 +29,8 @@ class CartFragment : BaseFragment<IPresenter, FragmentCartBinding>(), View.OnCli
     private var isAllCheck = false
 
     private var headerView: View? = null
-    private var tvContent:TextView?=null
-    private var tvLogin:SuperTextView?=null
+    private var tvContent: TextView? = null
+    private var tvLogin: SuperTextView? = null
 
     companion object {
         fun newInstance(): CartFragment {
@@ -41,6 +43,8 @@ class CartFragment : BaseFragment<IPresenter, FragmentCartBinding>(), View.OnCli
         return R.layout.fragment_cart
     }
 
+    override fun enableEventBus() = true
+
     override fun isImmersionBarEnabled(): Boolean {
         return true
     }
@@ -49,7 +53,7 @@ class CartFragment : BaseFragment<IPresenter, FragmentCartBinding>(), View.OnCli
         immersionBarColor = R.color.fb
         mImmersionBar = ImmersionBar.with(this)
         mImmersionBar?.fitsSystemWindows(true, immersionBarColor)
-                ?.statusBarDarkFont(true,0.5f)
+                ?.statusBarDarkFont(true, 0.5f)
                 ?.init()
     }
 
@@ -80,7 +84,7 @@ class CartFragment : BaseFragment<IPresenter, FragmentCartBinding>(), View.OnCli
         } else {
             mBinding?.tvEdit?.visibility = View.GONE
             tvLogin?.setOnClickListener {
-                val intent = Intent(context,LoginActivity::class.java)
+                val intent = Intent(context, LoginActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(intent)
             }
@@ -172,6 +176,22 @@ class CartFragment : BaseFragment<IPresenter, FragmentCartBinding>(), View.OnCli
         cartAdapter?.notifyDataSetChanged()
         mBinding?.ivAllCheck?.setImageResource(R.color.gray_default)
     }
+
+    @Subscribe
+    fun loginSuccess(loginSuccessEvent: LoginSuccessEvent) {
+        val datas = LocalDatas.cartDatas()
+        if (datas?.size > 0) {
+            cartAdapter?.removeHeaderView(headerView)
+            cartAdapter?.setNewData(datas)
+            cartAdapter?.addData(LocalDatas.cartRecommendDatas())
+        } else {
+            tvContent?.setText("购物车空空如也")
+            tvLogin?.visibility = View.GONE
+            mBinding?.tvEdit?.visibility = View.GONE
+            cartAdapter?.addHeaderView(headerView)
+        }
+    }
+
 
     override fun onClick(v: View?) {
         when (v?.id) {

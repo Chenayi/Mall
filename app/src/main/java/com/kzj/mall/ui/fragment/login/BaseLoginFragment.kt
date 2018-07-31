@@ -54,9 +54,9 @@ abstract class BaseLoginFragment : BaseFragment<LoginPresenter, FragmentLoginBin
         initLinstener()
     }
 
-    fun setMobile(mobile:String?){
+    fun setMobile(mobile: String?) {
         this.mobile = mobile
-        if (isInit){
+        if (isInit) {
             mBinding?.etMobile?.setText(mobile)
             mBinding?.etMobile?.setSelection(mobile?.length!!)
         }
