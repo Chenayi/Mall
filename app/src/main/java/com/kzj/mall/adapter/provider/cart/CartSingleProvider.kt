@@ -1,8 +1,6 @@
 package com.kzj.mall.adapter.provider.cart
 
-import android.view.View
 import android.widget.ImageView
-import com.blankj.utilcode.util.LogUtils
 import com.chad.library.adapter.base.BaseViewHolder
 import com.chad.library.adapter.base.provider.BaseItemProvider
 import com.kzj.mall.R
@@ -28,7 +26,7 @@ class CartSingleProvider : BaseItemProvider<CartSingleEntity, BaseViewHolder>() 
         //正常选择模式
         else {
             ivCheckDelete?.setImageResource(if (data?.isCheck == true) R.mipmap.icon_cart_check else R.color.gray_default)
-            helper?.addOnClickListener(R.id.iv_check)
         }
+        helper?.addOnClickListener(R.id.iv_check)
     }
 }

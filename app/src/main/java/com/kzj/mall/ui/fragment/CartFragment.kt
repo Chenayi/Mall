@@ -16,6 +16,7 @@ import com.kzj.mall.databinding.FragmentCartBinding
 import com.kzj.mall.di.component.AppComponent
 import com.kzj.mall.utils.LocalDatas
 import com.kzj.mall.entity.cart.BaseCartEntity
+import com.kzj.mall.entity.cart.ICart
 import com.kzj.mall.event.LoginSuccessEvent
 import com.kzj.mall.ui.activity.ConfirmOrderActivity
 import com.kzj.mall.ui.activity.GoodsDetailActivity
@@ -74,14 +75,17 @@ class CartFragment : BaseFragment<IPresenter, FragmentCartBinding>(), View.OnCli
         if (C.ISLOGIN) {
             val datas = LocalDatas.cartDatas()
             if (datas?.size > 0) {
+                mBinding?.llBalance?.visibility = View.VISIBLE
                 cartAdapter?.setNewData(datas)
             } else {
+                mBinding?.llBalance?.visibility = View.GONE
                 tvContent?.setText("购物车空空如也")
                 tvLogin?.visibility = View.GONE
                 mBinding?.tvEdit?.visibility = View.GONE
                 cartAdapter?.addHeaderView(headerView)
             }
         } else {
+            mBinding?.llBalance?.visibility = View.GONE
             mBinding?.tvEdit?.visibility = View.GONE
             tvLogin?.setOnClickListener {
                 val intent = Intent(context, LoginActivity::class.java)
@@ -118,7 +122,7 @@ class CartFragment : BaseFragment<IPresenter, FragmentCartBinding>(), View.OnCli
                         ConfirmDialog.newInstance("狠心删除", "留在购物车", "很抢手哦 ～ 下次不一定能买到确定要删除我吗 ～")
                                 .setOnConfirmClickListener(object : ConfirmDialog.OnConfirmClickListener {
                                     override fun onLeftClick() {
-                                        cartAdapter?.remove(position)
+                                        remove(position)
                                     }
 
                                     override fun onRightClick() {
@@ -134,6 +138,24 @@ class CartFragment : BaseFragment<IPresenter, FragmentCartBinding>(), View.OnCli
         mBinding?.tvEdit?.setOnClickListener(this)
         mBinding?.llAllCheck?.setOnClickListener(this)
         mBinding?.tvToBalance?.setOnClickListener(this)
+    }
+
+    fun remove(position: Int) {
+        cartAdapter?.remove(position)
+
+        for (i in 0 until cartAdapter?.data?.size!!) {
+            val cart = cartAdapter?.data?.get(i)
+            val itemType = cart?.getItemType()
+            if (itemType == ICart.SINGLE || itemType == ICart.GROUP) {
+                return
+            }
+        }
+        cartAdapter?.addHeaderView(headerView, 0)
+        mBinding?.llBalance?.visibility = View.GONE
+        tvLogin?.visibility = View.GONE
+        mBinding?.tvEdit?.visibility = View.GONE
+        tvContent?.setText("购物车空空如也")
+        mBinding?.rvCart?.scrollToPosition(0)
     }
 
     /**
@@ -181,14 +203,16 @@ class CartFragment : BaseFragment<IPresenter, FragmentCartBinding>(), View.OnCli
     fun loginSuccess(loginSuccessEvent: LoginSuccessEvent) {
         val datas = LocalDatas.cartDatas()
         if (datas?.size > 0) {
+            mBinding?.llBalance?.visibility = View.VISIBLE
+            mBinding?.tvEdit?.visibility = View.VISIBLE
             cartAdapter?.removeHeaderView(headerView)
             cartAdapter?.setNewData(datas)
             cartAdapter?.addData(LocalDatas.cartRecommendDatas())
         } else {
-            tvContent?.setText("购物车空空如也")
+            mBinding?.llBalance?.visibility = View.GONE
             tvLogin?.visibility = View.GONE
             mBinding?.tvEdit?.visibility = View.GONE
-            cartAdapter?.addHeaderView(headerView)
+            tvContent?.setText("购物车空空如也")
         }
     }
 

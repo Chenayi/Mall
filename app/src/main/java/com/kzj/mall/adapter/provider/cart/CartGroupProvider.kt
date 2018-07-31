@@ -31,8 +31,8 @@ class CartGroupProvider: BaseItemProvider<CartGroupEntity,BaseViewHolder>() {
         //正常选择模式
         else {
             ivCheckDelete?.setImageResource(if (data?.isCheck == true) R.mipmap.icon_cart_check else R.color.gray_default)
-            helper?.addOnClickListener(R.id.iv_check)
         }
+        helper?.addOnClickListener(R.id.iv_check)
 
         val rvGroup = helper?.getView<RecyclerView>(R.id.rv_group)
         rvGroup?.setFocusableInTouchMode(false);
