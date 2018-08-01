@@ -140,6 +140,9 @@ class CartFragment : BaseFragment<IPresenter, FragmentCartBinding>(), View.OnCli
         mBinding?.tvToBalance?.setOnClickListener(this)
     }
 
+    /**
+     * 移除购物车
+     */
     fun remove(position: Int) {
         cartAdapter?.remove(position)
 

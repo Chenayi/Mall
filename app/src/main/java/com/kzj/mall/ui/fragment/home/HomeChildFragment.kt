@@ -14,7 +14,7 @@ import com.kzj.mall.di.component.AppComponent
 import com.kzj.mall.entity.home.*
 import com.kzj.mall.utils.LocalDatas
 
-class HomeChildFragment : BaseHomeChildListFragment<IPresenter>() {
+class HomeChildFragment : BaseHomeChildListFragment() {
     private var headerBannerProvider: HeaderBannerProvider? = null
     private var isAskVisible = true
     private var distance = 0
@@ -24,8 +24,6 @@ class HomeChildFragment : BaseHomeChildListFragment<IPresenter>() {
             val homeChildFragment = HomeChildFragment()
             return homeChildFragment
         }
-    }
-    override fun setupComponent(appComponent: AppComponent?) {
     }
 
     override fun initData() {
@@ -69,6 +67,9 @@ class HomeChildFragment : BaseHomeChildListFragment<IPresenter>() {
                 }
             }
         })
+
+
+        mPresenter?.requestHomeDatas()
     }
 
     private fun hideAskWithAnim() {

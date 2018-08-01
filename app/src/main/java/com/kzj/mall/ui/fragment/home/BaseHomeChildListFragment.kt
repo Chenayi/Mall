@@ -10,16 +10,29 @@ import com.kzj.mall.R
 import com.kzj.mall.base.BaseFragment
 import com.kzj.mall.base.IPresenter
 import com.kzj.mall.databinding.FragmentBaseHomeChildListBinding
+import com.kzj.mall.di.component.AppComponent
+import com.kzj.mall.di.component.DaggerHomeComponent
+import com.kzj.mall.di.module.HomeModule
 import com.kzj.mall.entity.home.HomeRecommendEntity
 import com.kzj.mall.entity.home.IHomeEntity
+import com.kzj.mall.mvp.contract.HomeContract
+import com.kzj.mall.mvp.presenter.HomePresenter
 import com.kzj.mall.widget.ExpandLoadMoewView
 
-abstract class BaseHomeChildListFragment<P : IPresenter> : BaseFragment<P, FragmentBaseHomeChildListBinding>() {
+abstract class BaseHomeChildListFragment : BaseFragment<HomePresenter, FragmentBaseHomeChildListBinding>(), HomeContract.View {
     private var listAdapter: ListAdapter? = null
     private var headerBannerView: View? = null
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_base_home_child_list
+    }
+
+    override fun setupComponent(appComponent: AppComponent?) {
+        DaggerHomeComponent.builder()
+                .appComponent(appComponent)
+                .homeModule(HomeModule(this))
+                .build()
+                .inject(this)
     }
 
     override fun initData() {
@@ -59,6 +72,12 @@ abstract class BaseHomeChildListFragment<P : IPresenter> : BaseFragment<P, Fragm
      */
     fun setListDatas(datas: MutableList<IHomeEntity>) {
         listAdapter?.setNewData(datas)
+    }
+
+    override fun showLoading() {
+    }
+
+    override fun hideLoading() {
     }
 
     inner class ListAdapter

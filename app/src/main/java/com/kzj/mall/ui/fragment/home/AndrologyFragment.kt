@@ -15,7 +15,7 @@ import com.kzj.mall.utils.LocalDatas
 /**
  * 男科
  */
-class AndrologyFragment : BaseHomeChildListFragment<IPresenter>() {
+class AndrologyFragment : BaseHomeChildListFragment() {
     var headerBannerProvider: HeaderBannerProvider? = null
 
     companion object {
@@ -23,9 +23,6 @@ class AndrologyFragment : BaseHomeChildListFragment<IPresenter>() {
             val andrologyFragment = AndrologyFragment()
             return andrologyFragment
         }
-    }
-
-    override fun setupComponent(appComponent: AppComponent?) {
     }
 
     override fun initData() {
