@@ -21,14 +21,14 @@
             android:paddingTop="18dp">
 
             <ImageView
-                android:layout_width="47dp"
-                android:layout_height="47dp"
+                android:layout_width="57dp"
+                android:layout_height="57dp"
                 android:src="@mipmap/icon_all_classify" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="2dp"
                 android:lines="1"
                 android:singleLine="true"
                 android:text="全部分类"
@@ -46,14 +46,14 @@
             android:paddingTop="18dp">
 
             <ImageView
-                android:layout_width="47dp"
-                android:layout_height="47dp"
+                android:layout_width="57dp"
+                android:layout_height="57dp"
                 android:src="@mipmap/icon_doctor_ask" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="2dp"
                 android:lines="1"
                 android:singleLine="true"
                 android:text="药师咨询"
@@ -71,14 +71,14 @@
             android:paddingTop="18dp">
 
             <ImageView
-                android:layout_width="47dp"
-                android:layout_height="47dp"
+                android:layout_width="57dp"
+                android:layout_height="57dp"
                 android:src="@mipmap/icon_health" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="2dp"
                 android:lines="1"
                 android:singleLine="true"
                 android:text="滋补保健"
@@ -96,14 +96,14 @@
             android:paddingTop="18dp">
 
             <ImageView
-                android:layout_width="47dp"
-                android:layout_height="47dp"
+                android:layout_width="57dp"
+                android:layout_height="57dp"
                 android:src="@mipmap/icon_sex_toy" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="2dp"
                 android:lines="1"
                 android:singleLine="true"
                 android:text="情趣用品"

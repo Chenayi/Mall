@@ -1,5 +1,8 @@
 package com.kzj.mall.ui.fragment
 
+import android.widget.RelativeLayout
+import com.blankj.utilcode.util.BarUtils
+import com.blankj.utilcode.util.SizeUtils
 import com.gyf.barlibrary.ImmersionBar
 import com.kzj.mall.R
 import com.kzj.mall.base.BaseFragment
@@ -25,11 +28,8 @@ class MineFragment : BaseFragment<IPresenter, FragmentMineBinding>() {
     }
 
     override fun initImmersionBar() {
-        immersionBarColor = R.color.fb
         mImmersionBar = ImmersionBar.with(this)
-        mImmersionBar?.fitsSystemWindows(true, immersionBarColor)
-                ?.statusBarDarkFont(true,0.5f)
-                ?.init()
+        mImmersionBar?.init()
     }
 
     override fun setupComponent(appComponent: AppComponent?) {
@@ -37,5 +37,9 @@ class MineFragment : BaseFragment<IPresenter, FragmentMineBinding>() {
 
 
     override fun initData() {
+        val layoutParams = mBinding?.ivMsg?.layoutParams as RelativeLayout.LayoutParams
+        layoutParams.rightMargin = SizeUtils.dp2px(14f)
+        layoutParams.topMargin = BarUtils.getStatusBarHeight() + SizeUtils.dp2px(14f)
+        mBinding?.ivMsg?.requestLayout()
     }
 }

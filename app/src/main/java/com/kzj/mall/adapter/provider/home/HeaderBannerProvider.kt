@@ -1,7 +1,6 @@
 package com.kzj.mall.adapter.provider.home
 
-import android.content.Context
-import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.support.v4.content.ContextCompat
 import android.support.v4.view.PagerAdapter
 import android.support.v4.view.ViewPager
@@ -9,14 +8,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.SizeUtils
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.MultiTransformation
+import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.target.Target
 import com.chad.library.adapter.base.BaseViewHolder
 import com.chad.library.adapter.base.provider.BaseItemProvider
+import com.github.florent37.glidepalette.BitmapPalette
+import com.github.florent37.glidepalette.GlidePalette
 import com.kzj.mall.GlideApp
 import com.kzj.mall.R
 import com.kzj.mall.entity.HomeEntity
@@ -24,20 +30,19 @@ import com.kzj.mall.entity.home.IHomeEntity
 import com.kzj.mall.transformer.ScaleInTransformer
 import com.tmall.ultraviewpager.UltraViewPager
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation
-import android.util.TypedValue
-import android.view.Gravity
 import com.kzj.mall.widget.IndictorView
 
 
 class HeaderBannerProvider : BaseItemProvider<IHomeEntity, BaseViewHolder> {
 
-    var ultraViewPager: UltraViewPager? = null
-    var isInitialized = false
-    var headerColor = 0
-    var useRoundedCorners = true
-    var bannerPlaying = true
+    private var ultraViewPager: UltraViewPager? = null
+    private var isInitialized = false
+    private var headerColor = R.color.colorPrimary
+    private var useRoundedCorners = true
+    private var bannerPlaying = true
+    private var onBannerPageChangeListener: OnBannerPageChangeListener? = null
 
-    constructor() : this(0, true)
+    constructor() : this(R.color.colorPrimary, true)
     constructor(headerColor: Int, useRoundedCorners: Boolean) {
         this.headerColor = headerColor
         this.useRoundedCorners = useRoundedCorners
@@ -53,9 +58,12 @@ class HeaderBannerProvider : BaseItemProvider<IHomeEntity, BaseViewHolder> {
 
     override fun convert(helper: BaseViewHolder?, data: IHomeEntity?, position: Int) {
         if (isInitialized == false) {
+            val advDatas = advDatas()
+
             ultraViewPager = helper?.getView(R.id.banner)
             ultraViewPager?.setScrollMode(UltraViewPager.ScrollMode.HORIZONTAL);
-            val adapter = UltraPagerAdapter(advDatas())
+            val adapter = UltraPagerAdapter(advDatas)
+            adapter?.setBackGroundView(helper?.getView(R.id.tv_header)!!)
             ultraViewPager?.setAdapter(adapter)
 
             ultraViewPager?.viewPager?.pageMargin = SizeUtils.dp2px(10f)
@@ -65,10 +73,10 @@ class HeaderBannerProvider : BaseItemProvider<IHomeEntity, BaseViewHolder> {
 
 
             val indicator = helper?.getView<IndictorView>(R.id.indicator)
-            indicator?.setIndicatorsSize(advDatas().size)
+            indicator?.setIndicatorsSize(advDatas.size)
             indicator?.setSelectIndex(0)
 
-            ultraViewPager?.setOnPageChangeListener(object :ViewPager.OnPageChangeListener{
+            ultraViewPager?.setOnPageChangeListener(object : ViewPager.OnPageChangeListener {
                 override fun onPageScrollStateChanged(state: Int) {
                 }
 
@@ -78,6 +86,12 @@ class HeaderBannerProvider : BaseItemProvider<IHomeEntity, BaseViewHolder> {
                 override fun onPageSelected(position: Int) {
                     var realPosition = position % adapter.getCount();
                     indicator?.setSelectIndex(realPosition)
+
+                    val bannerUrl = advDatas?.get(realPosition).bannerUrl
+                    GlidePalette.with(bannerUrl)
+                            .intoCallBack {
+                                LogUtils.e("GlidePalette intoCallBack......")
+                            }
                 }
 
             })
@@ -85,9 +99,11 @@ class HeaderBannerProvider : BaseItemProvider<IHomeEntity, BaseViewHolder> {
             isInitialized = true
         }
 
-        if (headerColor != 0) {
-            helper?.setImageResource(R.id.iv_header, headerColor)
-        }
+        helper?.setBackgroundColor(R.id.tv_header, ContextCompat.getColor(mContext, headerColor))
+    }
+
+    fun setOnBannerPageChangeListener(onBannerPageChangeListener: OnBannerPageChangeListener) {
+        this.onBannerPageChangeListener = onBannerPageChangeListener
     }
 
     private fun advDatas(): MutableList<HomeEntity.AdvBanner> {
@@ -108,20 +124,27 @@ class HeaderBannerProvider : BaseItemProvider<IHomeEntity, BaseViewHolder> {
     }
 
     fun startBanner() {
-        if (bannerPlaying == false){
+        if (bannerPlaying == false) {
             ultraViewPager?.setAutoScroll(3000)
         }
         bannerPlaying = true
     }
 
     fun pauseBanner() {
-        if (bannerPlaying == true){
+        if (bannerPlaying == true) {
             ultraViewPager?.disableAutoScroll()
         }
         bannerPlaying = false
     }
 
     inner class UltraPagerAdapter constructor(val advDatas: MutableList<HomeEntity.AdvBanner>) : PagerAdapter() {
+        private var tv: TextView? = null
+        private var mCurrentView: View? = null
+
+        fun setBackGroundView(tv: TextView) {
+            this.tv = tv
+        }
+
         override fun isViewFromObject(view: View, `object`: Any): Boolean {
             return view == `object`
         }
@@ -134,16 +157,20 @@ class HeaderBannerProvider : BaseItemProvider<IHomeEntity, BaseViewHolder> {
             val view = LayoutInflater.from(mContext).inflate(R.layout.item_home_header_banner, null, false)
             val ivImage = view.findViewById<ImageView>(R.id.iv_image)
 
+            var realPosition = position % getCount();
+            val url = advDatas?.get(realPosition).bannerUrl
             if (!useRoundedCorners) {
-                GlideApp
-                        .with(mContext)
-                        .load(advDatas?.get(position).bannerUrl)
+                GlideApp.with(mContext)
+                        .load(url)
+//                        .listener(GlidePalette.with(url)
+//                                .use(BitmapPalette.Profile.MUTED)
+//                                .intoBackground(tv))
                         .centerCrop()
                         .placeholder(R.color.gray_default)
                         .into(ivImage)
             } else {
                 Glide.with(mContext)
-                        .load(advDatas?.get(position).bannerUrl)
+                        .load(url)
                         .apply(RequestOptions
                                 .bitmapTransform(MultiTransformation(CenterCrop(),
                                         RoundedCornersTransformation(SizeUtils.dp2px(8f),
@@ -156,6 +183,14 @@ class HeaderBannerProvider : BaseItemProvider<IHomeEntity, BaseViewHolder> {
             return view
         }
 
+        override fun setPrimaryItem(container: ViewGroup, position: Int, `object`: Any) {
+            mCurrentView = `object` as View
+        }
+
+        fun getPrimaryItem(): View? {
+            return mCurrentView
+        }
+
         override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
             container?.removeView(`object` as View?)
         }
@@ -163,5 +198,10 @@ class HeaderBannerProvider : BaseItemProvider<IHomeEntity, BaseViewHolder> {
         override fun getItemPosition(`object`: Any): Int {
             return PagerAdapter.POSITION_NONE
         }
+    }
+
+
+    interface OnBannerPageChangeListener {
+        fun onBannerPageSelected(position: Int?, bannerUrl: String?)
     }
 }
