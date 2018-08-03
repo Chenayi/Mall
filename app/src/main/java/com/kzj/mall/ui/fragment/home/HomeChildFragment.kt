@@ -122,6 +122,7 @@ class HomeChildFragment : BaseHomeChildListFragment() {
     override fun registerItemProvider(providerDelegate: ProviderDelegate) {
         //头部广告
         headerBannerProvider = HeaderBannerProvider()
+        headerBannerProvider?.setHeaderBannerView(getHeaderBannerView())
         providerDelegate.registerProvider(headerBannerProvider)
         //分类
         providerDelegate.registerProvider(HomeClassifyProvider())
@@ -163,7 +164,7 @@ class HomeChildFragment : BaseHomeChildListFragment() {
     fun getNormalMultipleEntities(): MutableList<IHomeEntity> {
         val list = ArrayList<IHomeEntity>()
         //头部广告
-        list.add(HomeHeaderBannerEntity())
+        list.add(LocalDatas.homeBannerData())
         //分类
         list.add(HomeClassifyEntity())
         //公告精选

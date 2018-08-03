@@ -58,6 +58,7 @@ class AndrologyFragment : BaseHomeChildListFragment() {
 
     override fun registerItemProvider(providerDelegate: ProviderDelegate) {
         headerBannerProvider = HeaderBannerProvider(R.color.colorPrimaryDark, false)
+        headerBannerProvider?.setHeaderBannerView(getHeaderBannerView())
         providerDelegate.registerProvider(headerBannerProvider)
         providerDelegate.registerProvider(AndrologyClassifyProvider())
         providerDelegate.registerProvider(AndrologyStationProvider())
@@ -69,7 +70,7 @@ class AndrologyFragment : BaseHomeChildListFragment() {
 
     fun getNormalMultipleEntities(): MutableList<IHomeEntity> {
         val list = ArrayList<IHomeEntity>()
-        list.add(HomeHeaderBannerEntity())
+        list.add(LocalDatas.homeBannerData())
         list.add(AndrologyClassifyEntity())
         list.add(AndrologyStationEntity())
 

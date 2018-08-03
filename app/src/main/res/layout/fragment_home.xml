@@ -2,15 +2,15 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <RelativeLayout
+        android:id="@+id/rl_root"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/gray_default">
+        android:background="@color/colorPrimary">
 
         <LinearLayout
             android:id="@+id/ll_top_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:paddingLeft="12dp"
@@ -59,11 +59,11 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="1dp"
+                        android:layout_marginLeft="3dp"
                         android:text="健康搜索，懂你所需～"
                         android:textColor="#C2C6CC"
-                        android:textSize="12dp"
-                        android:layout_marginLeft="3dp"
-                        android:layout_marginBottom="1dp"/>
+                        android:textSize="12dp" />
                 </LinearLayout>
             </RelativeLayout>
 
@@ -88,12 +88,13 @@
             </LinearLayout>
         </LinearLayout>
 
+        <!--分割一下-->
+
         <LinearLayout
             android:id="@+id/ll_tab"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_below="@+id/ll_top_search"
-            android:background="@color/colorPrimary"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
@@ -119,6 +120,7 @@
             android:id="@+id/vp_home"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/ll_tab" />
+            android:layout_below="@+id/ll_tab"
+            android:background="@color/gray_default" />
     </RelativeLayout>
 </layout>

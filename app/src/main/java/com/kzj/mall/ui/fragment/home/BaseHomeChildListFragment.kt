@@ -54,6 +54,12 @@ abstract class BaseHomeChildListFragment : BaseFragment<HomePresenter, FragmentB
         }
     }
 
+    fun setHeaderBannerView(headerBannerView:View?){
+        this.headerBannerView = headerBannerView
+    }
+
+    fun getHeaderBannerView() = headerBannerView
+
     open fun enableLoadMore(): Boolean {
         return true
     }

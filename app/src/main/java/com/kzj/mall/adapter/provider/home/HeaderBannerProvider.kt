@@ -1,46 +1,34 @@
 package com.kzj.mall.adapter.provider.home
 
-import android.graphics.drawable.Drawable
+import android.content.Context
 import android.support.v4.content.ContextCompat
-import android.support.v4.view.PagerAdapter
 import android.support.v4.view.ViewPager
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import com.blankj.utilcode.util.LogUtils
-import com.blankj.utilcode.util.SizeUtils
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.DataSource
-import com.bumptech.glide.load.MultiTransformation
-import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.load.resource.bitmap.CenterCrop
-import com.bumptech.glide.request.RequestListener
-import com.bumptech.glide.request.RequestOptions
-import com.bumptech.glide.request.target.Target
 import com.chad.library.adapter.base.BaseViewHolder
 import com.chad.library.adapter.base.provider.BaseItemProvider
+import com.kzj.mall.R
+import com.kzj.mall.entity.home.HomeHeaderBannerEntity
+import com.kzj.mall.entity.home.IHomeEntity
+import android.view.LayoutInflater
+import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
 import com.github.florent37.glidepalette.BitmapPalette
 import com.github.florent37.glidepalette.GlidePalette
 import com.kzj.mall.GlideApp
-import com.kzj.mall.R
-import com.kzj.mall.entity.HomeEntity
-import com.kzj.mall.entity.home.IHomeEntity
-import com.kzj.mall.transformer.ScaleInTransformer
-import com.tmall.ultraviewpager.UltraViewPager
-import jp.wasabeef.glide.transformations.RoundedCornersTransformation
-import com.kzj.mall.widget.IndictorView
+import com.zhouwei.mzbanner.MZBannerView
+import com.zhouwei.mzbanner.holder.MZHolderCreator
+import com.zhouwei.mzbanner.holder.MZViewHolder
 
 
-class HeaderBannerProvider : BaseItemProvider<IHomeEntity, BaseViewHolder> {
+class HeaderBannerProvider : BaseItemProvider<HomeHeaderBannerEntity, BaseViewHolder> {
 
-    private var ultraViewPager: UltraViewPager? = null
     private var isInitialized = false
     private var headerColor = R.color.colorPrimary
     private var useRoundedCorners = true
     private var bannerPlaying = true
     private var onBannerPageChangeListener: OnBannerPageChangeListener? = null
+    private var mMZBanner: MZBannerView<String>? = null
+    private var headerBannerView: View? = null
 
     constructor() : this(R.color.colorPrimary, true)
     constructor(headerColor: Int, useRoundedCorners: Boolean) {
@@ -56,27 +44,28 @@ class HeaderBannerProvider : BaseItemProvider<IHomeEntity, BaseViewHolder> {
         return IHomeEntity.HEADER_BANNER
     }
 
-    override fun convert(helper: BaseViewHolder?, data: IHomeEntity?, position: Int) {
+    fun setHeaderBannerView(headerBannerView:View?){
+        this.headerBannerView = headerBannerView
+    }
+
+    fun getHeaderBannerView() = headerBannerView
+
+    override fun convert(helper: BaseViewHolder?, data: HomeHeaderBannerEntity?, position: Int) {
         if (isInitialized == false) {
-            val advDatas = advDatas()
+            val banners = data?.banners
+            val bannerUrls = ArrayList<String>()
+            for (i in 0 until banners?.size!!) {
+                bannerUrls.add(banners?.get(i).bannerUrl!!)
+            }
 
-            ultraViewPager = helper?.getView(R.id.banner)
-            ultraViewPager?.setScrollMode(UltraViewPager.ScrollMode.HORIZONTAL);
-            val adapter = UltraPagerAdapter(advDatas)
-            adapter?.setBackGroundView(helper?.getView(R.id.tv_header)!!)
-            ultraViewPager?.setAdapter(adapter)
-
-            ultraViewPager?.viewPager?.pageMargin = SizeUtils.dp2px(10f)
-            ultraViewPager?.viewPager?.offscreenPageLimit = 3
-            ultraViewPager?.setInfiniteLoop(true)
-            ultraViewPager?.setPageTransformer(true, ScaleInTransformer())
-
-
-            val indicator = helper?.getView<IndictorView>(R.id.indicator)
-            indicator?.setIndicatorsSize(advDatas.size)
-            indicator?.setSelectIndex(0)
-
-            ultraViewPager?.setOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+            mMZBanner = helper?.getView(R.id.banner)
+            mMZBanner?.setPages(bannerUrls, object : MZHolderCreator<BannerViewHolder> {
+                override fun createViewHolder(): BannerViewHolder {
+                    return BannerViewHolder(helper?.getView(R.id.tv_header));
+                }
+            })
+            mMZBanner?.setIndicatorRes(R.drawable.indicator_default, R.drawable.indicator_sel)
+            mMZBanner?.addPageChangeListener(object :ViewPager.OnPageChangeListener{
                 override fun onPageScrollStateChanged(state: Int) {
                 }
 
@@ -84,18 +73,10 @@ class HeaderBannerProvider : BaseItemProvider<IHomeEntity, BaseViewHolder> {
                 }
 
                 override fun onPageSelected(position: Int) {
-                    var realPosition = position % adapter.getCount();
-                    indicator?.setSelectIndex(realPosition)
-
-                    val bannerUrl = advDatas?.get(realPosition).bannerUrl
-                    GlidePalette.with(bannerUrl)
-                            .intoCallBack {
-                                LogUtils.e("GlidePalette intoCallBack......")
-                            }
                 }
 
             })
-
+            mMZBanner?.start()
             isInitialized = true
         }
 
@@ -106,102 +87,56 @@ class HeaderBannerProvider : BaseItemProvider<IHomeEntity, BaseViewHolder> {
         this.onBannerPageChangeListener = onBannerPageChangeListener
     }
 
-    private fun advDatas(): MutableList<HomeEntity.AdvBanner> {
-        var banners = ArrayList<HomeEntity.AdvBanner>()
-        val banner1 = HomeEntity().AdvBanner()
-        banner1.bannerUrl = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1530510861413&di=c9f7439a5a5d4c57435e5eb7f2772817&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F01a0d4582d8320a84a0e282be8a02e.jpg"
-
-        val banner3 = HomeEntity().AdvBanner()
-        banner3.bannerUrl = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1530523369994&di=60f87ef08f23f8dab2b36d5ed57f5dcd&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F01ac39597adf9da8012193a352df31.jpg"
-
-        val banner2 = HomeEntity().AdvBanner()
-        banner2.bannerUrl = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1530510861412&di=c51db760c9ecc789cdae3b334715aef6&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F0161c95690b86032f87574beaa54c2.jpg"
-        banners.add(banner1)
-        banners.add(banner3)
-        banners.add(banner2)
-        banners.add(banner3)
-        return banners
-    }
-
     fun startBanner() {
         if (bannerPlaying == false) {
-            ultraViewPager?.setAutoScroll(3000)
+            mMZBanner?.start();
         }
         bannerPlaying = true
     }
 
     fun pauseBanner() {
         if (bannerPlaying == true) {
-            ultraViewPager?.disableAutoScroll()
+            mMZBanner?.pause()
         }
         bannerPlaying = false
     }
 
-    inner class UltraPagerAdapter constructor(val advDatas: MutableList<HomeEntity.AdvBanner>) : PagerAdapter() {
-        private var tv: TextView? = null
-        private var mCurrentView: View? = null
-
-        fun setBackGroundView(tv: TextView) {
-            this.tv = tv
-        }
-
-        override fun isViewFromObject(view: View, `object`: Any): Boolean {
-            return view == `object`
-        }
-
-        override fun getCount(): Int {
-            return advDatas?.size
-        }
-
-        override fun instantiateItem(container: ViewGroup, position: Int): Any {
-            val view = LayoutInflater.from(mContext).inflate(R.layout.item_home_header_banner, null, false)
-            val ivImage = view.findViewById<ImageView>(R.id.iv_image)
-
-            var realPosition = position % getCount();
-            val url = advDatas?.get(realPosition).bannerUrl
-            if (!useRoundedCorners) {
-                GlideApp.with(mContext)
-                        .load(url)
-//                        .listener(GlidePalette.with(url)
-//                                .use(BitmapPalette.Profile.MUTED)
-//                                .intoBackground(tv))
-                        .centerCrop()
-                        .placeholder(R.color.gray_default)
-                        .into(ivImage)
-            } else {
-                Glide.with(mContext)
-                        .load(url)
-                        .apply(RequestOptions
-                                .bitmapTransform(MultiTransformation(CenterCrop(),
-                                        RoundedCornersTransformation(SizeUtils.dp2px(8f),
-                                                0,
-                                                RoundedCornersTransformation.CornerType.ALL)))
-                                .placeholder(R.color.gray_default))
-                        .into(ivImage)
-            }
-            container.addView(view)
-            return view
-        }
-
-        override fun setPrimaryItem(container: ViewGroup, position: Int, `object`: Any) {
-            mCurrentView = `object` as View
-        }
-
-        fun getPrimaryItem(): View? {
-            return mCurrentView
-        }
-
-        override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
-            container?.removeView(`object` as View?)
-        }
-
-        override fun getItemPosition(`object`: Any): Int {
-            return PagerAdapter.POSITION_NONE
-        }
+    interface OnBannerPageChangeListener {
+        fun onBannerPageSelected(position: Int?, bannerUrl: String?)
     }
 
 
-    interface OnBannerPageChangeListener {
-        fun onBannerPageSelected(position: Int?, bannerUrl: String?)
+    inner class BannerViewHolder constructor(val tv:TextView?) : MZViewHolder<String> {
+        private var mImageView: ImageView? = null
+        override fun createView(context: Context): View {
+            // 返回页面布局
+            val view = LayoutInflater.from(context).inflate(R.layout.item_home_banner, null)
+            mImageView = view.findViewById(R.id.iv_image) as ImageView
+            return view
+        }
+
+        override fun onBind(context: Context, position: Int, data: String?) {
+            // 数据绑定
+            mImageView?.run {
+                val palette = GlidePalette.with(data)
+
+                palette.use(BitmapPalette.Profile.MUTED)
+                        .crossfade(true)
+                        .intoBackground(tv)
+
+                if (headerBannerView!=null){
+                    palette.use(BitmapPalette.Profile.MUTED)
+                            .crossfade(true)
+                            .intoBackground(headerBannerView)
+                }
+
+                GlideApp.with(context)
+                        .load(data)
+                        .listener(palette)
+                        .placeholder(R.color.gray_default)
+                        .centerCrop()
+                        .into(this)
+            }
+        }
     }
 }

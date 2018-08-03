@@ -83,4 +83,5 @@ dependencies {
         exclude group: 'com.android.support', module: "support-v13"
     }
     kapt 'com.github.hotchemi:permissionsdispatcher-processor:3.3.1'
+    implementation 'com.github.pinguo-zhouwei:MZBannerView:v2.0.2'
 }

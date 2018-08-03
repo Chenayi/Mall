@@ -48,11 +48,27 @@ class HomeFragment : BaseFragment<IPresenter, FragmentHomeBinding>(), View.OnCli
         mFragments = ArrayList()
         mBinding?.vpHome?.offscreenPageLimit = mTitles?.size - 1
         mFragments?.let {
-            it?.add(HomeChildFragment.newInstance())
-            it?.add(AndrologyFragment.newInstance())
-            it?.add(OtherFragment.newInstance())
-            it?.add(OtherFragment.newInstance())
-            it?.add(OtherFragment.newInstance())
+            val homeChildFragment = HomeChildFragment.newInstance()
+            homeChildFragment?.setHeaderBannerView(mBinding?.rlRoot)
+
+            val andrologyFragment = AndrologyFragment.newInstance()
+            andrologyFragment?.setHeaderBannerView(mBinding?.rlRoot)
+
+            val otherFragment1 = OtherFragment.newInstance()
+            otherFragment1?.setHeaderBannerView(mBinding?.rlRoot)
+
+            val otherFragment2 = OtherFragment.newInstance()
+            otherFragment1?.setHeaderBannerView(mBinding?.rlRoot)
+
+            val otherFragment3 = OtherFragment.newInstance()
+            otherFragment1?.setHeaderBannerView(mBinding?.rlRoot)
+
+
+            it?.add(homeChildFragment)
+            it?.add(andrologyFragment)
+            it?.add(otherFragment1)
+            it?.add(otherFragment2)
+            it?.add(otherFragment3)
             mCommomViewPagerAdapter = CommomViewPagerAdapter(childFragmentManager, it)
             mBinding?.vpHome?.adapter = mCommomViewPagerAdapter
             mBinding?.vpHome?.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
@@ -68,29 +84,21 @@ class HomeFragment : BaseFragment<IPresenter, FragmentHomeBinding>(), View.OnCli
                             mImmersionBar = ImmersionBar.with(this@HomeFragment)
                             mImmersionBar?.fitsSystemWindows(true, R.color.colorPrimary)
                                     ?.init()
-                            mBinding?.llTopSearch?.setBackgroundColor(ContextCompat.getColor(context!!, R.color.colorPrimary))
-                            mBinding?.llTab?.setBackgroundColor(ContextCompat.getColor(context!!, R.color.colorPrimary))
                         }
                         1 -> {
                             mImmersionBar = ImmersionBar.with(this@HomeFragment)
                             mImmersionBar?.fitsSystemWindows(true, R.color.colorPrimaryDark)
                                     ?.init()
-                            mBinding?.llTopSearch?.setBackgroundColor(ContextCompat.getColor(context!!, R.color.colorPrimaryDark))
-                            mBinding?.llTab?.setBackgroundColor(ContextCompat.getColor(context!!, R.color.colorPrimaryDark))
                         }
                         2 -> {
                             mImmersionBar = ImmersionBar.with(this@HomeFragment)
                             mImmersionBar?.fitsSystemWindows(true, R.color.colorPrimary)
                                     ?.init()
-                            mBinding?.llTopSearch?.setBackgroundColor(ContextCompat.getColor(context!!, R.color.colorPrimary))
-                            mBinding?.llTab?.setBackgroundColor(ContextCompat.getColor(context!!, R.color.colorPrimary))
                         }
                         3 -> {
                             mImmersionBar = ImmersionBar.with(this@HomeFragment)
                             mImmersionBar?.fitsSystemWindows(true, R.color.colorPrimary)
                                     ?.init()
-                            mBinding?.llTopSearch?.setBackgroundColor(ContextCompat.getColor(context!!, R.color.colorPrimary))
-                            mBinding?.llTab?.setBackgroundColor(ContextCompat.getColor(context!!, R.color.colorPrimary))
                         }
                     }
                 }

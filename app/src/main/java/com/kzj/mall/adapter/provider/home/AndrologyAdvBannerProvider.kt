@@ -34,7 +34,7 @@ class AndrologyAdvBannerProvider : BaseItemProvider<AndrologyAdvBannerEntity, Ba
         if (isInitialized == false) {
             ultraViewPager = helper?.getView(R.id.ultra_viewpager)
             ultraViewPager?.setScrollMode(UltraViewPager.ScrollMode.HORIZONTAL);
-            val adapter = UltraPagerAdapter(advDatas())
+            val adapter = UltraPagerAdapter(data?.banners)
             ultraViewPager?.viewPager?.pageMargin = SizeUtils.dp2px(10f)
             ultraViewPager?.viewPager?.offscreenPageLimit = 3
             ultraViewPager?.setAdapter(adapter)
@@ -45,21 +45,13 @@ class AndrologyAdvBannerProvider : BaseItemProvider<AndrologyAdvBannerEntity, Ba
         }
     }
 
-    private fun advDatas(): MutableList<HomeEntity.AdvBanner> {
-        var datas = ArrayList<HomeEntity.AdvBanner>()
-        for (i in 0..6) {
-            datas.add(HomeEntity().AdvBanner())
-        }
-        return datas
-    }
-
-    inner class UltraPagerAdapter constructor(val advDatas: MutableList<HomeEntity.AdvBanner>) : PagerAdapter() {
+    inner class UltraPagerAdapter constructor(val advDatas: MutableList<AndrologyAdvBannerEntity.Banners>?) : PagerAdapter() {
         override fun isViewFromObject(view: View, `object`: Any): Boolean {
             return view == `object`
         }
 
         override fun getCount(): Int {
-            return advDatas?.size
+            return advDatas?.size!!
         }
 
         override fun instantiateItem(container: ViewGroup, position: Int): Any {
