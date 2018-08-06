@@ -1,5 +1,6 @@
 package com.kzj.mall.ui.fragment.home
 
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
@@ -7,6 +8,7 @@ import com.chad.library.adapter.base.BaseViewHolder
 import com.chad.library.adapter.base.MultipleItemRvAdapter
 import com.chad.library.adapter.base.util.ProviderDelegate
 import com.kzj.mall.R
+import com.kzj.mall.adapter.provider.home.HeaderBannerProvider
 import com.kzj.mall.base.BaseFragment
 import com.kzj.mall.base.IPresenter
 import com.kzj.mall.databinding.FragmentBaseHomeChildListBinding
@@ -21,7 +23,8 @@ import com.kzj.mall.widget.ExpandLoadMoewView
 
 abstract class BaseHomeChildListFragment : BaseFragment<HomePresenter, FragmentBaseHomeChildListBinding>(), HomeContract.View {
     private var listAdapter: ListAdapter? = null
-    private var headerBannerView: View? = null
+    protected var headerBannerProvider: HeaderBannerProvider? = null
+    private var backgroundColor = 0
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_base_home_child_list
@@ -37,9 +40,8 @@ abstract class BaseHomeChildListFragment : BaseFragment<HomePresenter, FragmentB
 
     override fun initData() {
         mBinding?.refreshLayout?.isEnabled = false
-
+        backgroundColor = backgroundColor()
         val layoutManager = LinearLayoutManager(context)
-        layoutManager.recycleChildrenOnDetach = true
         mBinding?.rvHome?.layoutManager = layoutManager
         listAdapter = ListAdapter(ArrayList())
         listAdapter?.setLoadMoreView(ExpandLoadMoewView())
@@ -54,18 +56,45 @@ abstract class BaseHomeChildListFragment : BaseFragment<HomePresenter, FragmentB
         }
     }
 
-    fun setHeaderBannerView(headerBannerView:View?){
-        this.headerBannerView = headerBannerView
+
+    override fun onSupportInvisible() {
+        headerBannerProvider?.pauseBanner()
+        super.onSupportInvisible()
     }
 
-    fun getHeaderBannerView() = headerBannerView
+    override fun onSupportVisible() {
+        super.onSupportVisible()
+        headerBannerProvider?.startBanner()
+    }
 
     open fun enableLoadMore(): Boolean {
         return true
     }
 
-    abstract fun registerItemProvider(providerDelegate: ProviderDelegate)
+    protected open fun registerItemProvider(providerDelegate: ProviderDelegate) {
+        //头部广告
+        headerBannerProvider = HeaderBannerProvider(backgroundColor,false)
+        headerBannerProvider?.setOnBannerPageChangeListener(object : HeaderBannerProvider.OnBannerPageChangeListener {
+            override fun onBannerPageSelected(position: Int?, colorRes: Int?) {
+                setBackGroundColor(colorRes)
+            }
+        })
+        providerDelegate.registerProvider(headerBannerProvider)
+    }
+
+    abstract fun backgroundColor(): Int
     abstract fun onLoadMore()
+
+    fun setBackGroundColor(colorRes: Int?) {
+        colorRes?.let {
+            backgroundColor = it
+            (parentFragment as HomeFragment)?.setBackGroundColor(it)
+        }
+    }
+
+    fun changeBackgroundColor() {
+        (parentFragment as HomeFragment)?.setBackGroundColor(backgroundColor)
+    }
 
     fun finishLoadMore(datas: MutableList<HomeRecommendEntity>) {
         listAdapter?.addData(datas)

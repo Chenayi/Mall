@@ -1,7 +1,6 @@
 package com.kzj.mall.adapter.provider.home
 
 import android.content.Context
-import android.support.v4.content.ContextCompat
 import android.support.v4.view.ViewPager
 import com.chad.library.adapter.base.BaseViewHolder
 import com.chad.library.adapter.base.provider.BaseItemProvider
@@ -23,15 +22,15 @@ import com.zhouwei.mzbanner.holder.MZViewHolder
 class HeaderBannerProvider : BaseItemProvider<HomeHeaderBannerEntity, BaseViewHolder> {
 
     private var isInitialized = false
-    private var headerColor = R.color.colorPrimary
     private var useRoundedCorners = true
     private var bannerPlaying = true
     private var onBannerPageChangeListener: OnBannerPageChangeListener? = null
-    private var mMZBanner: MZBannerView<String>? = null
-    private var headerBannerView: View? = null
+    private var mMZBanner: MZBannerView<HomeHeaderBannerEntity.Banners>? = null
+    private var mColors: MutableMap<Int, Int>? = null
 
-    constructor() : this(R.color.colorPrimary, true)
+    private var headerColor = 0
     constructor(headerColor: Int, useRoundedCorners: Boolean) {
+        mColors = HashMap()
         this.headerColor = headerColor
         this.useRoundedCorners = useRoundedCorners
     }
@@ -44,28 +43,18 @@ class HeaderBannerProvider : BaseItemProvider<HomeHeaderBannerEntity, BaseViewHo
         return IHomeEntity.HEADER_BANNER
     }
 
-    fun setHeaderBannerView(headerBannerView:View?){
-        this.headerBannerView = headerBannerView
-    }
-
-    fun getHeaderBannerView() = headerBannerView
-
     override fun convert(helper: BaseViewHolder?, data: HomeHeaderBannerEntity?, position: Int) {
         if (isInitialized == false) {
             val banners = data?.banners
-            val bannerUrls = ArrayList<String>()
-            for (i in 0 until banners?.size!!) {
-                bannerUrls.add(banners?.get(i).bannerUrl!!)
-            }
-
             mMZBanner = helper?.getView(R.id.banner)
-            mMZBanner?.setPages(bannerUrls, object : MZHolderCreator<BannerViewHolder> {
+            mMZBanner?.setIndicatorRes(R.drawable.indicator_default, R.drawable.indicator_sel)
+            mMZBanner?.setPages(banners, object : MZHolderCreator<BannerViewHolder> {
                 override fun createViewHolder(): BannerViewHolder {
-                    return BannerViewHolder(helper?.getView(R.id.tv_header));
+                    val bannerViewHolder = BannerViewHolder(helper?.getView(R.id.tv_header))
+                    return bannerViewHolder;
                 }
             })
-            mMZBanner?.setIndicatorRes(R.drawable.indicator_default, R.drawable.indicator_sel)
-            mMZBanner?.addPageChangeListener(object :ViewPager.OnPageChangeListener{
+            mMZBanner?.addPageChangeListener(object : ViewPager.OnPageChangeListener {
                 override fun onPageScrollStateChanged(state: Int) {
                 }
 
@@ -73,14 +62,18 @@ class HeaderBannerProvider : BaseItemProvider<HomeHeaderBannerEntity, BaseViewHo
                 }
 
                 override fun onPageSelected(position: Int) {
+                    val color = mColors?.get(position)
+                    helper?.getView<TextView>(R.id.tv_header)?.setBackgroundColor(color!!)
+                    onBannerPageChangeListener?.onBannerPageSelected(position, color)
                 }
 
             })
+
+            helper?.getView<TextView>(R.id.tv_header)?.setBackgroundColor(headerColor)
+            onBannerPageChangeListener?.onBannerPageSelected(position, headerColor)
             mMZBanner?.start()
             isInitialized = true
         }
-
-        helper?.setBackgroundColor(R.id.tv_header, ContextCompat.getColor(mContext, headerColor))
     }
 
     fun setOnBannerPageChangeListener(onBannerPageChangeListener: OnBannerPageChangeListener) {
@@ -102,12 +95,12 @@ class HeaderBannerProvider : BaseItemProvider<HomeHeaderBannerEntity, BaseViewHo
     }
 
     interface OnBannerPageChangeListener {
-        fun onBannerPageSelected(position: Int?, bannerUrl: String?)
+        fun onBannerPageSelected(position: Int?, colorRes: Int?)
     }
 
-
-    inner class BannerViewHolder constructor(val tv:TextView?) : MZViewHolder<String> {
+    inner class BannerViewHolder constructor(val backGround: TextView?) : MZViewHolder<HomeHeaderBannerEntity.Banners> {
         private var mImageView: ImageView? = null
+        private var initFirstColor = false
         override fun createView(context: Context): View {
             // 返回页面布局
             val view = LayoutInflater.from(context).inflate(R.layout.item_home_banner, null)
@@ -115,27 +108,28 @@ class HeaderBannerProvider : BaseItemProvider<HomeHeaderBannerEntity, BaseViewHo
             return view
         }
 
-        override fun onBind(context: Context, position: Int, data: String?) {
+        override fun onBind(context: Context, position: Int, data: HomeHeaderBannerEntity.Banners?) {
             // 数据绑定
-            mImageView?.run {
-                val palette = GlidePalette.with(data)
+            mImageView?.let {
+                val palette = GlidePalette.with(data?.bannerUrl)
+                        .use(BitmapPalette.Profile.MUTED)
+                        .intoCallBack {
+                            val mutedColor = it?.getMutedColor(headerColor)
+                            mColors?.put(position, mutedColor!!)
 
-                palette.use(BitmapPalette.Profile.MUTED)
-                        .crossfade(true)
-                        .intoBackground(tv)
-
-                if (headerBannerView!=null){
-                    palette.use(BitmapPalette.Profile.MUTED)
-                            .crossfade(true)
-                            .intoBackground(headerBannerView)
-                }
+                            if (initFirstColor == false && position == 0){
+                                backGround?.setBackgroundColor(mutedColor!!)
+                                onBannerPageChangeListener?.onBannerPageSelected(position, mutedColor)
+                                initFirstColor = true
+                            }
+                        }
 
                 GlideApp.with(context)
-                        .load(data)
+                        .load(data?.bannerUrl)
                         .listener(palette)
                         .placeholder(R.color.gray_default)
                         .centerCrop()
-                        .into(this)
+                        .into(it)
             }
         }
     }

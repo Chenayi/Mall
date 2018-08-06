@@ -49,20 +49,10 @@ class HomeFragment : BaseFragment<IPresenter, FragmentHomeBinding>(), View.OnCli
         mBinding?.vpHome?.offscreenPageLimit = mTitles?.size - 1
         mFragments?.let {
             val homeChildFragment = HomeChildFragment.newInstance()
-            homeChildFragment?.setHeaderBannerView(mBinding?.rlRoot)
-
             val andrologyFragment = AndrologyFragment.newInstance()
-            andrologyFragment?.setHeaderBannerView(mBinding?.rlRoot)
-
             val otherFragment1 = OtherFragment.newInstance()
-            otherFragment1?.setHeaderBannerView(mBinding?.rlRoot)
-
             val otherFragment2 = OtherFragment.newInstance()
-            otherFragment1?.setHeaderBannerView(mBinding?.rlRoot)
-
             val otherFragment3 = OtherFragment.newInstance()
-            otherFragment1?.setHeaderBannerView(mBinding?.rlRoot)
-
 
             it?.add(homeChildFragment)
             it?.add(andrologyFragment)
@@ -81,24 +71,15 @@ class HomeFragment : BaseFragment<IPresenter, FragmentHomeBinding>(), View.OnCli
                 override fun onPageSelected(position: Int) {
                     when (position) {
                         0 -> {
-                            mImmersionBar = ImmersionBar.with(this@HomeFragment)
-                            mImmersionBar?.fitsSystemWindows(true, R.color.colorPrimary)
-                                    ?.init()
+                            (mFragments?.get(position) as HomeChildFragment)?.changeBackgroundColor()
                         }
                         1 -> {
-                            mImmersionBar = ImmersionBar.with(this@HomeFragment)
-                            mImmersionBar?.fitsSystemWindows(true, R.color.colorPrimaryDark)
-                                    ?.init()
+                            (mFragments?.get(position) as AndrologyFragment)?.changeBackgroundColor()
                         }
-                        2 -> {
-                            mImmersionBar = ImmersionBar.with(this@HomeFragment)
-                            mImmersionBar?.fitsSystemWindows(true, R.color.colorPrimary)
-                                    ?.init()
-                        }
-                        3 -> {
-                            mImmersionBar = ImmersionBar.with(this@HomeFragment)
-                            mImmersionBar?.fitsSystemWindows(true, R.color.colorPrimary)
-                                    ?.init()
+
+
+                        else -> {
+                            (mFragments?.get(position) as OtherFragment)?.changeBackgroundColor()
                         }
                     }
                 }
@@ -147,14 +128,14 @@ class HomeFragment : BaseFragment<IPresenter, FragmentHomeBinding>(), View.OnCli
     }
 
     override fun isImmersionBarEnabled(): Boolean {
-        return true
+        return false
     }
 
     override fun initImmersionBar() {
         val currentItem = mBinding?.vpHome?.currentItem
-        if (currentItem == 1){
+        if (currentItem == 1) {
             immersionBarColor = R.color.colorPrimaryDark
-        }else{
+        } else {
             immersionBarColor = R.color.colorPrimary
         }
         mImmersionBar = ImmersionBar.with(this)
@@ -179,5 +160,32 @@ class HomeFragment : BaseFragment<IPresenter, FragmentHomeBinding>(), View.OnCli
             }
         })
         homeTabClassifyPop?.showPopupWindow(mBinding?.llTopSearch)
+    }
+
+    fun changeBackgroundColor(){
+        val currentItem = mBinding?.vpHome?.currentItem
+        when (currentItem) {
+            0 -> {
+                (mFragments?.get(currentItem) as HomeChildFragment)?.changeBackgroundColor()
+            }
+            1 -> {
+                (mFragments?.get(currentItem) as AndrologyFragment)?.changeBackgroundColor()
+            }
+
+
+            else -> {
+                (mFragments?.get(currentItem!!) as OtherFragment)?.changeBackgroundColor()
+            }
+        }
+    }
+
+    fun setBackGroundColor(colorRes: Int?) {
+        colorRes?.let {
+            mImmersionBar = ImmersionBar.with(this@HomeFragment)
+            mImmersionBar?.statusBarColorInt(it)
+                    ?.fitsSystemWindows(true)
+                    ?.init()
+            mBinding?.rlRoot?.setBackgroundColor(it)
+        }
     }
 }

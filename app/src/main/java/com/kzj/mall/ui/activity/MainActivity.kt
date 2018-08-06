@@ -37,6 +37,7 @@ class MainActivity : BaseActivity<IPresenter, ActivityMainBinding>() {
     }
 
     override fun initData() {
+        mBinding?.vpMain?.setNoScroll(true)
         initViewPager()
         initBottomBar()
     }
@@ -63,6 +64,10 @@ class MainActivity : BaseActivity<IPresenter, ActivityMainBinding>() {
         mBinding?.homeTabBar?.setOnTabChooseListener(object : HomeBottomTabBar.OnTabChooseListener {
             override fun onTabChoose(tab: Int) {
                 mBinding?.vpMain?.setCurrentItem(tab, false)
+
+                if(tab == 0){
+                    (fragments?.get(0) as HomeFragment)?.changeBackgroundColor()
+                }
             }
         })
     }

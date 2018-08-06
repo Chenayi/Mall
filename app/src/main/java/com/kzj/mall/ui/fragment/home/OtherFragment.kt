@@ -1,5 +1,6 @@
 package com.kzj.mall.ui.fragment.home
 
+import android.support.v4.content.ContextCompat
 import com.chad.library.adapter.base.util.ProviderDelegate
 import com.kzj.mall.R
 import com.kzj.mall.base.BaseFragment
@@ -13,6 +14,10 @@ class OtherFragment :BaseHomeChildListFragment() {
             val otherFragment = OtherFragment()
             return otherFragment
         }
+    }
+
+    override fun backgroundColor(): Int {
+        return ContextCompat.getColor(context!!,R.color.colorPrimary)
     }
 
     override fun getLayoutId(): Int {

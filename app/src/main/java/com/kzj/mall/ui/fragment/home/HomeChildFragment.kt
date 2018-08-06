@@ -1,5 +1,6 @@
 package com.kzj.mall.ui.fragment.home
 
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
@@ -15,7 +16,6 @@ import com.kzj.mall.entity.home.*
 import com.kzj.mall.utils.LocalDatas
 
 class HomeChildFragment : BaseHomeChildListFragment() {
-    private var headerBannerProvider: HeaderBannerProvider? = null
     private var isAskVisible = true
     private var distance = 0
 
@@ -24,6 +24,10 @@ class HomeChildFragment : BaseHomeChildListFragment() {
             val homeChildFragment = HomeChildFragment()
             return homeChildFragment
         }
+    }
+
+    override fun backgroundColor(): Int {
+        return ContextCompat.getColor(context!!,R.color.colorPrimary)
     }
 
     override fun initData() {
@@ -100,30 +104,8 @@ class HomeChildFragment : BaseHomeChildListFragment() {
         mBinding?.ivAsk?.startAnimation(set)
     }
 
-    override fun onSupportInvisible() {
-        super.onSupportInvisible()
-        headerBannerProvider?.pauseBanner()
-    }
-
-    override fun onSupportVisible() {
-        super.onSupportVisible()
-        headerBannerProvider?.startBanner()
-    }
-
-//    override fun isImmersionBarEnabled(): Boolean {
-//        return true
-//    }
-//
-//    override fun initImmersionBar() {
-//        immersionBarColor = R.color.colorPrimary
-//        super.initImmersionBar()
-//    }
-
     override fun registerItemProvider(providerDelegate: ProviderDelegate) {
-        //头部广告
-        headerBannerProvider = HeaderBannerProvider()
-        headerBannerProvider?.setHeaderBannerView(getHeaderBannerView())
-        providerDelegate.registerProvider(headerBannerProvider)
+        super.registerItemProvider(providerDelegate)
         //分类
         providerDelegate.registerProvider(HomeClassifyProvider())
         //公告精选

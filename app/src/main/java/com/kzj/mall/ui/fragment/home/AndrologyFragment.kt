@@ -16,13 +16,15 @@ import com.kzj.mall.utils.LocalDatas
  * 男科
  */
 class AndrologyFragment : BaseHomeChildListFragment() {
-    var headerBannerProvider: HeaderBannerProvider? = null
-
     companion object {
         fun newInstance(): AndrologyFragment {
             val andrologyFragment = AndrologyFragment()
             return andrologyFragment
         }
+    }
+
+    override fun backgroundColor(): Int {
+        return ContextCompat.getColor(context!!,R.color.colorPrimaryDark)
     }
 
     override fun initData() {
@@ -46,20 +48,8 @@ class AndrologyFragment : BaseHomeChildListFragment() {
         })
     }
 
-    override fun onSupportInvisible() {
-        super.onSupportInvisible()
-        headerBannerProvider?.pauseBanner()
-    }
-
-    override fun onSupportVisible() {
-        super.onSupportVisible()
-        headerBannerProvider?.startBanner()
-    }
-
     override fun registerItemProvider(providerDelegate: ProviderDelegate) {
-        headerBannerProvider = HeaderBannerProvider(R.color.colorPrimaryDark, false)
-        headerBannerProvider?.setHeaderBannerView(getHeaderBannerView())
-        providerDelegate.registerProvider(headerBannerProvider)
+        super.registerItemProvider(providerDelegate)
         providerDelegate.registerProvider(AndrologyClassifyProvider())
         providerDelegate.registerProvider(AndrologyStationProvider())
         providerDelegate.registerProvider(AndrologyAdvBannerProvider())
