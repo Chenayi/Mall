@@ -79,7 +79,13 @@ class HomeFragment : BaseFragment<IPresenter, FragmentHomeBinding>(), View.OnCli
 
 
                         else -> {
-                            (mFragments?.get(position) as OtherFragment)?.changeBackgroundColor()
+                            var color = ContextCompat.getColor(context!!,R.color.colorPrimary)
+                            mImmersionBar = ImmersionBar.with(this@HomeFragment)
+                            mImmersionBar?.statusBarColorInt(color)
+                                    ?.fitsSystemWindows(true)
+                                    ?.init()
+                            mBinding?.llTopSearch?.setBackgroundColor(color)
+                            mBinding?.llTab?.setBackgroundColor(color)
                         }
                     }
                 }
@@ -139,7 +145,8 @@ class HomeFragment : BaseFragment<IPresenter, FragmentHomeBinding>(), View.OnCli
             immersionBarColor = R.color.colorPrimary
         }
         mImmersionBar = ImmersionBar.with(this)
-        mImmersionBar?.fitsSystemWindows(true, immersionBarColor)
+        mImmersionBar?.statusBarColor(immersionBarColor)
+                ?.fitsSystemWindows(true)
                 ?.init()
     }
 
@@ -162,7 +169,7 @@ class HomeFragment : BaseFragment<IPresenter, FragmentHomeBinding>(), View.OnCli
         homeTabClassifyPop?.showPopupWindow(mBinding?.llTopSearch)
     }
 
-    fun changeBackgroundColor(){
+    fun changeBackgroundColor() {
         val currentItem = mBinding?.vpHome?.currentItem
         when (currentItem) {
             0 -> {
@@ -174,7 +181,13 @@ class HomeFragment : BaseFragment<IPresenter, FragmentHomeBinding>(), View.OnCli
 
 
             else -> {
-                (mFragments?.get(currentItem!!) as OtherFragment)?.changeBackgroundColor()
+                var color = ContextCompat.getColor(context!!,R.color.colorPrimary)
+                mImmersionBar = ImmersionBar.with(this@HomeFragment)
+                mImmersionBar?.statusBarColorInt(color)
+                        ?.fitsSystemWindows(true)
+                        ?.init()
+                mBinding?.llTopSearch?.setBackgroundColor(color)
+                mBinding?.llTab?.setBackgroundColor(color)
             }
         }
     }
@@ -185,7 +198,8 @@ class HomeFragment : BaseFragment<IPresenter, FragmentHomeBinding>(), View.OnCli
             mImmersionBar?.statusBarColorInt(it)
                     ?.fitsSystemWindows(true)
                     ?.init()
-            mBinding?.rlRoot?.setBackgroundColor(it)
+            mBinding?.llTopSearch?.setBackgroundColor(it)
+            mBinding?.llTab?.setBackgroundColor(it)
         }
     }
 }

@@ -23,10 +23,6 @@ class AndrologyFragment : BaseHomeChildListFragment() {
         }
     }
 
-    override fun backgroundColor(): Int {
-        return ContextCompat.getColor(context!!,R.color.colorPrimaryDark)
-    }
-
     override fun initData() {
         super.initData()
         setListDatas(getNormalMultipleEntities())

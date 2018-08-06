@@ -1,6 +1,7 @@
 package com.kzj.mall.adapter.provider.home
 
 import android.content.Context
+import android.support.v4.content.ContextCompat
 import android.support.v4.view.ViewPager
 import com.chad.library.adapter.base.BaseViewHolder
 import com.chad.library.adapter.base.provider.BaseItemProvider
@@ -28,10 +29,8 @@ class HeaderBannerProvider : BaseItemProvider<HomeHeaderBannerEntity, BaseViewHo
     private var mMZBanner: MZBannerView<HomeHeaderBannerEntity.Banners>? = null
     private var mColors: MutableMap<Int, Int>? = null
 
-    private var headerColor = 0
-    constructor(headerColor: Int, useRoundedCorners: Boolean) {
+    constructor(useRoundedCorners: Boolean) {
         mColors = HashMap()
-        this.headerColor = headerColor
         this.useRoundedCorners = useRoundedCorners
     }
 
@@ -69,8 +68,6 @@ class HeaderBannerProvider : BaseItemProvider<HomeHeaderBannerEntity, BaseViewHo
 
             })
 
-            helper?.getView<TextView>(R.id.tv_header)?.setBackgroundColor(headerColor)
-            onBannerPageChangeListener?.onBannerPageSelected(position, headerColor)
             mMZBanner?.start()
             isInitialized = true
         }
@@ -114,7 +111,7 @@ class HeaderBannerProvider : BaseItemProvider<HomeHeaderBannerEntity, BaseViewHo
                 val palette = GlidePalette.with(data?.bannerUrl)
                         .use(BitmapPalette.Profile.MUTED)
                         .intoCallBack {
-                            val mutedColor = it?.getMutedColor(headerColor)
+                            val mutedColor = it?.getMutedColor(ContextCompat.getColor(mContext,R.color.colorPrimary))
                             mColors?.put(position, mutedColor!!)
 
                             if (initFirstColor == false && position == 0){

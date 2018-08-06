@@ -24,8 +24,6 @@ import com.kzj.mall.widget.ExpandLoadMoewView
 abstract class BaseHomeChildListFragment : BaseFragment<HomePresenter, FragmentBaseHomeChildListBinding>(), HomeContract.View {
     private var listAdapter: ListAdapter? = null
     protected var headerBannerProvider: HeaderBannerProvider? = null
-    private var backgroundColor = 0
-
     override fun getLayoutId(): Int {
         return R.layout.fragment_base_home_child_list
     }
@@ -40,7 +38,6 @@ abstract class BaseHomeChildListFragment : BaseFragment<HomePresenter, FragmentB
 
     override fun initData() {
         mBinding?.refreshLayout?.isEnabled = false
-        backgroundColor = backgroundColor()
         val layoutManager = LinearLayoutManager(context)
         mBinding?.rvHome?.layoutManager = layoutManager
         listAdapter = ListAdapter(ArrayList())
@@ -73,7 +70,7 @@ abstract class BaseHomeChildListFragment : BaseFragment<HomePresenter, FragmentB
 
     protected open fun registerItemProvider(providerDelegate: ProviderDelegate) {
         //头部广告
-        headerBannerProvider = HeaderBannerProvider(backgroundColor,false)
+        headerBannerProvider = HeaderBannerProvider(false)
         headerBannerProvider?.setOnBannerPageChangeListener(object : HeaderBannerProvider.OnBannerPageChangeListener {
             override fun onBannerPageSelected(position: Int?, colorRes: Int?) {
                 setBackGroundColor(colorRes)
@@ -82,8 +79,9 @@ abstract class BaseHomeChildListFragment : BaseFragment<HomePresenter, FragmentB
         providerDelegate.registerProvider(headerBannerProvider)
     }
 
-    abstract fun backgroundColor(): Int
     abstract fun onLoadMore()
+
+    private var backgroundColor: Int?=null
 
     fun setBackGroundColor(colorRes: Int?) {
         colorRes?.let {
@@ -93,7 +91,9 @@ abstract class BaseHomeChildListFragment : BaseFragment<HomePresenter, FragmentB
     }
 
     fun changeBackgroundColor() {
-        (parentFragment as HomeFragment)?.setBackGroundColor(backgroundColor)
+        backgroundColor?.let {
+            (parentFragment as HomeFragment)?.setBackGroundColor(backgroundColor)
+        }
     }
 
     fun finishLoadMore(datas: MutableList<HomeRecommendEntity>) {

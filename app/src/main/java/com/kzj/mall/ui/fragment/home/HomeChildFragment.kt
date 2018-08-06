@@ -26,10 +26,6 @@ class HomeChildFragment : BaseHomeChildListFragment() {
         }
     }
 
-    override fun backgroundColor(): Int {
-        return ContextCompat.getColor(context!!,R.color.colorPrimary)
-    }
-
     override fun initData() {
         super.initData()
         mBinding?.ivAsk?.visibility = View.VISIBLE

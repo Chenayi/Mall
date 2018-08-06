@@ -16,10 +16,6 @@ class OtherFragment :BaseHomeChildListFragment() {
         }
     }
 
-    override fun backgroundColor(): Int {
-        return ContextCompat.getColor(context!!,R.color.colorPrimary)
-    }
-
     override fun getLayoutId(): Int {
         return R.layout.fragment_home_other
     }
