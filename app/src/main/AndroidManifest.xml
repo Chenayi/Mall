@@ -52,6 +52,8 @@
         <activity android:name=".ui.activity.LoginActivity" />
         <activity android:name=".ui.activity.RegisterActivity" />
         <activity android:name=".ui.activity.GoodsDetailActivity" />
+        <activity android:name=".ui.activity.PersonInfoActivity" />
+        <activity android:name=".ui.activity.ForgetPasswordActivity" />
     </application>
 
 </manifest>

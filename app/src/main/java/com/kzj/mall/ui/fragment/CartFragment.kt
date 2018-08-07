@@ -72,7 +72,7 @@ class CartFragment : BaseFragment<IPresenter, FragmentCartBinding>(), View.OnCli
         headerView = layoutInflater.inflate(R.layout.header_cart, mBinding?.rvCart?.parent as ViewGroup, false)
         tvContent = headerView?.findViewById(R.id.tv_content)
         tvLogin = headerView?.findViewById(R.id.tv_login)
-        if (C.ISLOGIN) {
+        if (C.IS_LOGIN) {
             val datas = LocalDatas.cartDatas()
             if (datas?.size > 0) {
                 mBinding?.llBalance?.visibility = View.VISIBLE

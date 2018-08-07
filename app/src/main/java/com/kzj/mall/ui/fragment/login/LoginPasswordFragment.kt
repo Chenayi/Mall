@@ -1,9 +1,11 @@
 package com.kzj.mall.ui.fragment.login
 
+import android.content.Intent
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.view.View
 import com.kzj.mall.R
+import com.kzj.mall.ui.activity.ForgetPasswordActivity
 import com.kzj.mall.ui.activity.LoginActivity
 
 
@@ -28,6 +30,7 @@ class LoginPasswordFragment : BaseLoginFragment() {
     override fun initData() {
         super.initData()
         mBinding?.ivEye?.setOnClickListener(this)
+        mBinding?.tvForgetPwd?.setOnClickListener(this)
     }
 
     override fun loginSuccess() {
@@ -51,8 +54,12 @@ class LoginPasswordFragment : BaseLoginFragment() {
             val password = mBinding?.etPwd?.text?.toString()?.trim()
             val mobile = mBinding?.etMobile?.text?.toString()?.trim()
             mPresenter?.loginByPassword(mobile, password)
-        }else if (id == R.id.iv_clear_code){
+        } else if (id == R.id.iv_clear_code) {
             mBinding?.etPwd?.setText("")
+        } else if (id == R.id.tv_forget_pwd) {
+            val intent = Intent(context, ForgetPasswordActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
         }
     }
 }

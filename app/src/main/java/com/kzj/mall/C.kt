@@ -8,6 +8,6 @@ class C {
 
         val PAGE_SIZE = 10
 
-        var ISLOGIN = false
+        var IS_LOGIN = false
     }
 }

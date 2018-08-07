@@ -166,7 +166,7 @@ class LoginActivity : BaseActivity<IPresenter, ActivityLoginBinding>(), View.OnC
     }
 
     fun loginSuccess(){
-        C.ISLOGIN = true
+        C.IS_LOGIN = true
         EventBus.getDefault().post(LoginSuccessEvent())
         KeyboardUtils.hideSoftInput(this)
         finish()
