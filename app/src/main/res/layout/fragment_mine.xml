@@ -45,7 +45,8 @@
                         android:paddingLeft="10dp"
                         android:text="登录/注册"
                         android:textColor="@color/white"
-                        android:textSize="15dp"
+                        android:textSize="17dp"
+                        android:textStyle="bold"
                         android:id="@+id/tv_info"/>
 
                 </LinearLayout>
@@ -69,7 +70,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="111dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:background="@drawable/background_white_corners_8"
@@ -78,23 +79,22 @@
 
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="30dp">
+                        android:layout_height="50dp">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="13dp"
-                            android:gravity="bottom"
+                            android:gravity="center_vertical"
                             android:text="我的订单"
                             android:textColor="#333333"
-                            android:textSize="14dp"
+                            android:textSize="15dp"
                             android:textStyle="bold" />
 
 
                         <LinearLayout
                             android:layout_width="wrap_content"
-                            android:layout_height="18dp"
-                            android:layout_alignParentBottom="true"
+                            android:layout_height="match_parent"
                             android:layout_alignParentRight="true"
                             android:gravity="center_vertical"
                             android:orientation="horizontal"
@@ -120,8 +120,7 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
+                        android:layout_height="69dp"
                         android:orientation="horizontal">
 
                         <RelativeLayout
@@ -132,22 +131,21 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:gravity="center"
+                                android:gravity="center_horizontal"
                                 android:orientation="vertical">
 
                                 <ImageView
-                                    android:layout_width="22dp"
-                                    android:layout_height="22dp"
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
                                     android:src="@mipmap/order_wait_pay" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="6dp"
+                                    android:layout_marginTop="9dp"
                                     android:text="待付款"
-                                    android:textColor="#2E3033"
-                                    android:textSize="12dp"
-                                    android:textStyle="bold" />
+                                    android:textColor="#6A6E75"
+                                    android:textSize="12dp"/>
                             </LinearLayout>
                         </RelativeLayout>
 
@@ -159,22 +157,21 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:gravity="center"
+                                android:gravity="center_horizontal"
                                 android:orientation="vertical">
 
                                 <ImageView
-                                    android:layout_width="22dp"
-                                    android:layout_height="22dp"
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
                                     android:src="@mipmap/order_wait_send" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="6dp"
+                                    android:layout_marginTop="9dp"
                                     android:text="代发货"
                                     android:textColor="#2E3033"
-                                    android:textSize="12dp"
-                                    android:textStyle="bold" />
+                                    android:textSize="12dp" />
                             </LinearLayout>
                         </RelativeLayout>
 
@@ -186,22 +183,21 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:gravity="center"
+                                android:gravity="center_horizontal"
                                 android:orientation="vertical">
 
                                 <ImageView
-                                    android:layout_width="22dp"
-                                    android:layout_height="22dp"
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
                                     android:src="@mipmap/order_wait_take" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="6dp"
+                                    android:layout_marginTop="9dp"
                                     android:text="待收货"
                                     android:textColor="#2E3033"
-                                    android:textSize="12dp"
-                                    android:textStyle="bold" />
+                                    android:textSize="12dp"/>
                             </LinearLayout>
                         </RelativeLayout>
 
@@ -213,22 +209,21 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:gravity="center"
+                                android:gravity="center_horizontal"
                                 android:orientation="vertical">
 
                                 <ImageView
-                                    android:layout_width="22dp"
-                                    android:layout_height="22dp"
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
                                     android:src="@mipmap/order_finish" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="6dp"
+                                    android:layout_marginTop="9dp"
                                     android:text="已完成"
                                     android:textColor="#2E3033"
-                                    android:textSize="12dp"
-                                    android:textStyle="bold" />
+                                    android:textSize="12dp"/>
                             </LinearLayout>
                         </RelativeLayout>
 
@@ -362,6 +357,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
                     android:background="@drawable/background_white_corners_8"
                     android:orientation="vertical">
 
@@ -388,8 +384,7 @@
                                 android:layout_marginLeft="13dp"
                                 android:text="浏览记录"
                                 android:textColor="#6A6E75"
-                                android:textSize="13dp"
-                                android:textStyle="bold" />
+                                android:textSize="13dp" />
 
 
                         </LinearLayout>
@@ -436,8 +431,7 @@
                                 android:layout_marginLeft="13dp"
                                 android:text="问答记录"
                                 android:textColor="#6A6E75"
-                                android:textSize="13dp"
-                                android:textStyle="bold" />
+                                android:textSize="13dp"/>
 
 
                         </LinearLayout>
@@ -482,8 +476,7 @@
                             android:layout_marginLeft="13dp"
                             android:text="地址管理"
                             android:textColor="#6A6E75"
-                            android:textSize="13dp"
-                            android:textStyle="bold" />
+                            android:textSize="13dp" />
 
 
                     </LinearLayout>
@@ -528,8 +521,7 @@
                             android:layout_marginLeft="13dp"
                             android:text="商业合作"
                             android:textColor="#6A6E75"
-                            android:textSize="13dp"
-                            android:textStyle="bold" />
+                            android:textSize="13dp" />
 
 
                     </LinearLayout>
@@ -575,8 +567,7 @@
                                 android:layout_marginLeft="13dp"
                                 android:text="关于康之家"
                                 android:textColor="#6A6E75"
-                                android:textSize="13dp"
-                                android:textStyle="bold" />
+                                android:textSize="13dp" />
 
 
                         </LinearLayout>

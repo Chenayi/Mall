@@ -7,12 +7,15 @@ import android.support.v4.content.ContextCompat
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
+import android.text.method.HideReturnsTransformationMethod
+import android.text.method.PasswordTransformationMethod
 import android.view.View
 import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.KeyboardUtils
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.gyf.barlibrary.ImmersionBar
+import com.kzj.mall.C
 import com.kzj.mall.R
 import com.kzj.mall.base.BaseActivity
 import com.kzj.mall.databinding.ActivityRegisterBinding
@@ -28,6 +31,8 @@ import org.greenrobot.eventbus.EventBus
  * 注册
  */
 class RegisterActivity : BaseActivity<RegisterPresenter, ActivityRegisterBinding>(), RegisterContract.View, View.OnClickListener {
+    private var isShowPwd = false
+
     override fun getLayoutId(): Int {
         return R.layout.activity_register
     }
@@ -42,11 +47,13 @@ class RegisterActivity : BaseActivity<RegisterPresenter, ActivityRegisterBinding
 
     override fun initImmersionBar() {
         mImmersionBar = ImmersionBar.with(this)
-        mImmersionBar?.init()
+        mImmersionBar
+                ?.fitsSystemWindows(true, R.color.white)
+                ?.statusBarDarkFont(true, 0.5f)
+                ?.init()
     }
 
     override fun initData() {
-        mBinding?.rlContent?.setPadding(0, BarUtils.getStatusBarHeight(), 0, 0)
         initListener()
     }
 
@@ -117,6 +124,7 @@ class RegisterActivity : BaseActivity<RegisterPresenter, ActivityRegisterBinding
             mBinding?.ivClearPwd?.visibility = if (!hasFocus || TextUtils.isEmpty(password())) View.GONE else View.VISIBLE
         }
 
+        mBinding?.ivEye?.setOnClickListener(this)
         mBinding?.tvRequestCode?.setOnClickListener(this)
         mBinding?.tvRegister?.setOnClickListener(this)
         mBinding?.ivClearMobile?.setOnClickListener(this)
@@ -144,13 +152,25 @@ class RegisterActivity : BaseActivity<RegisterPresenter, ActivityRegisterBinding
         LogUtils.e(errorMsg)
     }
 
-    override fun registerSuccess(mobile:String?) {
+    override fun registerSuccess(mobile: String?) {
         EventBus.getDefault().post(RegisterSuccessEvent(mobile!!))
         onBackPressedSupport()
     }
 
     override fun onClick(v: View?) {
         when (v?.id) {
+            R.id.iv_eye -> {
+                if (!isShowPwd) {
+                    mBinding?.ivEye?.setImageResource(R.mipmap.eye_open)
+                    mBinding?.etPwd?.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                } else {
+                    mBinding?.ivEye?.setImageResource(R.mipmap.eye_close)
+                    mBinding?.etPwd?.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                }
+                mBinding?.etPwd?.requestFocus()
+                mBinding?.etPwd?.setSelection(password()?.length!!)
+                isShowPwd = !isShowPwd
+            }
             R.id.iv_close -> {
                 onBackPressedSupport()
             }
@@ -170,7 +190,7 @@ class RegisterActivity : BaseActivity<RegisterPresenter, ActivityRegisterBinding
                 mBinding?.etPwd?.setText("")
             }
             R.id.tv_customer -> {
-                val dialIntent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:123456"))
+                val dialIntent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + C.CUSTOMER_TEL))
                 startActivity(dialIntent)
             }
         }

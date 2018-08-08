@@ -1,37 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="RootLayout">
-        <attr name="titleBarColor" format="color"/>
-        <attr name="titleBarTitleColor" format="color"/>
-        <attr name="titleBarHeight" format="dimension"/>
-        <attr name="titleBarTitle" format="string"/>
-        <attr name="titleBarLeftIcon" format="reference"/>
-        <attr name="titleBarRightIcon" format="reference"/>
-        <attr name="titleBarRightText" format="string"/>
-        <attr name="titleBarRightTextColor" format="color"/>
-        <attr name="isShowLeftIcon" format="boolean"/>
-        <attr name="isShowRightText" format="boolean"/>
-        <attr name="isShowRightIcon" format="boolean"/>
+        <attr name="titleBarColor" format="color" />
+        <attr name="titleBarTitleColor" format="color" />
+        <attr name="titleBarHeight" format="dimension" />
+        <attr name="titleBarTitle" format="string" />
+        <attr name="titleBarLeftIcon" format="reference" />
+        <attr name="titleBarLeftBackgroundColor" format="color" />
+        <attr name="titleBarRightIcon" format="reference" />
+        <attr name="titleBarRightText" format="string" />
+        <attr name="titleBarRightTextColor" format="color" />
+        <attr name="isShowLeftIcon" format="boolean" />
+        <attr name="isShowRightText" format="boolean" />
+        <attr name="isShowRightIcon" format="boolean" />
     </declare-styleable>
 
     <declare-styleable name="IndicatorView">
-        <attr name="i_count" format="integer|reference"/>
-        <attr name="i_s_resid" format="reference"/>
-        <attr name="i_n_resid" format="reference"/>
-        <attr name="i_width" format="dimension|reference"/>
-        <attr name="i_height" format="dimension|reference"/>
-        <attr name="i_margin_left" format="dimension|reference"/>
+        <attr name="i_count" format="integer|reference" />
+        <attr name="i_s_resid" format="reference" />
+        <attr name="i_n_resid" format="reference" />
+        <attr name="i_width" format="dimension|reference" />
+        <attr name="i_height" format="dimension|reference" />
+        <attr name="i_margin_left" format="dimension|reference" />
     </declare-styleable>
 
     <declare-styleable name="SlideDetailsLayout">
         <!-- float value for indicate the moment of switch panel-->
-        <attr name="percent" format="float"/>
+        <attr name="percent" format="float" />
         <!-- how long the animation keep-->
-        <attr name="duration" format="integer"/>
+        <attr name="duration" format="integer" />
         <!-- default panel to show after init-->
         <attr name="default_panel" format="enum">
-            <enum name="front" value="0"/>
-            <enum name="behind" value="1"/>
+            <enum name="front" value="0" />
+            <enum name="behind" value="1" />
         </attr>
     </declare-styleable>
 </resources>

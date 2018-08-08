@@ -58,6 +58,7 @@ public class RootLayout extends LinearLayout {
      * 标题栏左按钮
      */
     private int mTitleBarLeftIcon;
+    private int mTitleBarLeftBackground;
 
     /**
      * 标题栏右按钮
@@ -105,6 +106,7 @@ public class RootLayout extends LinearLayout {
         mTitleBarColor = t.getColor(R.styleable.RootLayout_titleBarColor, ContextCompat.getColor(context, R.color.fb));
         mTitleBarTitle = t.getString(R.styleable.RootLayout_titleBarTitle);
         mTitleBarTitleColor = t.getColor(R.styleable.RootLayout_titleBarTitleColor, ContextCompat.getColor(context, R.color.c_2e3033));
+        mTitleBarLeftBackground = t.getColor(R.styleable.RootLayout_titleBarLeftBackgroundColor, -1);
         mTitleBarHeight = t.getDimension(R.styleable.RootLayout_titleBarHeight, getResources().getDimension(R.dimen.titleBarHeight));
         mTitleBarLeftIcon = t.getResourceId(R.styleable.RootLayout_titleBarLeftIcon, R.mipmap.back);
         mTitleBarRightIcon = t.getResourceId(R.styleable.RootLayout_titleBarRightIcon, 0);
@@ -164,6 +166,10 @@ public class RootLayout extends LinearLayout {
         if (!TextUtils.isEmpty(mTitleBarRightText)) {
             tvRight.setVisibility(VISIBLE);
             tvRight.setText(mTitleBarRightText);
+        }
+
+        if (mTitleBarLeftBackground != -1){
+            ivLeft.setBackgroundColor(mTitleBarLeftBackground);
         }
     }
 

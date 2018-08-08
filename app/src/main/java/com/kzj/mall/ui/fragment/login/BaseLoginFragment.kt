@@ -12,9 +12,13 @@ import com.kzj.mall.mvp.contract.LoginContract
 import com.kzj.mall.mvp.presenter.LoginPresenter
 import com.kzj.mall.ui.activity.RegisterActivity
 import android.net.Uri
+import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import com.kzj.mall.C
 
 
 abstract class BaseLoginFragment : BaseFragment<LoginPresenter, FragmentLoginBinding>(), View.OnClickListener, LoginContract.View {
@@ -33,19 +37,27 @@ abstract class BaseLoginFragment : BaseFragment<LoginPresenter, FragmentLoginBin
                 .inject(this)
     }
 
-    override fun initData() {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val onCreateView = super.onCreateView(inflater, container, savedInstanceState)
         if (isCode()) {
             mBinding?.tvRequestCode?.visibility = View.VISIBLE
             mBinding?.llPwd?.visibility = View.GONE
             mBinding?.etCode?.visibility = View.VISIBLE
             mBinding?.etPwd?.visibility = View.GONE
+            mBinding?.etUsername?.visibility = View.GONE
+            mBinding?.etMobile?.visibility = View.VISIBLE
         } else {
             mBinding?.tvRequestCode?.visibility = View.GONE
             mBinding?.llPwd?.visibility = View.VISIBLE
             mBinding?.etCode?.visibility = View.GONE
             mBinding?.etPwd?.visibility = View.VISIBLE
+            mBinding?.etUsername?.visibility = View.VISIBLE
+            mBinding?.etMobile?.visibility = View.GONE
         }
+        return onCreateView
+    }
 
+    override fun initData() {
         mobile?.let {
             mBinding?.etMobile?.setText(it)
             mBinding?.etMobile?.setSelection(it.length)
@@ -57,8 +69,13 @@ abstract class BaseLoginFragment : BaseFragment<LoginPresenter, FragmentLoginBin
     fun setMobile(mobile: String?) {
         this.mobile = mobile
         if (isInit) {
-            mBinding?.etMobile?.setText(mobile)
-            mBinding?.etMobile?.setSelection(mobile?.length!!)
+            if (isCode()){
+                mBinding?.etMobile?.setText(mobile)
+                mBinding?.etMobile?.setSelection(mobile?.length!!)
+            }else{
+                mBinding?.etUsername?.setText(mobile)
+                mBinding?.etUsername?.setSelection(mobile?.length!!)
+            }
         }
     }
 
@@ -70,6 +87,26 @@ abstract class BaseLoginFragment : BaseFragment<LoginPresenter, FragmentLoginBin
 
                 val mobile = mobile()
                 if (!TextUtils.isEmpty(mobile)) {
+                    mBinding?.ivClearMobile?.visibility = View.VISIBLE
+                } else {
+                    mBinding?.ivClearMobile?.visibility = View.GONE
+                }
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+            }
+        })
+
+        mBinding?.etUsername?.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                mBinding?.tvLogin?.isEnabled = canLogin()
+
+                val username = username()
+                if (!TextUtils.isEmpty(username)) {
                     mBinding?.ivClearMobile?.visibility = View.VISIBLE
                 } else {
                     mBinding?.ivClearMobile?.visibility = View.GONE
@@ -137,6 +174,19 @@ abstract class BaseLoginFragment : BaseFragment<LoginPresenter, FragmentLoginBin
             }
         }
 
+        mBinding?.etUsername?.setOnFocusChangeListener { v, hasFocus ->
+            if (hasFocus) {
+                val username = username()
+                if (!TextUtils.isEmpty(username)) {
+                    mBinding?.ivClearMobile?.visibility = View.VISIBLE
+                } else {
+                    mBinding?.ivClearMobile?.visibility = View.GONE
+                }
+            } else {
+                mBinding?.ivClearMobile?.visibility = View.GONE
+            }
+        }
+
         mBinding?.etCode?.setOnFocusChangeListener { v, hasFocus ->
             if (hasFocus) {
                 val code = code()
@@ -184,10 +234,15 @@ abstract class BaseLoginFragment : BaseFragment<LoginPresenter, FragmentLoginBin
     private fun canLogin(): Boolean {
         val code = code()
         val mobile = mobile()
-        if (TextUtils.isEmpty(code) || TextUtils.isEmpty(mobile)) {
-            return false
+        val username = username()
+        val password = password()
+
+        if ((!TextUtils.isEmpty(mobile) && !TextUtils.isEmpty(code))
+                || (!TextUtils.isEmpty(username) && !TextUtils.isEmpty(password))){
+            return true
         }
-        return true
+
+        return false
     }
 
     override fun onClick(v: View?) {
@@ -198,15 +253,21 @@ abstract class BaseLoginFragment : BaseFragment<LoginPresenter, FragmentLoginBin
                 startActivity(intent)
             }
             R.id.tv_customer -> {
-                val dialIntent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:123456"))
+                val dialIntent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+ C.CUSTOMER_TEL))
                 startActivity(dialIntent)
             }
             R.id.iv_clear_mobile -> {
-                mBinding?.etMobile?.setText("")
+                if (isCode()){
+                    mBinding?.etMobile?.setText("")
+                }else{
+                    mBinding?.etUsername?.setText("")
+                }
             }
         }
     }
 
+
+    protected fun username():String? = mBinding?.etUsername?.text?.toString()?.trim()
 
     protected fun mobile(): String? {
         return mBinding?.etMobile?.text?.toString()?.trim()

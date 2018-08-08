@@ -7,7 +7,9 @@
         android:layout_height="match_parent"
         app:titleBarColor="@color/colorPrimary"
         app:titleBarTitle="个人信息"
-        app:titleBarTitleColor="@color/white">
+        app:titleBarTitleColor="@color/white"
+        app:titleBarLeftIcon="@mipmap/back2"
+        app:titleBarLeftBackgroundColor="@color/tran">
 
         <ScrollView
             android:layout_width="match_parent"

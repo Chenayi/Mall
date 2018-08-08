@@ -21,9 +21,8 @@
             android:layout_height="30dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="12dp"
-            android:background="@drawable/circle_white"
             android:scaleType="centerInside"
-            android:src="@mipmap/back" />
+            android:src="@mipmap/close_icon" />
 
         <TextView
             android:id="@+id/tv_title"

@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.graphics.Color
 import android.support.v4.app.Fragment
+import android.support.v4.content.ContextCompat
 import android.support.v4.view.ViewPager
 import android.view.View
 import com.blankj.utilcode.util.BarUtils
@@ -13,6 +14,7 @@ import com.gyf.barlibrary.ImmersionBar
 import com.kzj.mall.C
 import com.kzj.mall.R
 import com.kzj.mall.adapter.CommomViewPagerAdapter
+import com.kzj.mall.adapter.LoginNavigatorTitleView
 import com.kzj.mall.base.BaseActivity
 import com.kzj.mall.base.IPresenter
 import com.kzj.mall.databinding.ActivityLoginBinding
@@ -52,11 +54,13 @@ class LoginActivity : BaseActivity<IPresenter, ActivityLoginBinding>(), View.OnC
 
     override fun initImmersionBar() {
         mImmersionBar = ImmersionBar.with(this)
-        mImmersionBar?.init()
+        mImmersionBar
+                ?.fitsSystemWindows(true,R.color.white)
+                ?.statusBarDarkFont(true,0.5f)
+                ?.init()
     }
 
     override fun initData() {
-        mBinding?.rlContent?.setPadding(0, BarUtils.getStatusBarHeight(), 0, 0)
         fragments = ArrayList()
         fragments?.add(LoginCodeFragment.newInstance())
         fragments?.add(LoginPasswordFragment.newInstance())
@@ -64,24 +68,6 @@ class LoginActivity : BaseActivity<IPresenter, ActivityLoginBinding>(), View.OnC
         commomViewPagerAdapter = CommomViewPagerAdapter(supportFragmentManager, fragments!!)
         mBinding?.vpLogin?.adapter = commomViewPagerAdapter
         setUpViewPager()
-        mBinding?.vpLogin?.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-            override fun onPageScrollStateChanged(state: Int) {
-            }
-
-            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-            }
-
-            override fun onPageSelected(position: Int) {
-                if (position == 0) {
-                    mBinding?.ivLoginBg?.setImageResource(R.mipmap.login_bg1)
-                } else {
-                    mBinding?.ivLoginBg?.setImageResource(R.mipmap.login_bg2)
-                }
-
-            }
-
-        })
-
         mBinding?.ivClose?.setOnClickListener(this)
     }
 
@@ -90,10 +76,9 @@ class LoginActivity : BaseActivity<IPresenter, ActivityLoginBinding>(), View.OnC
         commonNavigator?.isAdjustMode = true
         commonNavigator.adapter = object : CommonNavigatorAdapter() {
             override fun getTitleView(p0: Context?, index: Int): IPagerTitleView {
-                val colorTransitionPagerTitleView = ColorTransitionPagerTitleView(applicationContext)
-                colorTransitionPagerTitleView.normalColor = Color.WHITE
-                colorTransitionPagerTitleView.selectedColor = Color.WHITE
-                colorTransitionPagerTitleView.textSize = 15f
+                val colorTransitionPagerTitleView = LoginNavigatorTitleView(applicationContext)
+                colorTransitionPagerTitleView.normalColor = ContextCompat.getColor(applicationContext,R.color.c_2e3033)
+                colorTransitionPagerTitleView.selectedColor = ContextCompat.getColor(applicationContext,R.color.colorPrimary)
                 colorTransitionPagerTitleView.setPadding(SizeUtils.dp2px(10f), 0, SizeUtils.dp2px(10f), 0)
                 colorTransitionPagerTitleView.setText(mTitles[index])
                 colorTransitionPagerTitleView.setOnClickListener(object : View.OnClickListener {
@@ -110,9 +95,9 @@ class LoginActivity : BaseActivity<IPresenter, ActivityLoginBinding>(), View.OnC
 
             override fun getIndicator(p0: Context?): IPagerIndicator {
                 val indicator = LinePagerIndicator(applicationContext)
-                indicator.mode = LinePagerIndicator.MODE_WRAP_CONTENT
-                indicator.setColors(Color.WHITE)
-                indicator.lineWidth = SizeUtils.dp2px(13f).toFloat()
+                indicator.mode = LinePagerIndicator.MODE_EXACTLY
+                indicator.setColors(ContextCompat.getColor(applicationContext,R.color.colorPrimary))
+                indicator.lineWidth = SizeUtils.dp2px(21f).toFloat()
                 indicator.lineHeight = SizeUtils.dp2px(3f).toFloat()
                 return indicator
             }

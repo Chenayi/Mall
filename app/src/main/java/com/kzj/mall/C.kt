@@ -9,5 +9,7 @@ class C {
         val PAGE_SIZE = 10
 
         var IS_LOGIN = false
+
+        val CUSTOMER_TEL ="123456"
     }
 }
