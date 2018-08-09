@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <LinearLayout
         android:id="@+id/ll_root"
@@ -14,13 +13,11 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:background="@drawable/background_white_corners_8"
             android:orientation="vertical">
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:orientation="horizontal">
+                android:layout_height="50dp">
 
                 <FrameLayout
                     android:layout_width="match_parent"
@@ -30,7 +27,7 @@
                         android:id="@+id/et_mobile"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@color/tran"
+                        android:background="@drawable/selector_edittext"
                         android:hint="请输入常用手机号"
                         android:inputType="phone"
                         android:lines="1"
@@ -39,13 +36,14 @@
                         android:textColor="#2E3033"
                         android:textColorHint="#C2C6CC"
                         android:textSize="15dp"
-                        android:visibility="visible" />
+                        android:visibility="visible"
+                        android:paddingRight="120dp"/>
 
                     <EditText
                         android:id="@+id/et_username"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@color/tran"
+                        android:background="@drawable/selector_edittext"
                         android:hint="用户名/邮箱/手机号"
                         android:inputType="text"
                         android:lines="1"
@@ -53,7 +51,8 @@
                         android:textColor="#2E3033"
                         android:textColorHint="#C2C6CC"
                         android:textSize="15dp"
-                        android:visibility="gone" />
+                        android:visibility="gone"
+                        android:paddingRight="40dp"/>
                 </FrameLayout>
 
                 <LinearLayout
@@ -89,8 +88,6 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
                 android:layout_marginTop="10dp">
 
                 <FrameLayout
@@ -101,7 +98,7 @@
                         android:id="@+id/et_code"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@color/tran"
+                        android:background="@drawable/selector_edittext"
                         android:hint="请收入收到的验证码"
                         android:inputType="number"
                         android:lines="1"
@@ -115,7 +112,7 @@
                         android:id="@+id/et_pwd"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@color/tran"
+                        android:background="@drawable/selector_edittext"
                         android:hint="请输入密码"
                         android:inputType="textPassword"
                         android:lines="1"
@@ -250,7 +247,7 @@
                     android:layout_marginLeft="40dp"
                     android:layout_marginRight="10dp"
                     android:layout_weight="1"
-                    android:background="#C2C6CC" />
+                    android:background="@color/gray_default" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -265,7 +262,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="40dp"
                     android:layout_weight="1"
-                    android:background="#C2C6CC" />
+                    android:background="@color/gray_default" />
 
             </LinearLayout>
 

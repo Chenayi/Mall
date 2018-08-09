@@ -28,11 +28,13 @@ class ForgetPasswordActivity2 : BaseActivity<IPresenter, ActivityForgetPassword2
     }
     override fun initImmersionBar() {
         mImmersionBar = ImmersionBar.with(this)
-        mImmersionBar?.init()
+        mImmersionBar
+                ?.fitsSystemWindows(true,R.color.white)
+                ?.statusBarDarkFont(true,0.5f)
+                ?.init()
     }
 
     override fun initData() {
-        mBinding?.rlContent?.setPadding(0, BarUtils.getStatusBarHeight(), 0, 0)
         mBinding?.ivClose?.setOnClickListener(this)
         mBinding?.tvFinish?.setOnClickListener(this)
         mBinding?.ivEye?.setOnClickListener(this)
@@ -76,7 +78,6 @@ class ForgetPasswordActivity2 : BaseActivity<IPresenter, ActivityForgetPassword2
                     mBinding?.ivEye?.setImageResource(R.mipmap.eye_close)
                     mBinding?.etPassword?.setTransformationMethod(PasswordTransformationMethod.getInstance());
                 }
-                mBinding?.etPassword?.requestFocus()
                 mBinding?.etPassword?.setSelection(password()?.length!!)
                 isShowPwd = !isShowPwd
             }

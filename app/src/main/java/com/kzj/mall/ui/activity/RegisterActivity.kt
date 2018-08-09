@@ -167,8 +167,9 @@ class RegisterActivity : BaseActivity<RegisterPresenter, ActivityRegisterBinding
                     mBinding?.ivEye?.setImageResource(R.mipmap.eye_close)
                     mBinding?.etPwd?.setTransformationMethod(PasswordTransformationMethod.getInstance());
                 }
-                mBinding?.etPwd?.requestFocus()
-                mBinding?.etPwd?.setSelection(password()?.length!!)
+                if (mBinding?.etPwd?.isFocused == true) {
+                    mBinding?.etPwd?.setSelection(password()?.length!!)
+                }
                 isShowPwd = !isShowPwd
             }
             R.id.iv_close -> {

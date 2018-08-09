@@ -27,14 +27,18 @@ class ForgetPasswordActivity : BaseActivity<IPresenter, ActivityForgetPasswordBi
 
     override fun initImmersionBar() {
         mImmersionBar = ImmersionBar.with(this)
-        mImmersionBar?.init()
+        mImmersionBar
+                ?.fitsSystemWindows(true,R.color.white)
+                ?.statusBarDarkFont(true,0.5f)
+                ?.init()
     }
 
     override fun initData() {
-        mBinding?.rlContent?.setPadding(0, BarUtils.getStatusBarHeight(), 0, 0)
         mBinding?.ivClose?.setOnClickListener(this)
         mBinding?.tvNext?.setOnClickListener(this)
         mBinding?.tvCustomer?.setOnClickListener(this)
+        mBinding?.ivClearCode?.setOnClickListener(this)
+        mBinding?.ivClearMobile?.setOnClickListener(this)
 
         mBinding?.etMobile?.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
@@ -106,6 +110,12 @@ class ForgetPasswordActivity : BaseActivity<IPresenter, ActivityForgetPasswordBi
             }
             R.id.tv_next -> {
                 startActivityForResult(Intent(this, ForgetPasswordActivity2::class.java),123)
+            }
+            R.id.iv_clear_mobile->{
+                mBinding?.etMobile?.setText("")
+            }
+            R.id.iv_clear_code->{
+                mBinding?.etCode?.setText("")
             }
         }
     }

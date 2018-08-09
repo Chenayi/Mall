@@ -59,8 +59,8 @@ abstract class BaseLoginFragment : BaseFragment<LoginPresenter, FragmentLoginBin
 
     override fun initData() {
         mobile?.let {
-            mBinding?.etMobile?.setText(it)
-            mBinding?.etMobile?.setSelection(it.length)
+            mBinding?.etUsername?.setText(it)
+            mBinding?.etUsername?.setSelection(it.length)
         }
         isInit = true
         initLinstener()
@@ -69,10 +69,10 @@ abstract class BaseLoginFragment : BaseFragment<LoginPresenter, FragmentLoginBin
     fun setMobile(mobile: String?) {
         this.mobile = mobile
         if (isInit) {
-            if (isCode()){
+            if (isCode()) {
                 mBinding?.etMobile?.setText(mobile)
                 mBinding?.etMobile?.setSelection(mobile?.length!!)
-            }else{
+            } else {
                 mBinding?.etUsername?.setText(mobile)
                 mBinding?.etUsername?.setSelection(mobile?.length!!)
             }
@@ -238,7 +238,7 @@ abstract class BaseLoginFragment : BaseFragment<LoginPresenter, FragmentLoginBin
         val password = password()
 
         if ((!TextUtils.isEmpty(mobile) && !TextUtils.isEmpty(code))
-                || (!TextUtils.isEmpty(username) && !TextUtils.isEmpty(password))){
+                || (!TextUtils.isEmpty(username) && !TextUtils.isEmpty(password))) {
             return true
         }
 
@@ -253,13 +253,13 @@ abstract class BaseLoginFragment : BaseFragment<LoginPresenter, FragmentLoginBin
                 startActivity(intent)
             }
             R.id.tv_customer -> {
-                val dialIntent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+ C.CUSTOMER_TEL))
+                val dialIntent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + C.CUSTOMER_TEL))
                 startActivity(dialIntent)
             }
             R.id.iv_clear_mobile -> {
-                if (isCode()){
+                if (isCode()) {
                     mBinding?.etMobile?.setText("")
-                }else{
+                } else {
                     mBinding?.etUsername?.setText("")
                 }
             }
@@ -267,7 +267,7 @@ abstract class BaseLoginFragment : BaseFragment<LoginPresenter, FragmentLoginBin
     }
 
 
-    protected fun username():String? = mBinding?.etUsername?.text?.toString()?.trim()
+    protected fun username(): String? = mBinding?.etUsername?.text?.toString()?.trim()
 
     protected fun mobile(): String? {
         return mBinding?.etMobile?.text?.toString()?.trim()

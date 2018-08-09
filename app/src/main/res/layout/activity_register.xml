@@ -35,20 +35,17 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
-                    android:background="@drawable/background_white_corners_8"
                     android:orientation="vertical">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                        android:layout_height="50dp">
 
                         <EditText
                             android:id="@+id/et_mobile"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@color/tran"
+                            android:background="@drawable/selector_edittext"
                             android:hint="手机号"
                             android:inputType="phone"
                             android:lines="1"
@@ -87,25 +84,17 @@
                     </RelativeLayout>
 
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
-                        android:background="@color/gray_default" />
-
-
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:layout_marginTop="10dp"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                        android:layout_marginTop="10dp">
 
 
                         <EditText
                             android:id="@+id/et_code"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@color/tran"
+                            android:background="@drawable/selector_edittext"
                             android:hint="短信验证码"
                             android:inputType="number"
                             android:lines="1"
@@ -126,24 +115,17 @@
                             android:visibility="gone" />
                     </RelativeLayout>
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
-                        android:background="@color/gray_default" />
-
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:layout_marginTop="10dp"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                        android:layout_marginTop="10dp">
 
 
                         <EditText
                             android:id="@+id/et_pwd"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@color/tran"
+                            android:background="@drawable/selector_edittext"
                             android:hint="密码（长度在6～16位，请牢记您的密码）"
                             android:inputType="textPassword"
                             android:lines="1"
