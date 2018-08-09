@@ -14,6 +14,7 @@ import com.kzj.mall.databinding.FragmentMineBinding
 import com.kzj.mall.di.component.AppComponent
 import com.kzj.mall.event.LoginSuccessEvent
 import com.kzj.mall.ui.activity.LoginActivity
+import com.kzj.mall.ui.activity.MyAskAnswerActivity
 import com.kzj.mall.ui.activity.PersonInfoActivity
 import org.greenrobot.eventbus.Subscribe
 
@@ -55,6 +56,7 @@ class MineFragment : BaseFragment<IPresenter, FragmentMineBinding>(), View.OnCli
 
 
         mBinding?.rlTop?.setOnClickListener(this)
+        mBinding?.rlAskAnswer?.setOnClickListener(this)
     }
 
     @Subscribe
@@ -78,6 +80,11 @@ class MineFragment : BaseFragment<IPresenter, FragmentMineBinding>(), View.OnCli
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                     startActivity(intent)
                 }
+            }
+            R.id.rl_ask_answer -> {
+                val intent = Intent(context, MyAskAnswerActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent)
             }
         }
     }

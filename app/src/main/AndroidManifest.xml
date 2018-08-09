@@ -55,6 +55,8 @@
         <activity android:name=".ui.activity.PersonInfoActivity" />
         <activity android:name=".ui.activity.ForgetPasswordActivity" />
         <activity android:name=".ui.activity.ForgetPasswordActivity2" />
+        <activity android:name=".ui.activity.MyAskAnswerActivity" />
+        <activity android:name=".ui.activity.MyAskAnswerDetailActivity" />
     </application>
 
 </manifest>

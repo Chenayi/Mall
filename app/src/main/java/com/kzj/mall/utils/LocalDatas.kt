@@ -365,6 +365,9 @@ class LocalDatas {
             return goodsGroupEntity
         }
 
+        /**
+         * 说明书
+         */
         fun explainDatas(): MutableList<GoodsDetailEntity.Explain> {
             val explainDatas = ArrayList<GoodsDetailEntity.Explain>()
             for (i in 0 until 9) {
@@ -406,6 +409,18 @@ class LocalDatas {
                 explainDatas.add(explain)
             }
             return explainDatas
+        }
+
+
+        /**
+         * 问答
+         */
+        fun askDatas(): MutableList<AskAnswerEntity> {
+            val askDatas = ArrayList<AskAnswerEntity>()
+            for (i in 0 until 10) {
+                askDatas.add(AskAnswerEntity())
+            }
+            return askDatas
         }
     }
 }

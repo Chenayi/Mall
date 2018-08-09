@@ -120,7 +120,7 @@
                         android:singleLine="true"
                         android:textColor="#2E3033"
                         android:textColorHint="#C2C6CC"
-                        android:textSize="13dp"
+                        android:textSize="15dp"
                         android:visibility="gone" />
                 </FrameLayout>
 
