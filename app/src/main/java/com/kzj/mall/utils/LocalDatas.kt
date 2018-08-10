@@ -2,6 +2,9 @@ package com.kzj.mall.utils
 
 import com.kzj.mall.R
 import com.kzj.mall.entity.*
+import com.kzj.mall.entity.ask.AskAnswerDetailEntity
+import com.kzj.mall.entity.ask.AskAnswerEntity
+import com.kzj.mall.entity.ask.IAsk
 import com.kzj.mall.entity.cart.*
 import com.kzj.mall.entity.home.*
 
@@ -421,6 +424,24 @@ class LocalDatas {
                 askDatas.add(AskAnswerEntity())
             }
             return askDatas
+        }
+
+        /**
+         * 问答详情
+         */
+        fun askDetails(): MutableList<AskAnswerDetailEntity> {
+            val askDetails = ArrayList<AskAnswerDetailEntity>()
+
+            val askAnswerDetailEntity1 = AskAnswerDetailEntity()
+            askAnswerDetailEntity1.type = IAsk.TYPE_ASK
+
+            val askAnswerDetailEntity2 = AskAnswerDetailEntity()
+            askAnswerDetailEntity2.type = IAsk.TYPE_ASK
+
+            askDetails.add(askAnswerDetailEntity1)
+            askDetails.add(askAnswerDetailEntity2)
+
+            return askDetails
         }
     }
 }
