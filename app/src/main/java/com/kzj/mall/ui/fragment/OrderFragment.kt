@@ -1,12 +1,15 @@
 package com.kzj.mall.ui.fragment
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import com.chad.library.adapter.base.BaseViewHolder
 import com.kzj.mall.R
 import com.kzj.mall.base.BaseListFragment
 import com.kzj.mall.base.IPresenter
 import com.kzj.mall.di.component.AppComponent
 import com.kzj.mall.entity.OrderEntity
+import com.kzj.mall.ui.activity.OrderDetailActivity
 import com.kzj.mall.utils.LocalDatas
 
 class OrderFragment : BaseListFragment<IPresenter, OrderEntity>() {
@@ -35,6 +38,12 @@ class OrderFragment : BaseListFragment<IPresenter, OrderEntity>() {
     }
 
     override fun myHolder(helper: BaseViewHolder?, data: OrderEntity) {
+    }
+
+    override fun onItemClick(view: View, position: Int, data: OrderEntity?) {
+        val intent = Intent(context,OrderDetailActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(intent)
     }
 
     override fun itemLayout(): Int {

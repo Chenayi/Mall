@@ -58,6 +58,7 @@
         <activity android:name=".ui.activity.MyAskAnswerActivity" />
         <activity android:name=".ui.activity.MyAskAnswerDetailActivity" />
         <activity android:name=".ui.activity.OrderActivity" />
+        <activity android:name=".ui.activity.OrderDetailActivity" />
     </application>
 
 </manifest>

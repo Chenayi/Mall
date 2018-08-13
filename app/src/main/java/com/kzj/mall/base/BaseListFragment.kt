@@ -3,6 +3,7 @@ package com.kzj.mall.base
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.kzj.mall.C
@@ -19,6 +20,9 @@ abstract class BaseListFragment<P : IPresenter, D> : BaseFragment<P, FragmentBas
 
     override fun initData() {
         listAdapter = ListAdapter(ArrayList())
+        listAdapter?.setOnItemClickListener { adapter, view, position ->
+            onItemClick(view,position,listAdapter?.getItem(position))
+        }
         mBinding?.rv?.layoutManager = layoutManager()
         mBinding?.rv?.adapter = listAdapter
         listAdapter?.setEnableLoadMore(isLoadMoreEnable())
@@ -57,6 +61,8 @@ abstract class BaseListFragment<P : IPresenter, D> : BaseFragment<P, FragmentBas
      * 加载更多
      */
     protected abstract fun onLoadMore();
+
+    protected abstract fun onItemClick(view: View, position: Int, data: D?);
 
     /**
      * 加载更多开关

@@ -84,6 +84,7 @@
             android:background="@color/gray_default" />
 
         <TextView
+            android:id="@+id/tv_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="脸上的痘痘总是很难根治，并且是油性，用什么药能够帮助用什么 药能够帮助祛？"
