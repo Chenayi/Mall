@@ -443,5 +443,17 @@ class LocalDatas {
 
             return askDetails
         }
+
+        /**
+         * 订单
+         */
+        fun orderDatas(): MutableList<OrderEntity> {
+            val orderDatas = ArrayList<OrderEntity>()
+            for (i in 0 until 10) {
+                val orderEntity = OrderEntity()
+                orderDatas.add(orderEntity)
+            }
+            return orderDatas
+        }
     }
 }

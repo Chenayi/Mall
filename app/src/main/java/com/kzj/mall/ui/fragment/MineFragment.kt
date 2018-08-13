@@ -15,6 +15,7 @@ import com.kzj.mall.di.component.AppComponent
 import com.kzj.mall.event.LoginSuccessEvent
 import com.kzj.mall.ui.activity.LoginActivity
 import com.kzj.mall.ui.activity.MyAskAnswerActivity
+import com.kzj.mall.ui.activity.OrderActivity
 import com.kzj.mall.ui.activity.PersonInfoActivity
 import org.greenrobot.eventbus.Subscribe
 
@@ -55,8 +56,17 @@ class MineFragment : BaseFragment<IPresenter, FragmentMineBinding>(), View.OnCli
         mBinding?.ivMsg?.requestLayout()
 
 
+        initListener()
+    }
+
+    private fun initListener() {
         mBinding?.rlTop?.setOnClickListener(this)
         mBinding?.rlAskAnswer?.setOnClickListener(this)
+        mBinding?.llOrder?.setOnClickListener(this)
+        mBinding?.rlOrderWaitPay?.setOnClickListener(this)
+        mBinding?.rlOrderWaitSend?.setOnClickListener(this)
+        mBinding?.rlOrderWaitTake?.setOnClickListener(this)
+        mBinding?.rlOrderFinish?.setOnClickListener(this)
     }
 
     @Subscribe
@@ -83,6 +93,31 @@ class MineFragment : BaseFragment<IPresenter, FragmentMineBinding>(), View.OnCli
             }
             R.id.rl_ask_answer -> {
                 val intent = Intent(context, MyAskAnswerActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent)
+            }
+            R.id.ll_order->{
+                val intent = Intent(context,OrderActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent)
+            }
+            R.id.rl_order_wait_pay->{
+                val intent = Intent(context,OrderActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent)
+            }
+            R.id.rl_order_wait_send->{
+                val intent = Intent(context,OrderActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent)
+            }
+            R.id.rl_order_wait_take->{
+                val intent = Intent(context,OrderActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent)
+            }
+            R.id.rl_order_finish->{
+                val intent = Intent(context,OrderActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(intent)
             }

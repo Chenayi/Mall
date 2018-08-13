@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/fb"
+    android:background="@color/colorPrimary"
     android:orientation="vertical">
 
     <View
@@ -22,7 +22,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="12dp"
             android:scaleType="centerInside"
-            android:src="@mipmap/close_icon" />
+            android:src="@mipmap/back2" />
 
         <TextView
             android:id="@+id/tv_title"

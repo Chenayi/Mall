@@ -5,10 +5,7 @@
     <com.kzj.mall.widget.RootLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:titleBarColor="@color/colorPrimary"
-        app:titleBarLeftIcon="@mipmap/back2"
-        app:titleBarTitle="我的问答"
-        app:titleBarTitleColor="@color/white">
+        app:titleBarTitle="我的问答">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_ask_detail"

@@ -21,14 +21,7 @@ class MyAskAnswerActivity : BaseActivity<IPresenter, ActivityMyAskAnswerBinding>
     override fun setupComponent(appComponent: AppComponent?) {
     }
 
-    override fun initImmersionBar() {
-        mImmersionBar = ImmersionBar.with(this)
-        mImmersionBar?.fitsSystemWindows(true, R.color.colorPrimary)
-                ?.init()
-    }
-
     override fun initData() {
-
         fragments = ArrayList()
         fragments?.add(MyAskAnswerFragment.newInstance(0))
         fragments?.add(MyAskAnswerFragment.newInstance(1))

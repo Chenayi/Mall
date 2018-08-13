@@ -93,6 +93,7 @@
 
 
                         <LinearLayout
+                            android:id="@+id/ll_order"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_alignParentRight="true"
@@ -124,6 +125,7 @@
                         android:orientation="horizontal">
 
                         <RelativeLayout
+                            android:id="@+id/rl_order_wait_pay"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1">
@@ -150,6 +152,7 @@
                         </RelativeLayout>
 
                         <RelativeLayout
+                            android:id="@+id/rl_order_wait_send"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1">
@@ -176,6 +179,7 @@
                         </RelativeLayout>
 
                         <RelativeLayout
+                            android:id="@+id/rl_order_wait_take"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1">
@@ -202,6 +206,7 @@
                         </RelativeLayout>
 
                         <RelativeLayout
+                            android:id="@+id/rl_order_finish"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1">

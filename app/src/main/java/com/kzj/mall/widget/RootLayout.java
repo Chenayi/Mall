@@ -103,12 +103,12 @@ public class RootLayout extends LinearLayout {
         super(context, attrs, defStyleAttr);
         mContext = context;
         TypedArray t = context.obtainStyledAttributes(attrs, R.styleable.RootLayout);
-        mTitleBarColor = t.getColor(R.styleable.RootLayout_titleBarColor, ContextCompat.getColor(context, R.color.fb));
+        mTitleBarColor = t.getColor(R.styleable.RootLayout_titleBarColor, ContextCompat.getColor(context, R.color.colorPrimary));
         mTitleBarTitle = t.getString(R.styleable.RootLayout_titleBarTitle);
-        mTitleBarTitleColor = t.getColor(R.styleable.RootLayout_titleBarTitleColor, ContextCompat.getColor(context, R.color.c_2e3033));
+        mTitleBarTitleColor = t.getColor(R.styleable.RootLayout_titleBarTitleColor, ContextCompat.getColor(context, R.color.white));
         mTitleBarLeftBackground = t.getColor(R.styleable.RootLayout_titleBarLeftBackgroundColor, -1);
         mTitleBarHeight = t.getDimension(R.styleable.RootLayout_titleBarHeight, getResources().getDimension(R.dimen.titleBarHeight));
-        mTitleBarLeftIcon = t.getResourceId(R.styleable.RootLayout_titleBarLeftIcon, R.mipmap.back);
+        mTitleBarLeftIcon = t.getResourceId(R.styleable.RootLayout_titleBarLeftIcon, R.mipmap.back2);
         mTitleBarRightIcon = t.getResourceId(R.styleable.RootLayout_titleBarRightIcon, 0);
         mTitleBarRightText = t.getString(R.styleable.RootLayout_titleBarRightText);
         mTitleBarRightTextColor = t.getColor(R.styleable.RootLayout_titleBarRightTextColor, ContextCompat.getColor(context, R.color.white));

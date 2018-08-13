@@ -5,11 +5,16 @@
     <com.kzj.mall.widget.RootLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:titleBarTitle="我的问答">
+        app:titleBarTitle="我的订单">
 
+        <net.lucode.hackware.magicindicator.MagicIndicator
+            android:id="@+id/magic_indicator"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/white"/>
 
         <android.support.v4.view.ViewPager
-            android:id="@+id/vp_ask"
+            android:id="@+id/vp_order"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1" />

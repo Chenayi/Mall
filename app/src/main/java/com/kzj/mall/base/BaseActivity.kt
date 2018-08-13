@@ -70,8 +70,7 @@ abstract class BaseActivity<P : IPresenter, D : ViewDataBinding> : SupportActivi
 
     protected open fun initImmersionBar() {
         mImmersionBar = ImmersionBar.with(this)
-        mImmersionBar?.fitsSystemWindows(true, R.color.fb)
-                ?.statusBarDarkFont(true, 0.5f)
+        mImmersionBar?.fitsSystemWindows(true, R.color.colorPrimary)
                 ?.keyboardEnable(keyboardEnable())
                 ?.keyboardMode(getKeyboardMode())
                 ?.init()

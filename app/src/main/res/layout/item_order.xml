@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginTop="10dp"
+    android:background="@drawable/background_white_corners_8"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="13dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="订单编号  102017052300002"
+            android:textColor="#8A9099"
+            android:textSize="12dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="13dp"
+            android:text="待付款"
+            android:textColor="#FF4F0A" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="97dp"
+        android:background="#F9F9F9">
+
+        <LinearLayout
+            android:id="@+id/ll_single"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="71dp"
+                android:layout_height="71dp"
+                android:layout_marginLeft="13dp"
+                android:src="@color/gray_default" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="71dp"
+                android:layout_marginLeft="13dp"
+                android:layout_marginRight="13dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:maxLines="2"
+                    android:text="万艾可 枸橼酸西地那非片 100mg*5"
+                    android:textColor="@color/c_2e3033"
+                    android:textSize="14dp" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="bottom"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="¥25.9"
+                        android:textColor="#6A6E75" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="6dp"
+                        android:text="¥28.9"
+                        android:textColor="#8A9099"
+                        android:textSize="12dp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="x1"
+                        android:textColor="#8A9099"
+                        android:textSize="12dp" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_group"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:gravity="right"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="共1件商品"
+            android:textColor="@color/c_2e3033" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="13dp"
+            android:text="实付款:"
+            android:textColor="@color/c_2e3033" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="6dp"
+            android:text="¥89.00"
+            android:textColor="@color/c_2e3033"
+            android:textSize="15dp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <com.allen.library.SuperTextView
+        android:layout_width="77dp"
+        android:layout_height="26dp"
+        android:layout_gravity="right"
+        android:layout_marginBottom="13dp"
+        android:layout_marginRight="13dp"
+        android:layout_marginTop="10dp"
+        app:sCenterTextColor="@color/white"
+        app:sCenterTextSize="13sp"
+        app:sCenterTextString="立即支付"
+        app:sShapeCornersRadius="9999dp"
+        app:sShapeSelectorNormalColor="@color/orange_default"
+        app:sUseShape="true" />
+
+</LinearLayout>
