@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.kzj.mall.widget.RootLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:titleBarRightText="编辑"
+        app:titleBarRightText1="清空"
+        app:titleBarTitle="浏览记录">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_record"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <RelativeLayout
+            android:id="@+id/rl_delete"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/white">
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="4dp"
+                android:text="全选" />
+
+
+            <com.allen.library.SuperTextView
+                android:id="@+id/tv_delete"
+                android:layout_width="90dp"
+                android:layout_height="37dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                app:sCenterTextColor="@color/white"
+                app:sCenterTextString="删除"
+                app:sShapeCornersRadius="9999dp"
+                app:sShapeSelectorNormalColor="@color/colorPrimary"
+                app:sUseShape="true" />
+
+        </RelativeLayout>
+
+    </com.kzj.mall.widget.RootLayout>
+</layout>

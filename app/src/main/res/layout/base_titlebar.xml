@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/colorPrimary"
@@ -39,29 +40,51 @@
             android:textSize="@dimen/titleSize"
             android:textStyle="bold" />
 
-        <ImageView
-            android:id="@+id/iv_right"
-            android:layout_width="@dimen/titleBarHeight"
-            android:layout_height="@dimen/titleBarHeight"
-            android:layout_alignParentRight="true"
-            android:scaleType="centerInside"
-            android:visibility="gone" />
-
-        <TextView
-            android:id="@+id/tv_right"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:gravity="center"
-            android:lines="1"
-            android:paddingLeft="12dp"
-            android:paddingRight="12dp"
-            android:singleLine="true"
-            android:textColor="#2E3033"
-            android:textSize="13dp"
-            android:textStyle="bold"
-            android:visibility="gone" />
+            android:layout_alignParentRight="true">
 
+            <TextView
+                android:id="@+id/tv_right1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
+                android:textColor="@color/white"
+                android:textSize="13dp"
+                android:textStyle="bold"
+                tools:text="清空"
+                android:visibility="gone"/>
+
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/iv_right"
+                    android:layout_width="@dimen/titleBarHeight"
+                    android:layout_height="@dimen/titleBarHeight"
+                    android:scaleType="centerInside"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/tv_right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:lines="1"
+                    android:paddingLeft="12dp"
+                    android:paddingRight="12dp"
+                    android:singleLine="true"
+                    android:textColor="@color/white"
+                    android:textSize="13dp"
+                    android:textStyle="bold"
+                    android:visibility="gone"
+                    tools:text="编辑" />
+            </FrameLayout>
+        </LinearLayout>
     </RelativeLayout>
 </LinearLayout>

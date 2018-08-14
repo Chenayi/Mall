@@ -133,7 +133,7 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:gravity="center_horizontal"
+                                android:gravity="center"
                                 android:orientation="vertical">
 
                                 <ImageView
@@ -160,7 +160,7 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:gravity="center_horizontal"
+                                android:gravity="center"
                                 android:orientation="vertical">
 
                                 <ImageView
@@ -173,7 +173,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="9dp"
                                     android:text="代发货"
-                                    android:textColor="#2E3033"
+                                    android:textColor="#6A6E75"
                                     android:textSize="12dp" />
                             </LinearLayout>
                         </RelativeLayout>
@@ -187,7 +187,7 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:gravity="center_horizontal"
+                                android:gravity="center"
                                 android:orientation="vertical">
 
                                 <ImageView
@@ -200,7 +200,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="9dp"
                                     android:text="待收货"
-                                    android:textColor="#2E3033"
+                                    android:textColor="#6A6E75"
                                     android:textSize="12dp" />
                             </LinearLayout>
                         </RelativeLayout>
@@ -214,7 +214,7 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:gravity="center_horizontal"
+                                android:gravity="center"
                                 android:orientation="vertical">
 
                                 <ImageView
@@ -227,7 +227,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="9dp"
                                     android:text="已完成"
-                                    android:textColor="#2E3033"
+                                    android:textColor="#6A6E75"
                                     android:textSize="12dp" />
                             </LinearLayout>
                         </RelativeLayout>
@@ -369,7 +369,8 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:id="@+id/rl_browse_record">
 
                         <LinearLayout
                             android:layout_width="match_parent"

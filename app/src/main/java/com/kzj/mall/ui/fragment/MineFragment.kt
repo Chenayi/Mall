@@ -1,6 +1,7 @@
 package com.kzj.mall.ui.fragment
 
 import android.content.Intent
+import android.graphics.Color
 import android.view.View
 import android.widget.RelativeLayout
 import com.blankj.utilcode.util.BarUtils
@@ -13,11 +14,9 @@ import com.kzj.mall.base.IPresenter
 import com.kzj.mall.databinding.FragmentMineBinding
 import com.kzj.mall.di.component.AppComponent
 import com.kzj.mall.event.LoginSuccessEvent
-import com.kzj.mall.ui.activity.LoginActivity
-import com.kzj.mall.ui.activity.MyAskAnswerActivity
-import com.kzj.mall.ui.activity.OrderActivity
-import com.kzj.mall.ui.activity.PersonInfoActivity
+import com.kzj.mall.ui.activity.*
 import org.greenrobot.eventbus.Subscribe
+import q.rorbin.badgeview.QBadgeView
 
 class MineFragment : BaseFragment<IPresenter, FragmentMineBinding>(), View.OnClickListener {
 
@@ -67,6 +66,7 @@ class MineFragment : BaseFragment<IPresenter, FragmentMineBinding>(), View.OnCli
         mBinding?.rlOrderWaitSend?.setOnClickListener(this)
         mBinding?.rlOrderWaitTake?.setOnClickListener(this)
         mBinding?.rlOrderFinish?.setOnClickListener(this)
+        mBinding?.rlBrowseRecord?.setOnClickListener(this)
     }
 
     @Subscribe
@@ -76,6 +76,13 @@ class MineFragment : BaseFragment<IPresenter, FragmentMineBinding>(), View.OnCli
         val maskNumber = mobile.substring(0, 3) + "****" + mobile.substring(7, mobile.length)
         mBinding?.tvInfo?.setText(maskNumber)
         mBinding?.llMyCollect?.visibility = View.VISIBLE
+
+        QBadgeView(context).bindTarget(mBinding?.rlOrderWaitPay)
+                .setShowShadow(false)
+                .setBadgeBackgroundColor(Color.RED)
+                .setGravityOffset(10f,0f,true)
+                .setBadgeTextSize(12f,true)
+                .setBadgeNumber(5)
     }
 
     override fun onClick(v: View?) {
@@ -118,6 +125,11 @@ class MineFragment : BaseFragment<IPresenter, FragmentMineBinding>(), View.OnCli
             }
             R.id.rl_order_finish->{
                 val intent = Intent(context,OrderActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent)
+            }
+            R.id.rl_browse_record->{
+                val intent = Intent(context,BrowseRecordsActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(intent)
             }

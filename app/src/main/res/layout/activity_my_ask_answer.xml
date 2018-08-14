@@ -8,6 +8,12 @@
         app:titleBarTitle="我的问答">
 
 
+        <net.lucode.hackware.magicindicator.MagicIndicator
+            android:id="@+id/magic_indicator"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/white"/>
+
         <android.support.v4.view.ViewPager
             android:id="@+id/vp_ask"
             android:layout_width="match_parent"

@@ -30,6 +30,7 @@ public class RootLayout extends LinearLayout {
     private TextView tvTitle;
     private ImageView ivLeft;
     private ImageView ivRight;
+    private TextView tvRight1;
     private TextView tvRight;
 
     private Context mContext;
@@ -68,6 +69,7 @@ public class RootLayout extends LinearLayout {
     /**
      * 标题栏右文本
      */
+    private String mTitleBarRightText1;
     private String mTitleBarRightText;
 
     /**
@@ -78,6 +80,7 @@ public class RootLayout extends LinearLayout {
     /**
      * 是否显示右文本,默认不显示
      */
+    private boolean isShowRightText1;
     private boolean isShowRightText;
 
     /**
@@ -111,7 +114,10 @@ public class RootLayout extends LinearLayout {
         mTitleBarLeftIcon = t.getResourceId(R.styleable.RootLayout_titleBarLeftIcon, R.mipmap.back2);
         mTitleBarRightIcon = t.getResourceId(R.styleable.RootLayout_titleBarRightIcon, 0);
         mTitleBarRightText = t.getString(R.styleable.RootLayout_titleBarRightText);
+        mTitleBarRightText1 = t.getString(R.styleable.RootLayout_titleBarRightText1);
         mTitleBarRightTextColor = t.getColor(R.styleable.RootLayout_titleBarRightTextColor, ContextCompat.getColor(context, R.color.white));
+
+        isShowRightText1 = t.getBoolean(R.styleable.RootLayout_isShowRightText1, false);
         isShowRightText = t.getBoolean(R.styleable.RootLayout_isShowRightText, false);
         isShowRightIcon = t.getBoolean(R.styleable.RootLayout_isShowRightIcon, false);
         isShowLeftIcon = t.getBoolean(R.styleable.RootLayout_isShowLeftIcon, true);
@@ -140,6 +146,7 @@ public class RootLayout extends LinearLayout {
         tvTitle = findViewById(R.id.tv_title);
         ivLeft = findViewById(R.id.iv_left);
         ivRight = findViewById(R.id.iv_right);
+        tvRight1 = findViewById(R.id.tv_right1);
         tvRight = findViewById(R.id.tv_right);
     }
 
@@ -168,7 +175,15 @@ public class RootLayout extends LinearLayout {
             tvRight.setText(mTitleBarRightText);
         }
 
-        if (mTitleBarLeftBackground != -1){
+        if (isShowRightText1) {
+            tvRight1.setVisibility(VISIBLE);
+        }
+
+        if (!TextUtils.isEmpty(mTitleBarRightText1)){
+            tvRight1.setText(mTitleBarRightText1);
+        }
+
+        if (mTitleBarLeftBackground != -1) {
             ivLeft.setBackgroundColor(mTitleBarLeftBackground);
         }
     }
@@ -195,11 +210,21 @@ public class RootLayout extends LinearLayout {
         return this;
     }
 
+    public RootLayout setRightText(String text) {
+            tvRight.setText(text);
+        return this;
+    }
+
     public RootLayout setRightIcon(int icon) {
         if (ivRight != null) {
             ivRight.setVisibility(VISIBLE);
             ivRight.setImageResource(icon);
         }
+        return this;
+    }
+
+    public RootLayout showOrHideRightText1(boolean visiable) {
+        tvRight1.setVisibility(visiable ? VISIBLE : GONE);
         return this;
     }
 

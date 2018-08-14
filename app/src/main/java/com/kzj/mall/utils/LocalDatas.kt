@@ -455,5 +455,48 @@ class LocalDatas {
             }
             return orderDatas
         }
+
+        /**
+         * 订单详情
+         */
+        fun orderDetails(): MutableList<OrderDetailEntity.OrderGoods> {
+            val orderDetails = ArrayList<OrderDetailEntity.OrderGoods>()
+
+            val data1 = OrderDetailEntity.OrderGoods()
+            val goods1 = ArrayList<OrderDetailEntity.Goods>()
+            goods1.add(OrderDetailEntity.Goods())
+            data1.type = OrderDetailEntity.TYPE_SINGLE
+            data1.goods = goods1
+
+            val data2 = OrderDetailEntity.OrderGoods()
+            val goods2 = ArrayList<OrderDetailEntity.Goods>()
+            goods2.add(OrderDetailEntity.Goods())
+            data2.type = OrderDetailEntity.TYPE_COURSE
+            data2.goods = goods2
+
+            val data3 = OrderDetailEntity.OrderGoods()
+            val goods3 = ArrayList<OrderDetailEntity.Goods>()
+            goods3.add(OrderDetailEntity.Goods())
+            goods3.add(OrderDetailEntity.Goods())
+            data3.type = OrderDetailEntity.TYPE_GROUP
+            data3.goods = goods3
+
+
+            orderDetails.add(data1)
+            orderDetails.add(data2)
+            orderDetails.add(data3)
+            return orderDetails
+        }
+
+        /**
+         * 浏览记录
+         */
+        fun browseRecords(): MutableList<BrowseRecordEntity> {
+            val browseRecords = ArrayList<BrowseRecordEntity>()
+            for (i in 0 until 10) {
+                browseRecords.add(BrowseRecordEntity())
+            }
+            return browseRecords
+        }
     }
 }

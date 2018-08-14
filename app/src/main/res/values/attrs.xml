@@ -9,9 +9,11 @@
         <attr name="titleBarLeftBackgroundColor" format="color" />
         <attr name="titleBarRightIcon" format="reference" />
         <attr name="titleBarRightText" format="string" />
+        <attr name="titleBarRightText1" format="string" />
         <attr name="titleBarRightTextColor" format="color" />
         <attr name="isShowLeftIcon" format="boolean" />
         <attr name="isShowRightText" format="boolean" />
+        <attr name="isShowRightText1" format="boolean" />
         <attr name="isShowRightIcon" format="boolean" />
     </declare-styleable>
 
