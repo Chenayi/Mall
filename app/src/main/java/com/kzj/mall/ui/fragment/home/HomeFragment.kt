@@ -1,6 +1,7 @@
 package com.kzj.mall.ui.fragment.home
 
 import android.content.Context
+import android.content.Intent
 import android.support.v4.app.Fragment
 import com.kzj.mall.R
 import com.kzj.mall.adapter.CommomViewPagerAdapter
@@ -20,6 +21,7 @@ import com.gyf.barlibrary.ImmersionBar
 import com.kzj.mall.adapter.HomeNavigatorTitleView
 import com.kzj.mall.di.component.AppComponent
 import com.kzj.mall.entity.home.HomeTabEntity
+import com.kzj.mall.ui.activity.SearchActivity
 import com.kzj.mall.ui.dialog.HomeTabClassifyPop
 import net.lucode.hackware.magicindicator.ViewPagerHelper
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator
@@ -79,7 +81,7 @@ class HomeFragment : BaseFragment<IPresenter, FragmentHomeBinding>(), View.OnCli
 
 
                         else -> {
-                            var color = ContextCompat.getColor(context!!,R.color.colorPrimary)
+                            var color = ContextCompat.getColor(context!!, R.color.colorPrimary)
                             mImmersionBar = ImmersionBar.with(this@HomeFragment)
                             mImmersionBar?.statusBarColorInt(color)
                                     ?.fitsSystemWindows(true)
@@ -131,6 +133,7 @@ class HomeFragment : BaseFragment<IPresenter, FragmentHomeBinding>(), View.OnCli
 
 
         mBinding?.ivClassify?.setOnClickListener(this)
+        mBinding?.rlSearch?.setOnClickListener(this)
     }
 
     override fun isImmersionBarEnabled(): Boolean {
@@ -154,6 +157,11 @@ class HomeFragment : BaseFragment<IPresenter, FragmentHomeBinding>(), View.OnCli
         when (v?.id) {
             R.id.iv_classify -> {
                 showHomeTabClassifyPop()
+            }
+            R.id.rl_search -> {
+                val intent = Intent(context, SearchActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent)
             }
         }
     }
@@ -181,7 +189,7 @@ class HomeFragment : BaseFragment<IPresenter, FragmentHomeBinding>(), View.OnCli
 
 
             else -> {
-                var color = ContextCompat.getColor(context!!,R.color.colorPrimary)
+                var color = ContextCompat.getColor(context!!, R.color.colorPrimary)
                 mImmersionBar = ImmersionBar.with(this@HomeFragment)
                 mImmersionBar?.statusBarColorInt(color)
                         ?.fitsSystemWindows(true)

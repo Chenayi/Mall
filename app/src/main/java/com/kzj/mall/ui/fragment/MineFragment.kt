@@ -77,12 +77,19 @@ class MineFragment : BaseFragment<IPresenter, FragmentMineBinding>(), View.OnCli
         mBinding?.tvInfo?.setText(maskNumber)
         mBinding?.llMyCollect?.visibility = View.VISIBLE
 
-        QBadgeView(context).bindTarget(mBinding?.rlOrderWaitPay)
+        setBadgeNum(mBinding?.rlOrderWaitPay,5)
+        setBadgeNum(mBinding?.rlOrderWaitSend,5)
+        setBadgeNum(mBinding?.rlOrderWaitTake,5)
+        setBadgeNum(mBinding?.rlOrderFinish,5)
+    }
+
+    private fun setBadgeNum(view: View?, num: Int) {
+        QBadgeView(context).bindTarget(view)
                 .setShowShadow(false)
                 .setBadgeBackgroundColor(Color.RED)
-                .setGravityOffset(10f,0f,true)
-                .setBadgeTextSize(12f,true)
-                .setBadgeNumber(5)
+                .setGravityOffset(8f, 0f, true)
+                .setBadgeTextSize(12f, true)
+                .setBadgeNumber(num)
     }
 
     override fun onClick(v: View?) {
@@ -103,33 +110,33 @@ class MineFragment : BaseFragment<IPresenter, FragmentMineBinding>(), View.OnCli
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(intent)
             }
-            R.id.ll_order->{
-                val intent = Intent(context,OrderActivity::class.java)
+            R.id.ll_order -> {
+                val intent = Intent(context, OrderActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(intent)
             }
-            R.id.rl_order_wait_pay->{
-                val intent = Intent(context,OrderActivity::class.java)
+            R.id.rl_order_wait_pay -> {
+                val intent = Intent(context, OrderActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(intent)
             }
-            R.id.rl_order_wait_send->{
-                val intent = Intent(context,OrderActivity::class.java)
+            R.id.rl_order_wait_send -> {
+                val intent = Intent(context, OrderActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(intent)
             }
-            R.id.rl_order_wait_take->{
-                val intent = Intent(context,OrderActivity::class.java)
+            R.id.rl_order_wait_take -> {
+                val intent = Intent(context, OrderActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(intent)
             }
-            R.id.rl_order_finish->{
-                val intent = Intent(context,OrderActivity::class.java)
+            R.id.rl_order_finish -> {
+                val intent = Intent(context, OrderActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(intent)
             }
-            R.id.rl_browse_record->{
-                val intent = Intent(context,BrowseRecordsActivity::class.java)
+            R.id.rl_browse_record -> {
+                val intent = Intent(context, BrowseRecordsActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(intent)
             }
