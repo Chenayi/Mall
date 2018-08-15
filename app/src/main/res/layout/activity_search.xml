@@ -8,6 +8,7 @@
         android:orientation="vertical">
 
         <com.kzj.mall.widget.SearchBar
+            android:id="@+id/search_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -17,8 +18,29 @@
             android:layout_weight="1">
 
             <com.kzj.mall.widget.HotSearchView
+                android:id="@+id/hot_search_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
+
+            <LinearLayout
+                android:id="@+id/ll_goods_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <com.kzj.mall.widget.GoodsSortView
+                    android:id="@+id/goods_sort_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_goods"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+            </LinearLayout>
 
         </FrameLayout>
 

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -7,10 +8,12 @@
         android:background="@color/white">
 
         <LinearLayout
+            android:id="@+id/ll_hot_search"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:padding="17dp">
+            android:padding="17dp"
+            android:visibility="visible">
 
             <TextView
                 android:layout_width="match_parent"
@@ -19,6 +22,14 @@
                 android:textColor="#6A6E75"
                 android:textSize="15dp" />
 
+            <com.nex3z.flowlayout.FlowLayout
+                android:id="@+id/flow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="17dp"
+                app:flChildSpacing="10dp"
+                app:flChildSpacingForLastRow="align"
+                app:flRowSpacing="10dp"></com.nex3z.flowlayout.FlowLayout>
         </LinearLayout>
 
     </RelativeLayout>

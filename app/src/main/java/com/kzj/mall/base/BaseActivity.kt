@@ -8,6 +8,7 @@ import android.databinding.ViewDataBinding
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.WindowManager
+import com.blankj.utilcode.util.KeyboardUtils
 import com.gyf.barlibrary.ImmersionBar
 import com.kzj.mall.App
 import com.kzj.mall.R
@@ -99,6 +100,10 @@ abstract class BaseActivity<P : IPresenter, D : ViewDataBinding> : SupportActivi
 
     protected fun dismissLoadingDialog() {
         mLoadingDialog?.dismiss()
+    }
+
+    protected fun hideKeyboard(){
+        KeyboardUtils.hideSoftInput(this)
     }
 
     fun jumpActivity(cls: Class<Any>) {

@@ -1,17 +1,63 @@
 package com.kzj.mall.ui.activity
 
+import android.view.View
+import com.blankj.utilcode.util.KeyboardUtils
 import com.kzj.mall.R
 import com.kzj.mall.base.BaseActivity
 import com.kzj.mall.base.IPresenter
 import com.kzj.mall.databinding.ActivitySearchBinding
 import com.kzj.mall.di.component.AppComponent
+import com.kzj.mall.widget.HotSearchView
+import com.kzj.mall.widget.SearchBar
 
-class SearchActivity:BaseActivity<IPresenter,ActivitySearchBinding>() {
+class SearchActivity : BaseActivity<IPresenter, ActivitySearchBinding>()
+        , HotSearchView.OnTagClickListener,SearchBar.OnSearchListener,SearchBar.OnBackClickListener {
     override fun getLayoutId() = R.layout.activity_search
 
     override fun setupComponent(appComponent: AppComponent?) {
     }
 
     override fun initData() {
+        mBinding?.hotSearchView?.setDatas(hotSearchDatas())
+        mBinding?.hotSearchView?.setOnTagClickListener(this)
+        mBinding?.searchBar?.setOnSearchListener(this)
+        mBinding?.searchBar?.setOnBackClickListener(this)
+    }
+
+    fun hotSearchDatas(): MutableList<String> {
+        val hotSearchDatas = ArrayList<String>()
+        hotSearchDatas?.add("金戈")
+        hotSearchDatas?.add("益安宁丸")
+        hotSearchDatas?.add("安宫牛黄丸")
+        hotSearchDatas?.add("舒筋健腰丸")
+        hotSearchDatas?.add("安宫牛黄丸")
+        hotSearchDatas?.add("益安宁丸")
+        hotSearchDatas?.add("金戈")
+        return hotSearchDatas
+    }
+
+    override fun onTagClick(position: Int, text: String?) {
+        mBinding?.searchBar?.startSearch(text)
+        mBinding?.hotSearchView?.visibility = View.GONE
+        mBinding?.llGoodsContent?.visibility = View.VISIBLE
+    }
+
+    override fun onSearch(text: String?) {
+        mBinding?.hotSearchView?.visibility = View.GONE
+        mBinding?.llGoodsContent?.visibility = View.VISIBLE
+    }
+
+    override fun onBackClick() {
+        onBackPressedSupport()
+    }
+
+    override fun onBackPressedSupport() {
+        val openSearch = mBinding?.searchBar?.isOpenSearch()
+        val first = mBinding?.searchBar?.isFirst()
+        if (openSearch == true && first == false){
+            mBinding?.searchBar?.closeSearch()
+            return
+        }
+        super.onBackPressedSupport()
     }
 }
