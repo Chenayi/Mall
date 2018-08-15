@@ -1,12 +1,12 @@
 package com.kzj.mall.widget
 
-import android.app.Activity
 import android.content.Context
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
 import android.util.AttributeSet
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import com.blankj.utilcode.util.KeyboardUtils
 import com.kzj.mall.R
 import com.kzj.mall.base.BaseRelativeLayout
@@ -50,8 +50,6 @@ class SearchBar : BaseRelativeLayout<SearchBarBinding>, View.OnClickListener {
         mBinding?.tvSearch?.setOnClickListener(this)
         mBinding?.ivListGrid?.setOnClickListener(this)
         mBinding?.tvSearchContent?.setOnClickListener(this)
-
-        KeyboardUtils.showSoftInput(mBinding?.etSearch)
     }
 
     override fun onClick(v: View?) {

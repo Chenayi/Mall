@@ -1,6 +1,7 @@
 package com.kzj.mall.ui.activity
 
 import android.view.View
+import android.view.WindowManager
 import com.blankj.utilcode.util.KeyboardUtils
 import com.kzj.mall.R
 import com.kzj.mall.base.BaseActivity
@@ -22,6 +23,10 @@ class SearchActivity : BaseActivity<IPresenter, ActivitySearchBinding>()
         mBinding?.hotSearchView?.setOnTagClickListener(this)
         mBinding?.searchBar?.setOnSearchListener(this)
         mBinding?.searchBar?.setOnBackClickListener(this)
+    }
+
+    override fun getKeyboardMode(): Int {
+        return WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN or WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE
     }
 
     fun hotSearchDatas(): MutableList<String> {
