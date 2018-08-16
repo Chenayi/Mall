@@ -109,6 +109,9 @@ abstract class BaseHomeChildListFragment : BaseFragment<HomePresenter, FragmentB
         listAdapter?.setNewData(datas)
     }
 
+    override fun onError(code: Int, msg: String?) {
+    }
+
     override fun showLoading() {
     }
 

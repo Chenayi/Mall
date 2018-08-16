@@ -4,6 +4,9 @@ import android.Manifest
 import android.content.Intent
 import android.net.Uri
 import android.provider.Settings
+import android.text.TextUtils
+import com.blankj.utilcode.util.SPUtils
+import com.kzj.mall.C
 import com.kzj.mall.R
 import com.kzj.mall.base.BaseActivity
 import com.kzj.mall.databinding.ActivitySplashBinding
@@ -100,7 +103,15 @@ class SplashActivity : BaseActivity<SplashPresenter, ActivitySplashBinding>(), S
     override fun hideLoading() {
     }
 
+    override fun onError(code: Int, msg: String?) {
+    }
+
     override fun delayFinish() {
+        val token = SPUtils.getInstance()?.getString(C.SP_TOKEN)
+        if (!TextUtils.isEmpty(token)){
+            C.IS_LOGIN = true
+            C.TOKEN = token!!
+        }
         jumpActivity(MainActivity().javaClass)
         finish()
     }

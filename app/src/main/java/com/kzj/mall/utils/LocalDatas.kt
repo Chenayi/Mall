@@ -498,5 +498,25 @@ class LocalDatas {
             }
             return browseRecords
         }
+
+
+        /**
+         * 搜索
+         */
+        fun searches():MutableList<SearchEntity>{
+            val searchs = ArrayList<SearchEntity>()
+            for (i in 0 until 10){
+                searchs.add(SearchEntity())
+            }
+            return searchs
+        }
+
+        fun moreSearches():MutableList<SearchEntity>{
+            val searchs = ArrayList<SearchEntity>()
+            for (i in 0 until 9){
+                searchs.add(SearchEntity())
+            }
+            return searchs
+        }
     }
 }

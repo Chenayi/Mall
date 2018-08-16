@@ -14,7 +14,9 @@ import com.kzj.mall.base.IPresenter
 import com.kzj.mall.databinding.FragmentMineBinding
 import com.kzj.mall.di.component.AppComponent
 import com.kzj.mall.event.LoginSuccessEvent
+import com.kzj.mall.event.LogoutEvent
 import com.kzj.mall.ui.activity.*
+import com.kzj.mall.ui.activity.login.LoginActivity
 import org.greenrobot.eventbus.Subscribe
 import q.rorbin.badgeview.QBadgeView
 
@@ -54,7 +56,9 @@ class MineFragment : BaseFragment<IPresenter, FragmentMineBinding>(), View.OnCli
         layoutParams.topMargin = BarUtils.getStatusBarHeight() + SizeUtils.dp2px(14f)
         mBinding?.ivMsg?.requestLayout()
 
-
+        if (C.IS_LOGIN){
+            setLoginStatus()
+        }
         initListener()
     }
 
@@ -71,16 +75,26 @@ class MineFragment : BaseFragment<IPresenter, FragmentMineBinding>(), View.OnCli
 
     @Subscribe
     fun loginSuccess(loginSuccessEvent: LoginSuccessEvent) {
+        setLoginStatus()
+        setBadgeNum(mBinding?.rlOrderWaitPay, 5)
+        setBadgeNum(mBinding?.rlOrderWaitSend, 5)
+        setBadgeNum(mBinding?.rlOrderWaitTake, 5)
+        setBadgeNum(mBinding?.rlOrderFinish, 5)
+    }
+
+    private fun setLoginStatus() {
         mBinding?.ivBg?.setImageResource(R.mipmap.mine_logined)
         val mobile = "15718807588"
         val maskNumber = mobile.substring(0, 3) + "****" + mobile.substring(7, mobile.length)
         mBinding?.tvInfo?.setText(maskNumber)
         mBinding?.llMyCollect?.visibility = View.VISIBLE
+    }
 
-        setBadgeNum(mBinding?.rlOrderWaitPay,5)
-        setBadgeNum(mBinding?.rlOrderWaitSend,5)
-        setBadgeNum(mBinding?.rlOrderWaitTake,5)
-        setBadgeNum(mBinding?.rlOrderFinish,5)
+    @Subscribe
+    fun logout(logoutEvent: LogoutEvent) {
+        mBinding?.ivBg?.setImageResource(R.mipmap.mine_default)
+        mBinding?.tvInfo?.setText("登录/注册")
+        mBinding?.llMyCollect?.visibility = View.GONE
     }
 
     private fun setBadgeNum(view: View?, num: Int) {

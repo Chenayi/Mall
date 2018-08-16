@@ -49,12 +49,12 @@
         <activity android:name=".ui.activity.CreateAddressActivity" />
         <activity android:name=".ui.activity.AddressListActivity" />
         <activity android:name=".ui.activity.OrderGoodsListActivity" />
-        <activity android:name=".ui.activity.LoginActivity" />
-        <activity android:name=".ui.activity.RegisterActivity" />
+        <activity android:name=".ui.activity.login.LoginActivity" />
+        <activity android:name=".ui.activity.login.RegisterActivity" />
         <activity android:name=".ui.activity.GoodsDetailActivity" />
         <activity android:name=".ui.activity.PersonInfoActivity" />
-        <activity android:name=".ui.activity.ForgetPasswordActivity" />
-        <activity android:name=".ui.activity.ForgetPasswordActivity2" />
+        <activity android:name=".ui.activity.login.ForgetPasswordActivity" />
+        <activity android:name=".ui.activity.login.ForgetPasswordActivity2" />
         <activity android:name=".ui.activity.MyAskAnswerActivity" />
         <activity android:name=".ui.activity.MyAskAnswerDetailActivity" />
         <activity android:name=".ui.activity.OrderActivity" />

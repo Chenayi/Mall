@@ -7,22 +7,24 @@ import com.kzj.mall.base.BaseObserver
 import com.kzj.mall.base.BasePresenter
 import com.kzj.mall.di.scope.ActivityScope
 import com.kzj.mall.entity.CodeEntity
+import com.kzj.mall.entity.LoginEntity
 import com.kzj.mall.entity.RegisterEntity
 import com.kzj.mall.http.RxScheduler
+import com.kzj.mall.mvp.contract.ForgetPasswordContract
 import com.kzj.mall.mvp.contract.RegisterContract
 import io.reactivex.disposables.Disposable
 import javax.inject.Inject
 
 @ActivityScope
-class RegisterPresenter @Inject
-constructor(model: RegisterContract.Model?, view: RegisterContract.View?, context: Context?)
-    : BasePresenter<RegisterContract.Model, RegisterContract.View>(model, view, context) {
+class ForgetPasswordPresenter @Inject
+constructor(model: ForgetPasswordContract.Model?, view: ForgetPasswordContract.View?, context: Context?)
+    : BasePresenter<ForgetPasswordContract.Model, ForgetPasswordContract.View>(model, view, context) {
 
     /**
      * 获取注册验证码
      */
-    fun requestRegisterCode(mobile: String?) {
-        model?.requestRegisterCode(mobile)
+    fun requestCode(mobile: String?) {
+        model?.requestCode(mobile)
                 ?.compose(RxScheduler.compose())
                 ?.subscribe(object : BaseObserver<CodeEntity>() {
                     override fun onSubscribe(d: Disposable) {
@@ -34,7 +36,7 @@ constructor(model: RegisterContract.Model?, view: RegisterContract.View?, contex
                     }
 
                     override fun onHandleError(code: Int, msg: String?) {
-                        view?.sendCodeError(code, msg)
+                        view?.onError(code, msg)
                     }
 
                     override fun onHandleAfter() {
@@ -43,9 +45,9 @@ constructor(model: RegisterContract.Model?, view: RegisterContract.View?, contex
     }
 
     /**
-     * 注册
+     * 重置密码
      */
-    fun register(mobile: String?, code: String?, password: String?) {
+    fun resetPassword(mobile: String?, code: String?, password: String?) {
         if (!RegexUtils.isMobileSimple(mobile)) {
             ToastUtils.showShort("手机号码格式错误")
             return
@@ -56,21 +58,21 @@ constructor(model: RegisterContract.Model?, view: RegisterContract.View?, contex
             return
         }
 
-        if (password?.length!! < 6){
+        if (password?.length!! < 6) {
             ToastUtils.showShort("密码长度不能小于6")
             return
         }
 
-        model?.register(mobile, code, password)
+        model?.resetPassword(mobile, code, password)
                 ?.compose(RxScheduler.compose())
-                ?.subscribe(object : BaseObserver<RegisterEntity>() {
+                ?.subscribe(object : BaseObserver<LoginEntity>() {
                     override fun onSubscribe(d: Disposable) {
                         addDisposable(d)
                         view?.showLoading()
                     }
 
-                    override fun onHandleSuccess(t: RegisterEntity?) {
-                        view?.registerSuccess(mobile, t)
+                    override fun onHandleSuccess(t: LoginEntity?) {
+                        view?.upatePasswordSuccess(t)
                     }
 
                     override fun onHandleError(code: Int, msg: String?) {
@@ -80,6 +82,7 @@ constructor(model: RegisterContract.Model?, view: RegisterContract.View?, contex
                     override fun onHandleAfter() {
                         view?.hideLoading()
                     }
+
                 })
     }
 

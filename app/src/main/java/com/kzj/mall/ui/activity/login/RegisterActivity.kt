@@ -1,4 +1,4 @@
-package com.kzj.mall.ui.activity
+package com.kzj.mall.ui.activity.login
 
 import android.content.Intent
 import android.graphics.Color
@@ -10,10 +10,7 @@ import android.text.TextWatcher
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.view.View
-import com.blankj.utilcode.util.BarUtils
-import com.blankj.utilcode.util.KeyboardUtils
-import com.blankj.utilcode.util.LogUtils
-import com.blankj.utilcode.util.ToastUtils
+import com.blankj.utilcode.util.*
 import com.gyf.barlibrary.ImmersionBar
 import com.kzj.mall.C
 import com.kzj.mall.R
@@ -22,6 +19,7 @@ import com.kzj.mall.databinding.ActivityRegisterBinding
 import com.kzj.mall.di.component.AppComponent
 import com.kzj.mall.di.component.DaggerRegisterComponent
 import com.kzj.mall.di.module.RegisterModule
+import com.kzj.mall.entity.RegisterEntity
 import com.kzj.mall.event.RegisterSuccessEvent
 import com.kzj.mall.mvp.contract.RegisterContract
 import com.kzj.mall.mvp.presenter.RegisterPresenter
@@ -32,6 +30,7 @@ import org.greenrobot.eventbus.EventBus
  */
 class RegisterActivity : BaseActivity<RegisterPresenter, ActivityRegisterBinding>(), RegisterContract.View, View.OnClickListener {
     private var isShowPwd = false
+    private var countDown = false
 
     override fun getLayoutId(): Int {
         return R.layout.activity_register
@@ -63,7 +62,7 @@ class RegisterActivity : BaseActivity<RegisterPresenter, ActivityRegisterBinding
                 mBinding?.tvRegister?.isEnabled = canRegister()
                 mBinding?.ivClearMobile?.visibility = if (TextUtils.isEmpty(mobile())) View.GONE else View.VISIBLE
 
-                if (!TextUtils.isEmpty(s)) {
+                if (!TextUtils.isEmpty(s) && countDown == false) {
                     mBinding?.tvRequestCode?.isEnabled = true
                     mBinding?.tvRequestCode?.setTextColor(ContextCompat.getColor(applicationContext, R.color.colorPrimary))
                 } else {
@@ -144,16 +143,21 @@ class RegisterActivity : BaseActivity<RegisterPresenter, ActivityRegisterBinding
     }
 
     override fun sendCodeSuccess() {
-        ToastUtils.showShort("验证码发送成功")
+        countDown = true
+        mBinding?.tvRequestCode?.isEnabled = false
+        mBinding?.tvRequestCode?.setTextColor(Color.parseColor("#C2C6CC"))
+        mPresenter?.disposable()
+        mPresenter?.countDownTime(60)
     }
 
     override fun sendCodeError(code: Int, errorMsg: String?) {
-        ToastUtils.showShort("验证码发送失败")
-        LogUtils.e(errorMsg)
+        ToastUtils.showShort(errorMsg)
     }
 
-    override fun registerSuccess(mobile: String?) {
-        EventBus.getDefault().post(RegisterSuccessEvent(mobile!!))
+    override fun registerSuccess(mobile: String?, registerEntity: RegisterEntity?) {
+        mobile?.let {
+            EventBus.getDefault().post(RegisterSuccessEvent(it))
+        }
         onBackPressedSupport()
     }
 
@@ -176,7 +180,12 @@ class RegisterActivity : BaseActivity<RegisterPresenter, ActivityRegisterBinding
                 onBackPressedSupport()
             }
             R.id.tv_request_code -> {
-                mPresenter?.requestRegisterCode(mobile())
+                val mobile = mobile()
+                if (!RegexUtils.isMobileSimple(mobile)) {
+                    ToastUtils.showShort("手机号码格式错误")
+                    return
+                }
+                mPresenter?.requestRegisterCode(mobile)
             }
             R.id.tv_register -> {
                 mPresenter?.register(mobile(), code(), password())
@@ -204,6 +213,27 @@ class RegisterActivity : BaseActivity<RegisterPresenter, ActivityRegisterBinding
     private fun code() = mBinding?.etCode?.text?.toString()?.trim()
 
     private fun password() = mBinding?.etPwd?.text?.toString()?.trim()
+
+    override fun undateCountDownTime(time: Int?) {
+        mBinding?.tvRequestCode?.setText(time?.toString() + "S后重新获取")
+    }
+
+    override fun countDownFinish() {
+        val monbile = mobile()
+        if (!TextUtils.isEmpty(monbile)) {
+            mBinding?.tvRequestCode?.isEnabled = true
+            mBinding?.tvRequestCode?.setTextColor(ContextCompat.getColor(applicationContext, R.color.colorPrimary))
+        } else {
+            mBinding?.tvRequestCode?.isEnabled = false
+            mBinding?.tvRequestCode?.setTextColor(Color.parseColor("#C2C6CC"))
+        }
+        mBinding?.tvRequestCode?.setText("获取验证码")
+        countDown = false
+    }
+
+    override fun onError(code: Int, msg: String?) {
+        ToastUtils.showShort(msg)
+    }
 
     override fun onBackPressedSupport() {
         KeyboardUtils.hideSoftInput(this)

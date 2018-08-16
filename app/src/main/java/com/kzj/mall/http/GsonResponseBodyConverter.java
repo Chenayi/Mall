@@ -1,5 +1,6 @@
 package com.kzj.mall.http;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.google.gson.Gson;
 import com.kzj.mall.entity.ResultResponse;
 import com.kzj.mall.exception.ResultException;
@@ -25,10 +26,13 @@ public class GsonResponseBodyConverter<T> implements Converter<ResponseBody, T> 
     public T convert(ResponseBody value) throws IOException {
         String response = value.string();
         ResultResponse resultResponse = gson.fromJson(response, ResultResponse.class);
+
         //成功
         if (resultResponse.code == 1) {
             return gson.fromJson(response, type);
         }
+
+        LogUtils.e("message ===> " + resultResponse.message);
         throw new ResultException(resultResponse.code, resultResponse.message);
     }
 }

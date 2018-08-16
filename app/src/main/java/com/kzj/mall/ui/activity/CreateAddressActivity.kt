@@ -123,6 +123,9 @@ class CreateAddressActivity : BaseActivity<CreateAddressPresenter, ActivityCreat
         pvOptions.show()
     }
 
+    override fun onError(code: Int, msg: String?) {
+    }
+
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.tv_area -> {

@@ -6,9 +6,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:titleBarColor="@color/colorPrimary"
+        app:titleBarLeftIcon="@mipmap/back2"
         app:titleBarTitle="个人信息"
-        app:titleBarTitleColor="@color/white"
-        app:titleBarLeftIcon="@mipmap/back2">
+        app:titleBarTitleColor="@color/white">
 
         <ScrollView
             android:layout_width="match_parent"
@@ -237,6 +237,7 @@
                 </RelativeLayout>
 
                 <TextView
+                    android:id="@+id/tv_logout"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginTop="10dp"

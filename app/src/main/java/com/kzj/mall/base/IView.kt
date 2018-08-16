@@ -10,4 +10,9 @@ interface IView {
      * 隐藏加载
      */
     fun hideLoading()
+
+    /**
+     * 出错
+     */
+    fun onError(code: Int, msg: String?)
 }

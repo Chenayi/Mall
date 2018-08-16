@@ -64,6 +64,46 @@ abstract class BasePresenter<M : IModel, V : IView>(val model: M?, val view: V?,
                 })
     }
 
+    /**
+     * 倒计时
+     */
+    fun countDownTime(downTime: Int){
+        val countTime = downTime
+        Observable.interval(0, 1, TimeUnit.SECONDS)
+                .map(object : Function<Long, Int> {
+                    override fun apply(t: Long): Int {
+                        return countTime - t.toInt()
+                    }
+                })
+                .take((countTime + 1).toLong())
+                .compose(RxScheduler.compose())
+                .subscribe(object : Observer<Int> {
+                    override fun onComplete() {
+                        disposable()
+                        countDownFinish()
+                    }
+
+                    override fun onSubscribe(d: Disposable) {
+                        addDisposable(d)
+                    }
+
+                    override fun onNext(t: Int) {
+                        var time = t;
+                        if (time < 0) {
+                            time = 0
+                        }
+                        updateCountDown(time)
+                    }
+
+                    override fun onError(e: Throwable) {
+                    }
+                })
+    }
+
+    open fun updateCountDown(s:Int){}
+
+    open fun countDownFinish(){}
+
     open fun updateSecond(second: Int){}
 
     open fun close(){}

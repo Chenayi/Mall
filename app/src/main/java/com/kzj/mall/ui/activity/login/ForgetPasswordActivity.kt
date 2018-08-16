@@ -1,4 +1,4 @@
-package com.kzj.mall.ui.activity
+package com.kzj.mall.ui.activity.login
 
 import android.app.Activity
 import android.content.Intent
@@ -9,27 +9,40 @@ import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
 import android.view.View
-import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.KeyboardUtils
+import com.blankj.utilcode.util.RegexUtils
+import com.blankj.utilcode.util.ToastUtils
 import com.gyf.barlibrary.ImmersionBar
 import com.kzj.mall.C
 import com.kzj.mall.R
 import com.kzj.mall.base.BaseActivity
-import com.kzj.mall.base.IPresenter
 import com.kzj.mall.databinding.ActivityForgetPasswordBinding
 import com.kzj.mall.di.component.AppComponent
+import com.kzj.mall.di.component.DaggerForgetPasswordComponent
+import com.kzj.mall.di.module.ForgetPasswordModule
+import com.kzj.mall.entity.LoginEntity
+import com.kzj.mall.mvp.contract.ForgetPasswordContract
+import com.kzj.mall.mvp.presenter.ForgetPasswordPresenter
 
-class ForgetPasswordActivity : BaseActivity<IPresenter, ActivityForgetPasswordBinding>(), View.OnClickListener {
+class ForgetPasswordActivity : BaseActivity<ForgetPasswordPresenter, ActivityForgetPasswordBinding>(), View.OnClickListener, ForgetPasswordContract.View {
+    private var countDown = false
+
+
     override fun getLayoutId() = R.layout.activity_forget_password
 
     override fun setupComponent(appComponent: AppComponent?) {
+        DaggerForgetPasswordComponent.builder()
+                .appComponent(appComponent)
+                .forgetPasswordModule(ForgetPasswordModule(this))
+                .build()
+                .inject(this)
     }
 
     override fun initImmersionBar() {
         mImmersionBar = ImmersionBar.with(this)
         mImmersionBar
-                ?.fitsSystemWindows(true,R.color.white)
-                ?.statusBarDarkFont(true,0.5f)
+                ?.fitsSystemWindows(true, R.color.white)
+                ?.statusBarDarkFont(true, 0.5f)
                 ?.init()
     }
 
@@ -39,13 +52,14 @@ class ForgetPasswordActivity : BaseActivity<IPresenter, ActivityForgetPasswordBi
         mBinding?.tvCustomer?.setOnClickListener(this)
         mBinding?.ivClearCode?.setOnClickListener(this)
         mBinding?.ivClearMobile?.setOnClickListener(this)
+        mBinding?.tvRequestCode?.setOnClickListener(this)
 
         mBinding?.etMobile?.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 mBinding?.tvNext?.isEnabled = canNext()
                 mBinding?.ivClearMobile?.visibility = if (TextUtils.isEmpty(mobile())) View.GONE else View.VISIBLE
 
-                if (!TextUtils.isEmpty(s)) {
+                if (!TextUtils.isEmpty(s) && countDown == false) {
                     mBinding?.tvRequestCode?.isEnabled = true
                     mBinding?.tvRequestCode?.setTextColor(ContextCompat.getColor(applicationContext, R.color.colorPrimary))
                 } else {
@@ -94,28 +108,94 @@ class ForgetPasswordActivity : BaseActivity<IPresenter, ActivityForgetPasswordBi
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK && requestCode == 123){
+        if (resultCode == Activity.RESULT_OK && requestCode == 123) {
             finish()
         }
     }
 
+
+    override fun sendCodeSuccess() {
+        countDown = true
+        mBinding?.tvRequestCode?.isEnabled = false
+        mBinding?.tvRequestCode?.setTextColor(Color.parseColor("#C2C6CC"))
+        mPresenter?.disposable()
+        mPresenter?.countDownTime(60)
+    }
+
+    override fun sendCodeError(code: Int, errorMsg: String?) {
+    }
+
+    override fun undateCountDownTime(time: Int?) {
+        mBinding?.tvRequestCode?.setText(time?.toString() + "S后重新获取")
+    }
+
+    override fun countDownFinish() {
+        val monbile = mobile()
+        if (!TextUtils.isEmpty(monbile)) {
+            mBinding?.tvRequestCode?.isEnabled = true
+            mBinding?.tvRequestCode?.setTextColor(ContextCompat.getColor(applicationContext, R.color.colorPrimary))
+        } else {
+            mBinding?.tvRequestCode?.isEnabled = false
+            mBinding?.tvRequestCode?.setTextColor(Color.parseColor("#C2C6CC"))
+        }
+        mBinding?.tvRequestCode?.setText("获取验证码")
+        countDown = false
+    }
+
+    override fun upatePasswordSuccess(loginEntity: LoginEntity?) {
+    }
+
+    override fun showLoading() {
+        showLoadingDialog()
+    }
+
+    override fun hideLoading() {
+        dismissLoadingDialog()
+    }
+
+    override fun onError(code: Int, msg: String?) {
+        ToastUtils.showShort(msg)
+    }
+
+
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.tv_customer -> {
-                val dialIntent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+ C.CUSTOMER_TEL))
+                val dialIntent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + C.CUSTOMER_TEL))
                 startActivity(dialIntent)
             }
             R.id.iv_close -> {
                 finish()
             }
             R.id.tv_next -> {
-                startActivityForResult(Intent(this, ForgetPasswordActivity2::class.java),123)
+                val mobile = mobile()
+                if (!RegexUtils.isMobileSimple(mobile)) {
+                    ToastUtils.showShort("手机号码格式错误")
+                    return
+                }
+                val code = code()
+                if (code?.length!! < 6) {
+                    ToastUtils.showShort("验证码错误")
+                    return
+                }
+                val intent = Intent(this, ForgetPasswordActivity2::class.java)
+                intent?.putExtra("mobile", mobile)
+                intent?.putExtra("code", code)
+                startActivityForResult(intent, 123)
             }
-            R.id.iv_clear_mobile->{
+            R.id.iv_clear_mobile -> {
                 mBinding?.etMobile?.setText("")
             }
-            R.id.iv_clear_code->{
+            R.id.iv_clear_code -> {
                 mBinding?.etCode?.setText("")
+            }
+            R.id.tv_request_code -> {
+                val mobile = mobile()
+                if (!RegexUtils.isMobileSimple(mobile)) {
+                    ToastUtils.showShort("手机号码格式错误")
+                    return
+                }
+                mPresenter?.requestCode(mobile)
             }
         }
     }

@@ -1,13 +1,9 @@
-package com.kzj.mall.ui.activity
+package com.kzj.mall.ui.activity.login
 
-import android.app.Activity
 import android.content.Context
-import android.graphics.Color
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
-import android.support.v4.view.ViewPager
 import android.view.View
-import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.KeyboardUtils
 import com.blankj.utilcode.util.SizeUtils
 import com.gyf.barlibrary.ImmersionBar
@@ -24,14 +20,12 @@ import com.kzj.mall.event.RegisterSuccessEvent
 import com.kzj.mall.ui.fragment.login.BaseLoginFragment
 import com.kzj.mall.ui.fragment.login.LoginCodeFragment
 import com.kzj.mall.ui.fragment.login.LoginPasswordFragment
-import me.yokeyword.fragmentation.ISupportFragment
 import net.lucode.hackware.magicindicator.ViewPagerHelper
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.CommonNavigatorAdapter
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorTransitionPagerTitleView
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 

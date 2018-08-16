@@ -20,7 +20,7 @@ import com.kzj.mall.entity.cart.ICart
 import com.kzj.mall.event.LoginSuccessEvent
 import com.kzj.mall.ui.activity.ConfirmOrderActivity
 import com.kzj.mall.ui.activity.GoodsDetailActivity
-import com.kzj.mall.ui.activity.LoginActivity
+import com.kzj.mall.ui.activity.login.LoginActivity
 import com.kzj.mall.ui.dialog.ConfirmDialog
 import org.greenrobot.eventbus.Subscribe
 

@@ -10,7 +10,7 @@ import com.kzj.mall.di.component.DaggerLoginComponent
 import com.kzj.mall.di.module.LoginModule
 import com.kzj.mall.mvp.contract.LoginContract
 import com.kzj.mall.mvp.presenter.LoginPresenter
-import com.kzj.mall.ui.activity.RegisterActivity
+import com.kzj.mall.ui.activity.login.RegisterActivity
 import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
@@ -18,6 +18,7 @@ import android.text.TextUtils
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import com.blankj.utilcode.util.ToastUtils
 import com.kzj.mall.C
 
 
@@ -226,9 +227,15 @@ abstract class BaseLoginFragment : BaseFragment<LoginPresenter, FragmentLoginBin
     abstract fun isCode(): Boolean
 
     override fun showLoading() {
+        showLoadingDialog()
     }
 
     override fun hideLoading() {
+        dismissLoadingDialog()
+    }
+
+    override fun onError(code: Int, msg: String?) {
+        ToastUtils.showShort(msg)
     }
 
     private fun canLogin(): Boolean {

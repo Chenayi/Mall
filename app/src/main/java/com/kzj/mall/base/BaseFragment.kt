@@ -13,6 +13,7 @@ import com.gyf.barlibrary.ImmersionBar
 import com.kzj.mall.App
 import com.kzj.mall.R
 import com.kzj.mall.di.component.AppComponent
+import com.kzj.mall.ui.dialog.LoadingDialog
 import com.yinglan.keyboard.HideUtil
 import org.greenrobot.eventbus.EventBus
 
@@ -28,6 +29,8 @@ abstract class BaseFragment<P : IPresenter, D : ViewDataBinding> : SupportFragme
     protected var immersionBarColor = R.color.fb
 
     protected var mApp: App? = null
+
+    protected var mLoadingDialog: LoadingDialog? = null
 
     /**
      * 是否已获取过数据
@@ -68,6 +71,22 @@ abstract class BaseFragment<P : IPresenter, D : ViewDataBinding> : SupportFragme
         if (isImmersionBarEnabled()) {
             initImmersionBar()
         }
+    }
+
+    protected fun showLoadingDialog() {
+        if (mLoadingDialog == null) {
+            mLoadingDialog = LoadingDialog
+                    .Builder(context!!)
+                    .setCancelOutside(false)
+                    .setBackCancelable(false)
+                    .setShowMessage(false)
+                    .create()
+        }
+        mLoadingDialog?.show()
+    }
+
+    protected fun dismissLoadingDialog() {
+        mLoadingDialog?.dismiss()
     }
 
     protected open fun isImmersionBarEnabled(): Boolean {

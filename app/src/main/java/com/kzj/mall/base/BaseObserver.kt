@@ -1,6 +1,8 @@
 package com.kzj.mall.base
 
+import com.blankj.utilcode.util.LogUtils
 import com.kzj.mall.entity.BaseResponse
+import com.kzj.mall.exception.ResultException
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
 
@@ -16,7 +18,11 @@ abstract class BaseObserver<T> : Observer<BaseResponse<T>> {
     }
 
     override fun onError(e: Throwable) {
-        onHandleError(-1,e?.message)
+        if (e is ResultException){
+            onHandleError(e?.errorCode,e?.errorMsg)
+        }else{
+            onHandleError(-1,e?.message)
+        }
         onHandleAfter()
     }
 

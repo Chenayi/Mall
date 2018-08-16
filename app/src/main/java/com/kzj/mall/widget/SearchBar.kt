@@ -15,10 +15,18 @@ import com.kzj.mall.databinding.SearchBarBinding
 class SearchBar : BaseRelativeLayout<SearchBarBinding>, View.OnClickListener {
     private var onSearchListener: OnSearchListener? = null
     private var onBackClickListener: OnBackClickListener? = null
+    private var onModeChangeListener: OnModeChangeListener? = null
 
     private var text: String? = null
     private var isOpenSearch = true
     private var isFirst = true
+
+    private var mode = MODE_LIST
+
+    companion object {
+        val MODE_LIST = 0
+        val MODE_GRID = 1
+    }
 
     constructor(context: Context?) : this(context, null)
     constructor(context: Context?, attrs: AttributeSet?) : this(context, attrs, 0)
@@ -73,7 +81,12 @@ class SearchBar : BaseRelativeLayout<SearchBarBinding>, View.OnClickListener {
                 hideKeyboard()
             }
             R.id.iv_list_grid -> {
-
+                if (mode == MODE_LIST) {
+                    mode = MODE_GRID
+                } else if (mode == MODE_GRID) {
+                    mode = MODE_LIST
+                }
+                onModeChangeListener?.onModeChange(mode)
             }
 
             R.id.tv_search_content -> {
@@ -106,7 +119,7 @@ class SearchBar : BaseRelativeLayout<SearchBarBinding>, View.OnClickListener {
     fun isOpenSearch() = isOpenSearch
     fun isFirst() = isFirst
 
-    fun hideKeyboard(){
+    fun hideKeyboard() {
         KeyboardUtils.hideSoftInput(mBinding?.etSearch)
     }
 
@@ -130,11 +143,19 @@ class SearchBar : BaseRelativeLayout<SearchBarBinding>, View.OnClickListener {
         onBackClickListener = l
     }
 
+    fun setOnModeChangeListener(l: OnModeChangeListener) {
+        onModeChangeListener = l
+    }
+
     interface OnSearchListener {
         fun onSearch(text: String?)
     }
 
     interface OnBackClickListener {
         fun onBackClick()
+    }
+
+    interface OnModeChangeListener {
+        fun onModeChange(mode: Int)
     }
 }
