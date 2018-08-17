@@ -34,7 +34,6 @@
                     android:background="@drawable/background_white_corners_9999"
                     android:gravity="center_vertical"
                     android:hint="感冒药"
-                    android:lines="1"
                     android:paddingLeft="15dp"
                     android:paddingRight="45dp"
                     android:singleLine="true"
@@ -42,7 +41,7 @@
                     android:textColorHint="#C2C6CC"
                     android:textSize="14dp"
                     android:visibility="visible"
-                    android:imeOptions="actionDone"/>
+                    android:imeOptions="actionSearch"/>
 
                     <ImageView
                         android:id="@+id/iv_clear"

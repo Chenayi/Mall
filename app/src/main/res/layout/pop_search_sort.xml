@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#5f000000">
+
+    <LinearLayout
+        android:id="@+id/ll_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+
+        <RelativeLayout
+            android:id="@+id/rl_default"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#F2FFEE"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="不限"
+                android:textColor="#4FB233"
+                android:textSize="15sp"
+                android:id="@+id/tv_default"/>
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@color/gray_default"
+                android:id="@+id/iv_check_default"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_1"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/white"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="处方药"
+                android:textColor="#6A6E75"
+                android:textSize="15sp"
+                android:id="@+id/tv_1"/>
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@color/gray_default"
+                android:visibility="gone"
+                android:id="@+id/iv_check_1"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_2"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/white"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="非处方药"
+                android:textColor="#6A6E75"
+                android:textSize="15sp"
+                android:id="@+id/tv_2"/>
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@color/gray_default"
+                android:visibility="gone"
+                android:id="@+id/iv_check_2"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

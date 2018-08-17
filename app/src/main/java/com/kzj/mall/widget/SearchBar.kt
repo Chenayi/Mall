@@ -5,8 +5,11 @@ import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
 import android.util.AttributeSet
+import android.view.KeyEvent
 import android.view.View
+import android.view.inputmethod.EditorInfo.IME_ACTION_SEARCH
 import android.view.inputmethod.InputMethodManager
+import android.widget.TextView
 import com.blankj.utilcode.util.KeyboardUtils
 import com.kzj.mall.R
 import com.kzj.mall.base.BaseRelativeLayout
@@ -53,6 +56,24 @@ class SearchBar : BaseRelativeLayout<SearchBarBinding>, View.OnClickListener {
             }
         })
 
+        mBinding?.etSearch?.setOnEditorActionListener(object : TextView.OnEditorActionListener {
+            override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
+                if (actionId == IME_ACTION_SEARCH) {
+                    val etText = etText()
+                    var text: String?
+                    if (!TextUtils.isEmpty(etText)) {
+                        text = etText()
+                    } else {
+                        text = hintText()
+                    }
+                    startSearch(text)
+                    onSearchListener?.onSearch(text)
+                    hideKeyboard()
+                }
+                return false
+            }
+        })
+
         mBinding?.ivBack?.setOnClickListener(this)
         mBinding?.ivClear?.setOnClickListener(this)
         mBinding?.tvSearch?.setOnClickListener(this)
@@ -71,6 +92,7 @@ class SearchBar : BaseRelativeLayout<SearchBarBinding>, View.OnClickListener {
             }
             R.id.tv_search -> {
                 val etText = etText()
+                var text: String?
                 if (!TextUtils.isEmpty(etText)) {
                     text = etText()
                 } else {
@@ -110,6 +132,7 @@ class SearchBar : BaseRelativeLayout<SearchBarBinding>, View.OnClickListener {
     fun closeSearch() {
         mBinding?.tvSearch?.visibility = View.GONE
         mBinding?.ivListGrid?.visibility = View.VISIBLE
+        mBinding?.etSearch?.clearFocus()
         mBinding?.etSearch?.visibility = View.GONE
         mBinding?.tvSearchContent?.visibility = View.VISIBLE
         mBinding?.tvSearchContent?.setText(text)
@@ -124,6 +147,7 @@ class SearchBar : BaseRelativeLayout<SearchBarBinding>, View.OnClickListener {
     }
 
     fun startSearch(text: String?) {
+        this.text = text
         closeSearch()
         mBinding?.tvSearchContent?.setText(text)
         isFirst = false

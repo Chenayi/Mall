@@ -505,7 +505,7 @@ class LocalDatas {
          */
         fun searches():MutableList<SearchEntity>{
             val searchs = ArrayList<SearchEntity>()
-            for (i in 0 until 10){
+            for (i in 0 until 9){
                 searchs.add(SearchEntity())
             }
             return searchs

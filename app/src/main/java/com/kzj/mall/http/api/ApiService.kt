@@ -1,11 +1,9 @@
 package com.kzj.mall.http.api
 
-import com.kzj.mall.entity.BaseResponse
-import com.kzj.mall.entity.LoginEntity
-import com.kzj.mall.entity.CodeEntity
-import com.kzj.mall.entity.RegisterEntity
+import com.kzj.mall.entity.*
 import io.reactivex.Observable
 import retrofit2.http.Field
+import retrofit2.http.FieldMap
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.POST
 
@@ -34,4 +32,8 @@ interface ApiService {
     @POST("/kzj/api/retrieve_password.htm")
     fun resetPassword(@Field("mobile") mobile: String?, @Field("code") code: String?, @Field("newPassword") newPassword: String?)
             : Observable<BaseResponse<LoginEntity>>
+
+    @FormUrlEncoded
+    @POST("/kzj/api/search_goods.htm")
+    fun search(@FieldMap params: MutableMap<String, String>?): Observable<BaseResponse<SearchEntity>>
 }
