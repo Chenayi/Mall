@@ -3,7 +3,6 @@ package com.kzj.mall.adapter.provider.home
 import com.chad.library.adapter.base.BaseViewHolder
 import com.chad.library.adapter.base.provider.BaseItemProvider
 import com.kzj.mall.R
-import com.kzj.mall.entity.HomeEntity
 import com.kzj.mall.entity.home.AndrologyStationEntity
 import com.kzj.mall.entity.home.IHomeEntity
 

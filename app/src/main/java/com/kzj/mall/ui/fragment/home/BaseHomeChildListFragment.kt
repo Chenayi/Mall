@@ -1,8 +1,6 @@
 package com.kzj.mall.ui.fragment.home
 
-import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
-import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.chad.library.adapter.base.MultipleItemRvAdapter
@@ -10,7 +8,6 @@ import com.chad.library.adapter.base.util.ProviderDelegate
 import com.kzj.mall.R
 import com.kzj.mall.adapter.provider.home.HeaderBannerProvider
 import com.kzj.mall.base.BaseFragment
-import com.kzj.mall.base.IPresenter
 import com.kzj.mall.databinding.FragmentBaseHomeChildListBinding
 import com.kzj.mall.di.component.AppComponent
 import com.kzj.mall.di.component.DaggerHomeComponent

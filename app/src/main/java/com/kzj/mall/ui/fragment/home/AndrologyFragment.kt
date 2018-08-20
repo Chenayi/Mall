@@ -9,6 +9,7 @@ import com.kzj.mall.R
 import com.kzj.mall.adapter.provider.home.*
 import com.kzj.mall.base.IPresenter
 import com.kzj.mall.di.component.AppComponent
+import com.kzj.mall.entity.HomeEntity
 import com.kzj.mall.entity.home.*
 import com.kzj.mall.utils.LocalDatas
 
@@ -52,6 +53,10 @@ class AndrologyFragment : BaseHomeChildListFragment() {
         providerDelegate.registerProvider(AndroilogyBrandProvider())
         providerDelegate.registerProvider(AndrologySpecialFieldProvider())
         providerDelegate.registerProvider(RecommendProvider())
+    }
+
+    override fun showHomeDatas(homeEntity: HomeEntity?) {
+
     }
 
     fun getNormalMultipleEntities(): MutableList<IHomeEntity> {

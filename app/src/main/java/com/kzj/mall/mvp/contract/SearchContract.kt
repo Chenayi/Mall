@@ -10,6 +10,7 @@ import java.util.*
 interface SearchContract {
     interface View : IView {
         fun searchSuccess(searchEntity: SearchEntity?)
+        fun loadMoreSeccess(searchEntity: SearchEntity?)
     }
 
     interface Model : IModel {

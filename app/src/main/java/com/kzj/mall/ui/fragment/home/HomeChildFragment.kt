@@ -1,17 +1,13 @@
 package com.kzj.mall.ui.fragment.home
 
-import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewConfiguration
 import android.view.animation.*
-import com.blankj.utilcode.util.LogUtils
 import com.chad.library.adapter.base.util.ProviderDelegate
-import com.kzj.mall.R
 import com.kzj.mall.adapter.provider.home.*
-import com.kzj.mall.base.IPresenter
-import com.kzj.mall.di.component.AppComponent
+import com.kzj.mall.entity.HomeEntity
 import com.kzj.mall.entity.home.*
 import com.kzj.mall.utils.LocalDatas
 
@@ -30,7 +26,7 @@ class HomeChildFragment : BaseHomeChildListFragment() {
         super.initData()
         mBinding?.ivAsk?.visibility = View.VISIBLE
 
-        setListDatas(getNormalMultipleEntities())
+//        setListDatas(getNormalMultipleEntities())
 
         mBinding?.rvHome?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 
@@ -122,6 +118,48 @@ class HomeChildFragment : BaseHomeChildListFragment() {
         providerDelegate.registerProvider(HomeAskAnswerProvider())
         //推荐
         providerDelegate.registerProvider(RecommendProvider())
+    }
+
+    override fun showHomeDatas(homeEntity: HomeEntity?) {
+        val datas = ArrayList<IHomeEntity>()
+
+        //广告
+        val homeHeaderBannerEntity = HomeHeaderBannerEntity()
+        homeHeaderBannerEntity.adss = homeEntity?.adss
+        datas.add(homeHeaderBannerEntity)
+
+        //分类
+        datas.add(HomeClassifyEntity())
+
+        //公告精选
+        val homeChoiceEntity = HomeChoiceEntity()
+        homeChoiceEntity?.promotionalAd = homeEntity?.promotionalAd
+        datas.add(homeChoiceEntity)
+
+        //每日闪购
+        val homeFlashSaleEntity = HomeFlashSaleEntity()
+        homeFlashSaleEntity?.dailyBuy = homeEntity?.dailyBuy
+        datas.add(homeFlashSaleEntity)
+
+        //精选优品
+        datas.add(HomeChoiceGoodsEntity())
+
+        //穿插广告
+        datas.add(LocalDatas.homeAdvBannerData())
+
+        //常见疾病
+        datas.add(HomeSicknessEntity())
+
+        //品牌专区
+        datas.add(HomeBrandEntity())
+
+        //情趣用品
+        datas.add(LocalDatas.homeSexToy())
+
+        //问答解惑
+
+
+        setListDatas(datas)
     }
 
     override fun onLoadMore() {

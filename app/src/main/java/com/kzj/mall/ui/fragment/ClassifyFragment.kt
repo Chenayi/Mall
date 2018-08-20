@@ -10,9 +10,14 @@ import com.kzj.mall.base.BaseFragment
 import com.kzj.mall.base.IPresenter
 import com.kzj.mall.databinding.FragmentClassifyBinding
 import com.kzj.mall.di.component.AppComponent
+import com.kzj.mall.di.component.DaggerClassifyLeftComponent
+import com.kzj.mall.di.module.ClassifyLeftModule
+import com.kzj.mall.entity.ClassifyLeftEntity
+import com.kzj.mall.mvp.contract.ClassifyLeftContract
+import com.kzj.mall.mvp.presenter.ClassifyLeftPresenter
 import com.kzj.mall.utils.LocalDatas
 
-class ClassifyFragment : BaseFragment<IPresenter, FragmentClassifyBinding>() {
+class ClassifyFragment : BaseFragment<ClassifyLeftPresenter, FragmentClassifyBinding>(), ClassifyLeftContract.View {
     private var classifyleftAdapter: ClassifyLeftAdapter? = null
     private var commomViewPagerAdapter: CommomViewPagerAdapter? = null
 
@@ -37,16 +42,22 @@ class ClassifyFragment : BaseFragment<IPresenter, FragmentClassifyBinding>() {
     }
 
     override fun setupComponent(appComponent: AppComponent?) {
+        DaggerClassifyLeftComponent.builder()
+                .appComponent(appComponent)
+                .classifyLeftModule(ClassifyLeftModule(this))
+                .build()
+                .inject(this)
     }
 
 
     override fun initData() {
+        mBinding?.vpClassify?.setNoScroll(true)
         initLeft()
-        initRight()
+        mPresenter?.requestClassifyLeft()
     }
 
     fun initLeft() {
-        classifyleftAdapter = ClassifyLeftAdapter(LocalDatas.classifyLeftDatas())
+        classifyleftAdapter = ClassifyLeftAdapter(ArrayList())
         mBinding?.rlClassify?.layoutManager = LinearLayoutManager(context)
         mBinding?.rlClassify?.adapter = classifyleftAdapter
 
@@ -77,12 +88,30 @@ class ClassifyFragment : BaseFragment<IPresenter, FragmentClassifyBinding>() {
         size?.let {
             var fragments = ArrayList<Fragment>()
             for (i in 0 until it) {
-                val name = classifyleftAdapter?.data?.get(i)?.name
-                fragments.add(ClassifyRightFragment.newInstance(name!!))
+                val cid = classifyleftAdapter?.data?.get(i)?.cat_id
+                fragments.add(ClassifyRightFragment.newInstance(cid!!))
             }
             commomViewPagerAdapter = CommomViewPagerAdapter(childFragmentManager, fragments)
             mBinding?.vpClassify?.adapter = commomViewPagerAdapter
             mBinding?.vpClassify?.offscreenPageLimit = it
         }
+    }
+
+    override fun requestClassifyLeftSuccess(classifyLeftEntity: ClassifyLeftEntity?) {
+        val cateList = classifyLeftEntity?.cateList
+        cateList?.get(0)?.isChoose = true
+        classifyleftAdapter?.setNewData(cateList)
+        initRight()
+    }
+
+    override fun showLoading() {
+        showLoadingDialog()
+    }
+
+    override fun hideLoading() {
+        dismissLoadingDialog()
+    }
+
+    override fun onError(code: Int, msg: String?) {
     }
 }

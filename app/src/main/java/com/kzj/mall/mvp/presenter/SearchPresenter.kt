@@ -1,6 +1,7 @@
 package com.kzj.mall.mvp.presenter
 
 import android.content.Context
+import com.kzj.mall.C
 import com.kzj.mall.base.BaseObserver
 import com.kzj.mall.base.BasePresenter
 import com.kzj.mall.di.scope.ActivityScope
@@ -18,44 +19,70 @@ constructor(model: SearchContract.Model?, view: SearchContract.View?, context: C
     /**
      * 默认
      */
-    fun searchWithDefault(keywords: String) {
+    fun searchWithDefault(keywords: String, isLoading: Boolean?, curPage: Int?) {
         val params = HashMap<String, String>()
+        params?.put("pageNo", curPage.toString())
+        params?.put("pageSize", C.PAGE_SIZE.toString())
         params?.put("keywords", keywords)
-        search(params)
+        search(params, isLoading, curPage!! > 1)
     }
 
     /**
      * 按销量
      */
-    fun searchWithSales(keywords: String) {
+    fun searchWithSales(keywords: String, isLoading: Boolean?, curPage: Int?) {
         val params = HashMap<String, String>()
+        params?.put("pageNo", curPage.toString())
+        params?.put("pageSize", C.PAGE_SIZE.toString())
         params?.put("keywords", keywords)
         params?.put("c_sort", "goods_id")
-        search(params)
+        search(params, isLoading, curPage!! > 1)
     }
 
     /**
      * 按价格
      */
-    fun searchWithPrice(keywords: String, order: String) {
+    fun searchWithPrice(keywords: String, order: String, isLoading: Boolean?, curPage: Int?) {
         val params = HashMap<String, String>()
+        params?.put("pageNo", curPage.toString())
+        params?.put("pageSize", C.PAGE_SIZE.toString())
         params?.put("keywords", keywords)
         params?.put("c_sort", "shop_price")
         params?.put("c_order", order)
-        search(params)
+        search(params, isLoading, curPage!! > 1)
     }
 
-    fun search(params: HashMap<String, String>) {
+    /**
+     * 按类型
+     */
+    fun searchWithType(keywords: String, typeWhat: String?, isLoading: Boolean?, curPage: Int?) {
+        val params = HashMap<String, String>()
+        params?.put("pageNo", curPage.toString())
+        params?.put("pageSize", C.PAGE_SIZE.toString())
+        params?.put("keywords", keywords)
+        typeWhat?.let {
+            params?.put("prescription", it)
+        }
+        search(params, isLoading, curPage!! > 1)
+    }
+
+    fun search(params: HashMap<String, String>, isLoading: Boolean?, isMore: Boolean) {
         model?.search(params)
                 ?.compose(RxScheduler.compose())
                 ?.subscribe(object : BaseObserver<SearchEntity>() {
                     override fun onSubscribe(d: Disposable) {
                         addDisposable(d)
-                        view?.showLoading()
+                        if (isLoading == true) {
+                            view?.showLoading()
+                        }
                     }
 
                     override fun onHandleSuccess(t: SearchEntity?) {
-                        view?.searchSuccess(t)
+                        if (!isMore){
+                            view?.searchSuccess(t)
+                        }else{
+                            view?.loadMoreSeccess(t)
+                        }
                     }
 
                     override fun onHandleError(code: Int, msg: String?) {

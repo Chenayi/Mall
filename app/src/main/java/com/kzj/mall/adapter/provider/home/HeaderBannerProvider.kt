@@ -26,7 +26,7 @@ class HeaderBannerProvider : BaseItemProvider<HomeHeaderBannerEntity, BaseViewHo
     private var useRoundedCorners = true
     private var bannerPlaying = true
     private var onBannerPageChangeListener: OnBannerPageChangeListener? = null
-    private var mMZBanner: MZBannerView<HomeHeaderBannerEntity.Banners>? = null
+    private var mMZBanner: MZBannerView<HomeHeaderBannerEntity.Adds>? = null
     private var mColors: MutableMap<Int, Int>? = null
 
     constructor(useRoundedCorners: Boolean) {
@@ -44,7 +44,7 @@ class HeaderBannerProvider : BaseItemProvider<HomeHeaderBannerEntity, BaseViewHo
 
     override fun convert(helper: BaseViewHolder?, data: HomeHeaderBannerEntity?, position: Int) {
         if (isInitialized == false) {
-            val banners = data?.banners
+            val banners = data?.adss
             mMZBanner = helper?.getView(R.id.banner)
             mMZBanner?.setIndicatorRes(R.drawable.indicator_default, R.drawable.indicator_sel)
             mMZBanner?.setPages(banners, object : MZHolderCreator<BannerViewHolder> {
@@ -95,7 +95,7 @@ class HeaderBannerProvider : BaseItemProvider<HomeHeaderBannerEntity, BaseViewHo
         fun onBannerPageSelected(position: Int?, colorRes: Int?)
     }
 
-    inner class BannerViewHolder constructor(val backGround: TextView?) : MZViewHolder<HomeHeaderBannerEntity.Banners> {
+    inner class BannerViewHolder constructor(val backGround: TextView?) : MZViewHolder<HomeHeaderBannerEntity.Adds> {
         private var mImageView: ImageView? = null
         private var initFirstColor = false
         override fun createView(context: Context): View {
@@ -105,10 +105,10 @@ class HeaderBannerProvider : BaseItemProvider<HomeHeaderBannerEntity, BaseViewHo
             return view
         }
 
-        override fun onBind(context: Context, position: Int, data: HomeHeaderBannerEntity.Banners?) {
+        override fun onBind(context: Context, position: Int, data: HomeHeaderBannerEntity.Adds?) {
             // 数据绑定
             mImageView?.let {
-                val palette = GlidePalette.with(data?.bannerUrl)
+                val palette = GlidePalette.with(data?.adCode)
                         .use(BitmapPalette.Profile.MUTED)
                         .intoCallBack {
                             val mutedColor = it?.getMutedColor(ContextCompat.getColor(mContext,R.color.colorPrimary))
@@ -122,7 +122,7 @@ class HeaderBannerProvider : BaseItemProvider<HomeHeaderBannerEntity, BaseViewHo
                         }
 
                 GlideApp.with(context)
-                        .load(data?.bannerUrl)
+                        .load(data?.adCode)
                         .listener(palette)
                         .placeholder(R.color.gray_default)
                         .centerCrop()

@@ -10,7 +10,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.blankj.utilcode.util.SizeUtils
-import com.kzj.mall.entity.HomeEntity
 import com.kzj.mall.entity.home.AndrologyAdvBannerEntity
 import com.kzj.mall.transformer.ScaleInTransformer
 

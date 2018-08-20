@@ -14,9 +14,9 @@
         <ImageView
             android:layout_width="63dp"
             android:layout_height="36dp"
-            android:src="@mipmap/tag_notice_icon"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"/>
+            android:layout_centerVertical="true"
+            android:src="@mipmap/tag_notice_icon" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -37,10 +37,11 @@
                 android:src="@mipmap/tag_choose" />
 
             <TextView
+                android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="6dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginRight="30dp"
                 android:lines="1"
                 android:singleLine="true"
                 android:text="“男科妙药”就在你身边，你一定没想到！"

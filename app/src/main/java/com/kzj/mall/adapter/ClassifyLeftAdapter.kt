@@ -9,10 +9,10 @@ import com.kzj.mall.R
 import com.kzj.mall.entity.ClassifyLeftEntity
 
 class ClassifyLeftAdapter
-constructor(val bean: MutableList<ClassifyLeftEntity>)
-    : BaseAdapter<ClassifyLeftEntity, BaseViewHolder>(R.layout.item_classify_left, bean) {
-    override fun convert(helper: BaseViewHolder?, item: ClassifyLeftEntity?) {
-        helper?.setText(R.id.tv_classify_name, item?.name)
+constructor(val bean: MutableList<ClassifyLeftEntity.CateList>)
+    : BaseAdapter<ClassifyLeftEntity.CateList, BaseViewHolder>(R.layout.item_classify_left, bean) {
+    override fun convert(helper: BaseViewHolder?, item: ClassifyLeftEntity.CateList?) {
+        helper?.setText(R.id.tv_classify_name, item?.cat_name!!)
                 ?.setBackgroundColor(R.id.rl_item,
                         if (item?.isChoose == true) ContextCompat.getColor(mContext, R.color.gray_default)
                         else Color.WHITE)

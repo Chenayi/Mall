@@ -1,12 +1,8 @@
 package com.kzj.mall.ui.fragment.home
 
-import android.support.v4.content.ContextCompat
 import com.chad.library.adapter.base.util.ProviderDelegate
 import com.kzj.mall.R
-import com.kzj.mall.base.BaseFragment
-import com.kzj.mall.base.IPresenter
-import com.kzj.mall.databinding.FragmentHomeOtherBinding
-import com.kzj.mall.di.component.AppComponent
+import com.kzj.mall.entity.HomeEntity
 
 class OtherFragment :BaseHomeChildListFragment() {
     companion object {
@@ -26,5 +22,9 @@ class OtherFragment :BaseHomeChildListFragment() {
     }
 
     override fun onLoadMore() {
+    }
+
+    override fun showHomeDatas(homeEntity: HomeEntity?) {
+
     }
 }

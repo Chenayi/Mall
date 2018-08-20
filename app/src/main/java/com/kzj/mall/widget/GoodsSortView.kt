@@ -8,8 +8,9 @@ import com.kzj.mall.R
 import com.kzj.mall.base.BaseRelativeLayout
 import com.kzj.mall.databinding.GoodsSortViewBinding
 import com.kzj.mall.ui.dialog.PrescriptionPop
+import razerdp.basepopup.BasePopupWindow
 
-class GoodsSortView : BaseRelativeLayout<GoodsSortViewBinding>, View.OnClickListener {
+class GoodsSortView : BaseRelativeLayout<GoodsSortViewBinding>, View.OnClickListener, PrescriptionPop.OnTypeChooseListener {
 
     private var curSelect = S_DEFAULT
 
@@ -17,7 +18,10 @@ class GoodsSortView : BaseRelativeLayout<GoodsSortViewBinding>, View.OnClickList
 
     private var onSortChangeListener: OnSortChangeListener? = null
 
-    private var prescriptionPop:PrescriptionPop?=null
+    private var prescriptionPop: PrescriptionPop? = null
+
+
+    private var typeWhat: String? = null
 
     companion object {
         val S_DEFAULT = 0
@@ -42,6 +46,12 @@ class GoodsSortView : BaseRelativeLayout<GoodsSortViewBinding>, View.OnClickList
         mBinding?.llPrice?.setOnClickListener(this)
         mBinding?.llType?.setOnClickListener(this)
         prescriptionPop = PrescriptionPop(context)
+        prescriptionPop?.setOnTypeChooseListener(this)
+        prescriptionPop?.setOnDismissListener(object : BasePopupWindow.OnDismissListener() {
+            override fun onDismiss() {
+                mBinding?.ivType?.setImageResource(R.mipmap.down_sel)
+            }
+        })
     }
 
     override fun onClick(v: View?) {
@@ -49,27 +59,26 @@ class GoodsSortView : BaseRelativeLayout<GoodsSortViewBinding>, View.OnClickList
             R.id.tv_default -> {
                 if (curSelect != S_DEFAULT) {
                     setDefault()
-                    curSelect = S_DEFAULT
-                    onSortChangeListener?.onSortChange(S_DEFAULT,"DESC")
+                    onSortChangeListener?.onSortChange(S_DEFAULT, "DESC", typeWhat)
                 }
             }
             R.id.tv_sales -> {
                 if (curSelect != S_SALES) {
                     setSales()
-                    curSelect = S_SALES
-                    onSortChangeListener?.onSortChange(S_SALES,"DESC")
+                    onSortChangeListener?.onSortChange(S_SALES, "DESC", typeWhat)
                 }
             }
             R.id.ll_price -> {
                 setPrice()
-                curSelect = S_PRICE
-                onSortChangeListener?.onSortChange(S_PRICE,priceOrder)
+                onSortChangeListener?.onSortChange(S_PRICE, priceOrder, typeWhat)
             }
             R.id.ll_type -> {
                 if (curSelect != S_TYPE) {
                     setType()
-                }else{
+                    onSortChangeListener?.onSortChange(S_TYPE, "DESC", typeWhat)
+                } else {
                     prescriptionPop?.showPopupWindow(this@GoodsSortView)
+                    mBinding?.ivType?.setImageResource(R.mipmap.up_sel)
                 }
                 curSelect = S_TYPE
             }
@@ -86,7 +95,17 @@ class GoodsSortView : BaseRelativeLayout<GoodsSortViewBinding>, View.OnClickList
         mBinding?.tvDefault?.setTextColor(ContextCompat.getColor(context, R.color.colorPrimary))
         mBinding?.ivPriceUp?.setImageResource(R.mipmap.up_default)
         mBinding?.ivPriceDown?.setImageResource(R.mipmap.down_default)
+        mBinding?.ivType?.setImageResource(R.mipmap.down_default)
+        curSelect = S_DEFAULT
         priceOrder = null
+    }
+
+    /**
+     * 默认
+     */
+    fun setPopDefault() {
+        prescriptionPop?.setDeafult()
+        typeWhat = null
     }
 
     /**
@@ -99,6 +118,8 @@ class GoodsSortView : BaseRelativeLayout<GoodsSortViewBinding>, View.OnClickList
         mBinding?.tvSales?.setTextColor(ContextCompat.getColor(context, R.color.colorPrimary))
         mBinding?.ivPriceUp?.setImageResource(R.mipmap.up_default)
         mBinding?.ivPriceDown?.setImageResource(R.mipmap.down_default)
+        mBinding?.ivType?.setImageResource(R.mipmap.down_default)
+        curSelect = S_SALES
         priceOrder = null
     }
 
@@ -110,6 +131,7 @@ class GoodsSortView : BaseRelativeLayout<GoodsSortViewBinding>, View.OnClickList
         mBinding?.tvSales?.setTextColor(ContextCompat.getColor(context, R.color.c_2e3033))
         mBinding?.tvType?.setTextColor(ContextCompat.getColor(context, R.color.c_2e3033))
         mBinding?.tvPrice?.setTextColor(ContextCompat.getColor(context, R.color.colorPrimary))
+        mBinding?.ivType?.setImageResource(R.mipmap.down_default)
         if (priceOrder == null || priceOrder?.equals(ORDER_DESC)!!) {
             priceOrder = ORDER_ASC
             mBinding?.ivPriceUp?.setImageResource(R.mipmap.up_sel)
@@ -119,6 +141,7 @@ class GoodsSortView : BaseRelativeLayout<GoodsSortViewBinding>, View.OnClickList
             mBinding?.ivPriceUp?.setImageResource(R.mipmap.up_default)
             mBinding?.ivPriceDown?.setImageResource(R.mipmap.down_sel)
         }
+        curSelect = S_PRICE
     }
 
     /**
@@ -131,7 +154,14 @@ class GoodsSortView : BaseRelativeLayout<GoodsSortViewBinding>, View.OnClickList
         mBinding?.tvType?.setTextColor(ContextCompat.getColor(context, R.color.colorPrimary))
         mBinding?.ivPriceUp?.setImageResource(R.mipmap.up_default)
         mBinding?.ivPriceDown?.setImageResource(R.mipmap.down_default)
+        mBinding?.ivType?.setImageResource(R.mipmap.down_sel)
         priceOrder = null
+    }
+
+
+    override fun onTypeChoose(typeWhat: String?) {
+        onSortChangeListener?.onSortChange(S_TYPE, "DESC", typeWhat)
+        this.typeWhat = typeWhat
     }
 
     fun setOnSortChangeListener(l: OnSortChangeListener) {
@@ -139,6 +169,6 @@ class GoodsSortView : BaseRelativeLayout<GoodsSortViewBinding>, View.OnClickList
     }
 
     interface OnSortChangeListener {
-        fun onSortChange(sort: Int?, order: String?)
+        fun onSortChange(sort: Int?, order: String?, typeWhat: String?)
     }
 }

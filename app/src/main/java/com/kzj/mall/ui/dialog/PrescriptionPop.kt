@@ -23,8 +23,11 @@ class PrescriptionPop(val mContext: Context) : BasePopupWindow(mContext), View.O
     private var ivCheckDefault: ImageView? = null
     private var ivCheck1: ImageView? = null
     private var ivCheck2: ImageView? = null
+    private var onTypeChooseListener: OnTypeChooseListener? = null
+    private var curChoose = NULL
 
     companion object {
+        val NULL = "null"
         val _1 = "1"
         val _2 = "2"
     }
@@ -65,47 +68,84 @@ class PrescriptionPop(val mContext: Context) : BasePopupWindow(mContext), View.O
         return findViewById(R.id.ll_container) as LinearLayout
     }
 
+    fun setOnTypeChooseListener(l: OnTypeChooseListener) {
+        onTypeChooseListener = l
+    }
+
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.rl_default -> {
-                rl1?.setBackgroundColor(Color.WHITE)
-                rl2?.setBackgroundColor(Color.WHITE)
-                rlDefault?.setBackgroundColor(Color.parseColor("#F2FFEE"))
+                if (!curChoose.equals(NULL)) {
 
-                tv1?.setTextColor(Color.parseColor("#6A6E75"))
-                tv2?.setTextColor(Color.parseColor("#6A6E75"))
-                tvDefault?.setTextColor(Color.parseColor("#4FB233"))
+                    setDeafult()
 
-                ivCheck1?.visibility = View.GONE
-                ivCheck2?.visibility = View.GONE
-                ivCheckDefault?.visibility = View.VISIBLE
+                    onTypeChooseListener?.onTypeChoose(null)
+
+                    dismiss()
+                }
             }
             R.id.rl_1 -> {
-                rlDefault?.setBackgroundColor(Color.WHITE)
-                rl2?.setBackgroundColor(Color.WHITE)
-                rl1?.setBackgroundColor(Color.parseColor("#F2FFEE"))
+                if (!curChoose.equals(_1)) {
+                    rlDefault?.setBackgroundColor(Color.WHITE)
+                    rl2?.setBackgroundColor(Color.WHITE)
+                    rl1?.setBackgroundColor(Color.parseColor("#F2FFEE"))
 
-                tvDefault?.setTextColor(Color.parseColor("#6A6E75"))
-                tv2?.setTextColor(Color.parseColor("#6A6E75"))
-                tv1?.setTextColor(Color.parseColor("#4FB233"))
+                    tvDefault?.setTextColor(Color.parseColor("#6A6E75"))
+                    tv2?.setTextColor(Color.parseColor("#6A6E75"))
+                    tv1?.setTextColor(Color.parseColor("#4FB233"))
 
-                ivCheckDefault?.visibility = View.GONE
-                ivCheck2?.visibility = View.GONE
-                ivCheck1?.visibility = View.VISIBLE
+                    ivCheckDefault?.visibility = View.GONE
+                    ivCheck2?.visibility = View.GONE
+                    ivCheck1?.visibility = View.VISIBLE
+
+                    onTypeChooseListener?.onTypeChoose(_1)
+
+                    curChoose = _1
+
+                    dismiss()
+                }
             }
             R.id.rl_2 -> {
-                rl1?.setBackgroundColor(Color.WHITE)
-                rlDefault?.setBackgroundColor(Color.WHITE)
-                rl2?.setBackgroundColor(Color.parseColor("#F2FFEE"))
+                if (!curChoose.equals(_2)) {
+                    rl1?.setBackgroundColor(Color.WHITE)
+                    rlDefault?.setBackgroundColor(Color.WHITE)
+                    rl2?.setBackgroundColor(Color.parseColor("#F2FFEE"))
 
-                tvDefault?.setTextColor(Color.parseColor("#6A6E75"))
-                tv1?.setTextColor(Color.parseColor("#6A6E75"))
-                tv2?.setTextColor(Color.parseColor("#4FB233"))
+                    tvDefault?.setTextColor(Color.parseColor("#6A6E75"))
+                    tv1?.setTextColor(Color.parseColor("#6A6E75"))
+                    tv2?.setTextColor(Color.parseColor("#4FB233"))
 
-                ivCheck1?.visibility = View.GONE
-                ivCheckDefault?.visibility = View.GONE
-                ivCheck2?.visibility = View.VISIBLE
+                    ivCheck1?.visibility = View.GONE
+                    ivCheckDefault?.visibility = View.GONE
+                    ivCheck2?.visibility = View.VISIBLE
+
+                    onTypeChooseListener?.onTypeChoose(_2)
+
+                    curChoose = _2
+
+                    dismiss()
+                }
             }
         }
+    }
+
+    fun setDeafult(){
+        rl1?.setBackgroundColor(Color.WHITE)
+        rl2?.setBackgroundColor(Color.WHITE)
+        rlDefault?.setBackgroundColor(Color.parseColor("#F2FFEE"))
+
+        tv1?.setTextColor(Color.parseColor("#6A6E75"))
+        tv2?.setTextColor(Color.parseColor("#6A6E75"))
+        tvDefault?.setTextColor(Color.parseColor("#4FB233"))
+
+        ivCheck1?.visibility = View.GONE
+        ivCheck2?.visibility = View.GONE
+        ivCheckDefault?.visibility = View.VISIBLE
+
+        curChoose = NULL
+    }
+
+    interface OnTypeChooseListener {
+        fun onTypeChoose(what: String?)
     }
 }

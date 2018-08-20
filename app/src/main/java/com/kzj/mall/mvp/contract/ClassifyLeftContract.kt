@@ -3,15 +3,15 @@ package com.kzj.mall.mvp.contract
 import com.kzj.mall.base.IModel
 import com.kzj.mall.base.IView
 import com.kzj.mall.entity.BaseResponse
-import com.kzj.mall.entity.HomeEntity
+import com.kzj.mall.entity.ClassifyLeftEntity
 import io.reactivex.Observable
 
-interface HomeContract {
+interface ClassifyLeftContract {
     interface View : IView {
-        fun showHomeDatas(homeEntity: HomeEntity?)
+        fun requestClassifyLeftSuccess(classifyLeftEntity: ClassifyLeftEntity?)
     }
 
     interface Model : IModel {
-        fun requestHomeDatas(): Observable<BaseResponse<HomeEntity>>?
+        fun requestClassifyLeft(): Observable<BaseResponse<ClassifyLeftEntity>>?
     }
 }

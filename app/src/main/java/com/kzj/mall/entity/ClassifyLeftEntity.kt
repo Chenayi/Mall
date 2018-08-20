@@ -1,12 +1,12 @@
 package com.kzj.mall.entity
 
 class ClassifyLeftEntity {
-    var name: String? = null
-    var isChoose = false
+    var cateList: MutableList<CateList>? = null
 
-    constructor()
-    constructor(name: String?) {
-        this.name = name
+    class CateList {
+        var isChoose = false
+        var cat_id: Int? = null
+        var cat_parent_id: Int? = null
+        var cat_name: String? = null
     }
-
 }

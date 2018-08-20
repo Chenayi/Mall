@@ -6,10 +6,12 @@ import com.chad.library.adapter.base.BaseViewHolder
 import com.chad.library.adapter.base.provider.BaseItemProvider
 import com.kzj.mall.R
 import android.support.v7.widget.LinearLayoutManager
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
 import com.blankj.utilcode.util.SizeUtils
+import com.kzj.mall.GlideApp
 import com.kzj.mall.adapter.BaseAdapter
 import com.kzj.mall.entity.home.HomeFlashSaleEntity
 import com.kzj.mall.entity.home.IHomeEntity
@@ -32,8 +34,8 @@ class HomeFlashSaleProvider : BaseItemProvider<HomeFlashSaleEntity, BaseViewHold
     }
 
     override fun convert(helper: BaseViewHolder?, data: HomeFlashSaleEntity?, position: Int) {
-        val flashSaleListData = data?.flashSaleListData
-        flashSaleListData?.let {
+        val dailyBuys = data?.dailyBuy
+        dailyBuys?.let {
             rv = helper?.getView(R.id.rv_flash_sale)
             rv?.setFocusableInTouchMode(false);
             rv?.requestFocus();
@@ -56,9 +58,9 @@ class HomeFlashSaleProvider : BaseItemProvider<HomeFlashSaleEntity, BaseViewHold
     }
 
     inner class FlashSaleAdapter
-    constructor(val flashSaleDatas: MutableList<HomeFlashSaleEntity.FlashSaleListData>)
-        : BaseAdapter<HomeFlashSaleEntity.FlashSaleListData, BaseViewHolder>(R.layout.item_home_flash_sale, flashSaleDatas) {
-        override fun convert(helper: BaseViewHolder?, item: HomeFlashSaleEntity.FlashSaleListData?) {
+    constructor(val flashSaleDatas: MutableList<HomeFlashSaleEntity.DailyBuy>)
+        : BaseAdapter<HomeFlashSaleEntity.DailyBuy, BaseViewHolder>(R.layout.item_home_flash_sale, flashSaleDatas) {
+        override fun convert(helper: BaseViewHolder?, item: HomeFlashSaleEntity.DailyBuy?) {
             var ivGoods = helper?.getView<LinearLayout>(R.id.ll_item)
             var params: RelativeLayout.LayoutParams = ivGoods?.layoutParams as RelativeLayout.LayoutParams
 
@@ -70,7 +72,17 @@ class HomeFlashSaleProvider : BaseItemProvider<HomeFlashSaleEntity, BaseViewHold
             }
             ivGoods.layoutParams = params
 
-            helper?.getView<TextView>(R.id.tv_old_price)?.paint?.flags = Paint.STRIKE_THRU_TEXT_FLAG
+            helper?.setText(R.id.tv_goods_name, item?.goodsName)
+                    ?.setText(R.id.tv_price, "￥" + item?.goodsPrice)
+                    ?.setText(R.id.tv_market_price, "￥" + item?.marketPrice)
+
+            helper?.getView<TextView>(R.id.tv_market_price)?.paint?.flags = Paint.STRIKE_THRU_TEXT_FLAG
+
+            GlideApp.with(mContext)
+                    .load(item?.imgUrl)
+                    .centerCrop()
+                    .placeholder(R.color.gray_default)
+                    .into(helper?.getView(R.id.iv_goods) as ImageView)
         }
 
     }

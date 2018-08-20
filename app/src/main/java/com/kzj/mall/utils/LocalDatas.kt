@@ -13,18 +13,18 @@ class LocalDatas {
 
         fun homeBannerData(): HomeHeaderBannerEntity {
             val homeHeaderBannerEntity = HomeHeaderBannerEntity()
-            val banners = ArrayList<HomeHeaderBannerEntity.Banners>()
+            val banners = ArrayList<HomeHeaderBannerEntity.Adds>()
 
-            val banner1 = HomeHeaderBannerEntity().Banners()
+            val banner1 = HomeHeaderBannerEntity().Adds()
             banner1.bannerUrl = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1530510861413&di=c9f7439a5a5d4c57435e5eb7f2772817&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F01a0d4582d8320a84a0e282be8a02e.jpg"
 
-            val banner2 = HomeHeaderBannerEntity().Banners()
+            val banner2 = HomeHeaderBannerEntity().Adds()
             banner2.bannerUrl = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1530523369994&di=60f87ef08f23f8dab2b36d5ed57f5dcd&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F01ac39597adf9da8012193a352df31.jpg"
 
-            val banner3 = HomeHeaderBannerEntity().Banners()
+            val banner3 = HomeHeaderBannerEntity().Adds()
             banner3.bannerUrl = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1530510861412&di=c51db760c9ecc789cdae3b334715aef6&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F0161c95690b86032f87574beaa54c2.jpg"
 
-            val banner4 = HomeHeaderBannerEntity().Banners()
+            val banner4 = HomeHeaderBannerEntity().Adds()
             banner4.bannerUrl = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1533288558977&di=2dc323862d5e267a01c67863d579e511&imgtype=0&src=http%3A%2F%2Fpic.90sjimg.com%2Fback_pic%2Fqk%2Fback_origin_pic%2F00%2F01%2F61%2Fdfcde6abbc5c5941a18da393901c1263.jpg"
 
 
@@ -33,7 +33,7 @@ class LocalDatas {
             banners.add(banner3)
             banners.add(banner4)
 
-            homeHeaderBannerEntity.banners = banners
+            homeHeaderBannerEntity.adss = banners
 
             return homeHeaderBannerEntity
         }
@@ -43,17 +43,17 @@ class LocalDatas {
          */
         fun homeFlashData(): HomeFlashSaleEntity {
             val homeFlashSaleEntity = HomeFlashSaleEntity()
-            homeFlashSaleEntity.flashSaleListData = flashSaleListDatas()
+            homeFlashSaleEntity.dailyBuy = flashSaleListDatas()
             return homeFlashSaleEntity
         }
 
         /**
          * 每日闪购列表
          */
-        fun flashSaleListDatas(): MutableList<HomeFlashSaleEntity.FlashSaleListData> {
-            var datas = ArrayList<HomeFlashSaleEntity.FlashSaleListData>()
+        fun flashSaleListDatas(): MutableList<HomeFlashSaleEntity.DailyBuy> {
+            var datas = ArrayList<HomeFlashSaleEntity.DailyBuy>()
             for (i in 0 until 5) {
-                datas.add(HomeFlashSaleEntity().FlashSaleListData())
+                datas.add(HomeFlashSaleEntity().DailyBuy())
             }
             return datas
         }
@@ -157,53 +157,6 @@ class LocalDatas {
             }
             return andrologySpecialFieldDatas
         }
-
-        /**
-         * 分类左边
-         */
-        fun classifyLeftDatas(): MutableList<ClassifyLeftEntity> {
-            var classifyLeftDatas = ArrayList<ClassifyLeftEntity>()
-
-            for (i in 0 until 10) {
-                when (i) {
-                    0 -> {
-                        val classifyLeftEntity = ClassifyLeftEntity("推荐分类")
-                        classifyLeftEntity.isChoose = true
-                        classifyLeftDatas.add(classifyLeftEntity)
-                    }
-                    1 -> {
-                        classifyLeftDatas.add(ClassifyLeftEntity("按症状找药"))
-                    }
-                    2 -> {
-                        classifyLeftDatas.add(ClassifyLeftEntity("按科室找药"))
-                    }
-                    3 -> {
-                        classifyLeftDatas.add(ClassifyLeftEntity("家庭常备药"))
-                    }
-                    4 -> {
-                        classifyLeftDatas.add(ClassifyLeftEntity("慢性病用药"))
-                    }
-                    5 -> {
-                        classifyLeftDatas.add(ClassifyLeftEntity("男科药馆"))
-                    }
-                    6 -> {
-                        classifyLeftDatas.add(ClassifyLeftEntity("成人计生"))
-                    }
-                    7 -> {
-                        classifyLeftDatas.add(ClassifyLeftEntity("保健滋补"))
-                    }
-                    8 -> {
-                        classifyLeftDatas.add(ClassifyLeftEntity("母婴用品"))
-                    }
-                    9 -> {
-                        classifyLeftDatas.add(ClassifyLeftEntity("医疗器械"))
-                    }
-                }
-            }
-
-            return classifyLeftDatas
-        }
-
 
         /**
          * 分类列表数据
