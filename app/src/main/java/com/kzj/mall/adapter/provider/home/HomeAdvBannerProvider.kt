@@ -11,6 +11,7 @@ import com.kzj.mall.R
 import com.kzj.mall.entity.home.HomeAdvBannerEntity
 import com.kzj.mall.entity.home.IHomeEntity
 import com.kzj.mall.transformer.ScaleInTransformer
+import com.makeramen.roundedimageview.RoundedImageView
 import com.tmall.ultraviewpager.UltraViewPager
 
 /**
@@ -62,7 +63,11 @@ class HomeAdvBannerProvider : BaseItemProvider<HomeAdvBannerEntity, BaseViewHold
         }
 
         override fun instantiateItem(container: ViewGroup, position: Int): Any {
-            val view = LayoutInflater.from(mContext).inflate(R.layout.item_home_banner, null, false)
+            val view = LayoutInflater.from(mContext).inflate(R.layout.item_home_adv, null, false)
+            val imageView = view?.findViewById<RoundedImageView>(R.id.iv_image)
+            advDatas?.get(position)?.adv?.let {
+                imageView?.setImageResource(it)
+            }
             container.addView(view)
             return view
         }

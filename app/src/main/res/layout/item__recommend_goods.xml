@@ -66,6 +66,7 @@
             android:orientation="horizontal">
 
             <ImageView
+                android:id="@+id/iv_goods"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:src="@color/gray_default" />
@@ -84,7 +85,8 @@
                     android:maxLines="2"
                     android:text="万艾可 枸橼酸西地那非片 50mg*10片"
                     android:textColor="#2E3033"
-                    android:textSize="14dp" />
+                    android:textSize="14dp"
+                    android:id="@+id/tv_goods_name"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -94,7 +96,8 @@
                     android:singleLine="true"
                     android:text="适用于治疗勃起功能障碍"
                     android:textColor="#8A9099"
-                    android:textSize="11dp" />
+                    android:textSize="11dp"
+                    android:id="@+id/tv_goods_indication"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -110,7 +113,8 @@
                         android:layout_weight="1"
                         android:text="¥620.00"
                         android:textColor="#FF4F0A"
-                        android:textSize="14dp" />
+                        android:textSize="14dp"
+                        android:id="@+id/tv_price"/>
 
 
                     <TextView

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewConfiguration
 import android.view.animation.*
 import com.chad.library.adapter.base.util.ProviderDelegate
+import com.kzj.mall.C
 import com.kzj.mall.adapter.provider.home.*
 import com.kzj.mall.entity.HomeEntity
 import com.kzj.mall.entity.home.*
@@ -14,6 +15,7 @@ import com.kzj.mall.utils.LocalDatas
 class HomeChildFragment : BaseHomeChildListFragment() {
     private var isAskVisible = true
     private var distance = 0
+    private var pageNo = 0
 
     companion object {
         fun newInstance(): HomeChildFragment {
@@ -22,12 +24,11 @@ class HomeChildFragment : BaseHomeChildListFragment() {
         }
     }
 
+    override fun useRoundedCorners() = true
+
     override fun initData() {
         super.initData()
         mBinding?.ivAsk?.visibility = View.VISIBLE
-
-//        setListDatas(getNormalMultipleEntities())
-
         mBinding?.rvHome?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 
             override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
@@ -63,6 +64,11 @@ class HomeChildFragment : BaseHomeChildListFragment() {
                 }
             }
         })
+
+        mBinding?.refreshLayout?.isEnabled = true
+        mBinding?.refreshLayout?.setOnRefreshListener {
+            mPresenter?.requestHomeDatas()
+        }
 
 
         mPresenter?.requestHomeDatas()
@@ -121,6 +127,10 @@ class HomeChildFragment : BaseHomeChildListFragment() {
     }
 
     override fun showHomeDatas(homeEntity: HomeEntity?) {
+        pageNo = 0
+
+        mBinding?.refreshLayout?.isRefreshing = false
+
         val datas = ArrayList<IHomeEntity>()
 
         //广告
@@ -157,50 +167,28 @@ class HomeChildFragment : BaseHomeChildListFragment() {
         datas.add(LocalDatas.homeSexToy())
 
         //问答解惑
-
+        val homeAskAnswerEntity = HomeAskAnswerEntity()
+        homeAskAnswerEntity?.askList = homeEntity?.askList
+        datas.add(homeAskAnswerEntity)
 
         setListDatas(datas)
     }
 
     override fun onLoadMore() {
-        finishLoadMore(getRecommendDatas())
+        pageNo += 1
+        mPresenter?.loadRecommendDatas(pageNo, C.PAGE_SIZE)
+
     }
 
-    /**
-     * 为您推荐
-     */
-    fun getRecommendDatas(): MutableList<HomeRecommendEntity> {
-        return LocalDatas.homeRecommendDatas()
-    }
-
-
-    /**
-     * 列表数据
-     */
-    fun getNormalMultipleEntities(): MutableList<IHomeEntity> {
-        val list = ArrayList<IHomeEntity>()
-        //头部广告
-        list.add(LocalDatas.homeBannerData())
-        //分类
-        list.add(HomeClassifyEntity())
-        //公告精选
-        list.add(HomeChoiceEntity())
-        //每日闪购
-        list.add(LocalDatas.homeFlashData())
-        //精选优品
-        list.add(HomeChoiceGoodsEntity())
-        //穿插广告
-        list.add(LocalDatas.homeAdvBannerData())
-        //常见疾病
-        list.add(HomeSicknessEntity())
-        //品牌专区
-        list.add(HomeBrandEntity())
-        //情趣用品
-        list.add(LocalDatas.homeSexToy())
-        //问答解惑
-        list.add(HomeAskAnswerEntity())
-        //穿插广告
-        list.add(LocalDatas.homeAdvBannerData())
-        return list
+    override fun loadRecommendDatas(homeRecommendEntity: HomeRecommendEntity?) {
+        homeRecommendEntity?.results?.data?.let {
+            if (pageNo ==1){
+                it?.get(0)?.isShowRecommendText = true
+            }
+            for (i in 0 until it.size) {
+                it?.get(i)?.isBackgroundCorners = true
+            }
+            finishLoadMore(it)
+        }
     }
 }

@@ -19,6 +19,17 @@ class HomeChoiceGoodsProvider : BaseItemProvider<HomeChoiceGoodsEntity, BaseView
     }
 
     override fun convert(helper: BaseViewHolder?, data: HomeChoiceGoodsEntity?, position: Int) {
-
+        helper?.addOnClickListener(R.id.iv_yp1)
+                ?.addOnClickListener(R.id.iv_yp2)
+                ?.addOnClickListener(R.id.iv_yp3)
+                ?.addOnClickListener(R.id.iv_yp4)
+                ?.addOnClickListener(R.id.iv_yp5)
+                ?.addOnClickListener(R.id.iv_yp6)
+                ?.addOnClickListener(R.id.iv_yp7)
+                ?.addOnClickListener(R.id.iv_yp8)
+                ?.addOnClickListener(R.id.ll_yp9)
+                ?.addOnClickListener(R.id.ll_yp10)
+                ?.addOnClickListener(R.id.ll_yp11)
+                ?.addOnClickListener(R.id.ll_yp12)
     }
 }

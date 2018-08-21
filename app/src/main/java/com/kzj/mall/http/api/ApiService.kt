@@ -1,6 +1,7 @@
 package com.kzj.mall.http.api
 
 import com.kzj.mall.entity.*
+import com.kzj.mall.entity.home.HomeRecommendEntity
 import io.reactivex.Observable
 import retrofit2.http.Field
 import retrofit2.http.FieldMap
@@ -38,12 +39,17 @@ interface ApiService {
     fun search(@FieldMap params: MutableMap<String, String>?): Observable<BaseResponse<SearchEntity>>
 
     @POST("/kzj/api/get_category_one.htm")
-    fun requestClassifyLeft():Observable<BaseResponse<ClassifyLeftEntity>>
+    fun requestClassifyLeft(): Observable<BaseResponse<ClassifyLeftEntity>>
 
     @FormUrlEncoded
     @POST("/kzj/api/search_Category_by_cid.htm")
-    fun requestClassifyRight(@Field("c_id") cid: Int?):Observable<BaseResponse<ClassifyRightEntity>>
+    fun requestClassifyRight(@Field("c_id") cid: Int?): Observable<BaseResponse<ClassifyRightEntity>>
 
     @POST("/kzj/api/app_index.htm")
-    fun requeseHomeDatas():Observable<BaseResponse<HomeEntity>>
+    fun requeseHomeDatas(): Observable<BaseResponse<HomeEntity>>
+
+    @FormUrlEncoded
+    @POST("/kzj/api/search_goods_by_cid.htm")
+    fun loadRecommendHomeDatas(@Field("pageNo") pageNo: Int?, @Field("pageSize") pageSize: Int?,@Field("c_id") cid: String?)
+            : Observable<BaseResponse<HomeRecommendEntity>>
 }

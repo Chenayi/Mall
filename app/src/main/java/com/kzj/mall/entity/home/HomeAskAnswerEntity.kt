@@ -9,5 +9,7 @@ class HomeAskAnswerEntity : IHomeEntity {
     class AskList {
         var qName: String? = null
         var userName: String? = null
+        var qClick: Long? = null
+        var qAddTime: Long? = null
     }
 }

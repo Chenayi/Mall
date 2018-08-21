@@ -92,6 +92,7 @@ class HomeBottomTabBar : BaseRelativeLayout<HomeBottomTabBarBinding>, View.OnCli
      */
     fun switchClassify() {
         setDefault(TAB_CLASSIFT)
+        mBinding?.ivClassify?.setImageResource(R.mipmap.icon_tab_classify_sel)
         mBinding?.tvClassify?.setTextColor(ContextCompat.getColor(context, R.color.colorPrimary))
         onTabChooseListener?.onTabChoose(TAB_CLASSIFT)
         curTab = TAB_CLASSIFT
@@ -102,6 +103,7 @@ class HomeBottomTabBar : BaseRelativeLayout<HomeBottomTabBarBinding>, View.OnCli
      */
     fun switchCart() {
         setDefault(TAB_CART)
+        mBinding?.ivCart?.setImageResource(R.mipmap.icon_tab_cart_sel)
         mBinding?.tvCart?.setTextColor(ContextCompat.getColor(context, R.color.colorPrimary))
         onTabChooseListener?.onTabChoose(TAB_CART)
         curTab = TAB_CART
@@ -112,6 +114,7 @@ class HomeBottomTabBar : BaseRelativeLayout<HomeBottomTabBarBinding>, View.OnCli
      */
     fun switchMine() {
         setDefault(TAB_MINE)
+        mBinding?.ivMine?.setImageResource(R.mipmap.icon_tab_mine_sel)
         mBinding?.tvMine?.setTextColor(ContextCompat.getColor(context, R.color.colorPrimary))
         onTabChooseListener?.onTabChoose(TAB_MINE)
         curTab = TAB_MINE
@@ -124,6 +127,9 @@ class HomeBottomTabBar : BaseRelativeLayout<HomeBottomTabBarBinding>, View.OnCli
         when (clicktab) {
             TAB_HOME -> {
                 mBinding?.llHome?.visibility = View.GONE
+                mBinding?.ivCart?.setImageResource(R.mipmap.icon_tab_cart)
+                mBinding?.ivClassify?.setImageResource(R.mipmap.icon_tab_classify)
+                mBinding?.ivMine?.setImageResource(R.mipmap.icon_tab_mine)
                 mBinding?.tvCart?.setTextColor(Color.parseColor("#8A9099"))
                 mBinding?.tvClassify?.setTextColor(Color.parseColor("#8A9099"))
                 mBinding?.tvMine?.setTextColor(Color.parseColor("#8A9099"))
@@ -132,6 +138,8 @@ class HomeBottomTabBar : BaseRelativeLayout<HomeBottomTabBarBinding>, View.OnCli
             TAB_CLASSIFT -> {
                 mBinding?.llHome?.visibility = View.VISIBLE
                 mBinding?.ivHome?.visibility = View.GONE
+                mBinding?.ivCart?.setImageResource(R.mipmap.icon_tab_cart)
+                mBinding?.ivMine?.setImageResource(R.mipmap.icon_tab_mine)
                 mBinding?.tvCart?.setTextColor(Color.parseColor("#8A9099"))
                 mBinding?.tvMine?.setTextColor(Color.parseColor("#8A9099"))
             }
@@ -139,11 +147,15 @@ class HomeBottomTabBar : BaseRelativeLayout<HomeBottomTabBarBinding>, View.OnCli
             TAB_CART -> {
                 mBinding?.llHome?.visibility = View.VISIBLE
                 mBinding?.ivHome?.visibility = View.GONE
+                mBinding?.ivClassify?.setImageResource(R.mipmap.icon_tab_classify)
+                mBinding?.ivMine?.setImageResource(R.mipmap.icon_tab_mine)
                 mBinding?.tvClassify?.setTextColor(Color.parseColor("#8A9099"))
                 mBinding?.tvMine?.setTextColor(Color.parseColor("#8A9099"))
             }
 
             TAB_MINE -> {
+                mBinding?.ivCart?.setImageResource(R.mipmap.icon_tab_cart)
+                mBinding?.ivClassify?.setImageResource(R.mipmap.icon_tab_classify)
                 mBinding?.llHome?.visibility = View.VISIBLE
                 mBinding?.ivHome?.visibility = View.GONE
                 mBinding?.tvCart?.setTextColor(Color.parseColor("#8A9099"))

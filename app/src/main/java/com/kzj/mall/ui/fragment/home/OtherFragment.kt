@@ -3,8 +3,9 @@ package com.kzj.mall.ui.fragment.home
 import com.chad.library.adapter.base.util.ProviderDelegate
 import com.kzj.mall.R
 import com.kzj.mall.entity.HomeEntity
+import com.kzj.mall.entity.home.HomeRecommendEntity
 
-class OtherFragment :BaseHomeChildListFragment() {
+class OtherFragment : BaseHomeChildListFragment() {
     companion object {
         fun newInstance(): OtherFragment {
             val otherFragment = OtherFragment()
@@ -16,8 +17,11 @@ class OtherFragment :BaseHomeChildListFragment() {
         return R.layout.fragment_home_other
     }
 
+    override fun useRoundedCorners() = false
+
     override fun initData() {
     }
+
     override fun registerItemProvider(providerDelegate: ProviderDelegate) {
     }
 
@@ -26,5 +30,8 @@ class OtherFragment :BaseHomeChildListFragment() {
 
     override fun showHomeDatas(homeEntity: HomeEntity?) {
 
+    }
+
+    override fun loadRecommendDatas(homeRecommendEntity: HomeRecommendEntity?) {
     }
 }

@@ -45,6 +45,8 @@ class AndrologyFragment : BaseHomeChildListFragment() {
         })
     }
 
+    override fun useRoundedCorners()=false
+
     override fun registerItemProvider(providerDelegate: ProviderDelegate) {
         super.registerItemProvider(providerDelegate)
         providerDelegate.registerProvider(AndrologyClassifyProvider())
@@ -75,6 +77,9 @@ class AndrologyFragment : BaseHomeChildListFragment() {
         list.add(LocalDatas.andrologySpecialFieldData())
         list.add(LocalDatas.andrologySpecialFieldData())
         return list
+    }
+
+    override fun loadRecommendDatas(homeRecommendEntity: HomeRecommendEntity?) {
     }
 
     override fun onLoadMore() {

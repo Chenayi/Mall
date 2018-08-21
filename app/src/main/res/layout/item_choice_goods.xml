@@ -6,9 +6,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/background_white_corners_8"
         android:orientation="vertical">
 
@@ -56,7 +56,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="117dp"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <LinearLayout
@@ -66,6 +66,75 @@
                 android:background="#E1E8FA"
                 android:orientation="vertical">
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="14dp"
+                    android:lines="1"
+                    android:singleLine="true"
+                    android:text="真男人强强联合"
+                    android:textColor="#0049FF"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@drawable/background_0049ff_corners_9999"
+                    android:gravity="center_vertical"
+                    android:paddingBottom="2dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingTop="1.5dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="-0.5dp"
+                        android:layout_weight="1"
+                        android:lines="1"
+                        android:singleLine="true"
+                        android:text="治疗阳痿早泄"
+                        android:textColor="@color/white"
+                        android:textSize="11dp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="3dp"
+                        android:src="@mipmap/icon_right" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+
+                    <ImageView
+                        android:id="@+id/iv_yp1"
+                        android:layout_width="53dp"
+                        android:layout_height="53dp"
+                        android:src="@mipmap/yp_5" />
+
+                    <ImageView
+                        android:id="@+id/iv_yp2"
+                        android:layout_width="53dp"
+                        android:layout_height="53dp"
+                        android:layout_marginLeft="24dp"
+                        android:src="@mipmap/yp_5" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -77,6 +146,75 @@
                 android:background="#FAE6F6"
                 android:orientation="vertical">
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="14dp"
+                    android:lines="1"
+                    android:singleLine="true"
+                    android:text="美丽女人这样吃"
+                    android:textColor="#FF0AD4"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@drawable/background_ff0ad4_corners_9999"
+                    android:gravity="center_vertical"
+                    android:paddingBottom="2dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingTop="1.5dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="-0.5dp"
+                        android:layout_weight="1"
+                        android:lines="1"
+                        android:singleLine="true"
+                        android:text="好皮肤吃出来"
+                        android:textColor="@color/white"
+                        android:textSize="11dp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="3dp"
+                        android:src="@mipmap/icon_right" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+
+                    <ImageView
+                        android:id="@+id/iv_yp3"
+                        android:layout_width="53dp"
+                        android:layout_height="53dp"
+                        android:src="@mipmap/yp_5" />
+
+                    <ImageView
+                        android:id="@+id/iv_yp4"
+                        android:layout_width="53dp"
+                        android:layout_height="53dp"
+                        android:layout_marginLeft="24dp"
+                        android:src="@mipmap/yp_5" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -85,7 +223,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="117dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="1dp"
             android:orientation="horizontal">
 
@@ -96,7 +234,75 @@
                 android:background="#DCF5F3"
                 android:orientation="vertical">
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="14dp"
+                    android:lines="1"
+                    android:singleLine="true"
+                    android:text="预防乙肝，健康相随"
+                    android:textColor="#1FCAC0"
+                    android:textStyle="bold" />
 
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@drawable/background_1fcac0_corners_9999"
+                    android:gravity="center_vertical"
+                    android:paddingBottom="2dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingTop="1.5dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="-0.5dp"
+                        android:layout_weight="1"
+                        android:lines="1"
+                        android:singleLine="true"
+                        android:text="满199减100"
+                        android:textColor="@color/white"
+                        android:textSize="11dp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="3dp"
+                        android:src="@mipmap/icon_right" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+
+                    <ImageView
+                        android:id="@+id/iv_yp5"
+                        android:layout_width="53dp"
+                        android:layout_height="53dp"
+                        android:src="@mipmap/yp_5" />
+
+                    <ImageView
+                        android:id="@+id/iv_yp6"
+                        android:layout_width="53dp"
+                        android:layout_height="53dp"
+                        android:layout_marginLeft="24dp"
+                        android:src="@mipmap/yp_6" />
+
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -107,6 +313,75 @@
                 android:background="#EFE1FA"
                 android:orientation="vertical">
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="14dp"
+                    android:lines="1"
+                    android:singleLine="true"
+                    android:text="性福生活，魅力四射"
+                    android:textColor="#9100FF"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@drawable/background_9100ff_corners_9999"
+                    android:gravity="center_vertical"
+                    android:paddingBottom="2dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingTop="1.5dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="-0.5dp"
+                        android:layout_weight="1"
+                        android:lines="1"
+                        android:singleLine="true"
+                        android:text="满199减100"
+                        android:textColor="@color/white"
+                        android:textSize="11dp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="3dp"
+                        android:src="@mipmap/icon_right" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+
+                    <ImageView
+                        android:id="@+id/iv_yp7"
+                        android:layout_width="53dp"
+                        android:layout_height="53dp"
+                        android:src="@mipmap/yp_7" />
+
+                    <ImageView
+                        android:id="@+id/iv_yp8"
+                        android:layout_width="53dp"
+                        android:layout_height="53dp"
+                        android:layout_marginLeft="24dp"
+                        android:src="@mipmap/yp_8" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -114,22 +389,76 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="117dp"
-            android:paddingTop="1dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bottom_gray_default_corners_8"
             android:orientation="horizontal"
-            android:background="@drawable/bottom_gray_default_corners_8">
+            android:paddingTop="1dp">
 
             <LinearLayout
+                android:id="@+id/ll_yp9"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/left_bottom_white_corners_8"
                 android:orientation="vertical">
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="14dp"
+                    android:lines="1"
+                    android:singleLine="true"
+                    android:text="肾宝片"
+                    android:textColor="@color/c_2e3033"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@drawable/background_2e3033_corners_9999"
+                    android:gravity="center_vertical"
+                    android:paddingBottom="2dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingTop="1.5dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:lines="1"
+                        android:singleLine="true"
+                        android:text="补肾佳选"
+                        android:textColor="@color/white"
+                        android:textSize="11dp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="3dp"
+                        android:src="@mipmap/icon_right" />
+
+
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="53dp"
+                    android:layout_height="53dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="7dp"
+                    android:layout_marginTop="13dp"
+                    android:src="@mipmap/yp_9" />
+
 
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/ll_yp10"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="1dp"
@@ -137,10 +466,62 @@
                 android:background="@color/white"
                 android:orientation="vertical">
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="14dp"
+                    android:lines="1"
+                    android:singleLine="true"
+                    android:text="生精片"
+                    android:textColor="@color/c_2e3033"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@drawable/background_2e3033_corners_9999"
+                    android:gravity="center_vertical"
+                    android:paddingBottom="2dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingTop="1.5dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:lines="1"
+                        android:singleLine="true"
+                        android:text="至尊持久"
+                        android:textColor="@color/white"
+                        android:textSize="11dp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="3dp"
+                        android:src="@mipmap/icon_right" />
+
+
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="53dp"
+                    android:layout_height="53dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="7dp"
+                    android:layout_marginTop="13dp"
+                    android:src="@mipmap/yp_10" />
 
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/ll_yp11"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="1dp"
@@ -148,10 +529,62 @@
                 android:background="@color/white"
                 android:orientation="vertical">
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="14dp"
+                    android:lines="1"
+                    android:singleLine="true"
+                    android:text="汤臣倍健"
+                    android:textColor="@color/c_2e3033"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@drawable/background_2e3033_corners_9999"
+                    android:gravity="center_vertical"
+                    android:paddingBottom="2dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingTop="1.5dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:lines="1"
+                        android:singleLine="true"
+                        android:text="美白"
+                        android:textColor="@color/white"
+                        android:textSize="11dp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="3dp"
+                        android:src="@mipmap/icon_right" />
+
+
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="53dp"
+                    android:layout_height="53dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="7dp"
+                    android:layout_marginTop="13dp"
+                    android:src="@mipmap/yp_11" />
 
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/ll_yp12"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="1dp"
@@ -159,6 +592,57 @@
                 android:background="@drawable/right_bottom_white_corners_8"
                 android:orientation="vertical">
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="14dp"
+                    android:lines="1"
+                    android:singleLine="true"
+                    android:text="脱发白发"
+                    android:textColor="@color/c_2e3033"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@drawable/background_2e3033_corners_9999"
+                    android:gravity="center_vertical"
+                    android:paddingBottom="2dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingTop="1.5dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:lines="1"
+                        android:singleLine="true"
+                        android:text="满399减200"
+                        android:textColor="@color/white"
+                        android:textSize="11dp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="3dp"
+                        android:src="@mipmap/icon_right" />
+
+
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="53dp"
+                    android:layout_height="53dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="7dp"
+                    android:layout_marginTop="13dp"
+                    android:src="@mipmap/yp_12" />
 
             </LinearLayout>
 

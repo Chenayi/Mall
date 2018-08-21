@@ -29,7 +29,7 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.Li
 
 class HomeFragment : BaseFragment<IPresenter, FragmentHomeBinding>(), View.OnClickListener {
     private var mCommomViewPagerAdapter: CommomViewPagerAdapter? = null
-    private val mTitles: Array<String> = arrayOf("首页", "男科", "早泄", "温阳补肾", "脱发少发")
+    private val mTitles: Array<String> = arrayOf("首页", "男科")
     private var mFragments: MutableList<Fragment>? = null
 
     companion object {
@@ -52,15 +52,8 @@ class HomeFragment : BaseFragment<IPresenter, FragmentHomeBinding>(), View.OnCli
         mFragments?.let {
             val homeChildFragment = HomeChildFragment.newInstance()
             val andrologyFragment = AndrologyFragment.newInstance()
-            val otherFragment1 = OtherFragment.newInstance()
-            val otherFragment2 = OtherFragment.newInstance()
-            val otherFragment3 = OtherFragment.newInstance()
-
             it?.add(homeChildFragment)
             it?.add(andrologyFragment)
-            it?.add(otherFragment1)
-            it?.add(otherFragment2)
-            it?.add(otherFragment3)
             mCommomViewPagerAdapter = CommomViewPagerAdapter(childFragmentManager, it)
             mBinding?.vpHome?.adapter = mCommomViewPagerAdapter
             mBinding?.vpHome?.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
@@ -77,17 +70,6 @@ class HomeFragment : BaseFragment<IPresenter, FragmentHomeBinding>(), View.OnCli
                         }
                         1 -> {
                             (mFragments?.get(position) as AndrologyFragment)?.changeBackgroundColor()
-                        }
-
-
-                        else -> {
-                            var color = ContextCompat.getColor(context!!, R.color.colorPrimary)
-                            mImmersionBar = ImmersionBar.with(this@HomeFragment)
-                            mImmersionBar?.statusBarColorInt(color)
-                                    ?.fitsSystemWindows(true)
-                                    ?.init()
-                            mBinding?.llTopSearch?.setBackgroundColor(color)
-                            mBinding?.llTab?.setBackgroundColor(color)
                         }
                     }
                 }

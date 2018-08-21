@@ -16,16 +16,16 @@ class LocalDatas {
             val banners = ArrayList<HomeHeaderBannerEntity.Adds>()
 
             val banner1 = HomeHeaderBannerEntity().Adds()
-            banner1.bannerUrl = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1530510861413&di=c9f7439a5a5d4c57435e5eb7f2772817&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F01a0d4582d8320a84a0e282be8a02e.jpg"
+            banner1.adCode = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1530510861413&di=c9f7439a5a5d4c57435e5eb7f2772817&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F01a0d4582d8320a84a0e282be8a02e.jpg"
 
             val banner2 = HomeHeaderBannerEntity().Adds()
-            banner2.bannerUrl = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1530523369994&di=60f87ef08f23f8dab2b36d5ed57f5dcd&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F01ac39597adf9da8012193a352df31.jpg"
+            banner2.adCode = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1530523369994&di=60f87ef08f23f8dab2b36d5ed57f5dcd&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F01ac39597adf9da8012193a352df31.jpg"
 
             val banner3 = HomeHeaderBannerEntity().Adds()
-            banner3.bannerUrl = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1530510861412&di=c51db760c9ecc789cdae3b334715aef6&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F0161c95690b86032f87574beaa54c2.jpg"
+            banner3.adCode = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1530510861412&di=c51db760c9ecc789cdae3b334715aef6&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F0161c95690b86032f87574beaa54c2.jpg"
 
             val banner4 = HomeHeaderBannerEntity().Adds()
-            banner4.bannerUrl = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1533288558977&di=2dc323862d5e267a01c67863d579e511&imgtype=0&src=http%3A%2F%2Fpic.90sjimg.com%2Fback_pic%2Fqk%2Fback_origin_pic%2F00%2F01%2F61%2Fdfcde6abbc5c5941a18da393901c1263.jpg"
+            banner4.adCode = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1533288558977&di=2dc323862d5e267a01c67863d579e511&imgtype=0&src=http%3A%2F%2Fpic.90sjimg.com%2Fback_pic%2Fqk%2Fback_origin_pic%2F00%2F01%2F61%2Fdfcde6abbc5c5941a18da393901c1263.jpg"
 
 
             banners.add(banner1)
@@ -72,8 +72,10 @@ class LocalDatas {
          */
         fun homeAdvBannerListDatas(): MutableList<HomeAdvBannerEntity.Banners> {
             var datas = ArrayList<HomeAdvBannerEntity.Banners>()
-            for (i in 0 until 5) {
-                datas.add(HomeAdvBannerEntity().Banners())
+            for (i in 0 until 3) {
+                val banner = HomeAdvBannerEntity.Banners()
+                banner?.adv = R.mipmap.adv_default
+                datas.add(banner)
             }
             return datas
         }
@@ -102,10 +104,10 @@ class LocalDatas {
         /**
          * 为您推荐
          */
-        fun homeRecommendDatas(): MutableList<HomeRecommendEntity> {
-            val list = ArrayList<HomeRecommendEntity>()
+        fun homeRecommendDatas(): MutableList<HomeRecommendEntity.Data> {
+            val list = ArrayList<HomeRecommendEntity.Data>()
             for (i in 0..8) {
-                val homeRecommendEntity = HomeRecommendEntity()
+                val homeRecommendEntity = HomeRecommendEntity.Data()
                 homeRecommendEntity.isBackgroundCorners = true
                 if (i == 0) {
                     homeRecommendEntity.isShowRecommendText = true

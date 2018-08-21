@@ -73,8 +73,8 @@ class HomeFlashSaleProvider : BaseItemProvider<HomeFlashSaleEntity, BaseViewHold
             ivGoods.layoutParams = params
 
             helper?.setText(R.id.tv_goods_name, item?.goodsName)
-                    ?.setText(R.id.tv_price, "￥" + item?.goodsPrice)
-                    ?.setText(R.id.tv_market_price, "￥" + item?.marketPrice)
+                    ?.setText(R.id.tv_price, "¥" + item?.goodsPrice)
+                    ?.setText(R.id.tv_market_price, "¥" + item?.marketPrice)
 
             helper?.getView<TextView>(R.id.tv_market_price)?.paint?.flags = Paint.STRIKE_THRU_TEXT_FLAG
 

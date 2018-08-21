@@ -12,16 +12,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import com.blankj.utilcode.util.LogUtils
+import com.blankj.utilcode.util.SizeUtils
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.github.florent37.glidepalette.BitmapPalette
 import com.github.florent37.glidepalette.GlidePalette
 import com.kzj.mall.GlideApp
+import com.makeramen.roundedimageview.RoundedImageView
 import com.zhouwei.mzbanner.MZBannerView
 import com.zhouwei.mzbanner.holder.MZHolderCreator
 import com.zhouwei.mzbanner.holder.MZViewHolder
 
 
 class HeaderBannerProvider : BaseItemProvider<HomeHeaderBannerEntity, BaseViewHolder> {
-
+    private var initFirstColor = false
     private var isInitialized = false
     private var useRoundedCorners = true
     private var bannerPlaying = true
@@ -49,7 +53,7 @@ class HeaderBannerProvider : BaseItemProvider<HomeHeaderBannerEntity, BaseViewHo
             mMZBanner?.setIndicatorRes(R.drawable.indicator_default, R.drawable.indicator_sel)
             mMZBanner?.setPages(banners, object : MZHolderCreator<BannerViewHolder> {
                 override fun createViewHolder(): BannerViewHolder {
-                    val bannerViewHolder = BannerViewHolder(helper?.getView(R.id.tv_header))
+                    val bannerViewHolder = BannerViewHolder(banners?.size, helper?.getView(R.id.tv_header))
                     return bannerViewHolder;
                 }
             })
@@ -62,8 +66,10 @@ class HeaderBannerProvider : BaseItemProvider<HomeHeaderBannerEntity, BaseViewHo
 
                 override fun onPageSelected(position: Int) {
                     val color = mColors?.get(position)
-                    helper?.getView<TextView>(R.id.tv_header)?.setBackgroundColor(color!!)
-                    onBannerPageChangeListener?.onBannerPageSelected(position, color)
+                    color?.let {
+                        helper?.getView<TextView>(R.id.tv_header)?.setBackgroundColor(it)
+                        onBannerPageChangeListener?.onBannerPageSelected(position, it)
+                    }
                 }
 
             })
@@ -95,34 +101,44 @@ class HeaderBannerProvider : BaseItemProvider<HomeHeaderBannerEntity, BaseViewHo
         fun onBannerPageSelected(position: Int?, colorRes: Int?)
     }
 
-    inner class BannerViewHolder constructor(val backGround: TextView?) : MZViewHolder<HomeHeaderBannerEntity.Adds> {
-        private var mImageView: ImageView? = null
-        private var initFirstColor = false
+    inner class BannerViewHolder constructor(val bannersSize: Int?, val backGround: TextView?) : MZViewHolder<HomeHeaderBannerEntity.Adds> {
+        private var mImageView: RoundedImageView? = null
         override fun createView(context: Context): View {
             // 返回页面布局
             val view = LayoutInflater.from(context).inflate(R.layout.item_home_banner, null)
-            mImageView = view.findViewById(R.id.iv_image) as ImageView
+            mImageView = view.findViewById(R.id.iv_image)
             return view
         }
 
         override fun onBind(context: Context, position: Int, data: HomeHeaderBannerEntity.Adds?) {
             // 数据绑定
             mImageView?.let {
+
+                if (useRoundedCorners) {
+                    mImageView?.cornerRadius = SizeUtils.dp2px(8f).toFloat()
+                } else {
+                    mImageView?.cornerRadius = 0f
+                }
+
+                val realPosition = position % bannersSize!!
                 val palette = GlidePalette.with(data?.adCode)
                         .use(BitmapPalette.Profile.MUTED)
                         .intoCallBack {
-                            val mutedColor = it?.getMutedColor(ContextCompat.getColor(mContext,R.color.colorPrimary))
-                            mColors?.put(position, mutedColor!!)
-
-                            if (initFirstColor == false && position == 0){
-                                backGround?.setBackgroundColor(mutedColor!!)
-                                onBannerPageChangeListener?.onBannerPageSelected(position, mutedColor)
-                                initFirstColor = true
+                            val mutedColor = it?.getMutedColor(ContextCompat.getColor(mContext, R.color.colorPrimary))
+                            mutedColor?.let {
+                                mColors?.put(realPosition, it)
+                                if (initFirstColor == false && realPosition == 0) {
+                                    backGround?.setBackgroundColor(it)
+                                    onBannerPageChangeListener?.onBannerPageSelected(realPosition, it)
+                                    initFirstColor = true
+                                }
                             }
                         }
 
                 GlideApp.with(context)
                         .load(data?.adCode)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .skipMemoryCache(false)
                         .listener(palette)
                         .placeholder(R.color.gray_default)
                         .centerCrop()

@@ -8,7 +8,7 @@ class HomeAdvBannerEntity : IHomeEntity {
         return IHomeEntity.ADV_BANNER
     }
 
-    inner class Banners {
-
+    class Banners {
+        var adv: Int? = null
     }
 }

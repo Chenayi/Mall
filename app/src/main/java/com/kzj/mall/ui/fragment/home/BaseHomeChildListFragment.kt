@@ -1,10 +1,12 @@
 package com.kzj.mall.ui.fragment.home
 
+import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.chad.library.adapter.base.MultipleItemRvAdapter
 import com.chad.library.adapter.base.util.ProviderDelegate
+import com.kzj.mall.C
 import com.kzj.mall.R
 import com.kzj.mall.adapter.provider.home.HeaderBannerProvider
 import com.kzj.mall.base.BaseFragment
@@ -16,6 +18,7 @@ import com.kzj.mall.entity.home.HomeRecommendEntity
 import com.kzj.mall.entity.home.IHomeEntity
 import com.kzj.mall.mvp.contract.HomeContract
 import com.kzj.mall.mvp.presenter.HomePresenter
+import com.kzj.mall.ui.activity.GoodsDetailActivity
 import com.kzj.mall.widget.ExpandLoadMoewView
 
 abstract class BaseHomeChildListFragment : BaseFragment<HomePresenter, FragmentBaseHomeChildListBinding>(), HomeContract.View {
@@ -48,7 +51,43 @@ abstract class BaseHomeChildListFragment : BaseFragment<HomePresenter, FragmentB
                 }
             }, mBinding?.rvHome)
         }
+
+        listAdapter?.setOnItemChildClickListener { adapter, view, position ->
+            when (view?.id) {
+                R.id.ll_yp9 -> {
+                    val intent = Intent(context, GoodsDetailActivity::class.java)
+                    intent?.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    startActivity(intent)
+                }
+                R.id.ll_yp10 -> {
+                    val intent = Intent(context, GoodsDetailActivity::class.java)
+                    intent?.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    startActivity(intent)
+                }
+                R.id.ll_yp11 -> {
+                    val intent = Intent(context, GoodsDetailActivity::class.java)
+                    intent?.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    startActivity(intent)
+                }
+                R.id.ll_yp12 -> {
+                    val intent = Intent(context, GoodsDetailActivity::class.java)
+                    intent?.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    startActivity(intent)
+                }
+            }
+        }
+
+        listAdapter?.setOnItemClickListener { adapter, view, position ->
+            val entity = listAdapter?.data?.get(position)
+            if (entity?.getItemType() == IHomeEntity.RECOMMEND){
+                val intent = Intent(context,GoodsDetailActivity::class.java)
+                intent?.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent)
+            }
+        }
     }
+
+    protected abstract fun useRoundedCorners(): Boolean
 
 
     override fun onSupportInvisible() {
@@ -67,7 +106,7 @@ abstract class BaseHomeChildListFragment : BaseFragment<HomePresenter, FragmentB
 
     protected open fun registerItemProvider(providerDelegate: ProviderDelegate) {
         //头部广告
-        headerBannerProvider = HeaderBannerProvider(false)
+        headerBannerProvider = HeaderBannerProvider(useRoundedCorners())
         headerBannerProvider?.setOnBannerPageChangeListener(object : HeaderBannerProvider.OnBannerPageChangeListener {
             override fun onBannerPageSelected(position: Int?, colorRes: Int?) {
                 setBackGroundColor(colorRes)
@@ -78,7 +117,7 @@ abstract class BaseHomeChildListFragment : BaseFragment<HomePresenter, FragmentB
 
     abstract fun onLoadMore()
 
-    private var backgroundColor: Int?=null
+    private var backgroundColor: Int? = null
 
     fun setBackGroundColor(colorRes: Int?) {
         colorRes?.let {
@@ -93,9 +132,13 @@ abstract class BaseHomeChildListFragment : BaseFragment<HomePresenter, FragmentB
         }
     }
 
-    fun finishLoadMore(datas: MutableList<HomeRecommendEntity>) {
+    fun finishLoadMore(datas: MutableList<HomeRecommendEntity.Data>) {
         listAdapter?.addData(datas)
-        listAdapter?.loadMoreEnd()
+        if (datas?.size < C.PAGE_SIZE) {
+            listAdapter?.loadMoreEnd()
+        } else {
+            listAdapter?.loadMoreComplete()
+        }
     }
 
 

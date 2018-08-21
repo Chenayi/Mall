@@ -31,7 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clipChildren="false"
-            android:paddingTop="12dp">
+            android:layout_marginTop="12dp">
 
             <com.zhouwei.mzbanner.MZBannerView
                 android:id="@+id/banner"
@@ -40,6 +40,7 @@
                 app:canLoop="true"
                 app:indicatorAlign="center"
                 app:indicatorPaddingLeft="10dp"
+                app:indicatorPaddingBottom="0dp"
                 app:open_mz_mode="true" />
 
             <com.kzj.mall.widget.IndictorView
@@ -48,7 +49,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
-                android:paddingBottom="10dp" />
+                android:visibility="gone"/>
 
         </RelativeLayout>
     </RelativeLayout>

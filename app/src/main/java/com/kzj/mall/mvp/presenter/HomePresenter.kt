@@ -6,6 +6,8 @@ import com.kzj.mall.base.BaseObserver
 import com.kzj.mall.base.BasePresenter
 import com.kzj.mall.di.scope.FragmentScope
 import com.kzj.mall.entity.HomeEntity
+import com.kzj.mall.entity.SearchEntity
+import com.kzj.mall.entity.home.HomeRecommendEntity
 import com.kzj.mall.entity.home.IHomeEntity
 import com.kzj.mall.http.RxScheduler
 import com.kzj.mall.mvp.contract.HomeContract
@@ -44,4 +46,26 @@ constructor(model: HomeContract.Model?, view: HomeContract.View?, context: Conte
     }
 
 
+    fun loadRecommendDatas(pageNo: Int, pageSize: Int) {
+        model?.loadRecommendHomeDatas(pageNo, pageSize, "695")
+                ?.compose(RxScheduler.compose())
+                ?.subscribe(object : BaseObserver<HomeRecommendEntity>() {
+                    override fun onSubscribe(d: Disposable) {
+                        addDisposable(d)
+                    }
+
+                    override fun onHandleSuccess(t: HomeRecommendEntity?) {
+                        view?.loadRecommendDatas(t)
+                    }
+
+                    override fun onHandleError(code: Int, msg: String?) {
+                        view?.onError(code, msg)
+                    }
+
+                    override fun onHandleAfter() {
+                        view?.hideLoading()
+                    }
+
+                })
+    }
 }

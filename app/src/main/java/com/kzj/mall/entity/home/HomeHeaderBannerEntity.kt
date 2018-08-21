@@ -8,7 +8,6 @@ class HomeHeaderBannerEntity : IHomeEntity {
     }
 
     inner class Adds {
-        var bannerUrl: String? = null
         var adCode: String? = null
     }
 }
