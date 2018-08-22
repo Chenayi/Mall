@@ -51,7 +51,7 @@
                 android:gravity="center"
                 android:text="热门活动，天天有低价"
                 android:textColor="#8A9099"
-                android:textSize="9dp" />
+                android:textSize="11dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -63,7 +63,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="#E1E8FA"
+                android:background="#F0F3FA"
                 android:orientation="vertical">
 
                 <TextView
@@ -125,14 +125,14 @@
                         android:id="@+id/iv_yp1"
                         android:layout_width="53dp"
                         android:layout_height="53dp"
-                        android:src="@mipmap/yp_5" />
+                        android:src="@mipmap/yp_1" />
 
                     <ImageView
                         android:id="@+id/iv_yp2"
                         android:layout_width="53dp"
                         android:layout_height="53dp"
                         android:layout_marginLeft="24dp"
-                        android:src="@mipmap/yp_5" />
+                        android:src="@mipmap/yp_2" />
 
                 </LinearLayout>
 
@@ -143,7 +143,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="1dp"
                 android:layout_weight="1"
-                android:background="#FAE6F6"
+                android:background="#FAF0F8"
                 android:orientation="vertical">
 
                 <TextView
@@ -205,14 +205,14 @@
                         android:id="@+id/iv_yp3"
                         android:layout_width="53dp"
                         android:layout_height="53dp"
-                        android:src="@mipmap/yp_5" />
+                        android:src="@mipmap/yp_3" />
 
                     <ImageView
                         android:id="@+id/iv_yp4"
                         android:layout_width="53dp"
                         android:layout_height="53dp"
                         android:layout_marginLeft="24dp"
-                        android:src="@mipmap/yp_5" />
+                        android:src="@mipmap/yp_4" />
 
                 </LinearLayout>
 
@@ -231,7 +231,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="#DCF5F3"
+                android:background="#F0FAF9"
                 android:orientation="vertical">
 
                 <TextView
@@ -266,7 +266,7 @@
                         android:layout_weight="1"
                         android:lines="1"
                         android:singleLine="true"
-                        android:text="满199减100"
+                        android:text="抵抗乙肝"
                         android:textColor="@color/white"
                         android:textSize="11dp" />
 
@@ -310,7 +310,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="1dp"
                 android:layout_weight="1"
-                android:background="#EFE1FA"
+                android:background="#F6F0FA"
                 android:orientation="vertical">
 
                 <TextView
@@ -345,7 +345,7 @@
                         android:layout_weight="1"
                         android:lines="1"
                         android:singleLine="true"
-                        android:text="满199减100"
+                        android:text="持久战场，你做得到"
                         android:textColor="@color/white"
                         android:textSize="11dp" />
 
@@ -390,7 +390,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/bottom_gray_default_corners_8"
+            android:background="@drawable/background_white_corners_8"
             android:orientation="horizontal"
             android:paddingTop="1dp">
 
@@ -399,7 +399,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@drawable/left_bottom_white_corners_8"
+                android:background="@drawable/left_bottom_f0faf9_corners_8"
                 android:orientation="vertical">
 
                 <TextView
@@ -463,7 +463,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="1dp"
                 android:layout_weight="1"
-                android:background="@color/white"
+                android:background="#F0FAF9"
                 android:orientation="vertical">
 
                 <TextView
@@ -526,7 +526,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="1dp"
                 android:layout_weight="1"
-                android:background="@color/white"
+                android:background="#F0FAF9"
                 android:orientation="vertical">
 
                 <TextView
@@ -589,7 +589,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="1dp"
                 android:layout_weight="1"
-                android:background="@drawable/right_bottom_white_corners_8"
+                android:background="@drawable/right_bottom_f0faf9_corners_8"
                 android:orientation="vertical">
 
                 <TextView
@@ -623,7 +623,7 @@
                         android:layout_weight="1"
                         android:lines="1"
                         android:singleLine="true"
-                        android:text="满399减200"
+                        android:text="脱发克星"
                         android:textColor="@color/white"
                         android:textSize="11dp" />
 

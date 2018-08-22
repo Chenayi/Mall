@@ -120,13 +120,15 @@ class SearchActivity : BaseActivity<SearchPresenter, ActivitySearchBinding>()
 
 
 
-        searchListAdapter?.setOnItemChildClickListener { adapter, view, position ->
+        searchListAdapter?.setOnItemClickListener { adapter, view, position ->
             val intent  =Intent(this,GoodsDetailActivity::class.java)
+            intent?.putExtra(C.GOODS_INFO_ID,searchListAdapter?.getItem(position)?.goods_info_id)
             startActivity(intent)
         }
 
-        searchGridAdapter?.setOnItemChildClickListener { adapter, view, position ->
+        searchGridAdapter?.setOnItemClickListener { adapter, view, position ->
             val intent  =Intent(this,GoodsDetailActivity::class.java)
+            intent?.putExtra(C.GOODS_INFO_ID,searchListAdapter?.getItem(position)?.goods_info_id)
             startActivity(intent)
         }
 

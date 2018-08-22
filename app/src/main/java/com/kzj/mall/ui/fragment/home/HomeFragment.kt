@@ -78,6 +78,7 @@ class HomeFragment : BaseFragment<IPresenter, FragmentHomeBinding>(), View.OnCli
 
 
         var commonNavigator = CommonNavigator(context)
+        commonNavigator?.isAdjustMode = true
         commonNavigator.adapter = object : CommonNavigatorAdapter() {
             override fun getTitleView(p0: Context?, index: Int): IPagerTitleView {
                 val colorTransitionPagerTitleView = HomeNavigatorTitleView(context)
@@ -106,7 +107,9 @@ class HomeFragment : BaseFragment<IPresenter, FragmentHomeBinding>(), View.OnCli
                 indicator.lineWidth = SizeUtils.dp2px(13f).toFloat()
                 return indicator
             }
-
+            override fun getTitleWeight(context: Context?, index: Int): Float {
+                return 1.0f
+            }
         }
 
         mBinding?.magicIndicator?.navigator = commonNavigator
@@ -167,17 +170,6 @@ class HomeFragment : BaseFragment<IPresenter, FragmentHomeBinding>(), View.OnCli
             }
             1 -> {
                 (mFragments?.get(currentItem) as AndrologyFragment)?.changeBackgroundColor()
-            }
-
-
-            else -> {
-                var color = ContextCompat.getColor(context!!, R.color.colorPrimary)
-                mImmersionBar = ImmersionBar.with(this@HomeFragment)
-                mImmersionBar?.statusBarColorInt(color)
-                        ?.fitsSystemWindows(true)
-                        ?.init()
-                mBinding?.llTopSearch?.setBackgroundColor(color)
-                mBinding?.llTab?.setBackgroundColor(color)
             }
         }
     }

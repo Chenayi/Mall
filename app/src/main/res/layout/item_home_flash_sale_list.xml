@@ -57,7 +57,7 @@
                     android:layout_gravity="center_horizontal"
                     android:text="抢购中，先下单先得哦~"
                     android:textColor="#8A9099"
-                    android:textSize="9dp" />
+                    android:textSize="11dp" />
 
             </LinearLayout>
 

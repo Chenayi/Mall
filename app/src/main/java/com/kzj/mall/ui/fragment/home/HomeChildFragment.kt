@@ -5,10 +5,12 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewConfiguration
 import android.view.animation.*
+import com.blankj.utilcode.util.LogUtils
 import com.chad.library.adapter.base.util.ProviderDelegate
 import com.kzj.mall.C
 import com.kzj.mall.adapter.provider.home.*
 import com.kzj.mall.entity.HomeEntity
+import com.kzj.mall.entity.SexToyEntity
 import com.kzj.mall.entity.home.*
 import com.kzj.mall.utils.LocalDatas
 
@@ -48,19 +50,18 @@ class HomeChildFragment : BaseHomeChildListFragment() {
                 if ((dy > 0 && isAskVisible) || (dy < 0 && !isAskVisible)) {
                     distance += dy;
                 }
-            }
 
-            override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
-                super.onScrollStateChanged(recyclerView, newState)
-                val layoutManager = recyclerView?.layoutManager
-                if (layoutManager is LinearLayoutManager) {
-                    val linearLayoutManager: LinearLayoutManager = layoutManager
-                    val firstVisibleItemPosition = linearLayoutManager.findFirstVisibleItemPosition()
-                    if (firstVisibleItemPosition == 0) {
-                        headerBannerProvider?.startBanner()
-                    } else {
-                        headerBannerProvider?.pauseBanner()
-                    }
+                val layoutManager = recyclerView?.layoutManager as LinearLayoutManager
+                val firstVisibleItemPosition = layoutManager?.findFirstVisibleItemPosition()
+                if (firstVisibleItemPosition == 0) {
+                    headerBannerProvider?.startBanner()
+                } else {
+                    headerBannerProvider?.pauseBanner()
+                }
+                if (firstVisibleItemPosition < 8){
+                    hideArrow()
+                }else{
+                    showArrow()
                 }
             }
         })
@@ -74,30 +75,36 @@ class HomeChildFragment : BaseHomeChildListFragment() {
         mPresenter?.requestHomeDatas()
     }
 
-    private fun hideAskWithAnim() {
-        val set = AnimationSet(false)
-        val toX = mBinding?.ivAsk?.width!! * 0.7f
-        val shakeAnimaw = TranslateAnimation(0f, toX, 0f, 0f)
-        set.duration = 300
-        set.addAnimation(shakeAnimaw)
-        set.addAnimation(getDefaultAlphaAnimation(false))
-        set.fillAfter = true
-        mBinding?.ivAsk?.startAnimation(set)
-    }
-
     fun getDefaultAlphaAnimation(`in`: Boolean): Animation {
         val alphaAnimation = AlphaAnimation(if (`in`) 0.5f else 1.0f, if (`in`) 1.0f else 0.5f)
         alphaAnimation.interpolator = AccelerateInterpolator()
         return alphaAnimation
     }
 
+    /**
+     * 显示问答按钮
+     */
     private fun showAskWithAnim() {
         val set = AnimationSet(false)
-        val fromX = mBinding?.ivAsk?.width!! * 0.7f
+        val fromX = mBinding?.ivAsk?.width!! * 0.8f
         val shakeAnimaw = TranslateAnimation(fromX, 0f, 0f, 0f)
         set.duration = 300
         set.addAnimation(shakeAnimaw)
         set.addAnimation(getDefaultAlphaAnimation(true))
+        set.fillAfter = true
+        mBinding?.ivAsk?.startAnimation(set)
+    }
+
+    /**
+     * 隐藏问答按钮
+     */
+    private fun hideAskWithAnim() {
+        val set = AnimationSet(false)
+        val toX = mBinding?.ivAsk?.width!! * 0.8f
+        val shakeAnimaw = TranslateAnimation(0f, toX, 0f, 0f)
+        set.duration = 300
+        set.addAnimation(shakeAnimaw)
+        set.addAnimation(getDefaultAlphaAnimation(false))
         set.fillAfter = true
         mBinding?.ivAsk?.startAnimation(set)
     }
@@ -164,7 +171,9 @@ class HomeChildFragment : BaseHomeChildListFragment() {
         datas.add(HomeBrandEntity())
 
         //情趣用品
-        datas.add(LocalDatas.homeSexToy())
+        val sexToyEntity = SexToyEntity()
+        sexToyEntity?.qingqu = homeEntity?.qingqu
+        datas.add(sexToyEntity)
 
         //问答解惑
         val homeAskAnswerEntity = HomeAskAnswerEntity()
@@ -182,7 +191,7 @@ class HomeChildFragment : BaseHomeChildListFragment() {
 
     override fun loadRecommendDatas(homeRecommendEntity: HomeRecommendEntity?) {
         homeRecommendEntity?.results?.data?.let {
-            if (pageNo ==1){
+            if (pageNo == 1) {
                 it?.get(0)?.isShowRecommendText = true
             }
             for (i in 0 until it.size) {

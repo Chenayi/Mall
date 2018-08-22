@@ -11,6 +11,7 @@ import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
 import com.blankj.utilcode.util.SizeUtils
+import com.kzj.mall.C
 import com.kzj.mall.GlideApp
 import com.kzj.mall.adapter.BaseAdapter
 import com.kzj.mall.entity.home.HomeFlashSaleEntity
@@ -39,18 +40,19 @@ class HomeFlashSaleProvider : BaseItemProvider<HomeFlashSaleEntity, BaseViewHold
             rv = helper?.getView(R.id.rv_flash_sale)
             rv?.setFocusableInTouchMode(false);
             rv?.requestFocus();
-            var adapter = FlashSaleAdapter(it)
+            var flashSaleAdapter = FlashSaleAdapter(it)
             val layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false)
             rv?.setLayoutManager(layoutManager)
-            rv?.setAdapter(adapter)
+            rv?.setAdapter(flashSaleAdapter)
             rv?.scrollToPosition(data?.position)
             rv?.setOnSnapListener(object : OnSnapListener {
                 override fun snapped(position: Int) {
                     data?.position = position
                 }
             })
-            adapter.setOnItemClickListener { adapter, view, position ->
+            flashSaleAdapter.setOnItemClickListener { adapter, view, position ->
                 var intent = Intent(mContext, GoodsDetailActivity::class.java)
+                intent?.putExtra(C.GOODS_INFO_ID,flashSaleAdapter?.getItem(position)?.goodsInfoId)
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 mContext.startActivity(intent)
             }

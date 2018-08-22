@@ -56,7 +56,7 @@
                 android:layout_height="wrap_content"
                 android:text="万千商品 懂你所需"
                 android:textColor="#8A9099"
-                android:textSize="9sp" />
+                android:textSize="11dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -84,7 +84,7 @@
                     android:ellipsize="end"
                     android:maxLines="2"
                     android:text="万艾可 枸橼酸西地那非片 50mg*10片"
-                    android:textColor="#2E3033"
+                    android:textColor="@color/c_2e3033"
                     android:textSize="14dp"
                     android:id="@+id/tv_goods_name"/>
 
@@ -96,7 +96,7 @@
                     android:singleLine="true"
                     android:text="适用于治疗勃起功能障碍"
                     android:textColor="#8A9099"
-                    android:textSize="11dp"
+                    android:textSize="12dp"
                     android:id="@+id/tv_goods_indication"/>
 
                 <LinearLayout
@@ -112,8 +112,9 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="¥620.00"
-                        android:textColor="#FF4F0A"
+                        android:textColor="@color/orange_default"
                         android:textSize="14dp"
+                        android:textStyle="bold"
                         android:id="@+id/tv_price"/>
 
 

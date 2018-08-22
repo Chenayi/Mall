@@ -24,24 +24,26 @@
                 android:layout_width="wrap_content"
                 android:layout_height="18dp"
                 android:background="@mipmap/icon_discount_bg"
-                android:gravity="center_vertical"
+                android:gravity="center"
                 android:paddingLeft="5dp"
                 android:paddingRight="10dp"
-                android:text="5.5折"
+                android:paddingBottom="2dp"
+                android:text="立抢"
                 android:textColor="@color/white"
                 android:textSize="10dp"
-                android:visibility="gone"/>
+                android:visibility="visible"/>
         </RelativeLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
             android:lines="1"
             android:singleLine="true"
+            android:textColor="#6A6E75"
             android:text="Swisse 胶原蛋白...液500ml+Healthy Care 葡萄籽300粒"
-            android:textSize="11sp"
+            android:textSize="12dp"
             android:id="@+id/tv_goods_name"/>
 
         <LinearLayout
@@ -74,7 +76,8 @@
                     android:singleLine="true"
                     android:text="¥239.00"
                     android:textColor="#FF4F0A"
-                    android:textSize="11dp"
+                    android:textSize="12dp"
+                    android:textStyle="bold"
                     android:id="@+id/tv_price"/>
 
                 <TextView
@@ -85,7 +88,7 @@
                     android:lines="1"
                     android:singleLine="true"
                     android:text="¥486.00"
-                    android:textSize="11dp" />
+                    android:textSize="12dp" />
 
             </LinearLayout>
 

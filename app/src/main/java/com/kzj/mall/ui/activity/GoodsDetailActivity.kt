@@ -8,7 +8,9 @@ import android.widget.ImageView
 import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.SizeUtils
+import com.blankj.utilcode.util.ToastUtils
 import com.gyf.barlibrary.ImmersionBar
+import com.kzj.mall.C
 import com.kzj.mall.R
 import com.kzj.mall.adapter.CommomViewPagerAdapter
 import com.kzj.mall.anim.AniManager
@@ -16,7 +18,12 @@ import com.kzj.mall.base.BaseActivity
 import com.kzj.mall.base.IPresenter
 import com.kzj.mall.databinding.ActivityGoodsDetailsBinding
 import com.kzj.mall.di.component.AppComponent
+import com.kzj.mall.di.component.DaggerGoodsDetailComponent
+import com.kzj.mall.di.module.GoodsDetailModule
+import com.kzj.mall.entity.GoodsDetailEntity
 import com.kzj.mall.event.*
+import com.kzj.mall.mvp.contract.GoodsDetailContract
+import com.kzj.mall.mvp.presenter.GoodsDetailPresenter
 import com.kzj.mall.ui.dialog.DetailMorePop
 import com.kzj.mall.ui.fragment.GoodsDetailFragment
 import com.kzj.mall.ui.fragment.GoodsInfoFragment
@@ -26,11 +33,12 @@ import com.kzj.mall.widget.SlideDetailsLayout
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 
-class GoodsDetailActivity : BaseActivity<IPresenter, ActivityGoodsDetailsBinding>(), View.OnClickListener {
+class GoodsDetailActivity : BaseActivity<GoodsDetailPresenter, ActivityGoodsDetailsBinding>(), View.OnClickListener,GoodsDetailContract.View {
     private var commomViewPagerAdapter: CommomViewPagerAdapter? = null
     private var fragments: MutableList<Fragment>? = null
     private var barAlpha = 0.0f
     private var mViewPagerIndex = 0
+    private var mGoodsInfoId: String? = null
 
 
     override fun getLayoutId(): Int {
@@ -38,6 +46,11 @@ class GoodsDetailActivity : BaseActivity<IPresenter, ActivityGoodsDetailsBinding
     }
 
     override fun setupComponent(appComponent: AppComponent?) {
+        DaggerGoodsDetailComponent.builder()
+                .appComponent(appComponent)
+                .goodsDetailModule(GoodsDetailModule(this))
+                .build()
+                .inject(this)
     }
 
     override fun initImmersionBar() {
@@ -46,6 +59,8 @@ class GoodsDetailActivity : BaseActivity<IPresenter, ActivityGoodsDetailsBinding
     }
 
     override fun initData() {
+        mGoodsInfoId = intent?.getStringExtra(C.GOODS_INFO_ID)
+
         mBinding?.goodsDetailBar?.setTabAlpha(barAlpha)
         val barHeight = SizeUtils.getMeasuredHeight(mBinding?.goodsDetailBar)
         fragments = ArrayList()
@@ -124,6 +139,9 @@ class GoodsDetailActivity : BaseActivity<IPresenter, ActivityGoodsDetailsBinding
         mBinding?.tvBuy?.setOnClickListener(this)
         mBinding?.tvAddCart?.setOnClickListener(this)
         mBinding?.goodsDetailBar?.setVp(mBinding?.vpGoodsDetail)
+
+
+        mPresenter?.requesrGoodsDetail(mGoodsInfoId)
     }
 
     @Subscribe
@@ -212,12 +230,33 @@ class GoodsDetailActivity : BaseActivity<IPresenter, ActivityGoodsDetailsBinding
         }
     }
 
+
+    override fun showGoodsDetail(goodsDetailEntity: GoodsDetailEntity?) {
+        if (mBinding?.vpGoodsDetail?.currentItem == 0){
+            val goodsInfoFragment = fragments?.get(0) as GoodsInfoFragment
+            goodsInfoFragment?.updateDatas(goodsDetailEntity)
+        }
+    }
+
+    override fun showLoading() {
+        showLoadingDialog()
+    }
+
+    override fun hideLoading() {
+        dismissLoadingDialog()
+    }
+
+    override fun onError(code: Int, msg: String?) {
+        ToastUtils.showShort(msg)
+    }
+
+
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.tv_add_cart -> {
                 startAddCartAnim(false, mBinding?.tvAddCart!!, mBinding?.ivCart!!)
             }
-            R.id.tv_buy->{
+            R.id.tv_buy -> {
                 val intent = Intent(this, ConfirmOrderActivity::class.java)
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(intent)

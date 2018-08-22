@@ -1,15 +1,20 @@
 package com.kzj.mall.adapter.provider.home
 
+import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import com.blankj.utilcode.util.SizeUtils
 import com.chad.library.adapter.base.BaseViewHolder
 import com.chad.library.adapter.base.provider.BaseItemProvider
+import com.kzj.mall.C
+import com.kzj.mall.GlideApp
 import com.kzj.mall.R
 import com.kzj.mall.adapter.BaseAdapter
 import com.kzj.mall.entity.home.IHomeEntity
 import com.kzj.mall.entity.SexToyEntity
+import com.kzj.mall.ui.activity.GoodsDetailActivity
 import com.takusemba.multisnaprecyclerview.MultiSnapRecyclerView
 
 /**
@@ -34,8 +39,14 @@ class HomeSexToyProvider : BaseItemProvider<SexToyEntity, BaseViewHolder>() {
             rv?.requestFocus();
             val layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false)
             rv?.setLayoutManager(layoutManager)
-            data?.sexToys?.let {
+            data?.qingqu?.let {
                 val myAdapter = MyAdapter(it)
+                myAdapter?.setOnItemClickListener { adapter, view, position ->
+                    val intent = Intent(mContext, GoodsDetailActivity::class.java)
+                    intent?.putExtra(C.GOODS_INFO_ID, myAdapter?.getItem(position)?.goodsInfoId)
+                    intent?.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    mContext?.startActivity(intent)
+                }
                 rv?.setAdapter(myAdapter)
             }
             isInitialized = true
@@ -57,6 +68,15 @@ class HomeSexToyProvider : BaseItemProvider<SexToyEntity, BaseViewHolder>() {
                 params.rightMargin = 0
             }
             linearLayout.layoutParams = params
+
+            helper?.setText(R.id.tv_goods_name, item?.goodsName)
+                    ?.setText(R.id.tv_goods_price, "¥" + item?.goodsPrice)
+
+            GlideApp.with(mContext)
+                    .load(item?.imgUrl)
+                    .centerCrop()
+                    .placeholder(R.color.gray_default)
+                    .into(helper?.getView(R.id.iv_goods) as ImageView)
         }
     }
 }

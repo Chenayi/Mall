@@ -5,20 +5,22 @@
 
     <LinearLayout
         android:id="@+id/ll_item"
-        android:layout_width="117dp"
-        android:layout_height="163dp"
+        android:layout_width="127dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/background_white_corners_8"
         android:gravity="center"
         android:orientation="vertical">
 
         <RelativeLayout
-            android:layout_width="93dp"
-            android:layout_height="93dp">
+            android:layout_width="100dp"
+            android:layout_height="100dp">
 
             <ImageView
-                android:layout_width="93dp"
-                android:layout_height="93dp"
-                android:src="@color/gray_default" />
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="13dp"
+                android:src="@color/gray_default"
+                android:id="@+id/iv_goods"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -38,21 +40,27 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="12dp"
             android:layout_marginRight="12dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="10dp"
             android:ellipsize="end"
             android:maxLines="2"
+            android:minLines="2"
             android:text="杜蕾斯 天然胶乳橡胶避孕套(激情装) 12只"
-            android:textColor="#2E3033"
-            android:textSize="11dp" />
+            android:textColor="@color/c_2e3033"
+            android:textSize="13dp"
+            android:id="@+id/tv_goods_name"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
             android:layout_marginLeft="12dp"
             android:layout_marginRight="12dp"
+            android:layout_marginTop="6dp"
             android:text="¥128.00"
             android:textColor="#FF4F0A"
-            android:textSize="11dp" />
+            android:textSize="13dp"
+            android:textStyle="bold"
+            android:id="@+id/tv_goods_price"/>
 
 
     </LinearLayout>

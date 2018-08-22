@@ -6,6 +6,7 @@ class C {
 //        val BASE_URL = "http://192.168.40.95:8083/"
         val BASE_URL = "http://192.168.40.92:8083"
 
+        val GOODS_INFO_ID = "goods_info_id"
 
         val PAGE_SIZE = 10
 

@@ -52,4 +52,9 @@ interface ApiService {
     @POST("/kzj/api/search_goods_by_cid.htm")
     fun loadRecommendHomeDatas(@Field("pageNo") pageNo: Int?, @Field("pageSize") pageSize: Int?,@Field("c_id") cid: String?)
             : Observable<BaseResponse<HomeRecommendEntity>>
+
+
+    @FormUrlEncoded
+    @POST("/kzj/api/get_goods_info.htm")
+    fun requestGoodsDetail(@FieldMap params: MutableMap<String, String>?): Observable<BaseResponse<GoodsDetailEntity>>
 }

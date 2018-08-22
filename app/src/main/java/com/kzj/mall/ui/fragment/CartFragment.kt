@@ -98,9 +98,9 @@ class CartFragment : BaseFragment<IPresenter, FragmentCartBinding>(), View.OnCli
 
 
         cartAdapter?.setOnItemClickListener { adapter, view, position ->
-            val intent = Intent(context, GoodsDetailActivity::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            startActivity(intent)
+//            val intent = Intent(context, GoodsDetailActivity::class.java)
+//            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+//            startActivity(intent)
         }
 
         cartAdapter?.setOnItemChildClickListener { adapter, view, position ->

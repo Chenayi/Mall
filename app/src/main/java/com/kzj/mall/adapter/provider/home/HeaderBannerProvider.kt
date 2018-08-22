@@ -18,6 +18,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.github.florent37.glidepalette.BitmapPalette
 import com.github.florent37.glidepalette.GlidePalette
 import com.kzj.mall.GlideApp
+import com.kzj.mall.widget.IndictorView
 import com.makeramen.roundedimageview.RoundedImageView
 import com.zhouwei.mzbanner.MZBannerView
 import com.zhouwei.mzbanner.holder.MZHolderCreator
@@ -50,7 +51,10 @@ class HeaderBannerProvider : BaseItemProvider<HomeHeaderBannerEntity, BaseViewHo
         if (isInitialized == false) {
             val banners = data?.adss
             mMZBanner = helper?.getView(R.id.banner)
-            mMZBanner?.setIndicatorRes(R.drawable.indicator_default, R.drawable.indicator_sel)
+            mMZBanner?.setIndicatorVisible(false)
+            val indictorView = helper?.getView<IndictorView>(R.id.indicator)
+            indictorView?.setIndicatorsSize(banners?.size!!)
+            indictorView?.setSelectIndex(0)
             mMZBanner?.setPages(banners, object : MZHolderCreator<BannerViewHolder> {
                 override fun createViewHolder(): BannerViewHolder {
                     val bannerViewHolder = BannerViewHolder(banners?.size, helper?.getView(R.id.tv_header))
@@ -65,6 +69,7 @@ class HeaderBannerProvider : BaseItemProvider<HomeHeaderBannerEntity, BaseViewHo
                 }
 
                 override fun onPageSelected(position: Int) {
+                    indictorView?.setSelectIndex(position)
                     val color = mColors?.get(position)
                     color?.let {
                         helper?.getView<TextView>(R.id.tv_header)?.setBackgroundColor(it)

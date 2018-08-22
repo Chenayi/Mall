@@ -40,9 +40,9 @@ class CartGroupProvider: BaseItemProvider<CartGroupEntity,BaseViewHolder>() {
         rvGroup?.layoutManager = LinearLayoutManager(mContext)
         val groupAdapter = GroupAdapter(data?.groups!!)
         groupAdapter?.setOnItemClickListener { adapter, view, position ->
-            val intent = Intent(mContext, GoodsDetailActivity::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            mContext?.startActivity(intent)
+//            val intent = Intent(mContext, GoodsDetailActivity::class.java)
+//            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+//            mContext?.startActivity(intent)
         }
         rvGroup?.adapter = groupAdapter
     }

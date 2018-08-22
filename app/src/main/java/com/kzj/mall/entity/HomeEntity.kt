@@ -10,4 +10,5 @@ class HomeEntity {
     var promotionalAd: HomeChoiceEntity.PromotionalAd? = null
     var dailyBuy: MutableList<HomeFlashSaleEntity.DailyBuy>? = null
     var askList: MutableList<HomeAskAnswerEntity.AskList>? = null
+    var qingqu:MutableList<SexToyEntity.SexToys>?=null
 }

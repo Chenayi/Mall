@@ -51,7 +51,7 @@
                 android:gravity="center"
                 android:text="百万男性常见症状"
                 android:textColor="#8A9099"
-                android:textSize="9dp" />
+                android:textSize="11dp" />
         </LinearLayout>
 
         <View
@@ -89,7 +89,7 @@
                         android:layout_marginTop="7dp"
                         android:text="无法勃起"
                         android:textColor="#6A6E75"
-                        android:textSize="11dp" />
+                        android:textSize="12dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -110,7 +110,7 @@
                         android:layout_marginTop="7dp"
                         android:text="硬度不够"
                         android:textColor="#6A6E75"
-                        android:textSize="11dp" />
+                        android:textSize="12dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -131,7 +131,7 @@
                         android:layout_marginTop="7dp"
                         android:text="早泄"
                         android:textColor="#6A6E75"
-                        android:textSize="11dp" />
+                        android:textSize="12dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -152,7 +152,7 @@
                         android:layout_marginTop="7dp"
                         android:text="性欲减退"
                         android:textColor="#6A6E75"
-                        android:textSize="11dp" />
+                        android:textSize="12dp" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -180,7 +180,7 @@
                         android:layout_marginTop="7dp"
                         android:text="遗精"
                         android:textColor="#6A6E75"
-                        android:textSize="11dp" />
+                        android:textSize="12dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -201,7 +201,7 @@
                         android:layout_marginTop="7dp"
                         android:text="手淫过度"
                         android:textColor="#6A6E75"
-                        android:textSize="11dp" />
+                        android:textSize="12dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -222,7 +222,7 @@
                         android:layout_marginTop="7dp"
                         android:text="性部位溃烂"
                         android:textColor="#6A6E75"
-                        android:textSize="11dp" />
+                        android:textSize="12dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -243,7 +243,7 @@
                         android:layout_marginTop="7dp"
                         android:text="少精弱精"
                         android:textColor="#6A6E75"
-                        android:textSize="11dp" />
+                        android:textSize="12dp" />
                 </LinearLayout>
 
             </LinearLayout>

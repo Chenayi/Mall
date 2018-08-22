@@ -19,6 +19,7 @@ import com.kzj.mall.base.BaseFragment
 import com.kzj.mall.base.IPresenter
 import com.kzj.mall.databinding.FragmentGoodsInfoBinding
 import com.kzj.mall.di.component.AppComponent
+import com.kzj.mall.entity.GoodsDetailEntity
 import com.kzj.mall.event.*
 import com.kzj.mall.ui.dialog.DetailMorePop
 import com.kzj.mall.ui.dialog.GoodsSpecDialog
@@ -113,7 +114,6 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
         mBinding?.rlBanner?.requestLayout()
         bannerHeight = screenWidth
 
-        val advDatas = advDatas()
         mBinding?.banner?.setAdapter(BGABanner.Adapter<ImageView, String> { banner, itemView, model, position ->
             GlideApp.with(this)
                     .load(model)
@@ -130,24 +130,28 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
             }
 
             override fun onPageSelected(position: Int) {
-                mBinding?.tvBannerNum?.setText((position + 1).toString() + "/" + advDatas.size)
+                mBinding?.tvBannerNum?.setText((position + 1).toString() + "/" + mBinding?.banner?.views?.size?.toString())
             }
 
         })
-        mBinding?.tvBannerNum?.setText("1/" + advDatas.size)
-        mBinding?.banner?.setData(advDatas, null)
+        mBinding?.banner?.setData(ArrayList(), null)
     }
 
-    private fun advDatas(): MutableList<String> {
-        var banners = ArrayList<String>()
-        val banner1 = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1530510861413&di=c9f7439a5a5d4c57435e5eb7f2772817&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F01a0d4582d8320a84a0e282be8a02e.jpg"
-        val banner3 = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1530523369994&di=60f87ef08f23f8dab2b36d5ed57f5dcd&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F01ac39597adf9da8012193a352df31.jpg"
-        val banner2 = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1530510861412&di=c51db760c9ecc789cdae3b334715aef6&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F0161c95690b86032f87574beaa54c2.jpg"
-        banners.add(banner1)
-        banners.add(banner3)
-        banners.add(banner2)
-        banners.add(banner3)
-        return banners
+    /**
+     * 更新数据
+     */
+    fun updateDatas(goodsDetailEntity: GoodsDetailEntity?){
+        goodsDetailEntity?.let {
+            val goodsImgs = it.gn?.goodsImgs
+            val advDatas = ArrayList<String>()
+            for (i in 0 until goodsImgs?.size!!){
+                advDatas.add(goodsImgs?.get(i).imageArtworkName!!)
+            }
+            mBinding?.banner?.setData(advDatas, null)
+            if (advDatas.size > 0){
+                mBinding?.tvBannerNum?.setText("1/" + advDatas.size)
+            }
+        }
     }
 
 

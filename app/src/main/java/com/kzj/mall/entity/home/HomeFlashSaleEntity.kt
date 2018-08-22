@@ -13,5 +13,6 @@ class HomeFlashSaleEntity : IHomeEntity {
         var goodsPrice: String? = null
         var marketPrice: String? = null
         var imgUrl: String? = null
+        var goodsInfoId: String? = null
     }
 }
