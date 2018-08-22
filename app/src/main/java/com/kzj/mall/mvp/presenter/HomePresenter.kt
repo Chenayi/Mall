@@ -1,14 +1,11 @@
 package com.kzj.mall.mvp.presenter
 
 import android.content.Context
-import com.blankj.utilcode.util.LogUtils
 import com.kzj.mall.base.BaseObserver
 import com.kzj.mall.base.BasePresenter
 import com.kzj.mall.di.scope.FragmentScope
 import com.kzj.mall.entity.HomeEntity
-import com.kzj.mall.entity.SearchEntity
 import com.kzj.mall.entity.home.HomeRecommendEntity
-import com.kzj.mall.entity.home.IHomeEntity
 import com.kzj.mall.http.RxScheduler
 import com.kzj.mall.mvp.contract.HomeContract
 import io.reactivex.disposables.Disposable
@@ -24,6 +21,32 @@ constructor(model: HomeContract.Model?, view: HomeContract.View?, context: Conte
      */
     fun requestHomeDatas() {
         model?.requestHomeDatas()
+                ?.compose(RxScheduler.compose())
+                ?.subscribe(object : BaseObserver<HomeEntity>() {
+                    override fun onSubscribe(d: Disposable) {
+                        addDisposable(d)
+                    }
+
+                    override fun onHandleSuccess(t: HomeEntity?) {
+                        view?.showHomeDatas(t)
+                    }
+
+                    override fun onHandleError(code: Int, msg: String?) {
+                        view?.onError(code, msg)
+                    }
+
+                    override fun onHandleAfter() {
+                        view?.hideLoading()
+                    }
+
+                })
+    }
+
+    /**
+     * 男科
+     */
+    fun requestAndrologyDatas() {
+        model?.requestAndrologyDatas()
                 ?.compose(RxScheduler.compose())
                 ?.subscribe(object : BaseObserver<HomeEntity>() {
                     override fun onSubscribe(d: Disposable) {

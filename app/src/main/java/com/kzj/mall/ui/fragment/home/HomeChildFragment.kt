@@ -66,7 +66,6 @@ class HomeChildFragment : BaseHomeChildListFragment() {
             }
         })
 
-        mBinding?.refreshLayout?.isEnabled = true
         mBinding?.refreshLayout?.setOnRefreshListener {
             mPresenter?.requestHomeDatas()
         }

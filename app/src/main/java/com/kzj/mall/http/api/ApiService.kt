@@ -48,6 +48,9 @@ interface ApiService {
     @POST("/kzj/api/app_index.htm")
     fun requeseHomeDatas(): Observable<BaseResponse<HomeEntity>>
 
+    @POST("/kzj/api/app_nanke_index.htm")
+    fun requestAndrologyDatas():Observable<BaseResponse<HomeEntity>>
+
     @FormUrlEncoded
     @POST("/kzj/api/search_goods_by_cid.htm")
     fun loadRecommendHomeDatas(@Field("pageNo") pageNo: Int?, @Field("pageSize") pageSize: Int?,@Field("c_id") cid: String?)

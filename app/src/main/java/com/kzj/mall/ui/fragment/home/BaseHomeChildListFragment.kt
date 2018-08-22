@@ -45,10 +45,7 @@ abstract class BaseHomeChildListFragment : BaseFragment<HomePresenter, FragmentB
     }
 
     override fun initData() {
-        mBinding?.refreshLayout?.isEnabled = false
-
         backgroundColor = ContextCompat.getColor(context!!, R.color.colorPrimary)
-
         val layoutManager = LinearLayoutManager(context)
         mBinding?.rvHome?.layoutManager = layoutManager
         listAdapter = ListAdapter(ArrayList())
