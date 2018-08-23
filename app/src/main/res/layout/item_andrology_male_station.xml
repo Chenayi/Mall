@@ -14,13 +14,10 @@
         android:gravity="center"
         android:orientation="horizontal">
 
-        <TextView
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="男性加油站"
-            android:textColor="#2E3033"
-            android:textSize="17dp"
-            android:textStyle="bold" />
+            android:src="@mipmap/man_station" />
 
     </LinearLayout>
 
@@ -32,13 +29,54 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="171dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:id="@+id/ll_man_station_1">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="13dp"
+                android:lines="1"
+                android:singleLine="true"
+                android:text="少精弱精"
+                android:textColor="@color/c_2e3033"
+                android:textSize="15dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="4dp"
+                android:background="#1ACDF3"
+                android:lines="1"
+                android:paddingBottom="2dp"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:paddingTop="2dp"
+                android:singleLine="true"
+                android:text="生精精选佳品"
+                android:textColor="@color/white"
+                android:textSize="11dp" />
+
+            <ImageView
+                android:layout_width="101dp"
+                android:layout_height="107dp"
+                android:layout_gravity="right"
+                android:layout_marginBottom="7dp"
+                android:layout_marginRight="6dp"
+                android:layout_marginTop="10dp"
+                android:src="@mipmap/man_station_1" />
 
 
         </LinearLayout>
@@ -58,9 +96,54 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
+                android:id="@+id/ll_man_station_2"
                 android:orientation="horizontal">
 
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="13dp"
+                        android:lines="1"
+                        android:singleLine="true"
+                        android:text="手淫过度"
+                        android:textColor="@color/c_2e3033"
+                        android:textSize="15dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="4dp"
+                        android:background="#1ACDF3"
+                        android:lines="1"
+                        android:paddingBottom="2dp"
+                        android:paddingLeft="4dp"
+                        android:paddingRight="4dp"
+                        android:paddingTop="2dp"
+                        android:singleLine="true"
+                        android:text="补益肺肾"
+                        android:textColor="@color/white"
+                        android:textSize="11dp" />
+                </LinearLayout>
+
+
+                <ImageView
+                    android:layout_width="57dp"
+                    android:layout_height="57dp"
+                    android:layout_gravity="bottom"
+                    android:layout_marginBottom="6dp"
+                    android:layout_marginRight="8dp"
+                    android:src="@color/gray_default" />
             </LinearLayout>
 
             <View
@@ -72,9 +155,54 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
+                android:id="@+id/ll_man_station_3"
                 android:orientation="horizontal">
 
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="13dp"
+                        android:lines="1"
+                        android:singleLine="true"
+                        android:text="性部位溃烂"
+                        android:textColor="@color/c_2e3033"
+                        android:textSize="15dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="4dp"
+                        android:background="#1ACDF3"
+                        android:lines="1"
+                        android:paddingBottom="2dp"
+                        android:paddingLeft="4dp"
+                        android:paddingRight="4dp"
+                        android:paddingTop="2dp"
+                        android:singleLine="true"
+                        android:text="养阴生肌"
+                        android:textColor="@color/white"
+                        android:textSize="11dp" />
+                </LinearLayout>
+
+
+                <ImageView
+                    android:layout_width="57dp"
+                    android:layout_height="57dp"
+                    android:layout_gravity="bottom"
+                    android:layout_marginBottom="6dp"
+                    android:layout_marginRight="8dp"
+                    android:src="@mipmap/man_station_3" />
             </LinearLayout>
         </LinearLayout>
 
@@ -88,14 +216,52 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="117dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:id="@+id/ll_man_station_4"
             android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="13dp"
+                android:lines="1"
+                android:singleLine="true"
+                android:text="性欲减退"
+                android:textColor="@color/c_2e3033"
+                android:textSize="15dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/c_2e3033"
+                android:lines="1"
+                android:paddingBottom="2dp"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:paddingTop="2dp"
+                android:singleLine="true"
+                android:text="补肾佳选"
+                android:textColor="@color/white"
+                android:textSize="11dp" />
+
+            <ImageView
+                android:layout_width="53dp"
+                android:layout_height="53dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="10dp"
+                android:src="@mipmap/man_station_4" />
 
         </LinearLayout>
 
@@ -106,10 +272,47 @@
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:id="@+id/ll_man_station_5"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="13dp"
+                android:lines="1"
+                android:singleLine="true"
+                android:text="阴虚火旺"
+                android:textColor="@color/c_2e3033"
+                android:textSize="15dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/c_2e3033"
+                android:lines="1"
+                android:paddingBottom="2dp"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:paddingTop="2dp"
+                android:singleLine="true"
+                android:text="至尊持久"
+                android:textColor="@color/white"
+                android:textSize="11dp" />
+
+            <ImageView
+                android:layout_width="53dp"
+                android:layout_height="53dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="10dp"
+                android:src="@mipmap/man_station_5" />
         </LinearLayout>
 
         <View
@@ -119,10 +322,47 @@
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:id="@+id/ll_man_station_6"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="13dp"
+                android:lines="1"
+                android:singleLine="true"
+                android:text="无法勃起"
+                android:textColor="@color/c_2e3033"
+                android:textSize="15dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/c_2e3033"
+                android:lines="1"
+                android:paddingBottom="2dp"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:paddingTop="2dp"
+                android:singleLine="true"
+                android:text="不同的感官"
+                android:textColor="@color/white"
+                android:textSize="11dp" />
+
+            <ImageView
+                android:layout_width="53dp"
+                android:layout_height="53dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="10dp"
+                android:src="@mipmap/man_station_6" />
         </LinearLayout>
 
         <View
@@ -132,10 +372,47 @@
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:id="@+id/ll_man_station_7"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="13dp"
+                android:lines="1"
+                android:singleLine="true"
+                android:text="遗精"
+                android:textColor="@color/c_2e3033"
+                android:textSize="15dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/c_2e3033"
+                android:lines="1"
+                android:paddingBottom="2dp"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:paddingTop="2dp"
+                android:singleLine="true"
+                android:text="满399减200"
+                android:textColor="@color/white"
+                android:textSize="11dp" />
+
+            <ImageView
+                android:layout_width="53dp"
+                android:layout_height="53dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="10dp"
+                android:src="@mipmap/man_station_7" />
         </LinearLayout>
 
     </LinearLayout>

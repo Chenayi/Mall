@@ -16,5 +16,12 @@ class AndrologyStationProvider : BaseItemProvider<AndrologyStationEntity, BaseVi
     }
 
     override fun convert(helper: BaseViewHolder?, data: AndrologyStationEntity?, position: Int) {
+        helper?.addOnClickListener(R.id.ll_man_station_1)
+                ?.addOnClickListener(R.id.ll_man_station_2)
+                ?.addOnClickListener(R.id.ll_man_station_3)
+                ?.addOnClickListener(R.id.ll_man_station_4)
+                ?.addOnClickListener(R.id.ll_man_station_5)
+                ?.addOnClickListener(R.id.ll_man_station_6)
+                ?.addOnClickListener(R.id.ll_man_station_7)
     }
 }

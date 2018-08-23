@@ -24,6 +24,8 @@ import com.kzj.mall.ui.activity.GoodsDetailActivity
 import com.kzj.mall.widget.ExpandLoadMoewView
 import android.animation.ObjectAnimator
 import android.animation.PropertyValuesHolder
+import com.kzj.mall.ui.activity.SearchActivity
+import com.kzj.mall.ui.activity.SearchWithIdActivity
 
 
 abstract class BaseHomeChildListFragment : BaseFragment<HomePresenter, FragmentBaseHomeChildListBinding>(), HomeContract.View {
@@ -64,6 +66,7 @@ abstract class BaseHomeChildListFragment : BaseFragment<HomePresenter, FragmentB
             when (view?.id) {
                 R.id.ll_yp9 -> {
 //                    val intent = Intent(context, GoodsDetailActivity::class.java)
+//                    intent
 //                    intent?.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
 //                    startActivity(intent)
                 }
@@ -82,6 +85,121 @@ abstract class BaseHomeChildListFragment : BaseFragment<HomePresenter, FragmentB
 //                    intent?.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
 //                    startActivity(intent)
                 }
+
+            //以下是品牌跳转
+                R.id.ll_brand_1 -> {
+                    brandJump("4179","杜蕾斯")
+                }
+                R.id.ll_brand_2 -> {
+                    brandJump("4504","汇仁")
+                }
+                R.id.ll_brand_3 -> {
+                    brandJump("4324","陈李济")
+                }
+                R.id.ll_brand_4 -> {
+                    brandJump("4257","汤臣倍健")
+                }
+                R.id.ll_brand_5 -> {
+                    brandJump("4410","东阿阿胶")
+                }
+                R.id.ll_brand_6 -> {
+                    brandJump("4123","罗浮山国药")
+                }
+                R.id.ll_brand_7 -> {
+                    brandJump("4199","九芝堂")
+                }
+                R.id.ll_brand_8 -> {
+                    brandJump("4119","同仁堂")
+                }
+                R.id.ll_brand_9 -> {
+                    brandJump("4526","999")
+                }
+                R.id.ll_brand_10 -> {
+                    brandJump("6287","三诺")
+                }
+                R.id.ll_brand_11 -> {
+                    brandJump("7428","碧生源")
+                }
+                R.id.ll_brand_12 -> {
+                    brandJump("4258","香雪制药")
+                }
+
+
+                //以下是疾病跳转
+                R.id.ll_s_1->{
+                    jumpSearch("无法勃起")
+                }
+                R.id.ll_s_2->{
+                    jumpSearch("硬度不够")
+                }
+                R.id.ll_s_3->{
+                    jumpSearch("早泄")
+                }
+                R.id.ll_s_4->{
+                    jumpSearch("性欲退减")
+                }
+                R.id.ll_s_5->{
+                    jumpSearch("遗精")
+                }
+                R.id.ll_s_6->{
+                    jumpSearch("手淫过度")
+                }
+                R.id.ll_s_7->{
+                    jumpSearch("性部位溃烂")
+                }
+                R.id.ll_s_8->{
+                    jumpSearch("少精弱精")
+                }
+
+
+                //以下是男科分类点击的跳转
+                R.id.ll_c_1->{
+                    jumpGoodsDetail("2018")
+                }
+                R.id.ll_c_2->{
+                    jumpGoodsDetail("372")
+                }
+                R.id.ll_c_3->{
+                    jumpGoodsDetail("41297")
+                }
+                R.id.ll_c_4->{
+                    jumpGoodsDetail("21536")
+                }
+                R.id.ll_c_5->{
+                    jumpGoodsDetail("2223")
+                }
+                R.id.ll_c_6->{
+                    jumpGoodsDetail("41259")
+                }
+                R.id.ll_c_7->{
+                    jumpGoodsDetail("41259")
+                }
+                R.id.ll_c_8->{
+                    jumpGoodsDetail("37597")
+                }
+
+                //以下是男性加油站跳转
+                R.id.ll_man_station_1->{
+                    jumpGoodsDetail("27158")
+                }
+                R.id.ll_man_station_2->{
+                    jumpGoodsDetail("36096")
+                }
+                R.id.ll_man_station_3->{
+                    jumpGoodsDetail("45425")
+                }
+                R.id.ll_man_station_4->{
+                    jumpGoodsDetail("21536")
+                }
+                R.id.ll_man_station_5->{
+                    jumpGoodsDetail("402")
+                }
+                R.id.ll_man_station_6->{
+                    jumpGoodsDetail("373")
+                }
+                R.id.ll_man_station_7->{
+                    jumpGoodsDetail("2018")
+                }
             }
         }
 
@@ -99,6 +217,34 @@ abstract class BaseHomeChildListFragment : BaseFragment<HomePresenter, FragmentB
         mBinding?.ivTop?.setOnClickListener {
             mBinding?.rvHome?.scrollToPosition(0)
         }
+    }
+
+    protected fun jumpGoodsDetail(goodsInfoId:String){
+        val intent = Intent(context,GoodsDetailActivity::class.java)
+        intent?.putExtra(C.GOODS_INFO_ID,goodsInfoId)
+        intent?.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(intent)
+    }
+
+    /**
+     * 搜索跳转
+     */
+    protected fun jumpSearch(keywords:String){
+        val intent = Intent(context, SearchActivity::class.java)
+        intent.putExtra("keywords", keywords)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(intent)
+    }
+
+    /**
+     * 品牌跳转
+     */
+    protected fun brandJump(brandID:String,title:String){
+        val intent = Intent(context, SearchWithIdActivity::class.java)
+        intent.putExtra("brandID", brandID)
+        intent.putExtra("title", title)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(intent)
     }
 
     protected abstract fun useRoundedCorners(): Boolean

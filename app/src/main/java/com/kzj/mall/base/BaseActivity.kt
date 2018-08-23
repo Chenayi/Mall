@@ -91,7 +91,7 @@ abstract class BaseActivity<P : IPresenter, D : ViewDataBinding> : SupportActivi
             mLoadingDialog = LoadingDialog
                     .Builder(this)
                     .setCancelOutside(false)
-                    .setBackCancelable(false)
+                    .setBackCancelable(true)
                     .setShowMessage(false)
                     .create()
         }

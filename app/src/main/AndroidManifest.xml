@@ -61,6 +61,7 @@
         <activity android:name=".ui.activity.OrderDetailActivity" />
         <activity android:name=".ui.activity.BrowseRecordsActivity" />
         <activity android:name=".ui.activity.SearchActivity" />
+        <activity android:name=".ui.activity.SearchWithIdActivity" />
     </application>
 
 </manifest>

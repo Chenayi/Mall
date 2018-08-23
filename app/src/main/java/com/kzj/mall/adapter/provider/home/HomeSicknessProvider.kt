@@ -19,5 +19,13 @@ class HomeSicknessProvider : BaseItemProvider<HomeSicknessEntity, BaseViewHolder
     }
 
     override fun convert(helper: BaseViewHolder?, data: HomeSicknessEntity?, position: Int) {
+        helper?.addOnClickListener(R.id.ll_s_1)
+                ?.addOnClickListener(R.id.ll_s_2)
+                ?.addOnClickListener(R.id.ll_s_3)
+                ?.addOnClickListener(R.id.ll_s_4)
+                ?.addOnClickListener(R.id.ll_s_5)
+                ?.addOnClickListener(R.id.ll_s_6)
+                ?.addOnClickListener(R.id.ll_s_7)
+                ?.addOnClickListener(R.id.ll_s_8)
     }
 }

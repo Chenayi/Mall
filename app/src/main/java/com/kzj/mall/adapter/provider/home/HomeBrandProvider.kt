@@ -19,6 +19,17 @@ class HomeBrandProvider : BaseItemProvider<HomeBrandEntity, BaseViewHolder>() {
     }
 
     override fun convert(helper: BaseViewHolder?, data: HomeBrandEntity?, position: Int) {
-
+        helper?.addOnClickListener(R.id.ll_brand_1)
+                ?.addOnClickListener(R.id.ll_brand_2)
+                ?.addOnClickListener(R.id.ll_brand_3)
+                ?.addOnClickListener(R.id.ll_brand_4)
+                ?.addOnClickListener(R.id.ll_brand_5)
+                ?.addOnClickListener(R.id.ll_brand_6)
+                ?.addOnClickListener(R.id.ll_brand_7)
+                ?.addOnClickListener(R.id.ll_brand_8)
+                ?.addOnClickListener(R.id.ll_brand_9)
+                ?.addOnClickListener(R.id.ll_brand_10)
+                ?.addOnClickListener(R.id.ll_brand_11)
+                ?.addOnClickListener(R.id.ll_brand_12)
     }
 }

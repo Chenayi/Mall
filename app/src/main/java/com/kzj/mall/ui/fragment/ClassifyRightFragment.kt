@@ -1,5 +1,6 @@
 package com.kzj.mall.ui.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
@@ -18,6 +19,7 @@ import com.kzj.mall.di.module.ClassifyRightModule
 import com.kzj.mall.entity.ClassifyRightEntity
 import com.kzj.mall.mvp.contract.ClassifyRightContract
 import com.kzj.mall.mvp.presenter.ClassifyRightPresenter
+import com.kzj.mall.ui.activity.SearchWithIdActivity
 import com.kzj.mall.utils.LocalDatas
 
 class ClassifyRightFragment : BaseFragment<ClassifyRightPresenter, FragmentClassifyRightBinding>(), ClassifyRightContract.View {
@@ -53,8 +55,18 @@ class ClassifyRightFragment : BaseFragment<ClassifyRightPresenter, FragmentClass
         val headerView = layoutInflater.inflate(R.layout.header_classify_right, mBinding?.rvClassifyRight?.parent as ViewGroup, false)
         classifyRightAdapter = ClassifyRightAdapter2(ArrayList())
         classifyRightAdapter?.setHeaderView(headerView)
+        classifyRightAdapter?.setOnItemClickListener { adapter, view, position ->
+            val intent =  Intent(context,SearchWithIdActivity::class.java)
+            intent?.putExtra("title",classifyRightAdapter?.getItem(position)?.cat_name)
+            intent?.putExtra("cid",classifyRightAdapter?.getItem(position)?.cat_id.toString())
+            intent?.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
+        }
         mBinding?.rvClassifyRight?.layoutManager = GridLayoutManager(context, 2)
         mBinding?.rvClassifyRight?.adapter = classifyRightAdapter
+
+
+
         mPresenter?.requestClassiftRight(cid)
     }
 

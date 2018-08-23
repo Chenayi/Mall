@@ -2,7 +2,6 @@ package com.kzj.mall.ui.activity
 
 import android.content.Intent
 import android.graphics.Color
-import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.GridLayoutManager
@@ -10,7 +9,6 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
 import android.view.View
-import android.view.WindowManager
 import com.blankj.utilcode.util.ToastUtils
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.kzj.mall.C
@@ -18,67 +16,74 @@ import com.kzj.mall.R
 import com.kzj.mall.adapter.SearchGridAdapter
 import com.kzj.mall.adapter.SearchListAdapter
 import com.kzj.mall.base.BaseActivity
-import com.kzj.mall.databinding.ActivitySearchBinding
+import com.kzj.mall.databinding.ActivitySearchWithIdBinding
 import com.kzj.mall.di.component.AppComponent
-import com.kzj.mall.di.component.DaggerSearchComponent
-import com.kzj.mall.di.module.SearchModule
+import com.kzj.mall.di.component.DaggerSearchWithIdComponent
+import com.kzj.mall.di.module.SearchWithIdModule
 import com.kzj.mall.entity.SearchEntity
-import com.kzj.mall.mvp.contract.SearchContract
-import com.kzj.mall.mvp.presenter.SearchPresenter
-import com.kzj.mall.ui.dialog.DetailMorePop
+import com.kzj.mall.mvp.contract.SearchWithIdContract
+import com.kzj.mall.mvp.presenter.SearchWithIdPresenter
 import com.kzj.mall.widget.GoodsSortView
-import com.kzj.mall.widget.HotSearchView
+import com.kzj.mall.widget.RootLayout
 import com.kzj.mall.widget.SearchBar
 
-class SearchActivity : BaseActivity<SearchPresenter, ActivitySearchBinding>()
-        , HotSearchView.OnTagClickListener
-        , SearchBar.OnSearchListener
-        , SearchBar.OnBackClickListener
-        , SearchBar.OnModeChangeListener
-        , SearchContract.View
+class SearchWithIdActivity : BaseActivity<SearchWithIdPresenter, ActivitySearchWithIdBinding>()
+        , SearchWithIdContract.View
         , GoodsSortView.OnSortChangeListener
         , BaseQuickAdapter.RequestLoadMoreListener
         , BaseQuickAdapter.OnItemClickListener
         , SwipeRefreshLayout.OnRefreshListener {
+
     private var searchListAdapter: SearchListAdapter? = null
     private var searchGridAdapter: SearchGridAdapter? = null
     private var manager: RecyclerView.LayoutManager? = null
-
-    private var keywords: String? = null
     private var curPage = 1
 
     private var sort = GoodsSortView.S_DEFAULT
     private var order = "DESC"
     private var typeWhat: String? = null
 
+    private var mCid: String? = null
+    private var mBrandID: String? = null
+    private var mTitle: String? = null
+
+    private var rootLayout: RootLayout? = null
+    private var mode = SearchBar.MODE_LIST
+
     /**
      * 切换前rv的第一个item的位置
      */
     private var lastPostion: Int = 0
 
-    override fun getLayoutId() = R.layout.activity_search
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        keywords = intent?.getStringExtra("keywords")
-        super.onCreate(savedInstanceState)
-    }
+    override fun getLayoutId() = R.layout.activity_search_with_id
 
     override fun setupComponent(appComponent: AppComponent?) {
-        DaggerSearchComponent.builder()
+        DaggerSearchWithIdComponent.builder()
                 .appComponent(appComponent)
-                .searchModule(SearchModule(this))
+                .searchWithIdModule(SearchWithIdModule(this))
                 .build()
                 .inject(this)
     }
 
     override fun initData() {
-        mBinding?.hotSearchView?.setDatas(hotSearchDatas())
-        mBinding?.hotSearchView?.setOnTagClickListener(this)
-        mBinding?.searchBar?.setOnSearchListener(this)
-        mBinding?.searchBar?.setOnBackClickListener(this)
-        mBinding?.searchBar?.setOnModeChangeListener(this)
-        mBinding?.goodsSortView?.setOnSortChangeListener(this)
+        mCid = intent?.getStringExtra("cid")
+        mBrandID = intent?.getStringExtra("brandID")
+        mTitle = intent?.getStringExtra("title")
 
+        rootLayout = RootLayout.getInstance(this)
+        rootLayout?.setTitle(mTitle)
+                ?.setOnRightOnClickListener {
+                    if (mode == SearchBar.MODE_LIST) {
+                        mode = SearchBar.MODE_GRID
+                    } else {
+                        mode = SearchBar.MODE_LIST
+                    }
+
+                    onModeChange()
+                }
+
+        mBinding?.refreshLayout?.setOnRefreshListener(this)
+        mBinding?.goodsSortView?.setOnSortChangeListener(this)
         searchListAdapter = SearchListAdapter(ArrayList())
         searchGridAdapter = SearchGridAdapter(ArrayList())
         searchListAdapter?.setEnableLoadMore(true)
@@ -90,44 +95,12 @@ class SearchActivity : BaseActivity<SearchPresenter, ActivitySearchBinding>()
         manager = LinearLayoutManager(this)
         mBinding?.rvGoods?.layoutManager = manager
         mBinding?.rvGoods?.adapter = searchListAdapter
-        mBinding?.refreshLayout?.setOnRefreshListener(this)
 
-        if (TextUtils.isEmpty(keywords)) {
-            keywords = "感冒药"
-        }else{
-            mBinding?.hotSearchView?.visibility = View.GONE
-            mBinding?.llGoodsContent?.visibility = View.VISIBLE
-            mBinding?.searchBar?.startSearch(keywords)
-            searchWithDefault(true)
-        }
-    }
-
-    override fun getKeyboardMode(): Int {
-        if (!TextUtils.isEmpty(keywords)){
-            return WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN or WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN
-        }
-        return WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN or WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE
+        searchWithDefault(true)
     }
 
     /**
-     * 触发加载更多
-     */
-    override fun onLoadMoreRequested() {
-        curPage += 1
-        startSearch(false)
-    }
-
-    /**
-     * 下拉刷新
-     */
-    override fun onRefresh() {
-        curPage = 1
-        startSearch(false)
-    }
-
-
-    /**
-     * item 点击
+     * item点击
      */
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
         val intent = Intent(this, GoodsDetailActivity::class.java)
@@ -140,106 +113,117 @@ class SearchActivity : BaseActivity<SearchPresenter, ActivitySearchBinding>()
     }
 
     /**
-     * 开始搜索
+     * 默认
      */
-    private fun startSearch(loading: Boolean) {
+    private fun searchWithDefault(isloading: Boolean?) {
+        if (!TextUtils.isEmpty(mCid)) {
+            mPresenter?.searchWithCidDefault(mCid!!, isloading, curPage)
+            return
+        }
+
+        if (!TextUtils.isEmpty(mBrandID)) {
+            mPresenter?.searchWithBrandIDDefault(mBrandID!!, isloading, curPage)
+            return
+        }
+    }
+
+    /**
+     * 销量
+     */
+    private fun searchWithSales(isloading: Boolean?) {
+        if (!TextUtils.isEmpty(mCid)) {
+            mPresenter?.searchWithCidSales(mCid!!, isloading, curPage)
+            return
+        }
+
+        if (!TextUtils.isEmpty(mBrandID)) {
+            mPresenter?.searchWithBrandIDSales(mBrandID!!, isloading, curPage)
+            return
+        }
+    }
+
+    /**
+     * 价格
+     */
+    private fun searchWithPrice(isloading: Boolean?) {
+        if (!TextUtils.isEmpty(mCid)) {
+            mPresenter?.searchWithCidPrice(mCid!!, order!!, isloading, curPage)
+            return
+        }
+
+        if (!TextUtils.isEmpty(mBrandID)) {
+            mPresenter?.searchWithBrandIDPrice(mBrandID!!, order!!, isloading, curPage)
+            return
+        }
+    }
+
+    /**
+     * 类型
+     */
+    private fun searchWithType(isloading: Boolean?) {
+        if (!TextUtils.isEmpty(mCid)) {
+            mPresenter?.searchWithCidType(mCid!!, typeWhat, isloading, curPage)
+            return
+        }
+
+        if (!TextUtils.isEmpty(mBrandID)) {
+            mPresenter?.searchWithBrandIDType(mBrandID!!, typeWhat, isloading, curPage)
+            return
+        }
+    }
+
+    /**
+     * 下拉刷新
+     */
+    override fun onRefresh() {
+        curPage = 1
         when (sort) {
             GoodsSortView.S_DEFAULT -> {
-                searchWithDefault(loading)
+                searchWithDefault(false)
             }
 
             GoodsSortView.S_SALES -> {
-                searchWithSales(loading)
+                searchWithSales(false)
             }
 
             GoodsSortView.S_PRICE -> {
-                searchWithPrice(loading)
+                searchWithPrice(false)
             }
 
             GoodsSortView.S_TYPE -> {
-                searchWithType(loading)
+                searchWithType(false)
             }
         }
     }
 
     /**
-     * 默认
+     * 加载更多
      */
-    private fun searchWithDefault(loading: Boolean) {
-        mPresenter?.searchWithDefault(this.keywords!!, loading, curPage)
-    }
+    override fun onLoadMoreRequested() {
+        curPage += 1
+        when (sort) {
+            GoodsSortView.S_DEFAULT -> {
+                searchWithDefault(false)
+            }
 
-    /**
-     * 按销量
-     */
-    private fun searchWithSales(loading: Boolean) {
-        mPresenter?.searchWithSales(this.keywords!!, loading, curPage)
-    }
+            GoodsSortView.S_SALES -> {
+                searchWithSales(false)
+            }
 
-    /**
-     * 按价格
-     */
-    private fun searchWithPrice(loading: Boolean) {
-        mPresenter?.searchWithPrice(this.keywords!!, order!!, loading, curPage)
-    }
+            GoodsSortView.S_PRICE -> {
+                searchWithPrice(false)
+            }
 
-    /**
-     * 按类型
-     */
-    private fun searchWithType(loading: Boolean) {
-        mPresenter?.searchWithType(this.keywords!!, typeWhat, loading, curPage)
-    }
-
-    /**
-     * 热门搜索关键词
-     */
-    fun hotSearchDatas(): MutableList<String> {
-        val hotSearchDatas = ArrayList<String>()
-        hotSearchDatas?.add("金戈")
-        hotSearchDatas?.add("益安宁丸")
-        hotSearchDatas?.add("安宫牛黄丸")
-        hotSearchDatas?.add("舒筋健腰丸")
-        hotSearchDatas?.add("汇仁肾宝")
-        hotSearchDatas?.add("气血和")
-        hotSearchDatas?.add("健力多")
-        return hotSearchDatas
-    }
-
-    /**
-     * 热门关键词点击搜索
-     */
-    override fun onTagClick(position: Int, text: String?) {
-        mBinding?.searchBar?.startSearch(text)
-        mBinding?.hotSearchView?.visibility = View.GONE
-        mBinding?.llGoodsContent?.visibility = View.VISIBLE
-        searchWithLoading(text!!)
-    }
-
-    /**
-     * 搜索
-     */
-    override fun onSearch(text: String?) {
-        mBinding?.hotSearchView?.visibility = View.GONE
-        mBinding?.llGoodsContent?.visibility = View.VISIBLE
-        searchWithLoading(text!!)
-    }
-
-    /**
-     * 搜索
-     */
-    private fun searchWithLoading(keywords: String) {
-        curPage = 1
-        startSearch(true)
-        mBinding?.goodsSortView?.setDefault()
-        mBinding?.goodsSortView?.setPopDefault()
-        sort = GoodsSortView.S_DEFAULT
-        this.keywords = keywords
+            GoodsSortView.S_TYPE -> {
+                searchWithType(false)
+            }
+        }
     }
 
     /**
      * 模式切换
      */
-    override fun onModeChange(mode: Int) {
+    private fun onModeChange() {
         if (mode == SearchBar.MODE_LIST) {
             mBinding?.llContainer?.setBackgroundColor(Color.WHITE)
 
@@ -265,13 +249,9 @@ class SearchActivity : BaseActivity<SearchPresenter, ActivitySearchBinding>()
         }
     }
 
-    /**
-     * 排序切换
-     */
     override fun onSortChange(sort: Int?, order: String?, typeWhat: String?) {
         curPage = 1
-        this.sort = sort!!
-        when (this.sort) {
+        when (sort) {
             GoodsSortView.S_DEFAULT -> {
                 searchWithDefault(true)
             }
@@ -291,9 +271,11 @@ class SearchActivity : BaseActivity<SearchPresenter, ActivitySearchBinding>()
                 } else {
                     this.typeWhat = null
                 }
+
                 searchWithType(true)
             }
         }
+        this.sort = sort!!
     }
 
     /**
@@ -306,9 +288,6 @@ class SearchActivity : BaseActivity<SearchPresenter, ActivitySearchBinding>()
         mBinding?.rvGoods?.scrollToPosition(0)
     }
 
-    /**
-     * 加载更多
-     */
     override fun loadMoreSeccess(searchEntity: SearchEntity?) {
         mBinding?.refreshLayout?.isRefreshing = false
         searchEntity?.results?.data?.let {
@@ -334,20 +313,5 @@ class SearchActivity : BaseActivity<SearchPresenter, ActivitySearchBinding>()
 
     override fun onError(code: Int, msg: String?) {
         ToastUtils.showShort(msg)
-    }
-
-
-    override fun onBackClick() {
-        onBackPressedSupport()
-    }
-
-    override fun onBackPressedSupport() {
-        val openSearch = mBinding?.searchBar?.isOpenSearch()
-        val first = mBinding?.searchBar?.isFirst()
-        if (openSearch == true && first == false) {
-            mBinding?.searchBar?.closeSearch()
-            return
-        }
-        super.onBackPressedSupport()
     }
 }

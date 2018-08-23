@@ -19,5 +19,13 @@ class AndrologyClassifyProvider : BaseItemProvider<AndrologyClassifyEntity, Base
     }
 
     override fun convert(helper: BaseViewHolder?, data: AndrologyClassifyEntity?, position: Int) {
+        helper?.addOnClickListener(R.id.ll_c_1)
+                ?.addOnClickListener(R.id.ll_c_2)
+                ?.addOnClickListener(R.id.ll_c_3)
+                ?.addOnClickListener(R.id.ll_c_4)
+                ?.addOnClickListener(R.id.ll_c_5)
+                ?.addOnClickListener(R.id.ll_c_6)
+                ?.addOnClickListener(R.id.ll_c_7)
+                ?.addOnClickListener(R.id.ll_c_8)
     }
 }

@@ -38,6 +38,14 @@ interface ApiService {
     @POST("/kzj/api/search_goods.htm")
     fun search(@FieldMap params: MutableMap<String, String>?): Observable<BaseResponse<SearchEntity>>
 
+    @FormUrlEncoded
+    @POST("/kzj/api/search_goods_by_cid.htm")
+    fun searchWithCid(@FieldMap params: MutableMap<String, String>?): Observable<BaseResponse<SearchEntity>>
+
+    @FormUrlEncoded
+    @POST("/kzj/api/search_goods_by_brand.htm")
+    fun searchWithBrandId(@FieldMap params: MutableMap<String, String>?): Observable<BaseResponse<SearchEntity>>
+
     @POST("/kzj/api/get_category_one.htm")
     fun requestClassifyLeft(): Observable<BaseResponse<ClassifyLeftEntity>>
 
