@@ -133,8 +133,10 @@ class LocalDatas {
          */
         fun andrologyAdvBannerDatas(): MutableList<AndrologyAdvBannerEntity.Banners> {
             val andrologyAdvBannerDatas = ArrayList<AndrologyAdvBannerEntity.Banners>()
-            for (i in 0 until 5) {
-                andrologyAdvBannerDatas?.add(AndrologyAdvBannerEntity().Banners())
+            for (i in 0 until 3) {
+                val banners = AndrologyAdvBannerEntity.Banners()
+                banners.imgUrl = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1530510861413&di=c9f7439a5a5d4c57435e5eb7f2772817&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F01a0d4582d8320a84a0e282be8a02e.jpg"
+                andrologyAdvBannerDatas?.add(banners)
             }
             return andrologyAdvBannerDatas
         }

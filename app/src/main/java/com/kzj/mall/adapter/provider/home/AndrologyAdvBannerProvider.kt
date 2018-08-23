@@ -10,8 +10,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.blankj.utilcode.util.SizeUtils
+import com.kzj.mall.GlideApp
 import com.kzj.mall.entity.home.AndrologyAdvBannerEntity
 import com.kzj.mall.transformer.ScaleInTransformer
+import com.makeramen.roundedimageview.RoundedImageView
 
 
 /**
@@ -55,6 +57,13 @@ class AndrologyAdvBannerProvider : BaseItemProvider<AndrologyAdvBannerEntity, Ba
 
         override fun instantiateItem(container: ViewGroup, position: Int): Any {
             val view = LayoutInflater.from(mContext).inflate(R.layout.item_home_banner, null, false)
+            val imageView = view?.findViewById<RoundedImageView>(R.id.iv_image)
+            imageView?.cornerRadius = 0f
+            GlideApp.with(mContext)
+                    .load(advDatas?.get(position)?.imgUrl)
+                    .placeholder(R.color.gray_default)
+                    .centerCrop()
+                    .into(imageView!!)
             container.addView(view)
             return view
         }

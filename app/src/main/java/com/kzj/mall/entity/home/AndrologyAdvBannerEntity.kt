@@ -7,7 +7,7 @@ class AndrologyAdvBannerEntity : IHomeEntity {
         return IHomeEntity.MALE_ADV_BANNER
     }
 
-    inner class Banners{
-
+    class Banners {
+        var imgUrl: String? = null
     }
 }
