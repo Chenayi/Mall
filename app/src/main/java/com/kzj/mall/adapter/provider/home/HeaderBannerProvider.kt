@@ -79,6 +79,10 @@ class HeaderBannerProvider : BaseItemProvider<HomeHeaderBannerEntity, BaseViewHo
 
             })
 
+            mMZBanner?.setBannerPageClickListener { view, i ->
+                banners?.get(i)?.adCode
+            }
+
             mMZBanner?.start()
             isInitialized = true
         }

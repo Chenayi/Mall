@@ -62,7 +62,7 @@
                             android:layout_alignParentBottom="true"
                             android:layout_marginBottom="40dp"
                             android:layout_marginLeft="10dp"
-                            android:layout_marginRight="48dp">
+                            android:layout_marginRight="52dp">
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -76,9 +76,9 @@
                                 android:paddingLeft="21dp"
                                 android:paddingRight="10dp"
                                 android:singleLine="true"
-                                android:text="下单即可获得赠品肾宝糖浆1盒"
                                 android:textColor="@color/white"
-                                android:textSize="11dp" />
+                                android:textSize="11dp"
+                                android:id="@+id/tv_function"/>
 
                             <ImageView
                                 android:layout_width="33dp"

@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView
 import com.chad.library.adapter.base.util.ProviderDelegate
 import com.kzj.mall.C
 import com.kzj.mall.adapter.provider.home.*
+import com.kzj.mall.entity.AndrologySpecialFieldEntity
 import com.kzj.mall.entity.HomeEntity
 import com.kzj.mall.entity.home.*
 import com.kzj.mall.utils.LocalDatas
@@ -49,7 +50,7 @@ class AndrologyFragment : BaseHomeChildListFragment() {
         mPresenter?.requestAndrologyDatas()
     }
 
-    override fun useRoundedCorners()=false
+    override fun useRoundedCorners() = false
 
     override fun registerItemProvider(providerDelegate: ProviderDelegate) {
         super.registerItemProvider(providerDelegate)
@@ -64,10 +65,10 @@ class AndrologyFragment : BaseHomeChildListFragment() {
     override fun showHomeDatas(homeEntity: HomeEntity?) {
         pageNo = 0
         mBinding?.refreshLayout?.isRefreshing = false
-        setListDatas(getNormalMultipleEntities())
+        setListDatas(getNormalMultipleEntities(homeEntity))
     }
 
-    fun getNormalMultipleEntities(): MutableList<IHomeEntity> {
+    fun getNormalMultipleEntities(homeEntity: HomeEntity?): MutableList<IHomeEntity> {
         val list = ArrayList<IHomeEntity>()
         list.add(LocalDatas.homeBannerData())
         list.add(AndrologyClassifyEntity())
@@ -79,9 +80,18 @@ class AndrologyFragment : BaseHomeChildListFragment() {
         //品牌
         list.add(AndrologyBrandEntity())
 
-        // 专场
-        list.add(LocalDatas.andrologySpecialFieldData())
-        list.add(LocalDatas.andrologySpecialFieldData())
+        //滋补
+        var andrologySpecialFieldEntity1 = AndrologySpecialFieldEntity()
+        andrologySpecialFieldEntity1?.specialFields = homeEntity?.zibu
+        andrologySpecialFieldEntity1.type = AndrologySpecialFieldEntity.TYPE_ZIBU
+        list.add(andrologySpecialFieldEntity1)
+
+        //亲热
+        var andrologySpecialFieldEntity2 = AndrologySpecialFieldEntity()
+        andrologySpecialFieldEntity2?.specialFields = homeEntity?.qinre
+        andrologySpecialFieldEntity1.type = AndrologySpecialFieldEntity.TYPE_QINRE
+        list.add(andrologySpecialFieldEntity2)
+
         return list
     }
 

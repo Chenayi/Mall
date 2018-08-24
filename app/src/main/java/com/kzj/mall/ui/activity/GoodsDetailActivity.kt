@@ -55,11 +55,13 @@ class GoodsDetailActivity : BaseActivity<GoodsDetailPresenter, ActivityGoodsDeta
 
     override fun initImmersionBar() {
         mImmersionBar = ImmersionBar.with(this)
-        mImmersionBar?.init();
+        mImmersionBar?.statusBarDarkFont(true, 0.5f)
+                ?.init();
     }
 
     override fun initData() {
-        mGoodsInfoId = intent?.getStringExtra(C.GOODS_INFO_ID)
+        mGoodsInfoId = "29921"
+//        mGoodsInfoId = intent?.getStringExtra(C.GOODS_INFO_ID)
 
         mBinding?.goodsDetailBar?.setTabAlpha(barAlpha)
         val barHeight = SizeUtils.getMeasuredHeight(mBinding?.goodsDetailBar)
@@ -111,14 +113,8 @@ class GoodsDetailActivity : BaseActivity<GoodsDetailPresenter, ActivityGoodsDeta
             override fun onPageSelected(position: Int) {
                 if (position == 0) {
                     mBinding?.goodsDetailBar?.setTabAlpha(barAlpha)
-                    mImmersionBar
-                            ?.statusBarDarkFont(barAlpha > 0.5f, 0.5f)
-                            ?.init();
                 } else {
                     mBinding?.goodsDetailBar?.setTabAlpha(1f)
-                    mImmersionBar
-                            ?.statusBarDarkFont(true, 0.5f)
-                            ?.init();
                 }
             }
 
@@ -148,9 +144,6 @@ class GoodsDetailActivity : BaseActivity<GoodsDetailPresenter, ActivityGoodsDeta
     fun scrollChangedEvent(scrollChangedEvent: ScrollChangedEvent) {
         barAlpha = scrollChangedEvent.alpha
         mBinding?.goodsDetailBar?.setTabAlpha(barAlpha)
-        mImmersionBar
-                ?.statusBarDarkFont(barAlpha > 0.5f, 0.5f)
-                ?.init();
         if (scrollChangedEvent?.status == SlideDetailsLayout.Status.OPEN) {
             mBinding?.vpGoodsDetail?.setNoScroll(true)
             mBinding?.goodsDetailBar?.titleSwitch(true)
@@ -199,6 +192,9 @@ class GoodsDetailActivity : BaseActivity<GoodsDetailPresenter, ActivityGoodsDeta
         detailMorePop?.showPopupWindow(mBinding?.goodsDetailBar)
     }
 
+    /**
+     * 加入购物车动画
+     */
     private fun startAddCartAnim(isGroup: Boolean, startView: View, endView: View) {
         // 动画开始的坐标
         val startLocation = IntArray(2)
@@ -248,6 +244,22 @@ class GoodsDetailActivity : BaseActivity<GoodsDetailPresenter, ActivityGoodsDeta
 
     override fun onError(code: Int, msg: String?) {
         ToastUtils.showShort(msg)
+    }
+
+
+    /**
+     * 关注或取消关注
+     */
+    fun addOrCancelFollow(isFollow : Boolean?,c:OnFollowCallBack){
+        LogUtils.e("关注或者取消关注...")
+        isFollow?.let {
+            c?.onFollowCallBack(!it)
+        }
+    }
+
+
+    interface OnFollowCallBack{
+        fun onFollowCallBack(isFollow:Boolean?)
     }
 
 

@@ -141,27 +141,6 @@ class LocalDatas {
             return andrologyAdvBannerDatas
         }
 
-
-        /**
-         * 男科 专场
-         */
-        fun andrologySpecialFieldData(): AndrologySpecialFieldEntity {
-            val andrologySpecialFieldData = AndrologySpecialFieldEntity()
-            andrologySpecialFieldData.specialFields = andrologySpecialFieldDatas()
-            return andrologySpecialFieldData
-        }
-
-        /**
-         * 男科 专场 列表
-         */
-        fun andrologySpecialFieldDatas(): MutableList<AndrologySpecialFieldEntity.SpecialFields> {
-            var andrologySpecialFieldDatas = ArrayList<AndrologySpecialFieldEntity.SpecialFields>()
-            for (i in 0 until 8) {
-                andrologySpecialFieldDatas.add(AndrologySpecialFieldEntity().SpecialFields())
-            }
-            return andrologySpecialFieldDatas
-        }
-
         /**
          * 分类列表数据
          */

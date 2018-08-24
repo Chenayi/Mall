@@ -1,7 +1,10 @@
 package com.kzj.mall.ui.fragment
 
+import android.graphics.Color
+import android.graphics.Paint
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.content.ContextCompat
 import android.support.v4.view.ViewPager
 import android.support.v4.widget.NestedScrollView
 import android.support.v7.widget.LinearLayoutManager
@@ -21,6 +24,7 @@ import com.kzj.mall.databinding.FragmentGoodsInfoBinding
 import com.kzj.mall.di.component.AppComponent
 import com.kzj.mall.entity.GoodsDetailEntity
 import com.kzj.mall.event.*
+import com.kzj.mall.ui.activity.GoodsDetailActivity
 import com.kzj.mall.ui.dialog.DetailMorePop
 import com.kzj.mall.ui.dialog.GoodsSpecDialog
 import com.kzj.mall.utils.LocalDatas
@@ -31,7 +35,50 @@ import me.yokeyword.fragmentation.ISupportFragment
 import org.greenrobot.eventbus.EventBus
 
 class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), View.OnClickListener {
+    /**
+     * 添加购物车
+     */
     private var tvGroupAddCart: TextView? = null
+    /**
+     * 商品价格
+     */
+    private var tvGoodsPrice: TextView? = null
+    /**
+     * 商品市场价
+     */
+    private var tvGoodsMarketPrice: TextView? = null
+    /**
+     * 月销量
+     */
+    private var tvMonthSalesNum: TextView? = null
+    /**
+     * 关注区域
+     */
+    private var llFollow: LinearLayout? = null
+    private var ivFollow: ImageView? = null
+    private var tvFollow: TextView? = null
+
+    /**
+     * 商品名称
+     */
+    private var tvGoodsName: TextView? = null
+
+    /**
+     * 商品描述
+     */
+    private var tvGoodsInfoSubtitle: TextView? = null
+
+    /**
+     * 编号
+     */
+    private var tvApprovalNo: TextView? = null
+
+    /**
+     * 已选规格
+     */
+    private var tvCheckSpec: TextView? = null
+
+
     private var goodsDetailGroupAdapter: GoodsDetailGroupAdapter? = null
     private var rvGroup: MultiSnapRecyclerView? = null
 
@@ -39,6 +86,13 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
     private var bannerHeight = 0
     private var alpha = 0.0f
     private var isLoadDetailFragment = false
+
+    /**
+     * 是否添加关注
+     */
+    private var isFollow = false
+
+    private var goodsDetailEntity: GoodsDetailEntity? = null
 
     companion object {
         fun newInstance(barHeight: Int): Fragment {
@@ -53,6 +107,7 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
     override fun getLayoutId(): Int {
         return R.layout.fragment_goods_info
     }
+
     override fun setupComponent(appComponent: AppComponent?) {
     }
 
@@ -61,6 +116,21 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
         arguments?.getInt("barHeight")?.let {
             barHeight = it
         }
+
+        tvGoodsPrice = view?.findViewById(R.id.tv_goods_price)
+        tvGoodsMarketPrice = view?.findViewById(R.id.tv_goods_market_price)
+        tvMonthSalesNum = view?.findViewById(R.id.tv_month_sales_num)
+        tvFollow = view?.findViewById(R.id.tv_follow)
+        ivFollow = view?.findViewById(R.id.iv_follow)
+        llFollow = view?.findViewById(R.id.ll_follow)
+        llFollow?.isEnabled = false
+        llFollow?.setOnClickListener(this)
+        tvGoodsName = view?.findViewById(R.id.tv_goods_name)
+        tvGoodsInfoSubtitle = view?.findViewById(R.id.tv_goods_info_subtitle)
+        tvGoodsMarketPrice = view?.findViewById(R.id.tv_goods_market_price)
+        tvApprovalNo = view?.findViewById(R.id.tv_approval_no)
+        tvCheckSpec = view?.findViewById(R.id.tv_check_spec)
+
 
         mBinding?.fabUpSlide?.hide()
 
@@ -99,6 +169,7 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
         })
 
 
+        mBinding?.detailSpec?.isEnabled = false
         mBinding?.detailSpec?.setOnClickListener(this)
         mBinding?.fabUpSlide?.setOnClickListener(this)
     }
@@ -140,17 +211,61 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
     /**
      * 更新数据
      */
-    fun updateDatas(goodsDetailEntity: GoodsDetailEntity?){
+    fun updateDatas(goodsDetailEntity: GoodsDetailEntity?) {
         goodsDetailEntity?.let {
-            val goodsImgs = it.gn?.goodsImgs
-            val advDatas = ArrayList<String>()
-            for (i in 0 until goodsImgs?.size!!){
-                advDatas.add(goodsImgs?.get(i).imageArtworkName!!)
+            //是否关注
+            llFollow?.isEnabled = true
+            isFollow = it?.is_follow?.equals("1") == true
+            if (it?.is_follow?.equals("1") == true) {
+                ivFollow?.setImageResource(R.mipmap.icon_collected)
+                tvFollow?.setText("已关注")
+                tvFollow?.setTextColor(ContextCompat.getColor(context!!, R.color.colorPrimary))
+            } else {
+                ivFollow?.setImageResource(R.mipmap.sc)
+                tvFollow?.setText("关注")
+                tvFollow?.setTextColor(Color.parseColor("#6A6E75"))
             }
-            mBinding?.banner?.setData(advDatas, null)
-            if (advDatas.size > 0){
-                mBinding?.tvBannerNum?.setText("1/" + advDatas.size)
+
+            //活动
+            it?.promotionalAd?.wap_promotional_title?.let {
+                mBinding?.tvFunction?.setText(it)
             }
+
+            //产品信息
+            it?.gn?.let {
+                //图片
+                val goodsImgs = it?.goodsImgs
+                val advDatas = ArrayList<String>()
+                for (i in 0 until goodsImgs?.size!!) {
+                    advDatas.add(goodsImgs?.get(i).imageArtworkName!!)
+                }
+                mBinding?.banner?.setData(advDatas, null)
+                if (advDatas.size > 0) {
+                    mBinding?.tvBannerNum?.setText("1/" + advDatas.size)
+                }
+                //价格
+                tvGoodsPrice?.setText("¥" + it?.goodsPrice)
+                tvGoodsMarketPrice?.setText("¥" + it?.goodsMarketPrice)
+                tvGoodsMarketPrice?.getPaint()?.setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+                tvMonthSalesNum?.setText("月销量:" + it?.goodsSole)
+                tvGoodsName?.setText(it?.goodsName)
+                tvApprovalNo?.setText("批准文号：" + it?.goodsApprovalNo?.approvalNo)
+            }
+
+            //商品信息
+            it?.gin?.let {
+                tvGoodsInfoSubtitle?.setText(it?.goods_info_subtitle)
+            }
+
+            //规格
+            it?.openSpec.let {
+                if (it?.size != null && it?.size!! > 0) {
+                    mBinding?.detailSpec?.isEnabled = true
+                    tvCheckSpec?.setText(it?.get(0)?.goodsSpec)
+                }
+            }
+
+            this.goodsDetailEntity = goodsDetailEntity
         }
     }
 
@@ -171,11 +286,14 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
      * 规格弹窗
      */
     fun showSpecDialog() {
-        GoodsSpecDialog.newInstance()
+        GoodsSpecDialog.newInstance(goodsDetailEntity)
                 .setShowBottom(true)
                 .show(childFragmentManager)
     }
 
+    /**
+     * 点击事件
+     */
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.detail_spec -> {
@@ -184,16 +302,38 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
             R.id.tv_group_add_cart -> {
                 EventBus.getDefault().post(AddCartEvent(true, tvGroupAddCart))
             }
-            R.id.fab_up_slide->{
+            R.id.fab_up_slide -> {
                 mBinding?.slideDetailsLayout?.smoothClose(true)
+            }
+            R.id.ll_follow -> {
+                addOrCancelFollow()
             }
         }
     }
 
-    fun onBackClick(){
-        if (mBinding?.slideDetailsLayout?.status == SlideDetailsLayout.Status.OPEN){
+    private fun addOrCancelFollow() {
+        llFollow?.isEnabled = false
+        (activity as GoodsDetailActivity).addOrCancelFollow(isFollow, object : GoodsDetailActivity.OnFollowCallBack {
+            override fun onFollowCallBack(isFollow: Boolean?) {
+                if (isFollow == true) {
+                    tvFollow?.setText("已关注")
+                    tvFollow?.setTextColor(ContextCompat.getColor(context!!, R.color.colorPrimary))
+                    ivFollow?.setImageResource(R.mipmap.icon_collected)
+                } else {
+                    tvFollow?.setText("关注")
+                    tvFollow?.setTextColor(Color.parseColor("#6A6E75"))
+                    ivFollow?.setImageResource(R.mipmap.sc)
+                }
+                this@GoodsInfoFragment.isFollow = isFollow!!
+                llFollow?.isEnabled = true
+            }
+        })
+    }
+
+    fun onBackClick() {
+        if (mBinding?.slideDetailsLayout?.status == SlideDetailsLayout.Status.OPEN) {
             mBinding?.slideDetailsLayout?.smoothClose(true)
-        }else{
+        } else {
             activity?.finish()
         }
     }

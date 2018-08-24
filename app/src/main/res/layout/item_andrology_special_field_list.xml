@@ -8,8 +8,9 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:src="@mipmap/sextoy_sample"
-        android:scaleType="centerCrop"/>
+        android:src="@mipmap/zibu"
+        android:scaleType="centerCrop"
+        android:id="@+id/iv_logo"/>
 
     <com.takusemba.multisnaprecyclerview.MultiSnapRecyclerView
         android:id="@+id/rv"

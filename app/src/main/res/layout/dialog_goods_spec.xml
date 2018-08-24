@@ -128,7 +128,8 @@
                         android:id="@+id/ll_goods_group"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:visibility="gone">
 
                         <TextView
                             android:layout_width="match_parent"
@@ -137,7 +138,7 @@
                             android:paddingLeft="10dp"
                             android:paddingRight="10dp"
                             android:paddingTop="14dp"
-                            android:text="套餐"
+                            android:text="标准装"
                             android:textColor="#2E3033" />
 
                         <com.kzj.mall.widget.SuperFlowLayout

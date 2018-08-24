@@ -11,4 +11,6 @@ class HomeEntity {
     var dailyBuy: MutableList<HomeFlashSaleEntity.DailyBuy>? = null
     var askList: MutableList<HomeAskAnswerEntity.AskList>? = null
     var qingqu:MutableList<SexToyEntity.SexToys>?=null
+    var zibu: MutableList<AndrologySpecialFieldEntity.SpecialFields>? = null
+    var qinre: MutableList<AndrologySpecialFieldEntity.SpecialFields>? = null
 }
