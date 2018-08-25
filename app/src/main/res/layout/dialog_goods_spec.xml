@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -42,22 +43,24 @@
 
 
                     <TextView
+                        android:id="@+id/tv_goods_price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:lines="1"
                         android:singleLine="true"
-                        android:text="合计：¥7898.00"
                         android:textColor="@color/orange_default"
                         android:textSize="15dp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        tools:text="合计：¥7898.00" />
 
                     <com.allen.library.SuperTextView
+                        android:id="@+id/tv_pre_goods_price"
                         android:layout_width="80dp"
                         android:layout_height="20dp"
                         android:layout_marginTop="4dp"
                         app:sCenterTextColor="@color/orange_default"
                         app:sCenterTextSize="9dp"
-                        app:sCenterTextString="立省：￥47.00"
+                        app:sCenterTextString="立省：¥47.00"
                         app:sShapeCornersRadius="9999dp"
                         app:sShapeSelectorNormalColor="#FFF8F5"
                         app:sShapeSelectorPressedColor="#FFF8F5"

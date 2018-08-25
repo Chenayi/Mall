@@ -2,9 +2,10 @@ package com.kzj.mall.ui.dialog
 
 import android.os.Bundle
 import android.view.View
-import com.blankj.utilcode.util.LogUtils
+import android.widget.ImageView
 import com.blankj.utilcode.util.ScreenUtils
 import com.blankj.utilcode.util.ToastUtils
+import com.kzj.mall.GlideApp
 import com.kzj.mall.R
 import com.kzj.mall.base.BaseDialog
 import com.kzj.mall.databinding.DialogGoodsSpecBinding
@@ -12,9 +13,12 @@ import com.kzj.mall.di.component.AppComponent
 import com.kzj.mall.di.component.DaggerGoodsSpecComponent
 import com.kzj.mall.di.module.GoodsSpeclModule
 import com.kzj.mall.entity.GoodsDetailEntity
+import com.kzj.mall.event.CombinationEvent
+import com.kzj.mall.event.PacketListEvent
 import com.kzj.mall.mvp.contract.GoodsSpecContract
 import com.kzj.mall.mvp.presenter.GoodsSpecPresenter
 import com.kzj.mall.widget.SuperFlowLayout
+import org.greenrobot.eventbus.EventBus
 
 
 class GoodsSpecDialog : BaseDialog<GoodsSpecPresenter, DialogGoodsSpecBinding>(), View.OnClickListener, GoodsSpecContract.View {
@@ -49,6 +53,17 @@ class GoodsSpecDialog : BaseDialog<GoodsSpecPresenter, DialogGoodsSpecBinding>()
      * 规格 , 疗程套餐
      */
     private fun setSpecGroup(goodsDetailEntity: GoodsDetailEntity?) {
+        //图片
+        GlideApp.with(context!!)
+                .load(goodsDetailEntity?.gn?.goodsImgs?.get(0))
+                .placeholder(R.color.gray_default)
+                .centerCrop()
+                .into(mBinding?.ivGoods as ImageView)
+
+        //价格
+        mBinding?.tvGoodsPrice?.setText("合计：¥"+goodsDetailEntity?.gn?.goodsPrice)
+        mBinding?.tvPreGoodsPrice?.setCenterString("立省：0")
+
         //规格
         goodsDetailEntity?.openSpec?.let {
             if (it?.size > 0) {
@@ -117,44 +132,18 @@ class GoodsSpecDialog : BaseDialog<GoodsSpecPresenter, DialogGoodsSpecBinding>()
                         if (iGroup.package_count != null && iGroup.package_count!! > 0) {
                             packetCount = iGroup.package_count!!
                         }
+                        EventBus.getDefault().post(PacketListEvent(iGroup))
                     } else if (iGroup is GoodsDetailEntity.CombinationList) {
                         if (iGroup.package_count != null && iGroup.package_count!! > 0) {
                             packetCount = iGroup.package_count!!
                         }
+                        EventBus.getDefault().post(CombinationEvent(iGroup))
                     }
 
                     mBinding?.tvNum?.text = packetCount?.toString()
                 }
             })
         }
-
-
-//        if (combinationList?.size == 0 && packageList?.size == 0) {
-//            mBinding?.llGoodsGroup?.visibility = View.GONE
-//        } else {
-//            mBinding?.llGoodsGroup?.visibility = View.VISIBLE
-//            val groups = ArrayList<String>()
-//            groups.add("一盒标准装")
-//            if (packageList?.size != null && packageList?.size!! > 0) {
-//                for (i in 0 until packageList?.size!!) {
-//                    groups.add(packageList?.get(i)?.combination_name!!)
-//                }
-//            }
-//            if (combinationList?.size != null && combinationList?.size!! > 0) {
-//                mBinding?.ivPlus?.isEnabled = false
-//                mBinding?.ivMinus?.isEnabled = false
-//                for (i in 0 until combinationList?.size!!) {
-//                    groups.add(combinationList?.get(i)?.combination_name!!)
-//                }
-//            }
-//            mBinding?.sflGoodsGroup?.setDatas(groups)
-//            mBinding?.sflGoodsGroup?.switchTag(0)
-//            mBinding?.sflGoodsGroup?.setOnTagClickListener(object : SuperFlowLayout.OnTagClickListener {
-//                override fun onTagClick(position: Int, tag: String?) {
-//
-//                }
-//            })
-//        }
     }
 
     override fun setUpComponent(appComponent: AppComponent?) {
