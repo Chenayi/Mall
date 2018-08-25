@@ -15,6 +15,7 @@ import com.blankj.utilcode.util.ScreenUtils
 import com.blankj.utilcode.util.SizeUtils
 import com.kzj.mall.App
 import com.kzj.mall.di.component.AppComponent
+import com.kzj.mall.ui.dialog.LoadingDialog
 import com.othershe.nicedialog.BaseNiceDialog
 import com.othershe.nicedialog.ViewHolder
 import com.yatoooon.screenadaptation.ScreenAdapterTools
@@ -28,6 +29,8 @@ abstract class BaseDialog<P : IPresenter, D : ViewDataBinding> : BaseNiceDialog(
     protected var mBinding: D? = null
 
     protected var mApp: App?=null
+
+    protected var mLoadingDialog: LoadingDialog? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(intLayoutId(), container, false)
@@ -45,6 +48,22 @@ abstract class BaseDialog<P : IPresenter, D : ViewDataBinding> : BaseNiceDialog(
     abstract fun initData();
 
     abstract fun setUpComponent(appComponent: AppComponent?)
+
+    protected fun showLoadingDialog() {
+        if (mLoadingDialog == null) {
+            mLoadingDialog = LoadingDialog
+                    .Builder(context!!)
+                    .setCancelOutside(false)
+                    .setBackCancelable(true)
+                    .setShowMessage(false)
+                    .create()
+        }
+        mLoadingDialog?.show()
+    }
+
+    protected fun dismissLoadingDialog() {
+        mLoadingDialog?.dismiss()
+    }
 
     override fun onDestroy() {
         mBinding?.unbind()

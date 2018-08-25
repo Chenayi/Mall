@@ -93,6 +93,7 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
     private var isFollow = false
 
     private var goodsDetailEntity: GoodsDetailEntity? = null
+    private var mGoodsDefaultInfoId: String? = null
 
     companion object {
         fun newInstance(barHeight: Int): Fragment {
@@ -211,7 +212,7 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
     /**
      * 更新数据
      */
-    fun updateDatas(goodsDetailEntity: GoodsDetailEntity?) {
+    fun updateDatas(goodsDefaultInfoId: String?, goodsDetailEntity: GoodsDetailEntity?) {
         goodsDetailEntity?.let {
             //是否关注
             llFollow?.isEnabled = true
@@ -267,6 +268,7 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
 
             this.goodsDetailEntity = goodsDetailEntity
         }
+        mGoodsDefaultInfoId = goodsDefaultInfoId
     }
 
 
@@ -286,7 +288,7 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
      * 规格弹窗
      */
     fun showSpecDialog() {
-        GoodsSpecDialog.newInstance(goodsDetailEntity)
+        GoodsSpecDialog.newInstance(mGoodsDefaultInfoId, goodsDetailEntity)
                 .setShowBottom(true)
                 .show(childFragmentManager)
     }

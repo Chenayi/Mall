@@ -33,12 +33,13 @@ import com.kzj.mall.widget.SlideDetailsLayout
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 
-class GoodsDetailActivity : BaseActivity<GoodsDetailPresenter, ActivityGoodsDetailsBinding>(), View.OnClickListener,GoodsDetailContract.View {
+class GoodsDetailActivity : BaseActivity<GoodsDetailPresenter, ActivityGoodsDetailsBinding>(), View.OnClickListener, GoodsDetailContract.View {
     private var commomViewPagerAdapter: CommomViewPagerAdapter? = null
     private var fragments: MutableList<Fragment>? = null
     private var barAlpha = 0.0f
     private var mViewPagerIndex = 0
     private var mGoodsInfoId: String? = null
+    private var mGoodsDefaultInfoId: String? = null
 
 
     override fun getLayoutId(): Int {
@@ -62,6 +63,7 @@ class GoodsDetailActivity : BaseActivity<GoodsDetailPresenter, ActivityGoodsDeta
     override fun initData() {
         mGoodsInfoId = "29921"
 //        mGoodsInfoId = intent?.getStringExtra(C.GOODS_INFO_ID)
+        mGoodsDefaultInfoId = mGoodsInfoId
 
         mBinding?.goodsDetailBar?.setTabAlpha(barAlpha)
         val barHeight = SizeUtils.getMeasuredHeight(mBinding?.goodsDetailBar)
@@ -228,9 +230,9 @@ class GoodsDetailActivity : BaseActivity<GoodsDetailPresenter, ActivityGoodsDeta
 
 
     override fun showGoodsDetail(goodsDetailEntity: GoodsDetailEntity?) {
-        if (mBinding?.vpGoodsDetail?.currentItem == 0){
+        if (mBinding?.vpGoodsDetail?.currentItem == 0) {
             val goodsInfoFragment = fragments?.get(0) as GoodsInfoFragment
-            goodsInfoFragment?.updateDatas(goodsDetailEntity)
+            goodsInfoFragment?.updateDatas(mGoodsDefaultInfoId, goodsDetailEntity)
         }
     }
 
@@ -250,7 +252,7 @@ class GoodsDetailActivity : BaseActivity<GoodsDetailPresenter, ActivityGoodsDeta
     /**
      * 关注或取消关注
      */
-    fun addOrCancelFollow(isFollow : Boolean?,c:OnFollowCallBack){
+    fun addOrCancelFollow(isFollow: Boolean?, c: OnFollowCallBack) {
         LogUtils.e("关注或者取消关注...")
         isFollow?.let {
             c?.onFollowCallBack(!it)
@@ -258,8 +260,8 @@ class GoodsDetailActivity : BaseActivity<GoodsDetailPresenter, ActivityGoodsDeta
     }
 
 
-    interface OnFollowCallBack{
-        fun onFollowCallBack(isFollow:Boolean?)
+    interface OnFollowCallBack {
+        fun onFollowCallBack(isFollow: Boolean?)
     }
 
 

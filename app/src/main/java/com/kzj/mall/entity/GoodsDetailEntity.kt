@@ -49,21 +49,25 @@ class GoodsDetailEntity : Serializable {
     /**
      * 疗程
      */
-    class PackageList {
+    class PackageList : IGroup {
         var combination_name: String? = null
         var combination_type: Int? = null
         var package_count: Int? = null
-        var goods_info_id:String?=null
+        var goods_info_id: String? = null
+
+        override fun getType() = IGroup.TYPE_PACKET_LIST
     }
 
     /**
      * 组合套餐
      */
-    class CombinationList {
+    class CombinationList : IGroup {
         var combination_name: String? = null
         var combination_type: Int? = null
         var package_count: Int? = null
-        var goods_info_id:String?=null
+        var goods_info_id: String? = null
+
+        override fun getType() = IGroup.TYPE_COMBINATION_LIST
     }
 
     class PromotionalAd {
@@ -88,5 +92,16 @@ class GoodsDetailEntity : Serializable {
     inner class Explain : Serializable {
         var title: String? = null
         var content: String? = null
+    }
+
+    interface IGroup {
+        companion object {
+            //疗程
+            val TYPE_PACKET_LIST = 0
+            //套餐
+            val TYPE_COMBINATION_LIST = 1
+        }
+
+        fun getType(): Int
     }
 }
