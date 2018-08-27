@@ -14,33 +14,37 @@ class GoodsDetailEntity : Serializable {
     /**
      * 产品信息
      */
-    class Gn {
+    class Gn : Serializable {
         var goodsImgs: MutableList<GoodsImgs>? = null
+        var goodsImg: String? = null
         var goodsApprovalNo: GoodsApprovalNo? = null
         var goodsPrice: String? = null
         var goodsName: String? = null
         var goodsMarketPrice: String? = null
+        //月销量
         var goodsSole: String? = null
+        //库存
+        var goodsStock: Int? = null
     }
 
     /**
      * 商品信息
      */
-    class Gin {
+    class Gin : Serializable {
         var goods_info_subtitle: String? = null
     }
 
     /**
      * 商品图片
      */
-    class GoodsImgs {
+    class GoodsImgs : Serializable {
         var imageArtworkName: String? = null
     }
 
     /**
      * 规格
      */
-    class OpenSpec {
+    class OpenSpec : Serializable {
         var goodsInfoId: String? = null
         var goodsId: String? = null
         var goodsSpec: String? = null
@@ -52,8 +56,11 @@ class GoodsDetailEntity : Serializable {
     class PackageList : IGroup {
         var combination_name: String? = null
         var combination_type: Int? = null
-        var package_count: Int? = null
+        var package_count: Int = 0
         var goods_info_id: String? = null
+
+        var combination_price: Float = 0.00F
+        var combination_unit_price: Float = 0.00F
 
         override fun getType() = IGroup.TYPE_PACKET_LIST
     }
@@ -66,15 +73,20 @@ class GoodsDetailEntity : Serializable {
         var combination_type: Int? = null
         var package_count: Int? = null
         var goods_info_id: String? = null
+        var combination_id: String? = null
+
+        var combination_price: Float = 0.00F
+        var sumOldPrice: Float = 0.00F
+        var sumPrePrice: Float = 0.00F
 
         override fun getType() = IGroup.TYPE_COMBINATION_LIST
     }
 
-    class PromotionalAd {
+    class PromotionalAd : Serializable {
         var wap_promotional_title: String? = null
     }
 
-    class GoodsApprovalNo {
+    class GoodsApprovalNo : Serializable {
         var approvalNo: String? = null
         var approvalNoId: String? = null
     }
@@ -82,7 +94,7 @@ class GoodsDetailEntity : Serializable {
 
     private var explains: MutableList<Explain>? = null
 
-    inner class Group {
+    inner class Group : Serializable {
 
     }
 
@@ -94,7 +106,7 @@ class GoodsDetailEntity : Serializable {
         var content: String? = null
     }
 
-    interface IGroup {
+    interface IGroup : Serializable {
         companion object {
             //疗程
             val TYPE_PACKET_LIST = 0

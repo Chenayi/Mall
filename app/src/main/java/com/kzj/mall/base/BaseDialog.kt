@@ -54,7 +54,7 @@ abstract class BaseDialog<P : IPresenter, D : ViewDataBinding> : BaseNiceDialog(
             mLoadingDialog = LoadingDialog
                     .Builder(context!!)
                     .setCancelOutside(false)
-                    .setBackCancelable(true)
+                    .setBackCancelable(false)
                     .setShowMessage(false)
                     .create()
         }

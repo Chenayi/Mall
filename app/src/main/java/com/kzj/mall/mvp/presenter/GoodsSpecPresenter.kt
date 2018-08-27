@@ -19,30 +19,30 @@ constructor(model: GoodsSpecContract.Model?, view: GoodsSpecContract.View?, cont
     /**
      * 获取商品详情数据
      */
-    fun requesrGoodsDetail(goodsId: String?) {
-        val params = HashMap<String,String>()
+    fun requesrGoodsDetail(position: Int, goodsId: String?) {
+        val params = HashMap<String, String>()
 
         if (C.IS_LOGIN) {
             params.put("token", C.TOKEN)
         }
         goodsId?.let {
-            params.put(C.GOODS_INFO_ID,it)
+            params.put(C.GOODS_INFO_ID, it)
         }
 
         model?.requestGoodsDetail(params)
                 ?.compose(RxScheduler.compose())
-                ?.subscribe(object :BaseObserver<GoodsDetailEntity>(){
+                ?.subscribe(object : BaseObserver<GoodsDetailEntity>() {
                     override fun onSubscribe(d: Disposable) {
                         view?.showLoading()
                         addDisposable(d)
                     }
 
                     override fun onHandleSuccess(t: GoodsDetailEntity?) {
-                        view?.showGoodsDetail(t)
+                        view?.showGoodsDetail(position, t)
                     }
 
                     override fun onHandleError(code: Int, msg: String?) {
-                        view?.onError(code,msg)
+                        view?.onError(code, msg)
                     }
 
                     override fun onHandleAfter() {

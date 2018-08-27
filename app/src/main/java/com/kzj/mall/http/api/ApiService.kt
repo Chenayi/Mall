@@ -3,10 +3,7 @@ package com.kzj.mall.http.api
 import com.kzj.mall.entity.*
 import com.kzj.mall.entity.home.HomeRecommendEntity
 import io.reactivex.Observable
-import retrofit2.http.Field
-import retrofit2.http.FieldMap
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface ApiService {
     @FormUrlEncoded
@@ -57,15 +54,25 @@ interface ApiService {
     fun requeseHomeDatas(): Observable<BaseResponse<HomeEntity>>
 
     @POST("/kzj/api/app_nanke_index.htm")
-    fun requestAndrologyDatas():Observable<BaseResponse<HomeEntity>>
+    fun requestAndrologyDatas(): Observable<BaseResponse<HomeEntity>>
 
     @FormUrlEncoded
     @POST("/kzj/api/search_goods_by_cid.htm")
-    fun loadRecommendHomeDatas(@Field("pageNo") pageNo: Int?, @Field("pageSize") pageSize: Int?,@Field("c_id") cid: String?)
+    fun loadRecommendHomeDatas(@Field("pageNo") pageNo: Int?, @Field("pageSize") pageSize: Int?, @Field("c_id") cid: String?)
             : Observable<BaseResponse<HomeRecommendEntity>>
 
 
+    /**
+     * 商品详情
+     */
     @FormUrlEncoded
     @POST("/kzj/api/get_goods_info.htm")
     fun requestGoodsDetail(@FieldMap params: MutableMap<String, String>?): Observable<BaseResponse<GoodsDetailEntity>>
+
+    /**
+     * 立即购买
+     */
+    @FormUrlEncoded
+    @POST("/kzj/api/user_voucher/buy_now.htm")
+    fun buyNow(@Header("token") token: String?, @FieldMap params: MutableMap<String, String>?): Observable<BaseResponse<BuyEntity>>
 }

@@ -8,7 +8,7 @@ import io.reactivex.Observable
 
 interface GoodsSpecContract {
     interface View : IView {
-        fun showGoodsDetail(goodsDetailEntity: GoodsDetailEntity?)
+        fun showGoodsDetail(position: Int, goodsDetailEntity: GoodsDetailEntity?)
     }
 
     interface Model : IModel {

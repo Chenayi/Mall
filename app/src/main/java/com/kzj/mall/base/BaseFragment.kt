@@ -32,6 +32,7 @@ abstract class BaseFragment<P : IPresenter, D : ViewDataBinding> : SupportFragme
 
     protected var mLoadingDialog: LoadingDialog? = null
 
+
     /**
      * 是否已获取过数据
      */

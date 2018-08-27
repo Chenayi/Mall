@@ -38,8 +38,27 @@ class GoodsDetailActivity : BaseActivity<GoodsDetailPresenter, ActivityGoodsDeta
     private var fragments: MutableList<Fragment>? = null
     private var barAlpha = 0.0f
     private var mViewPagerIndex = 0
+
+    /**
+     * 商品id
+     */
     private var mGoodsInfoId: String? = null
     private var mGoodsDefaultInfoId: String? = null
+
+    /**
+     * 组合套餐id
+     */
+    private var mCombinationId: String? = null
+
+    /**
+     * 是否组合套餐
+     */
+    private var isCombination = false
+
+    /**
+     * 商品数量
+     */
+    private var mGoodsNum = 1
 
 
     override fun getLayoutId(): Int {
@@ -142,6 +161,9 @@ class GoodsDetailActivity : BaseActivity<GoodsDetailPresenter, ActivityGoodsDeta
         mPresenter?.requesrGoodsDetail(mGoodsInfoId)
     }
 
+    /**
+     * 滑动监听
+     */
     @Subscribe
     fun scrollChangedEvent(scrollChangedEvent: ScrollChangedEvent) {
         barAlpha = scrollChangedEvent.alpha
@@ -155,9 +177,40 @@ class GoodsDetailActivity : BaseActivity<GoodsDetailPresenter, ActivityGoodsDeta
         }
     }
 
+    /**
+     * 加入购物车
+     */
     @Subscribe
     fun addCartEvent(addCartEvent: AddCartEvent) {
         startAddCartAnim(addCartEvent?.isGroup!!, addCartEvent?.startView!!, mBinding?.ivCart!!)
+    }
+
+    /**
+     * 疗程切换
+     */
+    @Subscribe
+    fun packageListChange(packageListEvent: PackageListEvent) {
+        mGoodsInfoId = packageListEvent?.goodsInfoId
+        isCombination = packageListEvent?.isCombination
+    }
+
+    /**
+     * 套餐切换
+     */
+    @Subscribe
+    fun combinationChange(combinationEvent: CombinationEvent) {
+        val combinations = combinationEvent?.combinationList
+        mGoodsInfoId = combinations?.goods_info_id
+        mCombinationId = combinations?.combination_id
+        isCombination = combinationEvent?.isCombination
+    }
+
+    /**
+     * 商品id
+     */
+    @Subscribe
+    fun goodsNumChange(goodsNumChangeEvent: GoodsNumChangeEvent) {
+        mGoodsNum = goodsNumChangeEvent?.goodsNum
     }
 
 
@@ -271,9 +324,17 @@ class GoodsDetailActivity : BaseActivity<GoodsDetailPresenter, ActivityGoodsDeta
                 startAddCartAnim(false, mBinding?.tvAddCart!!, mBinding?.ivCart!!)
             }
             R.id.tv_buy -> {
-                val intent = Intent(this, ConfirmOrderActivity::class.java)
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                startActivity(intent)
+//                val intent = Intent(this, ConfirmOrderActivity::class.java)
+//                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+//                startActivity(intent)
+                if (!C.IS_LOGIN){
+                    return
+                }
+                var carType = "0"
+                if (isCombination) {
+                    carType = "2"
+                }
+                mPresenter?.buyNow(carType, mGoodsNum, mGoodsInfoId, mCombinationId)
             }
         }
     }

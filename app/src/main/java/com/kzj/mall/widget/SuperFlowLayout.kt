@@ -58,7 +58,6 @@ class SuperFlowLayout : BaseRelativeLayout<SuperFlowLayoutBinding>, View.OnClick
 
             if (tag != curPosition) {
                 switchTag(tag)
-                curPosition = tag
             }
         }
     }
@@ -78,7 +77,7 @@ class SuperFlowLayout : BaseRelativeLayout<SuperFlowLayoutBinding>, View.OnClick
                 tv?.setTextColor(Color.parseColor("#2E3033"))
             }
         }
-
+        curPosition = position
         onTagClickListener?.onTagClick(position, datas?.get(position))
     }
 
@@ -99,7 +98,6 @@ class SuperFlowLayout : BaseRelativeLayout<SuperFlowLayoutBinding>, View.OnClick
         }
         curPosition = 0
     }
-
 
     fun setOnTagClickListener(onTagClickListener: OnTagClickListener) {
         this.onTagClickListener = onTagClickListener

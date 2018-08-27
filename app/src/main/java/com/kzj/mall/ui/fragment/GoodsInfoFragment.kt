@@ -11,10 +11,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.*
 import cn.bingoogolapple.bgabanner.BGABanner
-import com.blankj.utilcode.util.BarUtils
-import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ScreenUtils
-import com.blankj.utilcode.util.SizeUtils
 import com.kzj.mall.GlideApp
 import com.kzj.mall.R
 import com.kzj.mall.adapter.GoodsDetailGroupAdapter
@@ -25,14 +22,13 @@ import com.kzj.mall.di.component.AppComponent
 import com.kzj.mall.entity.GoodsDetailEntity
 import com.kzj.mall.event.*
 import com.kzj.mall.ui.activity.GoodsDetailActivity
-import com.kzj.mall.ui.dialog.DetailMorePop
 import com.kzj.mall.ui.dialog.GoodsSpecDialog
 import com.kzj.mall.utils.LocalDatas
 import com.kzj.mall.widget.ObservableScrollView
 import com.kzj.mall.widget.SlideDetailsLayout
 import com.takusemba.multisnaprecyclerview.MultiSnapRecyclerView
-import me.yokeyword.fragmentation.ISupportFragment
 import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 
 class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), View.OnClickListener {
     /**
@@ -95,6 +91,16 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
     private var goodsDetailEntity: GoodsDetailEntity? = null
     private var mGoodsDefaultInfoId: String? = null
 
+    /**
+     * 规格选中位置
+     */
+    private var specPosition = 0
+
+    /**
+     * 疗程套装选中位置
+     */
+    private var groupPosition = 0
+
     companion object {
         fun newInstance(barHeight: Int): Fragment {
             val goodsInfoDetailFragment = GoodsInfoFragment()
@@ -112,6 +118,8 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
     override fun setupComponent(appComponent: AppComponent?) {
     }
 
+
+    override fun enableEventBus() = true
 
     override fun initData() {
         arguments?.getInt("barHeight")?.let {
@@ -288,9 +296,32 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
      * 规格弹窗
      */
     fun showSpecDialog() {
-        GoodsSpecDialog.newInstance(mGoodsDefaultInfoId, goodsDetailEntity)
+        GoodsSpecDialog.newInstance(specPosition, groupPosition, mGoodsDefaultInfoId, goodsDetailEntity)
                 .setShowBottom(true)
                 .show(childFragmentManager)
+    }
+
+    /**
+     * 疗程切换
+     */
+    @Subscribe
+    fun packageListChange(packageListEvent: PackageListEvent) {
+        groupPosition = packageListEvent?.position
+        tvGoodsPrice?.setText("¥" + packageListEvent.goodsPrice)
+        tvGoodsMarketPrice?.setText("¥" + packageListEvent?.goodsMarketPrice)
+        tvGoodsMarketPrice?.getPaint()?.setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+    }
+
+    /**
+     * 套餐切换
+     */
+    @Subscribe
+    fun combinationChange(combinationEvent: CombinationEvent) {
+        val combination = combinationEvent?.combinationList
+        groupPosition = combinationEvent?.position
+        tvGoodsPrice?.setText("¥" + combination?.combination_price)
+        tvGoodsMarketPrice?.setText("¥" + combination?.sumOldPrice)
+        tvGoodsMarketPrice?.getPaint()?.setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
     }
 
     /**
