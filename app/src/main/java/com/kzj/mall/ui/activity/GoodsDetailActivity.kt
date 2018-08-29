@@ -12,6 +12,7 @@ import com.blankj.utilcode.util.ToastUtils
 import com.gyf.barlibrary.ImmersionBar
 import com.kzj.mall.C
 import com.kzj.mall.R
+import com.kzj.mall.RequestCode
 import com.kzj.mall.adapter.CommomViewPagerAdapter
 import com.kzj.mall.anim.AniManager
 import com.kzj.mall.base.BaseActivity
@@ -20,10 +21,12 @@ import com.kzj.mall.databinding.ActivityGoodsDetailsBinding
 import com.kzj.mall.di.component.AppComponent
 import com.kzj.mall.di.component.DaggerGoodsDetailComponent
 import com.kzj.mall.di.module.GoodsDetailModule
+import com.kzj.mall.entity.BuyEntity
 import com.kzj.mall.entity.GoodsDetailEntity
 import com.kzj.mall.event.*
 import com.kzj.mall.mvp.contract.GoodsDetailContract
 import com.kzj.mall.mvp.presenter.GoodsDetailPresenter
+import com.kzj.mall.ui.activity.login.LoginActivity
 import com.kzj.mall.ui.dialog.DetailMorePop
 import com.kzj.mall.ui.fragment.GoodsDetailFragment
 import com.kzj.mall.ui.fragment.GoodsInfoFragment
@@ -80,8 +83,8 @@ class GoodsDetailActivity : BaseActivity<GoodsDetailPresenter, ActivityGoodsDeta
     }
 
     override fun initData() {
-        mGoodsInfoId = "29921"
-//        mGoodsInfoId = intent?.getStringExtra(C.GOODS_INFO_ID)
+//        mGoodsInfoId = "29921"
+        mGoodsInfoId = intent?.getStringExtra(C.GOODS_INFO_ID)
         mGoodsDefaultInfoId = mGoodsInfoId
 
         mBinding?.goodsDetailBar?.setTabAlpha(barAlpha)
@@ -269,8 +272,18 @@ class GoodsDetailActivity : BaseActivity<GoodsDetailPresenter, ActivityGoodsDeta
             }
 
             override fun setAnimEnd(a: AniManager?) {
+                if (mBinding?.tvCartNum?.visibility != View.VISIBLE) {
+                    mBinding?.tvCartNum?.visibility = View.VISIBLE
+                }
                 var num = mBinding?.tvCartNum?.text.toString().toInt()
                 mBinding?.tvCartNum?.text = (num + 1).toString()
+
+                //加入购物车
+                var carType = "0"
+                if (isCombination) {
+                    carType = "2"
+                }
+                mPresenter?.addCar(carType, mGoodsNum, mGoodsInfoId, mCombinationId)
             }
 
         })
@@ -287,6 +300,13 @@ class GoodsDetailActivity : BaseActivity<GoodsDetailPresenter, ActivityGoodsDeta
             val goodsInfoFragment = fragments?.get(0) as GoodsInfoFragment
             goodsInfoFragment?.updateDatas(mGoodsDefaultInfoId, goodsDetailEntity)
         }
+    }
+
+    override fun buyNow(bayEntity: BuyEntity?) {
+        val intent = Intent(this, ConfirmOrderActivity::class.java)
+        intent?.putExtra("bayEntity", bayEntity)
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(intent)
     }
 
     override fun showLoading() {
@@ -321,13 +341,19 @@ class GoodsDetailActivity : BaseActivity<GoodsDetailPresenter, ActivityGoodsDeta
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.tv_add_cart -> {
+                if (!C.IS_LOGIN) {
+                    val intent = Intent(this, LoginActivity::class.java)
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    startActivityForResult(intent, RequestCode.LOGIN)
+                    return
+                }
                 startAddCartAnim(false, mBinding?.tvAddCart!!, mBinding?.ivCart!!)
             }
             R.id.tv_buy -> {
-//                val intent = Intent(this, ConfirmOrderActivity::class.java)
-//                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-//                startActivity(intent)
-                if (!C.IS_LOGIN){
+                if (!C.IS_LOGIN) {
+                    val intent = Intent(this, LoginActivity::class.java)
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    startActivityForResult(intent, RequestCode.LOGIN)
                     return
                 }
                 var carType = "0"

@@ -91,7 +91,8 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="visible">
 
                     <LinearLayout
                         android:id="@+id/ll_cart"
@@ -128,32 +129,65 @@
                         android:gravity="center"
                         android:paddingLeft="4dp"
                         android:paddingRight="4dp"
-                        android:text="19"
+                        android:text="0"
                         android:textColor="@color/white"
-                        android:textSize="9dp" />
+                        android:textSize="9dp"
+                        android:visibility="gone"/>
                 </RelativeLayout>
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/tv_add_cart"
-                android:layout_width="100dp"
-                android:layout_height="match_parent"
-                android:background="#2E3033"
-                android:gravity="center"
-                android:text="加入购物车"
-                android:textColor="@color/white"
-                android:textStyle="bold" />
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/tv_buy"
-                android:layout_width="100dp"
-                android:layout_height="match_parent"
-                android:background="@color/orange_default"
-                android:gravity="center"
-                android:text="立即购买"
-                android:textColor="@color/white"
-                android:textStyle="bold" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_add_cart"
+                        android:layout_width="92dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="10dp"
+                        android:background="@drawable/background_green_corners_9999"
+                        android:gravity="center"
+                        android:text="加入购物车"
+                        android:textColor="@color/white"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_buy"
+                        android:layout_width="92dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@drawable/background_orange_corners_9999"
+                        android:gravity="center"
+                        android:text="立即购买"
+                        android:textColor="@color/white"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+
+                <TextView
+                    android:id="@+id/tv_request_checkin"
+                    android:layout_width="240dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/background_green_corners_9999"
+                    android:gravity="center"
+                    android:text="需求登记"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:visibility="gone"/>
+            </FrameLayout>
         </LinearLayout>
     </LinearLayout>
 </layout>

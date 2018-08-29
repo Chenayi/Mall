@@ -249,7 +249,7 @@ class LocalDatas {
             val cartGroupEntity = CartGroupEntity()
             val groups = ArrayList<CartGroupEntity.Group>()
             for (i in 0 until 2) {
-                groups.add(CartGroupEntity().Group())
+                groups.add(CartGroupEntity.Group())
             }
             cartGroupEntity.groups = groups
             return cartGroupEntity

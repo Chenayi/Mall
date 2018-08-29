@@ -18,7 +18,8 @@
         android:orientation="horizontal"
         android:paddingLeft="40dp"
         android:paddingRight="10dp"
-        android:paddingTop="16dp">
+        android:paddingTop="16dp"
+        android:visibility="gone">
 
         <com.allen.library.SuperTextView
             android:layout_width="32dp"
@@ -32,6 +33,7 @@
             app:sUseShape="true" />
 
         <TextView
+            android:id="@+id/tv_combination_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="4dp"
@@ -58,9 +60,10 @@
             android:id="@+id/iv_check"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@mipmap/icon_cart_check" />
+            android:src="@mipmap/check_nor" />
 
         <ImageView
+            android:id="@+id/iv_goods"
             android:layout_width="88dp"
             android:layout_height="88dp"
             android:layout_marginLeft="10dp"
@@ -74,6 +77,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/tv_goods_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxLines="2"
@@ -89,6 +93,7 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/tv_goods_price"
                     android:layout_width="0dp"
                     android:layout_height="27dp"
                     android:layout_weight="1"
@@ -104,36 +109,33 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <ImageView
+                        android:id="@+id/iv_minus"
+                        android:layout_width="27dp"
                         android:layout_height="27dp"
-                        android:gravity="center"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
-                        android:text="-"
-                        android:textColor="#6A6E75" />
+                        android:scaleType="centerInside"
+                        android:src="@mipmap/minus_nor" />
 
                     <EditText
+                        android:id="@+id/tv_goods_num"
                         android:layout_width="45dp"
                         android:layout_height="27dp"
                         android:background="#F5F5F5"
+                        android:focusable="false"
                         android:gravity="center"
                         android:lines="1"
                         android:singleLine="true"
                         android:text="1"
                         android:textColor="#242A33"
-                        android:textSize="12dp"
-                        android:focusable="false"/>
+                        android:textSize="12dp" />
 
 
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <ImageView
+                        android:id="@+id/iv_plus"
+                        android:layout_width="27dp"
                         android:layout_height="27dp"
-                        android:gravity="center"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
-                        android:text="+"
-                        android:textColor="#6A6E75" />
+                        android:scaleType="centerInside"
+                        android:src="@mipmap/plus_cart" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -142,12 +144,14 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/tv_goods_pre_price"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:layout_marginLeft="40dp"
         android:text="已省¥100.00"
         android:textColor="@color/orange_default"
-        android:textSize="13dp" />
+        android:textSize="13dp"
+        android:visibility="gone" />
 
 </LinearLayout>

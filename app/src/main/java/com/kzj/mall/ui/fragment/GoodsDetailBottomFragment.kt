@@ -11,6 +11,7 @@ import com.kzj.mall.base.BaseFragment
 import com.kzj.mall.base.IPresenter
 import com.kzj.mall.databinding.FragmentGoodsDetailBinding
 import com.kzj.mall.di.component.AppComponent
+import com.kzj.mall.entity.GoodsDetailEntity
 import com.kzj.mall.utils.LocalDatas
 import me.yokeyword.fragmentation.SupportFragment
 
@@ -22,11 +23,14 @@ class GoodsDetailBottomFragment : BaseFragment<IPresenter, FragmentGoodsDetailBi
     val SECOND = 1
     private var curFragment = FIRST
 
+    private var goodsDetailEntity: GoodsDetailEntity? = null
+
     companion object {
-        fun newInstance(barHeight: Int): GoodsDetailBottomFragment {
+        fun newInstance(barHeight: Int,goodsDetailEntity: GoodsDetailEntity?): GoodsDetailBottomFragment {
             val goodsDetailBottomFragment = GoodsDetailBottomFragment()
             var b = Bundle()
             b.putInt("barHeight", barHeight)
+            b.putSerializable("goodsDetailEntity",goodsDetailEntity)
             goodsDetailBottomFragment.arguments = b
             return goodsDetailBottomFragment
         }
@@ -42,6 +46,9 @@ class GoodsDetailBottomFragment : BaseFragment<IPresenter, FragmentGoodsDetailBi
         arguments?.getInt("barHeight")?.let {
             barHeight = it + margin
         }
+        arguments?.getSerializable("goodsDetailEntity")?.let { it ->
+            goodsDetailEntity = it as GoodsDetailEntity
+        }
         mBinding?.llDetailRoot?.setPadding(margin, barHeight, margin, margin)
         return view
     }
@@ -54,7 +61,7 @@ class GoodsDetailBottomFragment : BaseFragment<IPresenter, FragmentGoodsDetailBi
 
         val firstFragment = findChildFragment(GoodsDetailDescribeFragment::class.java)
         if (firstFragment == null) {
-            mFragments[FIRST] = GoodsDetailDescribeFragment.newInstance();
+            mFragments[FIRST] = GoodsDetailDescribeFragment.newInstance(goodsDetailEntity?.gin?.goods_mobile_desc);
             mFragments[SECOND] = GoodsDetailExplainFragment.newInstance(LocalDatas.explainDatas());
 
             loadMultipleRootFragment(R.id.fl_goods_detail, FIRST,

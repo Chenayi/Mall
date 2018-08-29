@@ -9,6 +9,7 @@ import com.kzj.mall.base.BasePresenter
 import com.kzj.mall.di.scope.ActivityScope
 import com.kzj.mall.entity.BuyEntity
 import com.kzj.mall.entity.GoodsDetailEntity
+import com.kzj.mall.entity.cart.AddCartEntity
 import com.kzj.mall.http.RxScheduler
 import com.kzj.mall.mvp.contract.GoodsDetailContract
 import io.reactivex.disposables.Disposable
@@ -54,38 +55,41 @@ constructor(model: GoodsDetailContract.Model?, view: GoodsDetailContract.View?, 
                 })
     }
 
+    /**
+     * 立即购买
+     */
     fun buyNow(carType: String, goodsNum: Int?, goodsInfoId: String?, fitId: String?) {
         val params = HashMap<String, String>()
         carType?.let {
-            params.put("carType",it)
+            params.put("carType", it)
             //套餐
-            if (it.equals("2")){
+            if (it.equals("2")) {
                 fitId?.let {
-                    params.put("fitId",it)
+                    params.put("fitId", it)
                 }
             }
             //单品，疗程
-            else{
+            else {
                 goodsInfoId?.let {
-                    params.put("goods_info_id",it)
+                    params.put("goods_info_id", it)
                 }
             }
         }
 
         goodsNum?.let {
-            params.put("goodsNum",it.toString())
+            params.put("goodsNum", it.toString())
         }
 
         model?.buyNow(params)
                 ?.compose(RxScheduler.compose())
-                ?.subscribe(object :BaseObserver<BuyEntity>(){
+                ?.subscribe(object : BaseObserver<BuyEntity>() {
                     override fun onSubscribe(d: Disposable) {
                         addDisposable(d)
                         view?.showLoading()
                     }
 
                     override fun onHandleSuccess(t: BuyEntity?) {
-
+                        view?.buyNow(t)
                     }
 
                     override fun onHandleError(code: Int, msg: String?) {
@@ -94,6 +98,50 @@ constructor(model: GoodsDetailContract.Model?, view: GoodsDetailContract.View?, 
 
                     override fun onHandleAfter() {
                         view?.hideLoading()
+                    }
+                })
+    }
+
+    /**
+     * 添加购物车
+     */
+    fun addCar(carType: String, goodsNum: Int?, goodsInfoId: String?, fitId: String?){
+        val params = HashMap<String, String>()
+        carType?.let {
+            params.put("carType", it)
+            //套餐
+            if (it.equals("2")) {
+                fitId?.let {
+                    params.put("fitId", it)
+                }
+            }
+            //单品，疗程
+            else {
+                goodsInfoId?.let {
+                    params.put("goods_info_id", it)
+                }
+            }
+        }
+
+        goodsNum?.let {
+            params.put("goodsNum", it.toString())
+        }
+
+
+        model?.addCar(params)
+                ?.compose(RxScheduler.compose())
+                ?.subscribe(object : BaseObserver<AddCartEntity>() {
+                    override fun onSubscribe(d: Disposable) {
+                        addDisposable(d)
+                    }
+
+                    override fun onHandleSuccess(t: AddCartEntity?) {
+                    }
+
+                    override fun onHandleError(code: Int, msg: String?) {
+                    }
+
+                    override fun onHandleAfter() {
                     }
                 })
     }

@@ -6,17 +6,18 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.chad.library.adapter.base.BaseViewHolder
 import com.kzj.mall.R
+import com.kzj.mall.RequestCode
 import com.kzj.mall.adapter.BaseAdapter
 import com.kzj.mall.base.BaseActivity
 import com.kzj.mall.base.IPresenter
 import com.kzj.mall.databinding.ActivityConfirmOrderBinding
 import com.kzj.mall.di.component.AppComponent
+import com.kzj.mall.entity.BuyEntity
 import com.kzj.mall.ui.dialog.ConfirmDialog
 import com.kzj.mall.utils.LocalDatas
 import com.kzj.mall.widget.RootLayout
 
 class ConfirmOrderActivity : BaseActivity<IPresenter, ActivityConfirmOrderBinding>(), View.OnClickListener {
-    val REQUEST_CODE_CREATE_ADDRESS = 101
 
     val CHECK_ALIPAY = 0
     val CHECK_ARRIVE_PAY = 1
@@ -25,6 +26,9 @@ class ConfirmOrderActivity : BaseActivity<IPresenter, ActivityConfirmOrderBindin
     var hasAddress = false
 
     private var goodsAdapter: GoodsAdapter? = null
+
+    private var buyEntity: BuyEntity? = null
+
     override fun getLayoutId(): Int {
         return R.layout.activity_confirm_order
     }
@@ -33,6 +37,10 @@ class ConfirmOrderActivity : BaseActivity<IPresenter, ActivityConfirmOrderBindin
     }
 
     override fun initData() {
+        intent?.getSerializableExtra("buyEntity")?.let {
+            buyEntity = it as BuyEntity
+        }
+
         goodsAdapter = GoodsAdapter(LocalDatas.orderGoods())
         mBinding?.rvGoods?.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         mBinding?.rvGoods?.adapter = goodsAdapter
@@ -61,7 +69,7 @@ class ConfirmOrderActivity : BaseActivity<IPresenter, ActivityConfirmOrderBindin
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == REQUEST_CODE_CREATE_ADDRESS) {
+            if (requestCode == RequestCode.CREATE_ADDRESS) {
                 mBinding?.llAddress?.visibility = View.VISIBLE
                 mBinding?.tvCreateAddress?.visibility = View.GONE
                 hasAddress = true
@@ -104,7 +112,7 @@ class ConfirmOrderActivity : BaseActivity<IPresenter, ActivityConfirmOrderBindin
                     startActivity(intent)
                 } else {
                     val intent = Intent(this, CreateAddressActivity::class.java)
-                    startActivityForResult(intent, REQUEST_CODE_CREATE_ADDRESS)
+                    startActivityForResult(intent, RequestCode.CREATE_ADDRESS)
                 }
             }
             R.id.ll_multi_goods -> {

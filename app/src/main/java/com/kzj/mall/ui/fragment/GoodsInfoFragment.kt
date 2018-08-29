@@ -161,8 +161,8 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
                     mBinding?.fabUpSlide?.show()
                     mBinding?.tvDetailTips?.text = "下拉收起图文详情"
 
-                    if (!isLoadDetailFragment) {
-                        loadRootFragment(R.id.fl_content, GoodsDetailBottomFragment.newInstance(barHeight))
+                    if (findChildFragment(GoodsDetailBottomFragment::class.java) == null) {
+                        loadRootFragment(R.id.fl_content, GoodsDetailBottomFragment.newInstance(barHeight, goodsDetailEntity))
                         isLoadDetailFragment = true
                     }
                 }
@@ -222,6 +222,7 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
      */
     fun updateDatas(goodsDefaultInfoId: String?, goodsDetailEntity: GoodsDetailEntity?) {
         goodsDetailEntity?.let {
+            this@GoodsInfoFragment.goodsDetailEntity = it
             //是否关注
             llFollow?.isEnabled = true
             isFollow = it?.is_follow?.equals("1") == true

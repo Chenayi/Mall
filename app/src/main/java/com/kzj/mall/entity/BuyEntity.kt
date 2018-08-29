@@ -1,4 +1,6 @@
 package com.kzj.mall.entity
 
-class BuyEntity {
+import java.io.Serializable
+
+class BuyEntity:Serializable{
 }

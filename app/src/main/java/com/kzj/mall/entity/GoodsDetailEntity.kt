@@ -25,6 +25,8 @@ class GoodsDetailEntity : Serializable {
         var goodsSole: String? = null
         //库存
         var goodsStock: Int? = null
+        //商品详情
+        var goodsMobileDesc: String? = null
     }
 
     /**
@@ -32,6 +34,7 @@ class GoodsDetailEntity : Serializable {
      */
     class Gin : Serializable {
         var goods_info_subtitle: String? = null
+        var goods_mobile_desc: String? = null
     }
 
     /**

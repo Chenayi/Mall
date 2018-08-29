@@ -79,7 +79,7 @@ abstract class BaseFragment<P : IPresenter, D : ViewDataBinding> : SupportFragme
             mLoadingDialog = LoadingDialog
                     .Builder(context!!)
                     .setCancelOutside(false)
-                    .setBackCancelable(false)
+                    .setBackCancelable(true)
                     .setShowMessage(false)
                     .create()
         }
