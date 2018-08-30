@@ -2,6 +2,7 @@ package com.kzj.mall.ui.dialog
 
 import android.os.Bundle
 import android.view.View
+import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ScreenUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.kzj.mall.GlideApp
@@ -13,6 +14,7 @@ import com.kzj.mall.di.component.DaggerGoodsSpecComponent
 import com.kzj.mall.di.module.GoodsSpeclModule
 import com.kzj.mall.entity.GoodsDetailEntity
 import com.kzj.mall.event.CombinationEvent
+import com.kzj.mall.event.GoodSpecChangeEvent
 import com.kzj.mall.event.GoodsNumChangeEvent
 import com.kzj.mall.event.PackageListEvent
 import com.kzj.mall.mvp.contract.GoodsSpecContract
@@ -105,11 +107,7 @@ class GoodsSpecDialog : BaseDialog<GoodsSpecPresenter, DialogGoodsSpecBinding>()
 
                 mBinding?.sflGoodsSpec?.setDatas(tags)
                 mBinding?.sflGoodsSpec?.switchTag(specPosition)
-                mBinding?.sflGoodsSpec?.setOnTagClickListener(object : SuperFlowLayout.OnTagClickListener {
-                    override fun onTagClick(position: Int, tag: String?) {
-                        mPresenter.requesrGoodsDetail(position, goodsDetailEntity?.openSpec?.get(position)?.goodsId)
-                    }
-                })
+
             }
         }
 
@@ -151,6 +149,14 @@ class GoodsSpecDialog : BaseDialog<GoodsSpecPresenter, DialogGoodsSpecBinding>()
 
             mBinding?.sflGoodsGroup?.setDatas(groups)
             mBinding?.sflGoodsGroup?.switchTag(groupPosition)
+
+
+            mBinding?.sflGoodsSpec?.setOnTagClickListener(object : SuperFlowLayout.OnTagClickListener {
+                override fun onTagClick(position: Int, tag: String?) {
+                    mPresenter.requesrGoodsDetail(position, goodsDetailEntity?.openSpec?.get(position)?.goodsId)
+                }
+            })
+
             mBinding?.sflGoodsGroup?.setOnTagClickListener(object : SuperFlowLayout.OnTagClickListener {
                 override fun onTagClick(position: Int, tag: String?) {
                     val iGroup = iGruops?.get(position)
@@ -210,8 +216,6 @@ class GoodsSpecDialog : BaseDialog<GoodsSpecPresenter, DialogGoodsSpecBinding>()
             return
         }
 
-
-
         for (i in 1 until packageList?.size!!) {
             if (i < packageList?.size!! - 1) {
 
@@ -259,6 +263,10 @@ class GoodsSpecDialog : BaseDialog<GoodsSpecPresenter, DialogGoodsSpecBinding>()
     override fun showGoodsDetail(position: Int, goodsDetailEntity: GoodsDetailEntity?) {
         specPosition = position
         setSpecGroup(goodsDetailEntity)
+        this.goodsDetailEntity = goodsDetailEntity
+        goodsDetailEntity?.let {
+            EventBus.getDefault().post(GoodSpecChangeEvent(position,it))
+        }
     }
 
     override fun showLoading() {

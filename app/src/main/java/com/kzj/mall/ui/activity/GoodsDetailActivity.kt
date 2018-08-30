@@ -209,6 +209,15 @@ class GoodsDetailActivity : BaseActivity<GoodsDetailPresenter, ActivityGoodsDeta
     }
 
     /**
+     * 规格切换
+     */
+    @Subscribe
+    fun specChange(goodSpecChangeEvent: GoodSpecChangeEvent) {
+        val goodsDetailEntity = goodSpecChangeEvent?.goodsDetailEntity
+    }
+
+
+    /**
      * 商品id
      */
     @Subscribe
@@ -295,10 +304,30 @@ class GoodsDetailActivity : BaseActivity<GoodsDetailPresenter, ActivityGoodsDeta
     }
 
 
+    /**
+     * 商品详情信息
+     */
     override fun showGoodsDetail(goodsDetailEntity: GoodsDetailEntity?) {
         if (mBinding?.vpGoodsDetail?.currentItem == 0) {
             val goodsInfoFragment = fragments?.get(0) as GoodsInfoFragment
             goodsInfoFragment?.updateDatas(mGoodsDefaultInfoId, goodsDetailEntity)
+        }
+
+        val gn = goodsDetailEntity?.gn
+        gn?.goodsType?.let {
+            //处方
+            if (it.equals("0")){
+                mBinding?.rlCart?.visibility = View.GONE
+                mBinding?.llBuy?.visibility = View.GONE
+                mBinding?.tvRequestCheckin?.visibility = View.VISIBLE
+            }
+
+            //非处方
+            else{
+                mBinding?.rlCart?.visibility = View.VISIBLE
+                mBinding?.llBuy?.visibility = View.VISIBLE
+                mBinding?.tvRequestCheckin?.visibility = View.GONE
+            }
         }
     }
 

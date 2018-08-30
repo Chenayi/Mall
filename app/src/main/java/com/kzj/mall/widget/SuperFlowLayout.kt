@@ -55,10 +55,7 @@ class SuperFlowLayout : BaseRelativeLayout<SuperFlowLayoutBinding>, View.OnClick
     override fun onClick(v: View?) {
         if (v is TextView) {
             var tag = v?.tag as Int
-
-            if (tag != curPosition) {
-                switchTag(tag)
-            }
+            switchTag(tag)
         }
     }
 
@@ -77,18 +74,20 @@ class SuperFlowLayout : BaseRelativeLayout<SuperFlowLayoutBinding>, View.OnClick
                 tv?.setTextColor(Color.parseColor("#2E3033"))
             }
         }
+        if (position != curPosition) {
+            onTagClickListener?.onTagClick(position, datas?.get(position))
+        }
         curPosition = position
-        onTagClickListener?.onTagClick(position, datas?.get(position))
     }
 
     /**
      * 重置
      */
-    fun reset(){
+    fun reset() {
         for (i in 0 until textViews?.size!!) {
             val tv = textViews?.get(i)
             tv?.setPadding(SizeUtils.dp2px(12f), SizeUtils.dp2px(8f), SizeUtils.dp2px(12f), SizeUtils.dp2px(8f))
-            if (i==0) {
+            if (i == 0) {
                 tv?.setBackgroundResource(R.drawable.background_green_stroke_corners_9999)
                 tv?.setTextColor(Color.parseColor("#48B828"))
             } else {

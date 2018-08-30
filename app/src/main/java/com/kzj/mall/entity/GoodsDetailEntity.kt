@@ -21,6 +21,7 @@ class GoodsDetailEntity : Serializable {
         var goodsPrice: String? = null
         var goodsName: String? = null
         var goodsMarketPrice: String? = null
+        var goodsType:String?=null
         //月销量
         var goodsSole: String? = null
         //库存

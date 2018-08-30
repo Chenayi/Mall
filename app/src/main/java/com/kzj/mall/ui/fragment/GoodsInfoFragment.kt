@@ -326,6 +326,15 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
     }
 
     /**
+     * 规格切换
+     */
+    @Subscribe
+    fun specChange(goodSpecChangeEvent: GoodSpecChangeEvent) {
+        specPosition = goodSpecChangeEvent?.position
+        updateDatas(mGoodsDefaultInfoId, goodSpecChangeEvent?.goodsDetailEntity)
+    }
+
+    /**
      * 点击事件
      */
     override fun onClick(v: View?) {
