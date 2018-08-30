@@ -323,8 +323,15 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
      * 购物车数量修改成功
      */
     override fun changeCartNumSeccess(position: Int, t: CartEntity?) {
-        val cartEntity = cartAdapter?.getItem(position) as BaseCartEntity
-        cartEntity?.goods_num = t?.shoppingCart?.goods_num
+        val cartEntity = cartAdapter?.getItem(position)
+        if (cartEntity is CartSingleEntity){
+            cartEntity?.goods_num = t?.shoppingCart?.goods_num
+            cartEntity?.goods_stock = t?.shoppingCart?.goods_stock
+        }else if (cartEntity is CartGroupEntity){
+            cartEntity?.goods_num = t?.shoppingCart?.goods_num
+            cartEntity?.goods_stock = t?.shoppingCart?.goods_stock
+        }
+
         cartAdapter?.notifyItemChanged(position)
     }
 

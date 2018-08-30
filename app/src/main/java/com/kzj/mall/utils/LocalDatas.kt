@@ -11,27 +11,50 @@ import com.kzj.mall.entity.home.*
 class LocalDatas {
     companion object {
 
+        /**
+         * 首页广告图
+         */
         fun homeBannerData(): HomeHeaderBannerEntity {
             val homeHeaderBannerEntity = HomeHeaderBannerEntity()
             val banners = ArrayList<HomeHeaderBannerEntity.Adds>()
 
             val banner1 = HomeHeaderBannerEntity().Adds()
-            banner1.adCode = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1530510861413&di=c9f7439a5a5d4c57435e5eb7f2772817&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F01a0d4582d8320a84a0e282be8a02e.jpg"
+            banner1.adCode = "http://thyrsi.com/t6/365/1535610735x-1404817844.png"
 
             val banner2 = HomeHeaderBannerEntity().Adds()
-            banner2.adCode = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1530523369994&di=60f87ef08f23f8dab2b36d5ed57f5dcd&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F01ac39597adf9da8012193a352df31.jpg"
+            banner2.adCode = "http://thyrsi.com/t6/365/1535610773x-1566688371.png"
 
             val banner3 = HomeHeaderBannerEntity().Adds()
-            banner3.adCode = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1530510861412&di=c51db760c9ecc789cdae3b334715aef6&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F0161c95690b86032f87574beaa54c2.jpg"
-
-            val banner4 = HomeHeaderBannerEntity().Adds()
-            banner4.adCode = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1533288558977&di=2dc323862d5e267a01c67863d579e511&imgtype=0&src=http%3A%2F%2Fpic.90sjimg.com%2Fback_pic%2Fqk%2Fback_origin_pic%2F00%2F01%2F61%2Fdfcde6abbc5c5941a18da393901c1263.jpg"
-
+            banner3.adCode = "http://thyrsi.com/t6/365/1535610798x1822611437.png"
 
             banners.add(banner1)
             banners.add(banner2)
             banners.add(banner3)
-            banners.add(banner4)
+
+            homeHeaderBannerEntity.adss = banners
+
+            return homeHeaderBannerEntity
+        }
+
+        /**
+         * 男科广告图
+         */
+        fun manBannerData(): HomeHeaderBannerEntity {
+            val homeHeaderBannerEntity = HomeHeaderBannerEntity()
+            val banners = ArrayList<HomeHeaderBannerEntity.Adds>()
+
+            val banner1 = HomeHeaderBannerEntity().Adds()
+            banner1.adCode = "http://thyrsi.com/t6/365/1535598953x1822611359.png"
+
+            val banner2 = HomeHeaderBannerEntity().Adds()
+            banner2.adCode = "http://thyrsi.com/t6/365/1535598918x1822611263.png"
+
+            val banner3 = HomeHeaderBannerEntity().Adds()
+            banner3.adCode = "http://thyrsi.com/t6/365/1535600585x1822611437.png"
+
+            banners.add(banner1)
+            banners.add(banner2)
+            banners.add(banner3)
 
             homeHeaderBannerEntity.adss = banners
 
@@ -63,22 +86,23 @@ class LocalDatas {
          */
         fun homeAdvBannerData(): HomeAdvBannerEntity {
             var homeAdvBannerData = HomeAdvBannerEntity()
-            homeAdvBannerData.banners = homeAdvBannerListDatas()
+
+            val banners = ArrayList<HomeAdvBannerEntity.Banners>()
+
+            val banner1 = HomeAdvBannerEntity.Banners()
+            banner1.adv = R.mipmap.h1
+
+            val banner2 = HomeAdvBannerEntity.Banners()
+            banner2.adv = R.mipmap.h2
+
+            banners.add(banner1)
+            banners.add(banner2)
+
+            homeAdvBannerData.banners = banners
+
             return homeAdvBannerData
         }
 
-        /**
-         * 穿插广告列表
-         */
-        fun homeAdvBannerListDatas(): MutableList<HomeAdvBannerEntity.Banners> {
-            var datas = ArrayList<HomeAdvBannerEntity.Banners>()
-            for (i in 0 until 3) {
-                val banner = HomeAdvBannerEntity.Banners()
-                banner?.adv = R.mipmap.adv_default
-                datas.add(banner)
-            }
-            return datas
-        }
 
 
         /**
@@ -124,21 +148,22 @@ class LocalDatas {
          */
         fun andrologyAdvBannerData(): AndrologyAdvBannerEntity {
             val andrologyAdvBannerData = AndrologyAdvBannerEntity()
-            andrologyAdvBannerData.banners = andrologyAdvBannerDatas()
-            return andrologyAdvBannerData
-        }
+            val banners = ArrayList<AndrologyAdvBannerEntity.Banners>()
 
-        /**
-         * 男科穿插广告
-         */
-        fun andrologyAdvBannerDatas(): MutableList<AndrologyAdvBannerEntity.Banners> {
-            val andrologyAdvBannerDatas = ArrayList<AndrologyAdvBannerEntity.Banners>()
-            for (i in 0 until 3) {
-                val banners = AndrologyAdvBannerEntity.Banners()
-                banners.imgUrl = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1530510861413&di=c9f7439a5a5d4c57435e5eb7f2772817&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F01a0d4582d8320a84a0e282be8a02e.jpg"
-                andrologyAdvBannerDatas?.add(banners)
-            }
-            return andrologyAdvBannerDatas
+            val b1 = AndrologyAdvBannerEntity.Banners()
+            b1.imgRes = R.mipmap.b1
+            val b2 = AndrologyAdvBannerEntity.Banners()
+            b2.imgRes = R.mipmap.b2
+            val b3 = AndrologyAdvBannerEntity.Banners()
+            b3.imgRes = R.mipmap.b3
+
+            banners.add(b1)
+            banners.add(b2)
+            banners.add(b3)
+
+            andrologyAdvBannerData.banners = banners
+
+            return andrologyAdvBannerData
         }
 
         /**
@@ -439,17 +464,17 @@ class LocalDatas {
         /**
          * 搜索
          */
-        fun searches():MutableList<SearchEntity>{
+        fun searches(): MutableList<SearchEntity> {
             val searchs = ArrayList<SearchEntity>()
-            for (i in 0 until 9){
+            for (i in 0 until 9) {
                 searchs.add(SearchEntity())
             }
             return searchs
         }
 
-        fun moreSearches():MutableList<SearchEntity>{
+        fun moreSearches(): MutableList<SearchEntity> {
             val searchs = ArrayList<SearchEntity>()
-            for (i in 0 until 9){
+            for (i in 0 until 9) {
                 searchs.add(SearchEntity())
             }
             return searchs

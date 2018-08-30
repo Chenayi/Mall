@@ -24,6 +24,9 @@ import com.kzj.mall.ui.activity.GoodsDetailActivity
 import com.kzj.mall.widget.ExpandLoadMoewView
 import android.animation.ObjectAnimator
 import android.animation.PropertyValuesHolder
+import android.support.v7.widget.RecyclerView
+import android.view.ViewConfiguration
+import android.view.animation.*
 import com.kzj.mall.ui.activity.SearchActivity
 import com.kzj.mall.ui.activity.SearchWithIdActivity
 
@@ -33,6 +36,9 @@ abstract class BaseHomeChildListFragment : BaseFragment<HomePresenter, FragmentB
     protected var headerBannerProvider: HeaderBannerProvider? = null
     private var backgroundColor: Int? = null
     protected var arrowVisiable = false
+    private var isAskVisible = true
+    private var distance = 0
+    private var firstVisibleItemPosition = 0
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_base_home_child_list
@@ -61,6 +67,42 @@ abstract class BaseHomeChildListFragment : BaseFragment<HomePresenter, FragmentB
                 }
             }, mBinding?.rvHome)
         }
+
+
+        mBinding?.rvHome?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+
+            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (distance < -ViewConfiguration.get(context).getScaledEdgeSlop() && !isAskVisible) {
+                    //显示
+                    showAskWithAnim();
+                    distance = 0;
+                    isAskVisible = true;
+                } else if (distance > ViewConfiguration.get(context).getScaledEdgeSlop() && isAskVisible) {
+                    //隐藏
+                    hideAskWithAnim();
+                    distance = 0;
+                    isAskVisible = false;
+                }
+                //向下滑并且可见 或者 向上滑并且不可见
+                if ((dy > 0 && isAskVisible) || (dy < 0 && !isAskVisible)) {
+                    distance += dy;
+                }
+
+                val layoutManager = recyclerView?.layoutManager as LinearLayoutManager
+                firstVisibleItemPosition = layoutManager?.findFirstVisibleItemPosition()
+                if (firstVisibleItemPosition == 0) {
+                    headerBannerProvider?.startBanner()
+                } else {
+                    headerBannerProvider?.pauseBanner()
+                }
+                if (firstVisibleItemPosition < 8){
+                    hideArrow()
+                }else{
+                    showArrow()
+                }
+            }
+        })
 
         listAdapter?.setOnItemChildClickListener { adapter, view, position ->
             when (view?.id) {
@@ -219,6 +261,40 @@ abstract class BaseHomeChildListFragment : BaseFragment<HomePresenter, FragmentB
         }
     }
 
+
+    fun getDefaultAlphaAnimation(`in`: Boolean): Animation {
+        val alphaAnimation = AlphaAnimation(if (`in`) 0.5f else 1.0f, if (`in`) 1.0f else 0.5f)
+        alphaAnimation.interpolator = AccelerateInterpolator()
+        return alphaAnimation
+    }
+    /**
+     * 显示问答按钮
+     */
+    protected fun showAskWithAnim() {
+        val set = AnimationSet(false)
+        val fromX = mBinding?.ivAsk?.width!! * 0.8f
+        val shakeAnimaw = TranslateAnimation(fromX, 0f, 0f, 0f)
+        set.duration = 300
+        set.addAnimation(shakeAnimaw)
+        set.addAnimation(getDefaultAlphaAnimation(true))
+        set.fillAfter = true
+        mBinding?.ivAsk?.startAnimation(set)
+    }
+
+    /**
+     * 隐藏问答按钮
+     */
+    protected fun hideAskWithAnim() {
+        val set = AnimationSet(false)
+        val toX = mBinding?.ivAsk?.width!! * 0.8f
+        val shakeAnimaw = TranslateAnimation(0f, toX, 0f, 0f)
+        set.duration = 300
+        set.addAnimation(shakeAnimaw)
+        set.addAnimation(getDefaultAlphaAnimation(false))
+        set.fillAfter = true
+        mBinding?.ivAsk?.startAnimation(set)
+    }
+
     protected fun jumpGoodsDetail(goodsInfoId:String){
         val intent = Intent(context,GoodsDetailActivity::class.java)
         intent?.putExtra(C.GOODS_INFO_ID,goodsInfoId)
@@ -287,7 +363,9 @@ abstract class BaseHomeChildListFragment : BaseFragment<HomePresenter, FragmentB
 
     override fun onSupportVisible() {
         super.onSupportVisible()
-        headerBannerProvider?.startBanner()
+        if (firstVisibleItemPosition == 0){
+            headerBannerProvider?.startBanner()
+        }
     }
 
     open fun enableLoadMore(): Boolean {

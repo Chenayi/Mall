@@ -172,7 +172,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="9dp"
-                                    android:text="代发货"
+                                    android:text="待发货"
                                     android:textColor="#6A6E75"
                                     android:textSize="12dp" />
                             </LinearLayout>

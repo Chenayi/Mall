@@ -112,4 +112,10 @@ interface ApiService {
     @POST("/mobile/kzj/api/user_voucher/app_shop_submit.htm")
     fun cartBalance(@Header("token") token: String?, @Field("shopping_cart_ids") cartId: LongArray?)
             : Observable<BaseResponse<BuyEntity>>
+
+    /**
+     * 我的
+     */
+    @POST("/mobile/kzj/api/user_voucher/user_index.htm")
+    fun requestMine(@Header("token") token: String?): Observable<BaseResponse<MineEntity>>
 }

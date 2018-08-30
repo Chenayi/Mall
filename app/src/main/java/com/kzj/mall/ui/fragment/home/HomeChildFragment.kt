@@ -15,8 +15,7 @@ import com.kzj.mall.entity.home.*
 import com.kzj.mall.utils.LocalDatas
 
 class HomeChildFragment : BaseHomeChildListFragment() {
-    private var isAskVisible = true
-    private var distance = 0
+
     private var pageNo = 0
 
     companion object {
@@ -30,83 +29,12 @@ class HomeChildFragment : BaseHomeChildListFragment() {
 
     override fun initData() {
         super.initData()
-        mBinding?.ivAsk?.visibility = View.VISIBLE
-        mBinding?.rvHome?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-
-            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                if (distance < -ViewConfiguration.get(context).getScaledEdgeSlop() && !isAskVisible) {
-                    //显示
-                    showAskWithAnim();
-                    distance = 0;
-                    isAskVisible = true;
-                } else if (distance > ViewConfiguration.get(context).getScaledEdgeSlop() && isAskVisible) {
-                    //隐藏
-                    hideAskWithAnim();
-                    distance = 0;
-                    isAskVisible = false;
-                }
-                //向下滑并且可见 或者 向上滑并且不可见
-                if ((dy > 0 && isAskVisible) || (dy < 0 && !isAskVisible)) {
-                    distance += dy;
-                }
-
-                val layoutManager = recyclerView?.layoutManager as LinearLayoutManager
-                val firstVisibleItemPosition = layoutManager?.findFirstVisibleItemPosition()
-                if (firstVisibleItemPosition == 0) {
-                    headerBannerProvider?.startBanner()
-                } else {
-                    headerBannerProvider?.pauseBanner()
-                }
-                if (firstVisibleItemPosition < 8){
-                    hideArrow()
-                }else{
-                    showArrow()
-                }
-            }
-        })
-
         mBinding?.refreshLayout?.setOnRefreshListener {
             mPresenter?.requestHomeDatas()
         }
-
-
         mPresenter?.requestHomeDatas()
     }
 
-    fun getDefaultAlphaAnimation(`in`: Boolean): Animation {
-        val alphaAnimation = AlphaAnimation(if (`in`) 0.5f else 1.0f, if (`in`) 1.0f else 0.5f)
-        alphaAnimation.interpolator = AccelerateInterpolator()
-        return alphaAnimation
-    }
-
-    /**
-     * 显示问答按钮
-     */
-    private fun showAskWithAnim() {
-        val set = AnimationSet(false)
-        val fromX = mBinding?.ivAsk?.width!! * 0.8f
-        val shakeAnimaw = TranslateAnimation(fromX, 0f, 0f, 0f)
-        set.duration = 300
-        set.addAnimation(shakeAnimaw)
-        set.addAnimation(getDefaultAlphaAnimation(true))
-        set.fillAfter = true
-        mBinding?.ivAsk?.startAnimation(set)
-    }
-
-    /**
-     * 隐藏问答按钮
-     */
-    private fun hideAskWithAnim() {
-        val set = AnimationSet(false)
-        val toX = mBinding?.ivAsk?.width!! * 0.8f
-        val shakeAnimaw = TranslateAnimation(0f, toX, 0f, 0f)
-        set.duration = 300
-        set.addAnimation(shakeAnimaw)
-        set.addAnimation(getDefaultAlphaAnimation(false))
-        set.fillAfter = true
-        mBinding?.ivAsk?.startAnimation(set)
-    }
 
     override fun registerItemProvider(providerDelegate: ProviderDelegate) {
         super.registerItemProvider(providerDelegate)
@@ -140,9 +68,9 @@ class HomeChildFragment : BaseHomeChildListFragment() {
         val datas = ArrayList<IHomeEntity>()
 
         //广告
-        val homeHeaderBannerEntity = HomeHeaderBannerEntity()
-        homeHeaderBannerEntity.adss = homeEntity?.adss
-        datas.add(homeHeaderBannerEntity)
+//        val homeHeaderBannerEntity = HomeHeaderBannerEntity()
+//        homeHeaderBannerEntity.adss = homeEntity?.adss
+        datas.add(LocalDatas.homeBannerData())
 
         //分类
         datas.add(HomeClassifyEntity())
@@ -153,9 +81,14 @@ class HomeChildFragment : BaseHomeChildListFragment() {
         datas.add(homeChoiceEntity)
 
         //每日闪购
-        val homeFlashSaleEntity = HomeFlashSaleEntity()
-        homeFlashSaleEntity?.dailyBuy = homeEntity?.dailyBuy
-        datas.add(homeFlashSaleEntity)
+        homeEntity?.dailyBuy?.let {
+            if (it?.size > 0) {
+                val homeFlashSaleEntity = HomeFlashSaleEntity()
+                homeFlashSaleEntity?.dailyBuy = homeEntity?.dailyBuy
+                datas.add(homeFlashSaleEntity)
+            }
+        }
+
 
         //精选优品
         datas.add(HomeChoiceGoodsEntity())

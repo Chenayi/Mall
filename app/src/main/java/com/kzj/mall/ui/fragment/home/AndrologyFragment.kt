@@ -1,7 +1,5 @@
 package com.kzj.mall.ui.fragment.home
 
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import com.chad.library.adapter.base.util.ProviderDelegate
 import com.kzj.mall.C
 import com.kzj.mall.adapter.provider.home.*
@@ -26,23 +24,6 @@ class AndrologyFragment : BaseHomeChildListFragment() {
     override fun initData() {
         super.initData()
         setListDatas(ArrayList())
-
-        mBinding?.rvHome?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
-                super.onScrollStateChanged(recyclerView, newState)
-                val layoutManager = recyclerView?.layoutManager
-                if (layoutManager is LinearLayoutManager) {
-                    val linearLayoutManager: LinearLayoutManager = layoutManager
-                    val firstVisibleItemPosition = linearLayoutManager.findFirstVisibleItemPosition()
-                    if (firstVisibleItemPosition == 0) {
-                        headerBannerProvider?.startBanner()
-                    } else {
-                        headerBannerProvider?.pauseBanner()
-                    }
-                }
-            }
-        })
-
         mBinding?.refreshLayout?.setOnRefreshListener {
             mPresenter?.requestHomeDatas()
         }
@@ -70,7 +51,7 @@ class AndrologyFragment : BaseHomeChildListFragment() {
 
     fun getNormalMultipleEntities(homeEntity: HomeEntity?): MutableList<IHomeEntity> {
         val list = ArrayList<IHomeEntity>()
-        list.add(LocalDatas.homeBannerData())
+        list.add(LocalDatas.manBannerData())
         list.add(AndrologyClassifyEntity())
         list.add(AndrologyStationEntity())
 
@@ -80,17 +61,25 @@ class AndrologyFragment : BaseHomeChildListFragment() {
         //品牌
         list.add(AndrologyBrandEntity())
 
-        //滋补
-        var andrologySpecialFieldEntity1 = AndrologySpecialFieldEntity()
-        andrologySpecialFieldEntity1?.specialFields = homeEntity?.zibu
-        andrologySpecialFieldEntity1.type = AndrologySpecialFieldEntity.TYPE_ZIBU
-        list.add(andrologySpecialFieldEntity1)
-
         //亲热
-        var andrologySpecialFieldEntity2 = AndrologySpecialFieldEntity()
-        andrologySpecialFieldEntity2?.specialFields = homeEntity?.qinre
-        andrologySpecialFieldEntity1.type = AndrologySpecialFieldEntity.TYPE_QINRE
-        list.add(andrologySpecialFieldEntity2)
+        homeEntity?.qinre?.let {
+            if (it?.size>0){
+                var andrologySpecialFieldEntity2 = AndrologySpecialFieldEntity()
+                andrologySpecialFieldEntity2?.specialFields = homeEntity?.qinre
+                andrologySpecialFieldEntity2.type = AndrologySpecialFieldEntity.TYPE_QINRE
+                list.add(andrologySpecialFieldEntity2)
+            }
+        }
+
+        //滋补
+        homeEntity?.zibu?.let {
+            if (it?.size >0){
+                var andrologySpecialFieldEntity1 = AndrologySpecialFieldEntity()
+                andrologySpecialFieldEntity1?.specialFields = homeEntity?.zibu
+                andrologySpecialFieldEntity1.type = AndrologySpecialFieldEntity.TYPE_ZIBU
+                list.add(andrologySpecialFieldEntity1)
+            }
+        }
 
         return list
     }

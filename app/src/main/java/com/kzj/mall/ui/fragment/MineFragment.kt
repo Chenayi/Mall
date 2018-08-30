@@ -8,20 +8,24 @@ import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.SizeUtils
 import com.gyf.barlibrary.ImmersionBar
 import com.kzj.mall.C
+import com.kzj.mall.GlideApp
 import com.kzj.mall.R
 import com.kzj.mall.base.BaseFragment
-import com.kzj.mall.base.IPresenter
 import com.kzj.mall.databinding.FragmentMineBinding
 import com.kzj.mall.di.component.AppComponent
+import com.kzj.mall.di.component.DaggerMineComponent
+import com.kzj.mall.di.module.MineModule
+import com.kzj.mall.entity.MineEntity
 import com.kzj.mall.event.LoginSuccessEvent
 import com.kzj.mall.event.LogoutEvent
+import com.kzj.mall.mvp.contract.MineContract
+import com.kzj.mall.mvp.presenter.MinePresenter
 import com.kzj.mall.ui.activity.*
 import com.kzj.mall.ui.activity.login.LoginActivity
 import org.greenrobot.eventbus.Subscribe
 import q.rorbin.badgeview.QBadgeView
 
-class MineFragment : BaseFragment<IPresenter, FragmentMineBinding>(), View.OnClickListener {
-
+class MineFragment : BaseFragment<MinePresenter, FragmentMineBinding>(), View.OnClickListener, MineContract.View {
     companion object {
         fun newInstance(): MineFragment {
             val mineFragment = MineFragment()
@@ -47,6 +51,11 @@ class MineFragment : BaseFragment<IPresenter, FragmentMineBinding>(), View.OnCli
     }
 
     override fun setupComponent(appComponent: AppComponent?) {
+        DaggerMineComponent.builder()
+                .appComponent(appComponent)
+                .mineModule(MineModule(this))
+                .build()
+                .inject(this)
     }
 
 
@@ -56,8 +65,8 @@ class MineFragment : BaseFragment<IPresenter, FragmentMineBinding>(), View.OnCli
         layoutParams.topMargin = BarUtils.getStatusBarHeight() + SizeUtils.dp2px(14f)
         mBinding?.ivMsg?.requestLayout()
 
-        if (C.IS_LOGIN){
-            setLoginStatus()
+        if (C.IS_LOGIN) {
+            mPresenter?.requestMine()
         }
         initListener()
     }
@@ -75,11 +84,12 @@ class MineFragment : BaseFragment<IPresenter, FragmentMineBinding>(), View.OnCli
 
     @Subscribe
     fun loginSuccess(loginSuccessEvent: LoginSuccessEvent) {
-        setLoginStatus()
-        setBadgeNum(mBinding?.rlOrderWaitPay, 5)
-        setBadgeNum(mBinding?.rlOrderWaitSend, 5)
-        setBadgeNum(mBinding?.rlOrderWaitTake, 5)
-        setBadgeNum(mBinding?.rlOrderFinish, 5)
+//        setLoginStatus()
+//        setBadgeNum(mBinding?.rlOrderWaitPay, 5)
+//        setBadgeNum(mBinding?.rlOrderWaitSend, 5)
+//        setBadgeNum(mBinding?.rlOrderWaitTake, 5)
+//        setBadgeNum(mBinding?.rlOrderFinish, 5)
+        mPresenter?.requestMine()
     }
 
     private fun setLoginStatus() {
@@ -88,6 +98,49 @@ class MineFragment : BaseFragment<IPresenter, FragmentMineBinding>(), View.OnCli
         val maskNumber = mobile.substring(0, 3) + "****" + mobile.substring(7, mobile.length)
         mBinding?.tvInfo?.setText(maskNumber)
         mBinding?.llMyCollect?.visibility = View.VISIBLE
+    }
+
+    override fun showLoading() {
+        showLoadingDialog()
+    }
+
+    override fun hideLoading() {
+        dismissLoadingDialog()
+    }
+
+    override fun onError(code: Int, msg: String?) {
+    }
+
+    override fun showMineData(mineEntity: MineEntity?) {
+        mBinding?.ivBg?.setImageResource(R.mipmap.mine_logined)
+
+        //商品收藏
+        val followLists = mineEntity?.follows?.list
+        followLists?.let {
+            mBinding?.llMyCollect?.visibility = View.VISIBLE
+        }
+
+        //订单数目
+        val orderSum = mineEntity?.orderSum
+        orderSum?.let {
+            setBadgeNum(mBinding?.rlOrderWaitPay, it?.notpay)
+            setBadgeNum(mBinding?.rlOrderWaitSend, it?.notdy)
+            setBadgeNum(mBinding?.rlOrderWaitTake, it?.nottdy)
+            setBadgeNum(mBinding?.rlOrderFinish, it?.ots)
+        }
+
+        //个人信息
+        val customerMap = mineEntity?.customerMap
+        customerMap?.let {
+            mBinding?.tvInfo?.text = it?.customer_username
+        }
+        customerMap?.customer_img?.let {
+            GlideApp.with(context!!)
+                    .load(it)
+                    .placeholder(R.mipmap.icon_avatar_default)
+                    .centerCrop()
+                    .into(mBinding?.ivAvatar!!)
+        }
     }
 
     @Subscribe
@@ -120,39 +173,81 @@ class MineFragment : BaseFragment<IPresenter, FragmentMineBinding>(), View.OnCli
                 }
             }
             R.id.rl_ask_answer -> {
-                val intent = Intent(context, MyAskAnswerActivity::class.java)
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                startActivity(intent)
+                if (!C.IS_LOGIN) {
+                    val intent = Intent(context, LoginActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    startActivity(intent)
+                } else {
+                    val intent = Intent(context, MyAskAnswerActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    startActivity(intent)
+                }
             }
             R.id.ll_order -> {
-                val intent = Intent(context, OrderActivity::class.java)
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                startActivity(intent)
+                if (!C.IS_LOGIN) {
+                    val intent = Intent(context, LoginActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    startActivity(intent)
+                } else {
+                    val intent = Intent(context, OrderActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    startActivity(intent)
+                }
             }
             R.id.rl_order_wait_pay -> {
-                val intent = Intent(context, OrderActivity::class.java)
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                startActivity(intent)
+                if (!C.IS_LOGIN) {
+                    val intent = Intent(context, LoginActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    startActivity(intent)
+                } else {
+                    val intent = Intent(context, OrderActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    startActivity(intent)
+                }
             }
             R.id.rl_order_wait_send -> {
-                val intent = Intent(context, OrderActivity::class.java)
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                startActivity(intent)
+                if (!C.IS_LOGIN) {
+                    val intent = Intent(context, LoginActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    startActivity(intent)
+                } else {
+                    val intent = Intent(context, OrderActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    startActivity(intent)
+                }
             }
             R.id.rl_order_wait_take -> {
-                val intent = Intent(context, OrderActivity::class.java)
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                startActivity(intent)
+                if (!C.IS_LOGIN) {
+                    val intent = Intent(context, LoginActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    startActivity(intent)
+                } else {
+                    val intent = Intent(context, OrderActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    startActivity(intent)
+                }
             }
             R.id.rl_order_finish -> {
-                val intent = Intent(context, OrderActivity::class.java)
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                startActivity(intent)
+                if (!C.IS_LOGIN) {
+                    val intent = Intent(context, LoginActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    startActivity(intent)
+                } else {
+                    val intent = Intent(context, OrderActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    startActivity(intent)
+                }
             }
             R.id.rl_browse_record -> {
-                val intent = Intent(context, BrowseRecordsActivity::class.java)
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                startActivity(intent)
+                if (!C.IS_LOGIN) {
+                    val intent = Intent(context, LoginActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    startActivity(intent)
+                } else {
+                    val intent = Intent(context, BrowseRecordsActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    startActivity(intent)
+                }
             }
         }
     }

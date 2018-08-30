@@ -38,7 +38,6 @@ class AndrologyAdvBannerProvider : BaseItemProvider<AndrologyAdvBannerEntity, Ba
             val adapter = UltraPagerAdapter(data?.banners)
             ultraViewPager?.viewPager?.pageMargin = SizeUtils.dp2px(10f)
             ultraViewPager?.viewPager?.offscreenPageLimit = 3
-            ultraViewPager?.setAdapter(adapter)
             ultraViewPager?.setInfiniteLoop(true);
             ultraViewPager?.setAdapter(adapter);
             ultraViewPager?.setPageTransformer(true, ScaleInTransformer());
@@ -60,7 +59,7 @@ class AndrologyAdvBannerProvider : BaseItemProvider<AndrologyAdvBannerEntity, Ba
             val imageView = view?.findViewById<RoundedImageView>(R.id.iv_image)
             imageView?.cornerRadius = 0f
             GlideApp.with(mContext)
-                    .load(advDatas?.get(position)?.imgUrl)
+                    .load(advDatas?.get(position)?.imgRes)
                     .placeholder(R.color.gray_default)
                     .centerCrop()
                     .into(imageView!!)

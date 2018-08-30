@@ -33,11 +33,11 @@
         android:orientation="horizontal">
 
         <LinearLayout
+            android:id="@+id/ll_man_station_1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="vertical"
-            android:id="@+id/ll_man_station_1">
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="match_parent"
@@ -93,10 +93,10 @@
             android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/ll_man_station_2"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:id="@+id/ll_man_station_2"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -143,7 +143,7 @@
                     android:layout_gravity="bottom"
                     android:layout_marginBottom="6dp"
                     android:layout_marginRight="8dp"
-                    android:src="@color/gray_default" />
+                    android:src="@mipmap/man_station_2" />
             </LinearLayout>
 
             <View
@@ -152,10 +152,10 @@
                 android:background="@color/gray_default" />
 
             <LinearLayout
+                android:id="@+id/ll_man_station_3"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:id="@+id/ll_man_station_3"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -220,10 +220,10 @@
         android:orientation="horizontal">
 
         <LinearLayout
+            android:id="@+id/ll_man_station_4"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:id="@+id/ll_man_station_4"
             android:orientation="vertical">
 
             <TextView
@@ -271,8 +271,8 @@
             android:background="@color/gray_default" />
 
         <LinearLayout
-            android:layout_width="0dp"
             android:id="@+id/ll_man_station_5"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical">
@@ -321,8 +321,8 @@
             android:background="@color/gray_default" />
 
         <LinearLayout
-            android:layout_width="0dp"
             android:id="@+id/ll_man_station_6"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical">
@@ -371,8 +371,8 @@
             android:background="@color/gray_default" />
 
         <LinearLayout
-            android:layout_width="0dp"
             android:id="@+id/ll_man_station_7"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical">

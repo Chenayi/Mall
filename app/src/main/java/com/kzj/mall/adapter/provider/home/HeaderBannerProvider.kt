@@ -1,7 +1,7 @@
 package com.kzj.mall.adapter.provider.home
 
-import android.content.Context
 import android.support.v4.content.ContextCompat
+import android.support.v4.view.PagerAdapter
 import android.support.v4.view.ViewPager
 import com.chad.library.adapter.base.BaseViewHolder
 import com.chad.library.adapter.base.provider.BaseItemProvider
@@ -10,33 +10,33 @@ import com.kzj.mall.entity.home.HomeHeaderBannerEntity
 import com.kzj.mall.entity.home.IHomeEntity
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.SizeUtils
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.github.florent37.glidepalette.BitmapPalette
 import com.github.florent37.glidepalette.GlidePalette
 import com.kzj.mall.GlideApp
+import com.kzj.mall.transformer.ScaleInTransformer
 import com.kzj.mall.widget.IndictorView
 import com.makeramen.roundedimageview.RoundedImageView
-import com.zhouwei.mzbanner.MZBannerView
-import com.zhouwei.mzbanner.holder.MZHolderCreator
-import com.zhouwei.mzbanner.holder.MZViewHolder
+import com.tmall.ultraviewpager.UltraViewPager
 
 
 class HeaderBannerProvider : BaseItemProvider<HomeHeaderBannerEntity, BaseViewHolder> {
-    private var initFirstColor = false
     private var isInitialized = false
     private var useRoundedCorners = true
     private var bannerPlaying = true
     private var onBannerPageChangeListener: OnBannerPageChangeListener? = null
-    private var mMZBanner: MZBannerView<HomeHeaderBannerEntity.Adds>? = null
+    private var ultraViewPager: UltraViewPager? = null
+
     private var mColors: MutableMap<Int, Int>? = null
+    private var initFirstColor = true
 
     constructor(useRoundedCorners: Boolean) {
-        mColors = HashMap()
         this.useRoundedCorners = useRoundedCorners
+        mColors = HashMap()
     }
 
     override fun layout(): Int {
@@ -50,18 +50,20 @@ class HeaderBannerProvider : BaseItemProvider<HomeHeaderBannerEntity, BaseViewHo
     override fun convert(helper: BaseViewHolder?, data: HomeHeaderBannerEntity?, position: Int) {
         if (isInitialized == false) {
             val banners = data?.adss
-            mMZBanner = helper?.getView(R.id.banner)
-            mMZBanner?.setIndicatorVisible(false)
             val indictorView = helper?.getView<IndictorView>(R.id.indicator)
             indictorView?.setIndicatorsSize(banners?.size!!)
             indictorView?.setSelectIndex(0)
-            mMZBanner?.setPages(banners, object : MZHolderCreator<BannerViewHolder> {
-                override fun createViewHolder(): BannerViewHolder {
-                    val bannerViewHolder = BannerViewHolder(banners?.size, helper?.getView(R.id.tv_header))
-                    return bannerViewHolder;
-                }
-            })
-            mMZBanner?.addPageChangeListener(object : ViewPager.OnPageChangeListener {
+            ultraViewPager = helper?.getView(R.id.banner)
+            ultraViewPager?.setScrollMode(UltraViewPager.ScrollMode.HORIZONTAL);
+            val adapter = UltraPagerAdapter(banners, helper?.getView(R.id.tv_header))
+            ultraViewPager?.viewPager?.pageMargin = SizeUtils.dp2px(10f)
+            ultraViewPager?.viewPager?.offscreenPageLimit = banners?.size!!
+            ultraViewPager?.setInfiniteLoop(true);
+            ultraViewPager?.setAutoScroll(2000)
+            ultraViewPager?.setAdapter(adapter);
+            ultraViewPager?.setPageTransformer(true, ScaleInTransformer());
+
+            ultraViewPager?.setOnPageChangeListener(object : ViewPager.OnPageChangeListener {
                 override fun onPageScrollStateChanged(state: Int) {
                 }
 
@@ -69,21 +71,15 @@ class HeaderBannerProvider : BaseItemProvider<HomeHeaderBannerEntity, BaseViewHo
                 }
 
                 override fun onPageSelected(position: Int) {
-                    indictorView?.setSelectIndex(position)
-                    val color = mColors?.get(position)
-                    color?.let {
+                    val realPosition = position % banners?.size
+                    mColors?.get(realPosition)?.let {
                         helper?.getView<TextView>(R.id.tv_header)?.setBackgroundColor(it)
                         onBannerPageChangeListener?.onBannerPageSelected(position, it)
                     }
+                    indictorView?.setSelectIndex(realPosition)
                 }
 
             })
-
-            mMZBanner?.setBannerPageClickListener { view, i ->
-                banners?.get(i)?.adCode
-            }
-
-            mMZBanner?.start()
             isInitialized = true
         }
     }
@@ -94,14 +90,14 @@ class HeaderBannerProvider : BaseItemProvider<HomeHeaderBannerEntity, BaseViewHo
 
     fun startBanner() {
         if (bannerPlaying == false) {
-            mMZBanner?.start();
+            ultraViewPager?.setAutoScroll(2000)
         }
         bannerPlaying = true
     }
 
     fun pauseBanner() {
         if (bannerPlaying == true) {
-            mMZBanner?.pause()
+            ultraViewPager?.disableAutoScroll()
         }
         bannerPlaying = false
     }
@@ -110,49 +106,58 @@ class HeaderBannerProvider : BaseItemProvider<HomeHeaderBannerEntity, BaseViewHo
         fun onBannerPageSelected(position: Int?, colorRes: Int?)
     }
 
-    inner class BannerViewHolder constructor(val bannersSize: Int?, val backGround: TextView?) : MZViewHolder<HomeHeaderBannerEntity.Adds> {
-        private var mImageView: RoundedImageView? = null
-        override fun createView(context: Context): View {
-            // 返回页面布局
-            val view = LayoutInflater.from(context).inflate(R.layout.item_home_banner, null)
-            mImageView = view.findViewById(R.id.iv_image)
+
+    inner class UltraPagerAdapter constructor(val advDatas: MutableList<HomeHeaderBannerEntity.Adds>?, val backGround: TextView?) : PagerAdapter() {
+        override fun isViewFromObject(view: View, `object`: Any): Boolean {
+            return view == `object`
+        }
+
+        override fun getCount(): Int {
+            return advDatas?.size!!
+        }
+
+        override fun instantiateItem(container: ViewGroup, position: Int): Any {
+            val view = LayoutInflater.from(mContext).inflate(R.layout.item_home_banner, null, false)
+            val imageView = view?.findViewById<RoundedImageView>(R.id.iv_image)
+            if (useRoundedCorners) {
+                imageView?.cornerRadius = SizeUtils.dp2px(8f).toFloat()
+            } else {
+                imageView?.cornerRadius = 0f
+            }
+            val palette = GlidePalette.with(advDatas?.get(position)?.adCode)
+                    .use(BitmapPalette.Profile.MUTED)
+                    .intoCallBack {
+                        val mutedColor = it?.getDominantColor(ContextCompat.getColor(mContext, R.color.colorPrimary))
+                        mutedColor?.let {
+                            if (mColors?.containsKey(position) == false){
+                                mColors?.put(position, mutedColor)
+                            }
+                            if (initFirstColor && position == 0) {
+                                backGround?.setBackgroundColor(it)
+                                onBannerPageChangeListener?.onBannerPageSelected(position, it)
+                                initFirstColor = false
+                            }
+                        }
+                    }
+
+            GlideApp.with(mContext)
+                    .load(advDatas?.get(position)?.adCode)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .skipMemoryCache(false)
+                    .listener(palette)
+                    .placeholder(R.color.gray_default)
+                    .centerCrop()
+                    .into(imageView!!)
+            container.addView(view)
             return view
         }
 
-        override fun onBind(context: Context, position: Int, data: HomeHeaderBannerEntity.Adds?) {
-            // 数据绑定
-            mImageView?.let {
+        override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
+            container?.removeView(`object` as View?)
+        }
 
-                if (useRoundedCorners) {
-                    mImageView?.cornerRadius = SizeUtils.dp2px(8f).toFloat()
-                } else {
-                    mImageView?.cornerRadius = 0f
-                }
-
-                val realPosition = position % bannersSize!!
-                val palette = GlidePalette.with(data?.adCode)
-                        .use(BitmapPalette.Profile.MUTED)
-                        .intoCallBack {
-                            val mutedColor = it?.getMutedColor(ContextCompat.getColor(mContext, R.color.colorPrimary))
-                            mutedColor?.let {
-                                mColors?.put(realPosition, it)
-                                if (initFirstColor == false && realPosition == 0) {
-                                    backGround?.setBackgroundColor(it)
-                                    onBannerPageChangeListener?.onBannerPageSelected(realPosition, it)
-                                    initFirstColor = true
-                                }
-                            }
-                        }
-
-                GlideApp.with(context)
-                        .load(data?.adCode)
-                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .skipMemoryCache(false)
-                        .listener(palette)
-                        .placeholder(R.color.gray_default)
-                        .centerCrop()
-                        .into(it)
-            }
+        override fun getItemPosition(`object`: Any): Int {
+            return PagerAdapter.POSITION_NONE
         }
     }
 }
