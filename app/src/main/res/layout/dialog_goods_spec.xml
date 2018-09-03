@@ -58,6 +58,7 @@
                         android:layout_width="80dp"
                         android:layout_height="20dp"
                         android:layout_marginTop="4dp"
+                        android:visibility="invisible"
                         app:sCenterTextColor="@color/orange_default"
                         app:sCenterTextSize="9dp"
                         app:sCenterTextString="立省：¥47.00"
@@ -66,8 +67,7 @@
                         app:sShapeSelectorPressedColor="#FFF8F5"
                         app:sShapeStrokeColor="@color/orange_default"
                         app:sShapeStrokeWidth="1dp"
-                        app:sUseShape="true"
-                        android:visibility="invisible"/>
+                        app:sUseShape="true" />
 
                 </LinearLayout>
 
@@ -136,6 +136,7 @@
                         android:visibility="gone">
 
                         <TextView
+                            android:id="@+id/tv_group_name"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:paddingBottom="10dp"
@@ -225,129 +226,46 @@
                 android:layout_height="50dp"
                 android:layout_alignParentBottom="true"
                 android:background="@color/white"
-                android:orientation="horizontal">
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/gray_default"/>
 
                 <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
                     android:layout_weight="1"
                     android:orientation="horizontal">
 
-                    <LinearLayout
-                        android:id="@+id/ll_ask"
+                    <TextView
+                        android:id="@+id/tv_add_cart"
                         android:layout_width="0dp"
-                        android:layout_height="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_vertical"
                         android:layout_weight="1"
+                        android:background="@drawable/background_green_corners_9999"
                         android:gravity="center"
-                        android:orientation="vertical">
+                        android:text="加入购物车"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:layout_marginLeft="10dp"/>
 
-                        <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:src="@mipmap/zixun_icon" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:text="咨询"
-                            android:textColor="#6A6E75"
-                            android:textSize="10dp" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/ll_phone"
+                    <TextView
+                        android:id="@+id/tv_buy"
                         android:layout_width="0dp"
-                        android:layout_height="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_vertical"
                         android:layout_weight="1"
+                        android:background="@drawable/background_orange_corners_9999"
                         android:gravity="center"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:src="@mipmap/phone_icon" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:text="电话"
-                            android:textColor="#6A6E75"
-                            android:textSize="10dp" />
-
-                    </LinearLayout>
-
-                    <RelativeLayout
-                        android:id="@+id/rl_cart"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <LinearLayout
-                            android:id="@+id/ll_cart"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:id="@+id/iv_cart"
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:src="@mipmap/cart_icon" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="4dp"
-                                android:text="购物车"
-                                android:textColor="#6A6E75"
-                                android:textSize="10dp" />
-
-                        </LinearLayout>
-
-
-                        <TextView
-                            android:id="@+id/tv_cart_num"
-                            android:layout_width="wrap_content"
-                            android:layout_height="14dp"
-                            android:layout_alignParentRight="true"
-                            android:layout_marginRight="10dp"
-                            android:layout_marginTop="4dp"
-                            android:background="@drawable/background_orange_corners_9999"
-                            android:gravity="center"
-                            android:paddingLeft="4dp"
-                            android:paddingRight="4dp"
-                            android:text="19"
-                            android:textColor="@color/white"
-                            android:textSize="9dp" />
-                    </RelativeLayout>
-
+                        android:text="立即购买"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"/>
                 </LinearLayout>
-
-                <TextView
-                    android:id="@+id/tv_add_cart"
-                    android:layout_width="100dp"
-                    android:layout_height="match_parent"
-                    android:background="#2E3033"
-                    android:gravity="center"
-                    android:text="加入购物车"
-                    android:textColor="@color/white"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tv_buy"
-                    android:layout_width="100dp"
-                    android:layout_height="match_parent"
-                    android:background="@color/orange_default"
-                    android:gravity="center"
-                    android:text="立即购买"
-                    android:textColor="@color/white"
-                    android:textStyle="bold" />
             </LinearLayout>
         </RelativeLayout>
 

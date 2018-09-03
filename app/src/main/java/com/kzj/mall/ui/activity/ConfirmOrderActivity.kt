@@ -5,6 +5,7 @@ import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.chad.library.adapter.base.BaseViewHolder
+import com.kzj.mall.GlideApp
 import com.kzj.mall.R
 import com.kzj.mall.RequestCode
 import com.kzj.mall.adapter.BaseAdapter
@@ -14,6 +15,7 @@ import com.kzj.mall.databinding.ActivityConfirmOrderBinding
 import com.kzj.mall.di.component.AppComponent
 import com.kzj.mall.entity.BuyEntity
 import com.kzj.mall.ui.dialog.ConfirmDialog
+import com.kzj.mall.utils.FloatUtils
 import com.kzj.mall.utils.LocalDatas
 import com.kzj.mall.widget.RootLayout
 
@@ -41,12 +43,62 @@ class ConfirmOrderActivity : BaseActivity<IPresenter, ActivityConfirmOrderBindin
             buyEntity = it as BuyEntity
         }
 
-        goodsAdapter = GoodsAdapter(LocalDatas.orderGoods())
+        val goodsImgs = ArrayList<String>()
+        buyEntity?.shoplist?.let {
+            for (i in 0 until it?.size) {
+                if (goodsImgs?.size >= 4) {
+                    return
+                }
+
+                val appgoods = it?.get(i)?.appgoods
+                if (appgoods != null) {
+                    goodsImgs?.add(appgoods?.goods_img!!)
+                } else {
+                    val ggList = it?.get(i)?.ggList
+                    if (ggList != null) {
+                        for (j in 0 until ggList?.size!!) {
+                            if (goodsImgs?.size >= 4) {
+                                return
+                            }
+
+                            goodsImgs?.add(ggList?.get(j)?.goods_img!!)
+                        }
+                    }
+                }
+            }
+        }
+
+        goodsAdapter = GoodsAdapter(goodsImgs)
         mBinding?.rvGoods?.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         mBinding?.rvGoods?.adapter = goodsAdapter
         goodsAdapter?.setOnItemClickListener { adapter, view, position ->
             val intent = Intent(this@ConfirmOrderActivity, OrderGoodsListActivity::class.java)
             startActivity(intent)
+        }
+
+        mBinding?.tvGoodsPrice?.text = "¥" + buyEntity?.sumOldPrice
+        mBinding?.tvPrePrice?.text = "¥" + buyEntity?.sumPrePrice
+        mBinding?.tvCharge?.text = "¥" + FloatUtils.format(buyEntity?.shippingCharge!!)
+
+        val f1 = buyEntity?.sumPrice?.toFloat()!!
+        val f2 = buyEntity?.shippingCharge!!
+        val realPrice = f1 + f2
+        mBinding?.tvRealGoodsPrice?.text = "实付款：¥" + FloatUtils.format(realPrice)
+
+
+        //地址
+        buyEntity?.address?.let {
+            mBinding?.tvCreateAddress?.visibility = View.GONE
+            mBinding?.llAddress?.visibility = View.VISIBLE
+
+            val provinceName = it?.province?.provinceName
+            val cityName = it?.city?.cityName
+            val districtName = it?.district?.districtName
+            val addressDetail = it?.addressDetail
+
+            mBinding?.tvAddress?.text = provinceName + "省" + cityName + "市" + districtName + addressDetail
+
+            hasAddress = true
         }
 
         mBinding?.rlAlipay?.setOnClickListener(this)
@@ -63,6 +115,11 @@ class ConfirmOrderActivity : BaseActivity<IPresenter, ActivityConfirmOrderBindin
     inner class GoodsAdapter constructor(val goodsDatas: MutableList<String>)
         : BaseAdapter<String, BaseViewHolder>(R.layout.item_confirm_order_goods, goodsDatas) {
         override fun convert(helper: BaseViewHolder?, item: String?) {
+            GlideApp.with(mContext)
+                    .load(item)
+                    .placeholder(R.color.gray_default)
+                    .centerCrop()
+                    .into(helper?.getView(R.id.iv_goods)!!)
         }
     }
 
@@ -95,14 +152,14 @@ class ConfirmOrderActivity : BaseActivity<IPresenter, ActivityConfirmOrderBindin
             R.id.rl_alipay -> {
                 if (payCheck != CHECK_ALIPAY) {
                     mBinding?.ivAliCheck?.setImageResource(R.mipmap.icon_cart_check)
-                    mBinding?.ivArriveCheck?.setImageResource(R.color.gray_default)
+                    mBinding?.ivArriveCheck?.setImageResource(R.mipmap.check_nor)
                     payCheck = CHECK_ALIPAY
                 }
             }
             R.id.rl_arrive_pay -> {
                 if (payCheck != CHECK_ARRIVE_PAY) {
                     mBinding?.ivArriveCheck?.setImageResource(R.mipmap.icon_cart_check)
-                    mBinding?.ivAliCheck?.setImageResource(R.color.gray_default)
+                    mBinding?.ivAliCheck?.setImageResource(R.mipmap.check_nor)
                     payCheck = CHECK_ARRIVE_PAY
                 }
             }

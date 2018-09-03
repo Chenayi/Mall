@@ -410,7 +410,7 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
      */
     override fun banlance(buyEntity: BuyEntity?) {
         val intent = Intent(context, ConfirmOrderActivity::class.java)
-        intent?.putExtra("bayEntity", buyEntity)
+        intent?.putExtra("buyEntity", buyEntity)
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(intent)
     }

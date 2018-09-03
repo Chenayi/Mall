@@ -271,13 +271,15 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
             it?.openSpec.let {
                 if (it?.size != null && it?.size!! > 0) {
                     mBinding?.detailSpec?.isEnabled = true
-                    tvCheckSpec?.setText(it?.get(0)?.goodsSpec)
+                    tvCheckSpec?.setText(it?.get(specPosition)?.goodsSpec)
                 }
             }
 
             this.goodsDetailEntity = goodsDetailEntity
         }
-        mGoodsDefaultInfoId = goodsDefaultInfoId
+        goodsDefaultInfoId?.let {
+            mGoodsDefaultInfoId = it
+        }
     }
 
 
@@ -331,7 +333,7 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
     @Subscribe
     fun specChange(goodSpecChangeEvent: GoodSpecChangeEvent) {
         specPosition = goodSpecChangeEvent?.position
-        updateDatas(mGoodsDefaultInfoId, goodSpecChangeEvent?.goodsDetailEntity)
+        updateDatas(null, goodSpecChangeEvent?.goodsDetailEntity)
     }
 
     /**
@@ -343,7 +345,7 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
                 showSpecDialog()
             }
             R.id.tv_group_add_cart -> {
-                EventBus.getDefault().post(AddCartEvent(true, tvGroupAddCart))
+                EventBus.getDefault().post(AddGroupCartEvent(tvGroupAddCart))
             }
             R.id.fab_up_slide -> {
                 mBinding?.slideDetailsLayout?.smoothClose(true)

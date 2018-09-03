@@ -19,13 +19,13 @@ constructor(model: GoodsSpecContract.Model?, view: GoodsSpecContract.View?, cont
     /**
      * 获取商品详情数据
      */
-    fun requesrGoodsDetail(position: Int, goodsId: String?) {
+    fun requesrGoodsDetail(position: Int, spec: String?, goodsInfoId: String?) {
         val params = HashMap<String, String>()
 
         if (C.IS_LOGIN) {
             params.put("token", C.TOKEN)
         }
-        goodsId?.let {
+        goodsInfoId?.let {
             params.put(C.GOODS_INFO_ID, it)
         }
 
@@ -38,7 +38,7 @@ constructor(model: GoodsSpecContract.Model?, view: GoodsSpecContract.View?, cont
                     }
 
                     override fun onHandleSuccess(t: GoodsDetailEntity?) {
-                        view?.showGoodsDetail(position, t)
+                        view?.showGoodsDetail(position, spec, goodsInfoId, t)
                     }
 
                     override fun onHandleError(code: Int, msg: String?) {

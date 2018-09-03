@@ -5,7 +5,6 @@ import android.support.v4.app.Fragment
 import android.support.v4.view.ViewPager
 import android.view.View
 import android.widget.ImageView
-import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.SizeUtils
 import com.blankj.utilcode.util.ToastUtils
@@ -16,7 +15,6 @@ import com.kzj.mall.RequestCode
 import com.kzj.mall.adapter.CommomViewPagerAdapter
 import com.kzj.mall.anim.AniManager
 import com.kzj.mall.base.BaseActivity
-import com.kzj.mall.base.IPresenter
 import com.kzj.mall.databinding.ActivityGoodsDetailsBinding
 import com.kzj.mall.di.component.AppComponent
 import com.kzj.mall.di.component.DaggerGoodsDetailComponent
@@ -184,8 +182,8 @@ class GoodsDetailActivity : BaseActivity<GoodsDetailPresenter, ActivityGoodsDeta
      * 加入购物车
      */
     @Subscribe
-    fun addCartEvent(addCartEvent: AddCartEvent) {
-        startAddCartAnim(addCartEvent?.isGroup!!, addCartEvent?.startView!!, mBinding?.ivCart!!)
+    fun addCartEvent(addCartEvent: AddGroupCartEvent) {
+        startAddCartAnim(true, addCartEvent?.startView!!, mBinding?.ivCart!!)
     }
 
     /**
@@ -214,15 +212,46 @@ class GoodsDetailActivity : BaseActivity<GoodsDetailPresenter, ActivityGoodsDeta
     @Subscribe
     fun specChange(goodSpecChangeEvent: GoodSpecChangeEvent) {
         val goodsDetailEntity = goodSpecChangeEvent?.goodsDetailEntity
+        mGoodsInfoId = goodSpecChangeEvent?.goodsInfoId
     }
 
 
     /**
-     * 商品id
+     * 商品数量
      */
     @Subscribe
     fun goodsNumChange(goodsNumChangeEvent: GoodsNumChangeEvent) {
         mGoodsNum = goodsNumChangeEvent?.goodsNum
+    }
+
+    /**
+     * 加入购物车
+     */
+    @Subscribe
+    fun addCart(addCartEvent: AddCartEvent){
+        if (mBinding?.tvCartNum?.visibility != View.VISIBLE) {
+            mBinding?.tvCartNum?.visibility = View.VISIBLE
+        }
+        var num = mBinding?.tvCartNum?.text.toString().toInt()
+        mBinding?.tvCartNum?.text = (num + 1).toString()
+        //加入购物车
+        var carType = "0"
+        if (isCombination) {
+            carType = "2"
+        }
+        mPresenter?.addCar(carType, mGoodsNum, mGoodsInfoId, mCombinationId)
+    }
+
+    /**
+     * 立即购买
+     */
+    @Subscribe
+    fun buyNow(buyNowEvent: BuyNowEvent){
+        var carType = "0"
+        if (isCombination) {
+            carType = "2"
+        }
+        mPresenter?.buyNow(carType, mGoodsNum, mGoodsInfoId, mCombinationId)
     }
 
 
@@ -331,9 +360,9 @@ class GoodsDetailActivity : BaseActivity<GoodsDetailPresenter, ActivityGoodsDeta
         }
     }
 
-    override fun buyNow(bayEntity: BuyEntity?) {
+    override fun buyNow(buyEntity: BuyEntity?) {
         val intent = Intent(this, ConfirmOrderActivity::class.java)
-        intent?.putExtra("bayEntity", bayEntity)
+        intent?.putExtra("buyEntity", buyEntity)
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(intent)
     }

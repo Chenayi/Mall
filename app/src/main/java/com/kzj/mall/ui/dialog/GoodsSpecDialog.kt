@@ -13,10 +13,7 @@ import com.kzj.mall.di.component.AppComponent
 import com.kzj.mall.di.component.DaggerGoodsSpecComponent
 import com.kzj.mall.di.module.GoodsSpeclModule
 import com.kzj.mall.entity.GoodsDetailEntity
-import com.kzj.mall.event.CombinationEvent
-import com.kzj.mall.event.GoodSpecChangeEvent
-import com.kzj.mall.event.GoodsNumChangeEvent
-import com.kzj.mall.event.PackageListEvent
+import com.kzj.mall.event.*
 import com.kzj.mall.mvp.contract.GoodsSpecContract
 import com.kzj.mall.mvp.presenter.GoodsSpecPresenter
 import com.kzj.mall.utils.FloatUtils
@@ -80,6 +77,8 @@ class GoodsSpecDialog : BaseDialog<GoodsSpecPresenter, DialogGoodsSpecBinding>()
         mBinding?.ivPlus?.setOnClickListener(this)
         mBinding?.ivMinus?.setOnClickListener(this)
         mBinding?.ivClose?.setOnClickListener(this)
+        mBinding?.tvAddCart?.setOnClickListener(this)
+        mBinding?.tvBuy?.setOnClickListener(this)
     }
 
     /**
@@ -153,7 +152,7 @@ class GoodsSpecDialog : BaseDialog<GoodsSpecPresenter, DialogGoodsSpecBinding>()
 
             mBinding?.sflGoodsSpec?.setOnTagClickListener(object : SuperFlowLayout.OnTagClickListener {
                 override fun onTagClick(position: Int, tag: String?) {
-                    mPresenter.requesrGoodsDetail(position, goodsDetailEntity?.openSpec?.get(position)?.goodsId)
+                    mPresenter.requesrGoodsDetail(position, tag, goodsDetailEntity?.openSpec?.get(position)?.goodsId)
                 }
             })
 
@@ -168,8 +167,10 @@ class GoodsSpecDialog : BaseDialog<GoodsSpecPresenter, DialogGoodsSpecBinding>()
                         }
                         if (position > 0) {
                             mBinding?.tvPreGoodsPrice?.visibility = View.VISIBLE
+                            mBinding?.tvGroupName?.text = "疗程装"
                         } else {
                             mBinding?.tvPreGoodsPrice?.visibility = View.INVISIBLE
+                            mBinding?.tvGroupName?.text = "标准装"
                         }
 
                         EventBus.getDefault().post(GoodsNumChangeEvent(iGroup?.package_count))
@@ -182,6 +183,7 @@ class GoodsSpecDialog : BaseDialog<GoodsSpecPresenter, DialogGoodsSpecBinding>()
                         mBinding?.tvGoodsPrice?.setText("合计：¥" + FloatUtils.format(iGroup.combination_price))
                         mBinding?.tvPreGoodsPrice?.visibility = View.VISIBLE
                         mBinding?.tvPreGoodsPrice?.setCenterString("立省：¥" + FloatUtils.format(iGroup.sumPrePrice))
+                        mBinding?.tvGroupName?.text = "活动套餐"
                         EventBus.getDefault().post(GoodsNumChangeEvent(1))
                         EventBus.getDefault().post(CombinationEvent(isCombination, position, iGroup))
                     }
@@ -256,16 +258,37 @@ class GoodsSpecDialog : BaseDialog<GoodsSpecPresenter, DialogGoodsSpecBinding>()
             R.id.iv_plus -> plus()
             R.id.iv_minus -> minus()
             R.id.iv_close -> dismiss()
+            R.id.tv_add_cart -> addCart()
+            R.id.tv_buy -> buy()
         }
     }
 
+    /**
+     * 加入购物车
+     */
+    fun addCart() {
+        EventBus.getDefault().post(AddCartEvent())
+        dismiss()
+    }
 
-    override fun showGoodsDetail(position: Int, goodsDetailEntity: GoodsDetailEntity?) {
+    /**
+     * 购买
+     */
+    fun buy() {
+        EventBus.getDefault().post(BuyNowEvent())
+        dismiss()
+    }
+
+
+    /**
+     * 详情数据返回
+     */
+    override fun showGoodsDetail(position: Int, spec: String?, goodsInfoId: String?, goodsDetailEntity: GoodsDetailEntity?) {
         specPosition = position
         setSpecGroup(goodsDetailEntity)
         this.goodsDetailEntity = goodsDetailEntity
         goodsDetailEntity?.let {
-            EventBus.getDefault().post(GoodSpecChangeEvent(position,it))
+            EventBus.getDefault().post(GoodSpecChangeEvent(position, spec!!, goodsInfoId!!, it))
         }
     }
 
