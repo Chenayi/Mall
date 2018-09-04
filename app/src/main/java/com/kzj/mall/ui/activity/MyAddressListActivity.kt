@@ -5,15 +5,20 @@ import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.view.ViewGroup
+import com.blankj.utilcode.util.ToastUtils
 import com.kzj.mall.R
 import com.kzj.mall.adapter.AddressAdapter
 import com.kzj.mall.base.BaseActivity
 import com.kzj.mall.base.IPresenter
 import com.kzj.mall.databinding.ActivityAddressListBinding
 import com.kzj.mall.di.component.AppComponent
+import com.kzj.mall.di.component.DaggerMyAddressListComponent
+import com.kzj.mall.di.module.MyAddressListModule
+import com.kzj.mall.mvp.contract.MyAddressListContract
+import com.kzj.mall.mvp.presenter.MyAddressListPresenter
 import com.kzj.mall.utils.LocalDatas
 
-class AddressListActivity : BaseActivity<IPresenter, ActivityAddressListBinding>(), View.OnClickListener {
+class MyAddressListActivity : BaseActivity<MyAddressListPresenter, ActivityAddressListBinding>(), View.OnClickListener,MyAddressListContract.View {
     private val REQUEST_CODE_CREATE_ADDRESS = 101
     private var addressAdapter: AddressAdapter? = null
 
@@ -22,10 +27,15 @@ class AddressListActivity : BaseActivity<IPresenter, ActivityAddressListBinding>
     }
 
     override fun setupComponent(appComponent: AppComponent?) {
+        DaggerMyAddressListComponent.builder()
+                .appComponent(appComponent)
+                .myAddressListModule(MyAddressListModule(this))
+                .build()
+                .inject(this)
     }
 
     override fun initData() {
-        addressAdapter = AddressAdapter(LocalDatas.addresses())
+        addressAdapter = AddressAdapter(ArrayList())
         addressAdapter?.addFooterView(layoutInflater.inflate(R.layout.header_footer_line_gray_10dp,
                 mBinding?.rvAddress?.parent as ViewGroup, false))
         mBinding?.rvAddress?.layoutManager = LinearLayoutManager(this)
@@ -35,6 +45,9 @@ class AddressListActivity : BaseActivity<IPresenter, ActivityAddressListBinding>
         }
 
         mBinding?.tvCreateAddress?.setOnClickListener(this)
+
+
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -44,6 +57,18 @@ class AddressListActivity : BaseActivity<IPresenter, ActivityAddressListBinding>
 
             }
         }
+    }
+
+    override fun showLoading() {
+        showLoadingDialog()
+    }
+
+    override fun hideLoading() {
+       dismissLoadingDialog()
+    }
+
+    override fun onError(code: Int, msg: String?) {
+        ToastUtils.showShort(msg)
     }
 
     override fun onClick(v: View?) {

@@ -21,13 +21,21 @@ import com.kzj.mall.databinding.ActivityCreateAddressBinding
 import com.kzj.mall.di.component.AppComponent
 import com.kzj.mall.di.component.DaggerCreateAddressComponent
 import com.kzj.mall.di.module.CreateAddressModule
+import com.kzj.mall.entity.address.CityEntity
+import com.kzj.mall.entity.address.DistrictEntity
+import com.kzj.mall.entity.address.ProvinceEntity
 import com.kzj.mall.mvp.contract.CreateAddressContract
 import com.kzj.mall.mvp.presenter.CreateAddressPresenter
+import com.kzj.mall.ui.dialog.AddressDialog
 import com.kzj.mall.widget.RootLayout
 
 class CreateAddressActivity : BaseActivity<CreateAddressPresenter, ActivityCreateAddressBinding>(), TextWatcher
         , View.OnClickListener, CreateAddressContract.View {
     var rootLayout: RootLayout? = null
+
+    private var checkP: ProvinceEntity.ProvinceBeen? = null
+    private var checkC: CityEntity.CityBeen? = null
+    private var checkD: DistrictEntity.DistrictBeen? = null
 
     override fun getLayoutId(): Int {
         return R.layout.activity_create_address
@@ -41,28 +49,21 @@ class CreateAddressActivity : BaseActivity<CreateAddressPresenter, ActivityCreat
                 .inject(this)
     }
 
-    override fun initImmersionBar() {
-        mImmersionBar = ImmersionBar.with(this)
-        mImmersionBar
-                ?.statusBarDarkFont(true, 0.5f)
-                ?.keyboardEnable(keyboardEnable())
-                ?.keyboardMode(getKeyboardMode())
-                ?.init()
-    }
-
     override fun initData() {
         rootLayout = RootLayout.getInstance(this)
-        rootLayout?.setStatusBarViewHeight(BarUtils.getStatusBarHeight())
         rootLayout?.setRightTextEnable(false)
         rootLayout?.setOnRightOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
-                val mobile = mBinding?.etPhone?.text?.toString()
+                val mobile = mBinding?.etPhone?.text?.toString()?.trim()
                 if (!RegexUtils.isMobileSimple(mobile)) {
                     ToastUtils.showShort("请输入正确的手机号码")
                     return
                 }
-                setResult(Activity.RESULT_OK)
-                finish()
+
+                val name = mBinding?.etName?.text?.toString()?.trim()
+                val addressDetail = mBinding?.etAddress?.text?.toString()?.trim()
+                val default = if (mBinding?.switchDefault?.isChecked == true) "1" else "0"
+                mPresenter?.addAddress(checkP?.provinceId!!, checkC?.cityId!!, checkD?.districtId!!, name!!, mobile!!, addressDetail!!, default)
             }
         })
 
@@ -99,38 +100,30 @@ class CreateAddressActivity : BaseActivity<CreateAddressPresenter, ActivityCreat
         dismissLoadingDialog()
     }
 
-    override fun retundArea(options1Items: MutableList<String>, options2Items: MutableList<MutableList<String>>
-                            , options3Items: MutableList<MutableList<MutableList<String>>>) {
-        val pvOptions = OptionsPickerBuilder(this, OnOptionsSelectListener { options1, options2, options3, v ->
-            //返回的分别是三个级别的选中位置
-            val tx = options1Items.get(options1) +
-                    options2Items.get(options1).get(options2) +
-                    options3Items.get(options1).get(options2).get(options3)
-
-            mBinding?.tvArea?.setText(tx)
-        })
-
-                .setTitleText("")
-                .setSubmitColor(ContextCompat.getColor(this, R.color.colorPrimary))
-                .setCancelColor(ContextCompat.getColor(this, R.color.colorPrimary))
-                .setDividerColor(Color.BLACK)
-                .setTextColorCenter(Color.BLACK) //设置选中项文字颜色
-                .setContentTextSize(20)
-                .setDecorView(rootLayout?.parent as ViewGroup)
-                .build<String>()
-
-        pvOptions.setPicker(options1Items, options2Items, options3Items)
-        pvOptions.show()
+    override fun addOrUpdateAddressSuccess() {
+        setResult(Activity.RESULT_OK)
+        finish()
     }
 
     override fun onError(code: Int, msg: String?) {
+        ToastUtils.showShort(msg)
     }
 
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.tv_area -> {
                 KeyboardUtils.hideSoftInput(this)
-                mPresenter?.requestArea()
+                AddressDialog.newInstance()
+                        .setOnAddressCheckListener(object : AddressDialog.OnAddressCheckListener {
+                            override fun onAddressCheck(p: ProvinceEntity.ProvinceBeen?, c: CityEntity.CityBeen?, d: DistrictEntity.DistrictBeen?) {
+                                checkP = p
+                                checkC = c
+                                checkD = d
+                                mBinding?.tvArea?.text = checkP?.provinceName + "省" + checkC?.cityName + "市" + checkD?.districtName
+                            }
+                        })
+                        .setShowBottom(true)
+                        .show(supportFragmentManager)
             }
         }
     }

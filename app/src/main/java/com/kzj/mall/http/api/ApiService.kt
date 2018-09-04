@@ -1,6 +1,9 @@
 package com.kzj.mall.http.api
 
 import com.kzj.mall.entity.*
+import com.kzj.mall.entity.address.CityEntity
+import com.kzj.mall.entity.address.DistrictEntity
+import com.kzj.mall.entity.address.ProvinceEntity
 import com.kzj.mall.entity.cart.AddCartEntity
 import com.kzj.mall.entity.home.HomeRecommendEntity
 import io.reactivex.Observable
@@ -118,4 +121,32 @@ interface ApiService {
      */
     @POST("/mobile/kzj/api/user_voucher/user_index.htm")
     fun requestMine(@Header("token") token: String?): Observable<BaseResponse<MineEntity>>
+
+    /**
+     * 获取省份
+     */
+    @POST("mobile/kzj/api/get_all_province.htm")
+    fun requestP(): Observable<BaseResponse<ProvinceEntity>>
+
+    /**
+     * 获取市
+     */
+    @FormUrlEncoded
+    @POST("mobile/kzj/api/get_all_citybypid.htm")
+    fun requestC(@Field("provinceId") provinceId: String?): Observable<BaseResponse<CityEntity>>
+
+    /**
+     * 获取区
+     */
+    @FormUrlEncoded
+    @POST("mobile/kzj/api/get_all_districtbycid.htm")
+    fun requestD(@Field("cityId") cityId: String?): Observable<BaseResponse<DistrictEntity>>
+
+
+    /**
+     * 增加或修改地址
+     */
+    @FormUrlEncoded
+    @POST("mobile/kzj/api/user_voucher/addOrUpdate_address.htm")
+    fun addOrUpdateAddress(@Header("token") token: String?, @FieldMap params: Map<String, String>?):Observable<BaseResponse<SimpleResultEntity>>
 }

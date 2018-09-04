@@ -1,5 +1,9 @@
 package com.kzj.mall.entity
 
 class AddressEntity {
-    var isCheck = false
+    var customerAddresses:MutableList<CustomerAddresses>?=null
+
+    class CustomerAddresses{
+        var isCheck = false
+    }
 }

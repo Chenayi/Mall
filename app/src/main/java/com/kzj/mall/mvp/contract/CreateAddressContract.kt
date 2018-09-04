@@ -2,13 +2,16 @@ package com.kzj.mall.mvp.contract
 
 import com.kzj.mall.base.IModel
 import com.kzj.mall.base.IView
-import com.kzj.mall.entity.JsonBean
+import com.kzj.mall.entity.BaseResponse
+import com.kzj.mall.entity.SimpleResultEntity
+import io.reactivex.Observable
 
 interface CreateAddressContract {
     interface View : IView {
-        fun retundArea(options1Items: MutableList<String>, options2Items: MutableList<MutableList<String>>, options3Items: MutableList<MutableList<MutableList<String>>>)
+        fun addOrUpdateAddressSuccess()
     }
 
     interface Model : IModel {
+        fun addOrUpdateAddress(params: Map<String, String>?): Observable<BaseResponse<SimpleResultEntity>>?
     }
 }

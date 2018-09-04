@@ -16,7 +16,6 @@ import com.kzj.mall.di.component.AppComponent
 import com.kzj.mall.entity.BuyEntity
 import com.kzj.mall.ui.dialog.ConfirmDialog
 import com.kzj.mall.utils.FloatUtils
-import com.kzj.mall.utils.LocalDatas
 import com.kzj.mall.widget.RootLayout
 
 class ConfirmOrderActivity : BaseActivity<IPresenter, ActivityConfirmOrderBinding>(), View.OnClickListener {
@@ -165,7 +164,7 @@ class ConfirmOrderActivity : BaseActivity<IPresenter, ActivityConfirmOrderBindin
             }
             R.id.rl_address -> {
                 if (hasAddress) {
-                    val intent = Intent(this, AddressListActivity::class.java)
+                    val intent = Intent(this, MyAddressListActivity::class.java)
                     startActivity(intent)
                 } else {
                     val intent = Intent(this, CreateAddressActivity::class.java)
