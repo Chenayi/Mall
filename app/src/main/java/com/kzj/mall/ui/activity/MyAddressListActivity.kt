@@ -14,6 +14,7 @@ import com.kzj.mall.databinding.ActivityAddressListBinding
 import com.kzj.mall.di.component.AppComponent
 import com.kzj.mall.di.component.DaggerMyAddressListComponent
 import com.kzj.mall.di.module.MyAddressListModule
+import com.kzj.mall.entity.AddressEntity
 import com.kzj.mall.mvp.contract.MyAddressListContract
 import com.kzj.mall.mvp.presenter.MyAddressListPresenter
 import com.kzj.mall.utils.LocalDatas
@@ -46,7 +47,7 @@ class MyAddressListActivity : BaseActivity<MyAddressListPresenter, ActivityAddre
 
         mBinding?.tvCreateAddress?.setOnClickListener(this)
 
-
+        mPresenter?.requestAddress()
 
     }
 
@@ -56,6 +57,12 @@ class MyAddressListActivity : BaseActivity<MyAddressListPresenter, ActivityAddre
             if (requestCode == REQUEST_CODE_CREATE_ADDRESS) {
 
             }
+        }
+    }
+
+    override fun showAddress(addressEntity: AddressEntity?) {
+        addressEntity?.customerAddresses?.let {
+            addressAdapter?.setNewData(it)
         }
     }
 

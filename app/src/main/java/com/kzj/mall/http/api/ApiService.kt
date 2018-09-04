@@ -148,5 +148,11 @@ interface ApiService {
      */
     @FormUrlEncoded
     @POST("mobile/kzj/api/user_voucher/addOrUpdate_address.htm")
-    fun addOrUpdateAddress(@Header("token") token: String?, @FieldMap params: Map<String, String>?):Observable<BaseResponse<SimpleResultEntity>>
+    fun addOrUpdateAddress(@Header("token") token: String?, @FieldMap params: Map<String, String>?): Observable<BaseResponse<SimpleResultEntity>>
+
+    /**
+     *  我的地址
+     */
+    @POST("mobile/kzj/api/user_voucher/my_address.htm")
+    fun addressList(@Header("token") token: String?): Observable<BaseResponse<AddressEntity>>
 }
