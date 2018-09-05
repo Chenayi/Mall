@@ -205,7 +205,7 @@ public class RootLayout extends LinearLayout {
         if (!enalbe) {
             tvRight.setTextColor(Color.parseColor("#C2C6CC"));
         } else {
-            tvRight.setTextColor(Color.parseColor("#2E3033"));
+            tvRight.setTextColor(mTitleBarRightTextColor);
         }
         return this;
     }

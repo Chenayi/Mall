@@ -4,8 +4,7 @@ import android.content.Context
 import com.kzj.mall.base.BaseObserver
 import com.kzj.mall.base.BasePresenter
 import com.kzj.mall.di.scope.ActivityScope
-import com.kzj.mall.entity.AddressEntity
-import com.kzj.mall.entity.BaseResponse
+import com.kzj.mall.entity.address.AddressEntity
 import com.kzj.mall.http.RxScheduler
 import com.kzj.mall.mvp.contract.MyAddressListContract
 import io.reactivex.disposables.Disposable

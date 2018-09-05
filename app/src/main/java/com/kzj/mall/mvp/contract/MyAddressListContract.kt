@@ -2,7 +2,7 @@ package com.kzj.mall.mvp.contract
 
 import com.kzj.mall.base.IModel
 import com.kzj.mall.base.IView
-import com.kzj.mall.entity.AddressEntity
+import com.kzj.mall.entity.address.AddressEntity
 import com.kzj.mall.entity.BaseResponse
 import io.reactivex.Observable
 

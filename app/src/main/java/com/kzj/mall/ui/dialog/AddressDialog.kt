@@ -11,9 +11,7 @@ import com.kzj.mall.base.BaseDialog
 import com.kzj.mall.base.IPresenter
 import com.kzj.mall.databinding.DialogAddressBinding
 import com.kzj.mall.di.component.AppComponent
-import com.kzj.mall.entity.address.CityEntity
-import com.kzj.mall.entity.address.DistrictEntity
-import com.kzj.mall.entity.address.ProvinceEntity
+import com.kzj.mall.entity.address.Address
 import com.kzj.mall.event.CheckCEvent
 import com.kzj.mall.event.CheckDEvent
 import com.kzj.mall.event.CheckPEvent
@@ -26,9 +24,9 @@ class AddressDialog : BaseDialog<IPresenter, DialogAddressBinding>(), View.OnCli
     private var commomViewPagerAdapter: CommomViewPagerAdapter? = null
     private var fragments: MutableList<Fragment>? = null
 
-    private var checkP: ProvinceEntity.ProvinceBeen? = null
-    private var checkC: CityEntity.CityBeen? = null
-    private var checkD: DistrictEntity.DistrictBeen? = null
+    private var checkP: Address.Province? = null
+    private var checkC: Address.City? = null
+    private var checkD: Address.District? = null
 
     private var onAddressCheckListener:OnAddressCheckListener?=null
 
@@ -169,7 +167,7 @@ class AddressDialog : BaseDialog<IPresenter, DialogAddressBinding>(), View.OnCli
     }
 
     interface OnAddressCheckListener{
-        fun onAddressCheck(p:ProvinceEntity.ProvinceBeen?,c:CityEntity.CityBeen?,d:DistrictEntity.DistrictBeen?)
+        fun onAddressCheck(p: Address.Province?, c:Address.City?, d:Address.District?)
     }
 
     override fun onDestroy() {

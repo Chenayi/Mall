@@ -6,7 +6,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:titleBarRightText="保存"
-        app:titleBarTitle="新建收货地址">
+        app:titleBarTitle="新建收货地址"
+        app:titleBarRightTextColor="@color/white">
 
         <ScrollView
             android:layout_width="match_parent"

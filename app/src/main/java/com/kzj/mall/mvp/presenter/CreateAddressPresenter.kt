@@ -8,6 +8,7 @@ import com.kzj.mall.base.BasePresenter
 import com.kzj.mall.di.scope.ActivityScope
 import com.kzj.mall.entity.JsonBean
 import com.kzj.mall.entity.SimpleResultEntity
+import com.kzj.mall.entity.address.CreateAddressEntity
 import com.kzj.mall.http.RxScheduler
 import com.kzj.mall.mvp.contract.CreateAddressContract
 import com.kzj.mall.utils.GetJsonDataUtil
@@ -25,10 +26,8 @@ class CreateAddressPresenter @Inject
 constructor(model: CreateAddressContract.Model?, view: CreateAddressContract.View?, context: Context?)
     : BasePresenter<CreateAddressContract.Model, CreateAddressContract.View>(model, view, context) {
 
-    fun addAddress(infoProvince: String, infoCity: String, infoCounty: String, addressName: String, addressMoblie: String, addressDetail: String, isDefault: String) {
-
-        LogUtils.e(infoProvince + "\n" + infoCity + "\n" + infoCounty + "\n" + addressName + "\n" + addressMoblie + "\n" + addressDetail + "\n" + isDefault)
-
+    fun addAddress(infoProvince: String, infoCity: String, infoCounty: String, addressName: String,
+                   addressMoblie: String, addressDetail: String, isDefault: String,addressId:String?) {
         val params = HashMap<String, String>()
         params.put("infoProvince", infoProvince)
         params.put("infoCity", infoCity)
@@ -38,16 +37,20 @@ constructor(model: CreateAddressContract.Model?, view: CreateAddressContract.Vie
         params.put("addressDetail", addressDetail)
         params.put("isDefault", isDefault)
 
+        addressId?.let {
+            params.put("addressId",it)
+        }
+
         model?.addOrUpdateAddress(params)
                 ?.compose(RxScheduler.compose())
-                ?.subscribe(object : BaseObserver<SimpleResultEntity>() {
+                ?.subscribe(object : BaseObserver<CreateAddressEntity>() {
                     override fun onSubscribe(d: Disposable) {
                         addDisposable(d)
                         view?.showLoading()
                     }
 
-                    override fun onHandleSuccess(t: SimpleResultEntity?) {
-                        view?.addOrUpdateAddressSuccess()
+                    override fun onHandleSuccess(t: CreateAddressEntity?) {
+                        view?.addOrUpdateAddressSuccess(t?.cAddress)
                     }
 
                     override fun onHandleError(code: Int, msg: String?) {

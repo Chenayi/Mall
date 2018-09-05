@@ -11,10 +11,7 @@ import com.kzj.mall.databinding.FragmentAddressListBinding
 import com.kzj.mall.di.component.AppComponent
 import com.kzj.mall.di.component.DaggerAddressListComponent
 import com.kzj.mall.di.module.AddressListModule
-import com.kzj.mall.entity.address.CityEntity
-import com.kzj.mall.entity.address.DistrictEntity
-import com.kzj.mall.entity.address.IAddress
-import com.kzj.mall.entity.address.ProvinceEntity
+import com.kzj.mall.entity.address.*
 import com.kzj.mall.event.CheckCEvent
 import com.kzj.mall.event.CheckDEvent
 import com.kzj.mall.event.CheckPEvent
@@ -59,38 +56,38 @@ class AddressListFragment : BaseFragment2<AddressListPresenter, FragmentAddressL
             when (p) {
                 0 -> {
                     val data = addressListAdapter?.data
-                    if (!(data?.get(position) as ProvinceEntity.ProvinceBeen).ckeck){
+                    if (!(data?.get(position) as Address.Province).ckeck){
                         for (i in 0 until data?.size!!) {
-                            val province = data?.get(i) as ProvinceEntity.ProvinceBeen
+                            val province = data?.get(i) as Address.Province
                             province?.ckeck = (position == i)
                         }
                         addressListAdapter?.notifyDataSetChanged()
 
-                        EventBus.getDefault().post(CheckPEvent(addressListAdapter?.data?.get(position) as ProvinceEntity.ProvinceBeen))
+                        EventBus.getDefault().post(CheckPEvent(addressListAdapter?.data?.get(position) as Address.Province))
                     }
                 }
                 1 -> {
                     val data = addressListAdapter?.data
-                    if (!(data?.get(position) as CityEntity.CityBeen).ckeck){
+                    if (!(data?.get(position) as Address.City).ckeck){
                         for (i in 0 until data?.size!!) {
-                            val city = data?.get(i) as CityEntity.CityBeen
+                            val city = data?.get(i) as Address.City
                             city?.ckeck = (position == i)
                         }
                         addressListAdapter?.notifyDataSetChanged()
 
-                        EventBus.getDefault().post(CheckCEvent(addressListAdapter?.data?.get(position) as CityEntity.CityBeen))
+                        EventBus.getDefault().post(CheckCEvent(addressListAdapter?.data?.get(position) as Address.City))
                     }
                 }
                 2 -> {
                     val data = addressListAdapter?.data
-                    if (!(data?.get(position) as DistrictEntity.DistrictBeen).ckeck){
+                    if (!(data?.get(position) as Address.District).ckeck){
                         for (i in 0 until data?.size!!) {
-                            val province = data?.get(i) as DistrictEntity.DistrictBeen
+                            val province = data?.get(i) as Address.District
                             province?.ckeck = (position == i)
                         }
                         addressListAdapter?.notifyDataSetChanged()
 
-                        EventBus.getDefault().post(CheckDEvent(addressListAdapter?.data?.get(position) as DistrictEntity.DistrictBeen))
+                        EventBus.getDefault().post(CheckDEvent(addressListAdapter?.data?.get(position) as Address.District))
                     }
                 }
             }

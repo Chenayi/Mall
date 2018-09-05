@@ -1,9 +1,7 @@
 package com.kzj.mall.http.api
 
 import com.kzj.mall.entity.*
-import com.kzj.mall.entity.address.CityEntity
-import com.kzj.mall.entity.address.DistrictEntity
-import com.kzj.mall.entity.address.ProvinceEntity
+import com.kzj.mall.entity.address.*
 import com.kzj.mall.entity.cart.AddCartEntity
 import com.kzj.mall.entity.home.HomeRecommendEntity
 import io.reactivex.Observable
@@ -148,7 +146,7 @@ interface ApiService {
      */
     @FormUrlEncoded
     @POST("mobile/kzj/api/user_voucher/addOrUpdate_address.htm")
-    fun addOrUpdateAddress(@Header("token") token: String?, @FieldMap params: Map<String, String>?): Observable<BaseResponse<SimpleResultEntity>>
+    fun addOrUpdateAddress(@Header("token") token: String?, @FieldMap params: Map<String, String>?): Observable<BaseResponse<CreateAddressEntity>>
 
     /**
      *  我的地址

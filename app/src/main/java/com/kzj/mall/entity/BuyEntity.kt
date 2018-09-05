@@ -1,5 +1,6 @@
 package com.kzj.mall.entity
 
+import com.kzj.mall.entity.address.Address
 import java.io.Serializable
 
 class BuyEntity : Serializable {
@@ -16,7 +17,7 @@ class BuyEntity : Serializable {
     /**
      * 地址列表
      */
-    var addressList: MutableList<AddressList>? = null
+    var addressList: MutableList<Address>? = null
 
     /**
      * 当前地址
@@ -27,23 +28,6 @@ class BuyEntity : Serializable {
      * 商品列表
      */
     var shoplist: MutableList<Shoplist>? = null
-
-    class AddressList : Serializable {
-
-    }
-
-    class Address : Serializable {
-        var addressName: String? = null
-        var addressMoblie: String? = null
-        //省
-        var province: Province? = null
-        //市
-        var city: City? = null
-        //区
-        var district: District? = null
-        //详细地址
-        var addressDetail: String? = null
-    }
 
     class Shoplist : Serializable {
         var appgoods: Appgoods? = null
@@ -58,27 +42,5 @@ class BuyEntity : Serializable {
         var goods_img: String? = null
     }
 
-    /**
-     * 省
-     */
-    class Province : Serializable {
-        var provinceId: Long? = null
-        var provinceName: String? = null
-    }
 
-    /**
-     * 市
-     */
-    class City : Serializable {
-        var cityId: Long? = null
-        var cityName: String? = null
-    }
-
-    /**
-     *  区
-     */
-    class District : Serializable {
-        var districtId: Long? = null
-        var districtName: String? = null
-    }
 }

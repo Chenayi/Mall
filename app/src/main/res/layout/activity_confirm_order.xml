@@ -100,7 +100,8 @@
                                         app:sShapeCornersRadius="9999dp"
                                         app:sShapeStrokeColor="@color/colorPrimary"
                                         app:sShapeStrokeWidth="1dp"
-                                        app:sUseShape="true" />
+                                        app:sUseShape="true"
+                                        android:visibility="gone"/>
                                 </LinearLayout>
 
 

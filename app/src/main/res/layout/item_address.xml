@@ -18,12 +18,13 @@
 
 
         <ImageView
+            android:id="@+id/iv_edit"
             android:layout_width="28dp"
             android:layout_height="28dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="20dp"
-            android:src="@color/gray_default"
-            android:padding="8dp"/>
+            android:padding="8dp"
+            android:src="@color/gray_default" />
 
 
         <LinearLayout
@@ -39,25 +40,26 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/tv_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="司马嫣然"
                     android:textColor="#2E3033"
                     android:textSize="17dp"
-                    android:textStyle="bold"
-                    android:id="@+id/tv_name"/>
+                    android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/tv_mobile"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:text="137****1234"
                     android:textColor="#2E3033"
                     android:textSize="17dp"
-                    android:textStyle="bold"
-                    android:id="@+id/tv_mobile"/>
+                    android:textStyle="bold" />
 
                 <com.allen.library.SuperTextView
+                    android:id="@+id/tv_default"
                     android:layout_width="27dp"
                     android:layout_height="14dp"
                     android:layout_marginLeft="4dp"
@@ -67,18 +69,17 @@
                     app:sShapeCornersRadius="9999dp"
                     app:sShapeStrokeColor="@color/colorPrimary"
                     app:sShapeStrokeWidth="1dp"
-                    app:sUseShape="true"
-                    android:id="@+id/tv_default"/>
+                    app:sUseShape="true" />
             </LinearLayout>
 
             <TextView
+                android:id="@+id/tv_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:text="广东省广州市白云区永泰泰兴路6号电商创意园C1栋二楼"
                 android:textColor="#6A6E75"
-                android:textSize="12dp"
-                android:id="@+id/tv_address"/>
+                android:textSize="12dp" />
 
         </LinearLayout>
 

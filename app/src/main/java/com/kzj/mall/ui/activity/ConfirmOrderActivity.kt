@@ -14,8 +14,10 @@ import com.kzj.mall.base.IPresenter
 import com.kzj.mall.databinding.ActivityConfirmOrderBinding
 import com.kzj.mall.di.component.AppComponent
 import com.kzj.mall.entity.BuyEntity
+import com.kzj.mall.entity.address.Address
 import com.kzj.mall.ui.dialog.ConfirmDialog
 import com.kzj.mall.utils.FloatUtils
+import com.kzj.mall.utils.Utils
 import com.kzj.mall.widget.RootLayout
 
 class ConfirmOrderActivity : BaseActivity<IPresenter, ActivityConfirmOrderBinding>(), View.OnClickListener {
@@ -29,6 +31,8 @@ class ConfirmOrderActivity : BaseActivity<IPresenter, ActivityConfirmOrderBindin
     private var goodsAdapter: GoodsAdapter? = null
 
     private var buyEntity: BuyEntity? = null
+
+    private var addressId: String? = null
 
     override fun getLayoutId(): Int {
         return R.layout.activity_confirm_order
@@ -89,15 +93,7 @@ class ConfirmOrderActivity : BaseActivity<IPresenter, ActivityConfirmOrderBindin
         buyEntity?.address?.let {
             mBinding?.tvCreateAddress?.visibility = View.GONE
             mBinding?.llAddress?.visibility = View.VISIBLE
-
-            val provinceName = it?.province?.provinceName
-            val cityName = it?.city?.cityName
-            val districtName = it?.district?.districtName
-            val addressDetail = it?.addressDetail
-
-            mBinding?.tvAddress?.text = provinceName + "省" + cityName + "市" + districtName + addressDetail
-
-            hasAddress = true
+            setAddress(it)
         }
 
         mBinding?.rlAlipay?.setOnClickListener(this)
@@ -109,6 +105,22 @@ class ConfirmOrderActivity : BaseActivity<IPresenter, ActivityConfirmOrderBindin
                 ?.setOnLeftOnClickListener {
                     onBackPressedSupport()
                 }
+    }
+
+    private fun setAddress(address: Address) {
+        addressId = address?.addressId
+        val provinceName = address?.province?.provinceName
+        val cityName = address?.city?.cityName
+        val districtName = address?.district?.districtName
+        val addressDetail = address?.addressDetail
+        mBinding?.tvAddress?.text = provinceName + "省" + cityName + "市" + districtName + addressDetail
+        mBinding?.tvName?.text = address?.addressName
+        mBinding?.tvMobile?.text = Utils.subMobile(address?.addressMoblie)
+        address?.isDefault?.let {
+            mBinding?.tvDefault?.visibility = if (it?.equals("1")) View.VISIBLE else View.GONE
+        }
+
+        hasAddress = true
     }
 
     inner class GoodsAdapter constructor(val goodsDatas: MutableList<String>)
@@ -128,7 +140,13 @@ class ConfirmOrderActivity : BaseActivity<IPresenter, ActivityConfirmOrderBindin
             if (requestCode == RequestCode.CREATE_ADDRESS) {
                 mBinding?.llAddress?.visibility = View.VISIBLE
                 mBinding?.tvCreateAddress?.visibility = View.GONE
-                hasAddress = true
+                data?.getSerializableExtra("address")?.let {
+                    setAddress(it as Address)
+                }
+            } else if (requestCode == RequestCode.CHOOSE_ADDRESS) {
+                data?.getSerializableExtra("address")?.let {
+                    setAddress(it as Address)
+                }
             }
         }
     }
@@ -165,7 +183,8 @@ class ConfirmOrderActivity : BaseActivity<IPresenter, ActivityConfirmOrderBindin
             R.id.rl_address -> {
                 if (hasAddress) {
                     val intent = Intent(this, MyAddressListActivity::class.java)
-                    startActivity(intent)
+                    intent?.putExtra("addressId", addressId)
+                    startActivityForResult(intent, RequestCode.CHOOSE_ADDRESS)
                 } else {
                     val intent = Intent(this, CreateAddressActivity::class.java)
                     startActivityForResult(intent, RequestCode.CREATE_ADDRESS)

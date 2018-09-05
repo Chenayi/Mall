@@ -2,6 +2,7 @@ package com.kzj.mall.utils
 
 import com.kzj.mall.R
 import com.kzj.mall.entity.*
+import com.kzj.mall.entity.address.AddressEntity
 import com.kzj.mall.entity.ask.AskAnswerDetailEntity
 import com.kzj.mall.entity.ask.AskAnswerEntity
 import com.kzj.mall.entity.ask.IAsk

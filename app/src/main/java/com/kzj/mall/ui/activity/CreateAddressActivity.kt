@@ -1,29 +1,21 @@
 package com.kzj.mall.ui.activity
 
 import android.app.Activity
-import android.graphics.Color
-import android.support.v4.content.ContextCompat
+import android.content.Intent
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
 import android.view.View
-import android.view.ViewGroup
-import com.bigkoo.pickerview.builder.OptionsPickerBuilder
-import com.bigkoo.pickerview.listener.OnOptionsSelectListener
-import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.KeyboardUtils
 import com.blankj.utilcode.util.RegexUtils
 import com.blankj.utilcode.util.ToastUtils
-import com.gyf.barlibrary.ImmersionBar
 import com.kzj.mall.R
 import com.kzj.mall.base.BaseActivity
 import com.kzj.mall.databinding.ActivityCreateAddressBinding
 import com.kzj.mall.di.component.AppComponent
 import com.kzj.mall.di.component.DaggerCreateAddressComponent
 import com.kzj.mall.di.module.CreateAddressModule
-import com.kzj.mall.entity.address.CityEntity
-import com.kzj.mall.entity.address.DistrictEntity
-import com.kzj.mall.entity.address.ProvinceEntity
+import com.kzj.mall.entity.address.Address
 import com.kzj.mall.mvp.contract.CreateAddressContract
 import com.kzj.mall.mvp.presenter.CreateAddressPresenter
 import com.kzj.mall.ui.dialog.AddressDialog
@@ -33,9 +25,15 @@ class CreateAddressActivity : BaseActivity<CreateAddressPresenter, ActivityCreat
         , View.OnClickListener, CreateAddressContract.View {
     var rootLayout: RootLayout? = null
 
-    private var checkP: ProvinceEntity.ProvinceBeen? = null
-    private var checkC: CityEntity.CityBeen? = null
-    private var checkD: DistrictEntity.DistrictBeen? = null
+    private var checkP: Address.Province? = null
+    private var checkC: Address.City? = null
+    private var checkD: Address.District? = null
+
+    private var isUpdateAddress = false
+
+    private var address: Address? = null
+
+    private var addressId: String? = null
 
     override fun getLayoutId(): Int {
         return R.layout.activity_create_address
@@ -50,8 +48,21 @@ class CreateAddressActivity : BaseActivity<CreateAddressPresenter, ActivityCreat
     }
 
     override fun initData() {
+
+        intent?.getBooleanExtra("isUpdateAddress", false)?.let {
+            isUpdateAddress = it
+        }
+
+        if (isUpdateAddress) {
+            intent?.getSerializableExtra("address")?.let {
+                address = it as Address
+                addressId = address?.addressId
+                setAddress(address)
+            }
+        }
+
         rootLayout = RootLayout.getInstance(this)
-        rootLayout?.setRightTextEnable(false)
+        rootLayout?.setRightTextEnable(isUpdateAddress)
         rootLayout?.setOnRightOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
                 val mobile = mBinding?.etPhone?.text?.toString()?.trim()
@@ -63,7 +74,8 @@ class CreateAddressActivity : BaseActivity<CreateAddressPresenter, ActivityCreat
                 val name = mBinding?.etName?.text?.toString()?.trim()
                 val addressDetail = mBinding?.etAddress?.text?.toString()?.trim()
                 val default = if (mBinding?.switchDefault?.isChecked == true) "1" else "0"
-                mPresenter?.addAddress(checkP?.provinceId!!, checkC?.cityId!!, checkD?.districtId!!, name!!, mobile!!, addressDetail!!, default)
+                mPresenter?.addAddress(checkP?.provinceId!!, checkC?.cityId!!, checkD?.districtId!!,
+                        name!!, mobile!!, addressDetail!!, default,addressId)
             }
         })
 
@@ -73,6 +85,19 @@ class CreateAddressActivity : BaseActivity<CreateAddressPresenter, ActivityCreat
         mBinding?.etAddress?.addTextChangedListener(this)
 
         mBinding?.tvArea?.setOnClickListener(this)
+    }
+
+    private fun setAddress(address: Address?) {
+        checkP = address?.province
+        checkC = address?.city
+        checkD = address?.district
+
+        mBinding?.etName?.clearFocus()
+        mBinding?.etName?.setText(address?.addressName)
+        mBinding?.etPhone?.setText(address?.addressMoblie)
+        mBinding?.tvArea?.setText(address?.province?.provinceName + "省" + address?.city?.cityName + "市" + address?.district?.districtName)
+        mBinding?.etAddress?.setText(address?.addressDetail)
+        mBinding?.switchDefault?.isChecked = (address?.isDefault?.equals("1") == true)
     }
 
     private fun isCanSave(): Boolean {
@@ -100,8 +125,11 @@ class CreateAddressActivity : BaseActivity<CreateAddressPresenter, ActivityCreat
         dismissLoadingDialog()
     }
 
-    override fun addOrUpdateAddressSuccess() {
-        setResult(Activity.RESULT_OK)
+    override fun addOrUpdateAddressSuccess(address: Address?) {
+        val intent = Intent()
+        intent?.putExtra("isUpdateAddress",isUpdateAddress)
+        intent.putExtra("address", address)
+        setResult(Activity.RESULT_OK, intent)
         finish()
     }
 
@@ -115,7 +143,7 @@ class CreateAddressActivity : BaseActivity<CreateAddressPresenter, ActivityCreat
                 KeyboardUtils.hideSoftInput(this)
                 AddressDialog.newInstance()
                         .setOnAddressCheckListener(object : AddressDialog.OnAddressCheckListener {
-                            override fun onAddressCheck(p: ProvinceEntity.ProvinceBeen?, c: CityEntity.CityBeen?, d: DistrictEntity.DistrictBeen?) {
+                            override fun onAddressCheck(p: Address.Province?, c: Address.City?, d: Address.District?) {
                                 checkP = p
                                 checkC = c
                                 checkD = d

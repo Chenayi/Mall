@@ -1,8 +1,7 @@
 package com.kzj.mall.event
 
-import com.kzj.mall.entity.address.CityEntity
-import com.kzj.mall.entity.address.DistrictEntity
+import com.kzj.mall.entity.address.Address
 
-class CheckDEvent(districtBeen: DistrictEntity.DistrictBeen) {
+class CheckDEvent(districtBeen: Address.District) {
     var districtBeen = districtBeen
 }
