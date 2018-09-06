@@ -80,6 +80,7 @@ class MineFragment : BaseFragment<MinePresenter, FragmentMineBinding>(), View.On
         mBinding?.rlOrderWaitTake?.setOnClickListener(this)
         mBinding?.rlOrderFinish?.setOnClickListener(this)
         mBinding?.rlBrowseRecord?.setOnClickListener(this)
+        mBinding?.rlAddress?.setOnClickListener(this)
     }
 
     @Subscribe
@@ -248,6 +249,9 @@ class MineFragment : BaseFragment<MinePresenter, FragmentMineBinding>(), View.On
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                     startActivity(intent)
                 }
+            }
+            R.id.rl_address->{
+
             }
         }
     }

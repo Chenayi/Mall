@@ -1,5 +1,6 @@
 package com.kzj.mall.adapter.provider.home
 
+import android.content.Intent
 import com.chad.library.adapter.base.BaseViewHolder
 import com.chad.library.adapter.base.provider.BaseItemProvider
 import com.kzj.mall.R
@@ -10,9 +11,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.blankj.utilcode.util.SizeUtils
+import com.kzj.mall.C
 import com.kzj.mall.GlideApp
 import com.kzj.mall.entity.home.AndrologyAdvBannerEntity
 import com.kzj.mall.transformer.ScaleInTransformer
+import com.kzj.mall.ui.activity.GoodsDetailActivity
 import com.makeramen.roundedimageview.RoundedImageView
 
 
@@ -58,6 +61,9 @@ class AndrologyAdvBannerProvider : BaseItemProvider<AndrologyAdvBannerEntity, Ba
             val view = LayoutInflater.from(mContext).inflate(R.layout.item_home_banner, null, false)
             val imageView = view?.findViewById<RoundedImageView>(R.id.iv_image)
             imageView?.cornerRadius = 0f
+            imageView?.setOnClickListener {
+                jumpGoodsDetail(advDatas?.get(position)?.goodsInfoId)
+            }
             GlideApp.with(mContext)
                     .load(advDatas?.get(position)?.imgRes)
                     .placeholder(R.color.gray_default)
@@ -74,5 +80,15 @@ class AndrologyAdvBannerProvider : BaseItemProvider<AndrologyAdvBannerEntity, Ba
         override fun getItemPosition(`object`: Any): Int {
             return PagerAdapter.POSITION_NONE
         }
+    }
+
+    /**
+     * 跳转商品详情
+     */
+    protected fun jumpGoodsDetail(goodsInfoId: String?) {
+        val intent = Intent(mContext, GoodsDetailActivity::class.java)
+        intent?.putExtra(C.GOODS_INFO_ID, goodsInfoId)
+        intent?.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        mContext.startActivity(intent)
     }
 }

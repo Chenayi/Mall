@@ -1,5 +1,6 @@
 package com.kzj.mall.adapter.provider.home
 
+import android.content.Intent
 import android.support.v4.content.ContextCompat
 import android.support.v4.view.PagerAdapter
 import android.support.v4.view.ViewPager
@@ -17,8 +18,10 @@ import com.blankj.utilcode.util.SizeUtils
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.github.florent37.glidepalette.BitmapPalette
 import com.github.florent37.glidepalette.GlidePalette
+import com.kzj.mall.C
 import com.kzj.mall.GlideApp
 import com.kzj.mall.transformer.ScaleInTransformer
+import com.kzj.mall.ui.activity.GoodsDetailActivity
 import com.kzj.mall.widget.IndictorView
 import com.makeramen.roundedimageview.RoundedImageView
 import com.tmall.ultraviewpager.UltraViewPager
@@ -106,6 +109,16 @@ class HeaderBannerProvider : BaseItemProvider<HomeHeaderBannerEntity, BaseViewHo
         fun onBannerPageSelected(position: Int?, colorRes: Int?)
     }
 
+    /**
+     * 跳转商品详情
+     */
+    protected fun jumpGoodsDetail(goodsInfoId: String?) {
+        val intent = Intent(mContext, GoodsDetailActivity::class.java)
+        intent?.putExtra(C.GOODS_INFO_ID, goodsInfoId)
+        intent?.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        mContext.startActivity(intent)
+    }
+
 
     inner class UltraPagerAdapter constructor(val advDatas: MutableList<HomeHeaderBannerEntity.Adds>?, val backGround: TextView?) : PagerAdapter() {
         override fun isViewFromObject(view: View, `object`: Any): Boolean {
@@ -124,6 +137,11 @@ class HeaderBannerProvider : BaseItemProvider<HomeHeaderBannerEntity, BaseViewHo
             } else {
                 imageView?.cornerRadius = 0f
             }
+
+            imageView?.setOnClickListener {
+                jumpGoodsDetail(advDatas?.get(position)?.goodsInfoId)
+            }
+
             val palette = GlidePalette.with(advDatas?.get(position)?.adCode)
                     .use(BitmapPalette.Profile.MUTED)
                     .intoCallBack {

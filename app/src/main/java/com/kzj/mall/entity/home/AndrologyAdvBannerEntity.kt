@@ -10,5 +10,6 @@ class AndrologyAdvBannerEntity : IHomeEntity {
     class Banners {
         var imgUrl: String? = null
         var imgRes: Int? = null
+        var goodsInfoId:String?=null
     }
 }

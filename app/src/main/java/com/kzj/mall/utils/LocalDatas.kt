@@ -21,12 +21,15 @@ class LocalDatas {
 
             val banner1 = HomeHeaderBannerEntity().Adds()
             banner1.adCode = "http://thyrsi.com/t6/365/1535610735x-1404817844.png"
+            banner1.goodsInfoId = "29954"
 
             val banner2 = HomeHeaderBannerEntity().Adds()
             banner2.adCode = "http://thyrsi.com/t6/365/1535610773x-1566688371.png"
+            banner2.goodsInfoId = "17124"
 
             val banner3 = HomeHeaderBannerEntity().Adds()
             banner3.adCode = "http://thyrsi.com/t6/365/1535610798x1822611437.png"
+            banner3.goodsInfoId = "21536"
 
             banners.add(banner1)
             banners.add(banner2)
@@ -46,12 +49,15 @@ class LocalDatas {
 
             val banner1 = HomeHeaderBannerEntity().Adds()
             banner1.adCode = "http://thyrsi.com/t6/365/1535598953x1822611359.png"
+            banner1.goodsInfoId = "26765"
 
             val banner2 = HomeHeaderBannerEntity().Adds()
             banner2.adCode = "http://thyrsi.com/t6/365/1535598918x1822611263.png"
+            banner2.goodsInfoId = "35603"
 
             val banner3 = HomeHeaderBannerEntity().Adds()
             banner3.adCode = "http://thyrsi.com/t6/365/1535600585x1822611437.png"
+            banner3.goodsInfoId = "27400"
 
             banners.add(banner1)
             banners.add(banner2)
@@ -92,9 +98,11 @@ class LocalDatas {
 
             val banner1 = HomeAdvBannerEntity.Banners()
             banner1.adv = R.mipmap.h1
+            banner1.goodsInfoId = "45468"
 
             val banner2 = HomeAdvBannerEntity.Banners()
             banner2.adv = R.mipmap.h2
+            banner2.goodsInfoId = "27144"
 
             banners.add(banner1)
             banners.add(banner2)
@@ -153,10 +161,13 @@ class LocalDatas {
 
             val b1 = AndrologyAdvBannerEntity.Banners()
             b1.imgRes = R.mipmap.b1
+            b1.goodsInfoId="37438"
             val b2 = AndrologyAdvBannerEntity.Banners()
             b2.imgRes = R.mipmap.b2
+            b2.goodsInfoId="2703"
             val b3 = AndrologyAdvBannerEntity.Banners()
             b3.imgRes = R.mipmap.b3
+            b3.goodsInfoId="35146"
 
             banners.add(b1)
             banners.add(b2)
@@ -223,18 +234,6 @@ class LocalDatas {
                 homeTabDatas.add(homeTabData)
             }
             return homeTabDatas
-        }
-
-
-        /**
-         * 商品详情 组合
-         */
-        fun goodsDetailGroups(): MutableList<GoodsDetailEntity.Group> {
-            val goodsDetailGroups = ArrayList<GoodsDetailEntity.Group>()
-            for (i in 0 until 4) {
-                goodsDetailGroups.add(GoodsDetailEntity().Group())
-            }
-            return goodsDetailGroups
         }
 
 

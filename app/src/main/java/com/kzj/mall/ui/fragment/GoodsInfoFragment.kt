@@ -7,14 +7,12 @@ import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.support.v4.view.ViewPager
 import android.support.v4.widget.NestedScrollView
-import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.*
 import cn.bingoogolapple.bgabanner.BGABanner
 import com.blankj.utilcode.util.ScreenUtils
 import com.kzj.mall.GlideApp
 import com.kzj.mall.R
-import com.kzj.mall.adapter.GoodsDetailGroupAdapter
 import com.kzj.mall.base.BaseFragment
 import com.kzj.mall.base.IPresenter
 import com.kzj.mall.databinding.FragmentGoodsInfoBinding
@@ -23,10 +21,8 @@ import com.kzj.mall.entity.GoodsDetailEntity
 import com.kzj.mall.event.*
 import com.kzj.mall.ui.activity.GoodsDetailActivity
 import com.kzj.mall.ui.dialog.GoodsSpecDialog
-import com.kzj.mall.utils.LocalDatas
 import com.kzj.mall.widget.ObservableScrollView
 import com.kzj.mall.widget.SlideDetailsLayout
-import com.takusemba.multisnaprecyclerview.MultiSnapRecyclerView
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 
@@ -74,9 +70,6 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
      */
     private var tvCheckSpec: TextView? = null
 
-
-    private var goodsDetailGroupAdapter: GoodsDetailGroupAdapter? = null
-    private var rvGroup: MultiSnapRecyclerView? = null
 
     private var barHeight = 0
     private var bannerHeight = 0
@@ -145,8 +138,6 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
 
         //banner
         initBanner()
-        //套餐组合
-        initGroupData()
 
         mBinding?.slideDetailsLayout?.setOnSlideDetailsListener(object : SlideDetailsLayout.OnSlideDetailsListener {
             override fun onStatucChanged(status: SlideDetailsLayout.Status?) {
@@ -275,24 +266,18 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
                 }
             }
 
+
+            //套餐
+            it?.combinationList?.let {
+                mBinding?.goodsGroupView?.visibility = View.VISIBLE
+                mBinding?.goodsGroupView?.setNewDatas(it)
+            }
+
             this.goodsDetailEntity = goodsDetailEntity
         }
         goodsDefaultInfoId?.let {
             mGoodsDefaultInfoId = it
         }
-    }
-
-
-    /**
-     * 套餐组合
-     */
-    private fun initGroupData() {
-        tvGroupAddCart = view?.findViewById(R.id.tv_group_add_cart)
-        tvGroupAddCart?.setOnClickListener(this)
-        goodsDetailGroupAdapter = GoodsDetailGroupAdapter(LocalDatas.goodsDetailGroups())
-        rvGroup = view?.findViewById(R.id.rv_group)
-        rvGroup?.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        rvGroup?.adapter = goodsDetailGroupAdapter
     }
 
     /**

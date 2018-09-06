@@ -9,5 +9,6 @@ class HomeHeaderBannerEntity : IHomeEntity {
 
     inner class Adds {
         var adCode: String? = null
+        var goodsInfoId: String? = null
     }
 }

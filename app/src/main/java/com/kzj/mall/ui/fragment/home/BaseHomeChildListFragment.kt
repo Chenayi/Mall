@@ -96,9 +96,9 @@ abstract class BaseHomeChildListFragment : BaseFragment<HomePresenter, FragmentB
                 } else {
                     headerBannerProvider?.pauseBanner()
                 }
-                if (firstVisibleItemPosition < 8){
+                if (firstVisibleItemPosition < 8) {
                     hideArrow()
-                }else{
+                } else {
                     showArrow()
                 }
             }
@@ -106,140 +106,157 @@ abstract class BaseHomeChildListFragment : BaseFragment<HomePresenter, FragmentB
 
         listAdapter?.setOnItemChildClickListener { adapter, view, position ->
             when (view?.id) {
+
+            //精选优品 跳转商品详情
+                R.id.iv_yp1 -> {
+                    jumpGoodsDetail("35603")
+                }
+                R.id.iv_yp2 -> {
+                    jumpGoodsDetail("26765")
+                }
+                R.id.iv_yp3 -> {
+                    jumpGoodsDetail("12952")
+                }
+                R.id.iv_yp4 -> {
+                    jumpGoodsDetail("24459")
+                }
+                R.id.iv_yp5 -> {
+                    jumpGoodsDetail("36388")
+                }
+                R.id.iv_yp6 -> {
+                    jumpGoodsDetail("29833")
+                }
+                R.id.iv_yp7 -> {
+                    jumpGoodsDetail("44312")
+                }
+                R.id.iv_yp8 -> {
+                    jumpGoodsDetail("41259")
+                }
                 R.id.ll_yp9 -> {
-//                    val intent = Intent(context, GoodsDetailActivity::class.java)
-//                    intent
-//                    intent?.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-//                    startActivity(intent)
+                    jumpGoodsDetail("21536")
                 }
                 R.id.ll_yp10 -> {
-//                    val intent = Intent(context, GoodsDetailActivity::class.java)
-//                    intent?.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-//                    startActivity(intent)
+                    jumpGoodsDetail("26727")
                 }
                 R.id.ll_yp11 -> {
-//                    val intent = Intent(context, GoodsDetailActivity::class.java)
-//                    intent?.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-//                    startActivity(intent)
+                    jumpGoodsDetail("2094")
                 }
                 R.id.ll_yp12 -> {
-//                    val intent = Intent(context, GoodsDetailActivity::class.java)
-//                    intent?.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-//                    startActivity(intent)
+                    jumpGoodsDetail("41259")
                 }
 
             //以下是品牌跳转
                 R.id.ll_brand_1 -> {
-                    brandJump("4179","杜蕾斯")
+                    brandJump("4179", "杜蕾斯")
                 }
                 R.id.ll_brand_2 -> {
-                    brandJump("4504","汇仁")
+                    brandJump("4504", "汇仁")
                 }
                 R.id.ll_brand_3 -> {
-                    brandJump("4324","陈李济")
+                    brandJump("4324", "陈李济")
                 }
                 R.id.ll_brand_4 -> {
-                    brandJump("4257","汤臣倍健")
+                    brandJump("4257", "汤臣倍健")
                 }
                 R.id.ll_brand_5 -> {
-                    brandJump("4410","东阿阿胶")
+                    brandJump("4410", "东阿阿胶")
                 }
                 R.id.ll_brand_6 -> {
-                    brandJump("4123","罗浮山国药")
+                    brandJump("4123", "罗浮山国药")
                 }
                 R.id.ll_brand_7 -> {
-                    brandJump("4199","九芝堂")
+                    brandJump("4199", "九芝堂")
                 }
                 R.id.ll_brand_8 -> {
-                    brandJump("4119","同仁堂")
+                    brandJump("4119", "同仁堂")
                 }
                 R.id.ll_brand_9 -> {
-                    brandJump("4526","999")
+                    brandJump("4526", "999")
                 }
                 R.id.ll_brand_10 -> {
-                    brandJump("6287","三诺")
+                    brandJump("6287", "三诺")
                 }
                 R.id.ll_brand_11 -> {
-                    brandJump("7428","碧生源")
+                    brandJump("7428", "碧生源")
                 }
                 R.id.ll_brand_12 -> {
-                    brandJump("4258","香雪制药")
+                    brandJump("4258", "香雪制药")
                 }
 
 
-                //以下是疾病跳转
-                R.id.ll_s_1->{
+            //以下是疾病跳转
+                R.id.ll_s_1 -> {
                     jumpSearch("无法勃起")
                 }
-                R.id.ll_s_2->{
+                R.id.ll_s_2 -> {
                     jumpSearch("硬度不够")
                 }
-                R.id.ll_s_3->{
+                R.id.ll_s_3 -> {
                     jumpSearch("早泄")
                 }
-                R.id.ll_s_4->{
+                R.id.ll_s_4 -> {
                     jumpSearch("性欲退减")
                 }
-                R.id.ll_s_5->{
+                R.id.ll_s_5 -> {
                     jumpSearch("遗精")
                 }
-                R.id.ll_s_6->{
+                R.id.ll_s_6 -> {
                     jumpSearch("手淫过度")
                 }
-                R.id.ll_s_7->{
+                R.id.ll_s_7 -> {
                     jumpSearch("性部位溃烂")
                 }
-                R.id.ll_s_8->{
+                R.id.ll_s_8 -> {
                     jumpSearch("少精弱精")
                 }
 
 
-                //以下是男科分类点击的跳转
-                R.id.ll_c_1->{
+            //以下是男科分类点击的跳转
+                R.id.ll_c_1 -> {
                     jumpGoodsDetail("2018")
                 }
-                R.id.ll_c_2->{
+                R.id.ll_c_2 -> {
                     jumpGoodsDetail("372")
                 }
-                R.id.ll_c_3->{
+                R.id.ll_c_3 -> {
                     jumpGoodsDetail("41297")
                 }
-                R.id.ll_c_4->{
+                R.id.ll_c_4 -> {
                     jumpGoodsDetail("21536")
                 }
-                R.id.ll_c_5->{
+                R.id.ll_c_5 -> {
                     jumpGoodsDetail("2223")
                 }
-                R.id.ll_c_6->{
+                R.id.ll_c_6 -> {
                     jumpGoodsDetail("41259")
                 }
-                R.id.ll_c_7->{
+                R.id.ll_c_7 -> {
                     jumpGoodsDetail("41259")
                 }
-                R.id.ll_c_8->{
+                R.id.ll_c_8 -> {
                     jumpGoodsDetail("37597")
                 }
 
-                //以下是男性加油站跳转
-                R.id.ll_man_station_1->{
+            //以下是男性加油站跳转
+                R.id.ll_man_station_1 -> {
                     jumpGoodsDetail("27158")
                 }
-                R.id.ll_man_station_2->{
+                R.id.ll_man_station_2 -> {
                     jumpGoodsDetail("36096")
                 }
-                R.id.ll_man_station_3->{
+                R.id.ll_man_station_3 -> {
                     jumpGoodsDetail("45425")
                 }
-                R.id.ll_man_station_4->{
+                R.id.ll_man_station_4 -> {
                     jumpGoodsDetail("21536")
                 }
-                R.id.ll_man_station_5->{
+                R.id.ll_man_station_5 -> {
                     jumpGoodsDetail("402")
                 }
-                R.id.ll_man_station_6->{
+                R.id.ll_man_station_6 -> {
                     jumpGoodsDetail("373")
                 }
-                R.id.ll_man_station_7->{
+                R.id.ll_man_station_7 -> {
                     jumpGoodsDetail("2018")
                 }
             }
@@ -267,6 +284,7 @@ abstract class BaseHomeChildListFragment : BaseFragment<HomePresenter, FragmentB
         alphaAnimation.interpolator = AccelerateInterpolator()
         return alphaAnimation
     }
+
     /**
      * 显示问答按钮
      */
@@ -295,9 +313,12 @@ abstract class BaseHomeChildListFragment : BaseFragment<HomePresenter, FragmentB
         mBinding?.ivAsk?.startAnimation(set)
     }
 
-    protected fun jumpGoodsDetail(goodsInfoId:String){
-        val intent = Intent(context,GoodsDetailActivity::class.java)
-        intent?.putExtra(C.GOODS_INFO_ID,goodsInfoId)
+    /**
+     * 跳转商品详情
+     */
+    protected fun jumpGoodsDetail(goodsInfoId: String) {
+        val intent = Intent(context, GoodsDetailActivity::class.java)
+        intent?.putExtra(C.GOODS_INFO_ID, goodsInfoId)
         intent?.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(intent)
     }
@@ -305,7 +326,7 @@ abstract class BaseHomeChildListFragment : BaseFragment<HomePresenter, FragmentB
     /**
      * 搜索跳转
      */
-    protected fun jumpSearch(keywords:String){
+    protected fun jumpSearch(keywords: String) {
         val intent = Intent(context, SearchActivity::class.java)
         intent.putExtra("keywords", keywords)
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -315,7 +336,7 @@ abstract class BaseHomeChildListFragment : BaseFragment<HomePresenter, FragmentB
     /**
      * 品牌跳转
      */
-    protected fun brandJump(brandID:String,title:String){
+    protected fun brandJump(brandID: String, title: String) {
         val intent = Intent(context, SearchWithIdActivity::class.java)
         intent.putExtra("brandID", brandID)
         intent.putExtra("title", title)
@@ -363,7 +384,7 @@ abstract class BaseHomeChildListFragment : BaseFragment<HomePresenter, FragmentB
 
     override fun onSupportVisible() {
         super.onSupportVisible()
-        if (firstVisibleItemPosition == 0){
+        if (firstVisibleItemPosition == 0) {
             headerBannerProvider?.startBanner()
         }
     }

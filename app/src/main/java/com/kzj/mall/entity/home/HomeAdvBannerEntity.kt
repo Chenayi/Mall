@@ -10,5 +10,6 @@ class HomeAdvBannerEntity : IHomeEntity {
 
     class Banners {
         var adv: Int? = null
+        var goodsInfoId: String? = null
     }
 }

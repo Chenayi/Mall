@@ -1,5 +1,6 @@
 package com.kzj.mall.adapter.provider.home
 
+import android.content.Intent
 import android.support.v4.view.PagerAdapter
 import android.support.v4.view.ViewPager
 import android.view.LayoutInflater
@@ -7,10 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import com.chad.library.adapter.base.BaseViewHolder
 import com.chad.library.adapter.base.provider.BaseItemProvider
+import com.kzj.mall.C
 import com.kzj.mall.R
 import com.kzj.mall.entity.home.HomeAdvBannerEntity
 import com.kzj.mall.entity.home.IHomeEntity
 import com.kzj.mall.transformer.ScaleInTransformer
+import com.kzj.mall.ui.activity.GoodsDetailActivity
 import com.makeramen.roundedimageview.RoundedImageView
 import com.tmall.ultraviewpager.UltraViewPager
 
@@ -65,6 +68,9 @@ class HomeAdvBannerProvider : BaseItemProvider<HomeAdvBannerEntity, BaseViewHold
         override fun instantiateItem(container: ViewGroup, position: Int): Any {
             val view = LayoutInflater.from(mContext).inflate(R.layout.item_home_adv, null, false)
             val imageView = view?.findViewById<RoundedImageView>(R.id.iv_image)
+            imageView?.setOnClickListener {
+                jumpGoodsDetail(advDatas?.get(position)?.goodsInfoId)
+            }
             advDatas?.get(position)?.adv?.let {
                 imageView?.setImageResource(it)
             }
@@ -79,5 +85,15 @@ class HomeAdvBannerProvider : BaseItemProvider<HomeAdvBannerEntity, BaseViewHold
         override fun getItemPosition(`object`: Any): Int {
             return PagerAdapter.POSITION_NONE
         }
+    }
+
+    /**
+     * 跳转商品详情
+     */
+    protected fun jumpGoodsDetail(goodsInfoId: String?) {
+        val intent = Intent(mContext, GoodsDetailActivity::class.java)
+        intent?.putExtra(C.GOODS_INFO_ID, goodsInfoId)
+        intent?.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        mContext.startActivity(intent)
     }
 }

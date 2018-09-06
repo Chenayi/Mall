@@ -21,7 +21,7 @@ class GoodsDetailEntity : Serializable {
         var goodsPrice: String? = null
         var goodsName: String? = null
         var goodsMarketPrice: String? = null
-        var goodsType:String?=null
+        var goodsType: String? = null
         //月销量
         var goodsSole: String? = null
         //库存
@@ -73,6 +73,7 @@ class GoodsDetailEntity : Serializable {
      * 组合套餐
      */
     class CombinationList : IGroup {
+        var isOpen = false
         var combination_name: String? = null
         var combination_type: Int? = null
         var package_count: Int? = null
@@ -83,7 +84,18 @@ class GoodsDetailEntity : Serializable {
         var sumOldPrice: Float = 0.00F
         var sumPrePrice: Float = 0.00F
 
+        var ggList: MutableList<GGList>? = null
+
         override fun getType() = IGroup.TYPE_COMBINATION_LIST
+    }
+
+    class GGList {
+        var goods_img: String? = null
+        var goodsNum: String? = null
+        var goods_stock: Int? = null
+        var goods_name: String? = null
+        var goods_price: String? = null
+        var goods_info_id: String? = null
     }
 
     class PromotionalAd : Serializable {
@@ -97,10 +109,6 @@ class GoodsDetailEntity : Serializable {
 
 
     private var explains: MutableList<Explain>? = null
-
-    inner class Group : Serializable {
-
-    }
 
     /**
      * 说明

@@ -28,7 +28,8 @@
                     <ImageView
                         android:layout_width="92dp"
                         android:layout_height="92dp"
-                        android:src="@color/colorAccent" />
+                        android:src="@color/gray_default"
+                        android:id="@+id/iv_goods"/>
 
                     <TextView
                         android:layout_width="23dp"
@@ -39,7 +40,8 @@
                         android:singleLine="true"
                         android:text="2盒"
                         android:textColor="@color/white"
-                        android:textSize="9dp" />
+                        android:textSize="9dp"
+                        android:id="@+id/tv_num"/>
                 </RelativeLayout>
 
                 <TextView
@@ -56,9 +58,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:singleLine="true"
+                android:lines="1"
                 android:text="Swisse 胶原蛋白...液500ml+Healthy Care 葡萄籽300粒"
                 android:textColor="#6A6E75"
-                android:textSize="11dp" />
+                android:textSize="11dp"
+                android:id="@+id/tv_goods_name"/>
 
             <TextView
                 android:layout_width="92dp"
@@ -67,7 +71,9 @@
                 android:singleLine="true"
                 android:text="¥239.00 x 2"
                 android:textColor="#6A6E75"
-                android:textSize="11dp" />
+                android:textSize="11dp"
+                android:lines="1"
+                android:id="@+id/tv_goods_price_num"/>
 
         </LinearLayout>
     </LinearLayout>

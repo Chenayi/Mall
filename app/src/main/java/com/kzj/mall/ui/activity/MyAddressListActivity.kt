@@ -69,6 +69,11 @@ class MyAddressListActivity : BaseActivity<MyAddressListPresenter, ActivityAddre
 
         mBinding?.tvCreateAddress?.setOnClickListener(this)
 
+
+        mBinding?.refreshLayout?.setOnRefreshListener {
+            mPresenter?.requestAddress()
+        }
+
         mPresenter?.requestAddress()
 
     }
@@ -91,6 +96,7 @@ class MyAddressListActivity : BaseActivity<MyAddressListPresenter, ActivityAddre
     }
 
     override fun showAddress(addressEntity: AddressEntity?) {
+        mBinding?.refreshLayout?.isRefreshing = false
         addressEntity?.customerAddresses?.let {
             addressAdapter?.setNewData(it)
             addressId?.let {
