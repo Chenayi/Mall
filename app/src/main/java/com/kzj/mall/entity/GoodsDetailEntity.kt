@@ -28,6 +28,74 @@ class GoodsDetailEntity : Serializable {
         var goodsStock: Int? = null
         //商品详情
         var goodsMobileDesc: String? = null
+        //商品说明
+        var goodsBooks: GoodsBooks? = null
+        //生产厂家
+        var goodsManufacturer: String? = null
+        //商品编码
+        var goodsNo: String? = null
+    }
+
+    class GoodsBooks : Serializable {
+        /** 成分  */
+        var component: String? = null
+
+        /** 药品性状  */
+        var properties: String? = null
+
+        /** 药理毒理  */
+        var toxicology: String? = null
+
+        /** 药代动力学  */
+        var pharmacokinetics: String? = null
+
+        /** 适 应 症  */
+        var indication: String? = null
+
+        /** 用法用量  */
+        var usage_dosage: String? = null
+
+        /** 不良反应  */
+        var untoward_effect: String? = null
+
+        /** 禁 忌 症  */
+        var contraindication: String? = null
+
+        /** 注意事项  */
+        var announcements: String? = null
+
+        /** 药物相互作用  */
+        var drug_interaction: String? = null
+
+        /** 贮　　藏  */
+        var depot: String? = null
+
+        /** 包　　装  */
+        var packaging: String? = null
+
+        /** 有 效 期  */
+        var period_of_validity: String? = null
+
+        /** 孕妇及哺乳期妇女用药  */
+        var pregnant_lactating: String? = null
+
+        /** 儿童用药  */
+        var children: String? = null
+
+        /** 药物过量  */
+        var drug_overdose: String? = null
+
+        /** 适宜人群  */
+        var apply_crowd: String? = null
+
+        /** 推荐人群  */
+        var recommended_groups: String? = null
+
+        /** 不适宜人群  */
+        var not_apply_crowd: String? = null
+
+        /** 功效成份  */
+        var effect_component: String? = null
     }
 
     /**
@@ -89,7 +157,7 @@ class GoodsDetailEntity : Serializable {
         override fun getType() = IGroup.TYPE_COMBINATION_LIST
     }
 
-    class GGList {
+    class GGList :Serializable{
         var goods_img: String? = null
         var goodsNum: String? = null
         var goods_stock: Int? = null
@@ -113,7 +181,7 @@ class GoodsDetailEntity : Serializable {
     /**
      * 说明
      */
-    inner class Explain : Serializable {
+    class Explain : Serializable {
         var title: String? = null
         var content: String? = null
     }

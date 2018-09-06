@@ -13,6 +13,7 @@ import com.kzj.mall.base.BaseFragment
 import com.kzj.mall.base.IPresenter
 import com.kzj.mall.databinding.FragmentGoodsDetailBinding
 import com.kzj.mall.di.component.AppComponent
+import com.kzj.mall.entity.GoodsDetailEntity
 import com.kzj.mall.utils.LocalDatas
 import me.yokeyword.fragmentation.SupportFragment
 
@@ -23,6 +24,8 @@ class GoodsDetailFragment : BaseFragment<IPresenter, FragmentGoodsDetailBinding>
     val FIRST = 0
     val SECOND = 1
     private var curFragment = FIRST
+
+    private var goodsDetailEntity: GoodsDetailEntity? = null
 
     companion object {
         fun newInstance(barHeight: Int): GoodsDetailFragment {
@@ -56,13 +59,17 @@ class GoodsDetailFragment : BaseFragment<IPresenter, FragmentGoodsDetailBinding>
 
         val firstFragment = findChildFragment(GoodsDetailDescribeFragment::class.java)
         if (firstFragment == null) {
-            mFragments[FIRST] = GoodsDetailDescribeFragment2.newInstance();
-            mFragments[SECOND] = GoodsDetailExplainFragment2.newInstance(LocalDatas.explainDatas());
+            mFragments[FIRST] = GoodsDetailDescribeFragment2.newInstance(goodsDetailEntity?.gin?.goods_mobile_desc);
+            val explainDatas = LocalDatas.explainDatas(goodsDetailEntity?.gn?.goodsName,
+                    goodsDetailEntity?.gn?.goodsNo,
+                    goodsDetailEntity?.gn?.goodsManufacturer,
+                    goodsDetailEntity?.gn?.goodsBooks)
+            mFragments[SECOND] = GoodsDetailExplainFragment2.newInstance(explainDatas);
 
             loadMultipleRootFragment(R.id.fl_goods_detail, FIRST,
                     mFragments[FIRST],
                     mFragments[SECOND]);
-        }else{
+        } else {
             mFragments[FIRST] = firstFragment
             mFragments[SECOND] = findFragment(GoodsDetailExplainFragment2::class.java)
         }
@@ -71,6 +78,10 @@ class GoodsDetailFragment : BaseFragment<IPresenter, FragmentGoodsDetailBinding>
 
         mBinding?.rlDescribe?.setOnClickListener(this)
         mBinding?.rlExplain?.setOnClickListener(this)
+    }
+
+    fun updateDatas(goodsDetailEntity: GoodsDetailEntity?) {
+        this.goodsDetailEntity = goodsDetailEntity
     }
 
     override fun onClick(v: View?) {
@@ -84,8 +95,8 @@ class GoodsDetailFragment : BaseFragment<IPresenter, FragmentGoodsDetailBinding>
                 mBinding?.tvDescribe?.paint?.isFakeBoldText = true
                 mBinding?.viewDescribe?.visibility = View.VISIBLE
 
-                if (curFragment!= FIRST){
-                    showHideFragment(mFragments[FIRST],mFragments[SECOND])
+                if (curFragment != FIRST) {
+                    showHideFragment(mFragments[FIRST], mFragments[SECOND])
                     curFragment = FIRST
                 }
             }
@@ -98,8 +109,8 @@ class GoodsDetailFragment : BaseFragment<IPresenter, FragmentGoodsDetailBinding>
                 mBinding?.tvExplain?.paint?.isFakeBoldText = true
                 mBinding?.viewExplain?.visibility = View.VISIBLE
 
-                if (curFragment!= SECOND){
-                    showHideFragment(mFragments[SECOND],mFragments[FIRST])
+                if (curFragment != SECOND) {
+                    showHideFragment(mFragments[SECOND], mFragments[FIRST])
                     curFragment = SECOND
                 }
             }

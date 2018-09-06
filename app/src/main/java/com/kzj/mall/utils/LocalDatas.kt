@@ -1,5 +1,6 @@
 package com.kzj.mall.utils
 
+import android.text.TextUtils
 import com.kzj.mall.R
 import com.kzj.mall.entity.*
 import com.kzj.mall.entity.address.AddressEntity
@@ -113,7 +114,6 @@ class LocalDatas {
         }
 
 
-
         /**
          * 情趣用品
          */
@@ -161,13 +161,13 @@ class LocalDatas {
 
             val b1 = AndrologyAdvBannerEntity.Banners()
             b1.imgRes = R.mipmap.b1
-            b1.goodsInfoId="37438"
+            b1.goodsInfoId = "37438"
             val b2 = AndrologyAdvBannerEntity.Banners()
             b2.imgRes = R.mipmap.b2
-            b2.goodsInfoId="2703"
+            b2.goodsInfoId = "2703"
             val b3 = AndrologyAdvBannerEntity.Banners()
             b3.imgRes = R.mipmap.b3
-            b3.goodsInfoId="35146"
+            b3.goodsInfoId = "35146"
 
             banners.add(b1)
             banners.add(b2)
@@ -332,46 +332,197 @@ class LocalDatas {
         /**
          * 说明书
          */
-        fun explainDatas(): MutableList<GoodsDetailEntity.Explain> {
+        fun explainDatas(goodsName: String?, goodsNo: String?, goodsManufacturer: String?, goodsBooks: GoodsDetailEntity.GoodsBooks?): MutableList<GoodsDetailEntity.Explain> {
             val explainDatas = ArrayList<GoodsDetailEntity.Explain>()
-            for (i in 0 until 9) {
-                val explain = GoodsDetailEntity().Explain()
-                when (i) {
-                    0 -> {
-                        explain.title = "药品名称"
-                        explain.content = "金戈 枸橼酸西地那非片"
-                    }
-                    1 -> {
-                        explain.title = "商品编码"
-                        explain.content = "10803050"
-                    }
-                    2 -> {
-                        explain.title = "生产厂家"
-                        explain.content = "广州白云山制药股份有限公司广州白云山制药总厂"
-                    }
-                    3 -> {
-                        explain.title = "适应症/功能主治"
-                        explain.content = "金戈 枸橼酸西地那非适用于治疗勃起功能障碍"
-                    }
-                    4 -> {
-                        explain.title = "成分"
-                        explain.content = "枸橼酸西地那非片"
-                    }
-                    5 -> {
-                        explain.title = "药品性状"
-                        explain.content = "本品为薄膜衣片，除去包衣后显白色至类白色。"
-                    }
-                    6 -> {
-                        explain.title = "药理毒理"
-                        explain.content = "本品是治疗勃起功能障碍的口服药物。它是西地那非的枸橼酸盐，一种环磷酸鸟苷（cGMP）特异的5 型磷酸二酯酶（PDE5）的选择性抑制剂。"
-                    }
-                    else -> {
-                        explain.title = "药品性状"
-                        explain.content = "本品为薄膜衣片，除去包衣后显白色至类白色。"
-                    }
-                }
-                explainDatas.add(explain)
+
+            goodsName?.let {
+                val d = GoodsDetailEntity.Explain()
+                d.title = "药品名称"
+                d?.content = it
+                explainDatas.add(d)
             }
+
+            goodsNo?.let {
+                val d = GoodsDetailEntity.Explain()
+                d.title = "商品编码"
+                d?.content = it
+                explainDatas.add(d)
+            }
+
+            goodsManufacturer?.let {
+                val d = GoodsDetailEntity.Explain()
+                d.title = "生产厂家"
+                d?.content = it
+                explainDatas.add(d)
+            }
+
+
+            goodsBooks?.let {
+
+                //成分
+                if (!TextUtils.isEmpty(it?.component)){
+                    val d = GoodsDetailEntity.Explain()
+                    d.title = "成分"
+                    d?.content = it?.component
+                    explainDatas.add(d)
+                }
+
+                //药品性状
+                if (!TextUtils.isEmpty(it?.properties)){
+                    val d = GoodsDetailEntity.Explain()
+                    d.title = "药品性状"
+                    d?.content = it?.properties
+                    explainDatas.add(d)
+                }
+
+                //药理毒理
+                if (!TextUtils.isEmpty(it?.toxicology)){
+                    val d = GoodsDetailEntity.Explain()
+                    d.title = "药理毒理"
+                    d?.content = it?.toxicology
+                    explainDatas.add(d)
+                }
+
+                //药代动力学
+                if (!TextUtils.isEmpty(it?.pharmacokinetics)){
+                    val d = GoodsDetailEntity.Explain()
+                    d.title = "药代动力学"
+                    d?.content = it?.pharmacokinetics
+                    explainDatas.add(d)
+                }
+
+                //适 应 症
+                if (!TextUtils.isEmpty(it?.indication)){
+                    val d = GoodsDetailEntity.Explain()
+                    d.title = "适 应 症"
+                    d?.content = it?.indication
+                    explainDatas.add(d)
+                }
+
+                //用法用量
+                if (!TextUtils.isEmpty(it?.usage_dosage)){
+                    val d = GoodsDetailEntity.Explain()
+                    d.title = "用法用量"
+                    d?.content = it?.usage_dosage
+                    explainDatas.add(d)
+                }
+
+                //不良反应
+                if (!TextUtils.isEmpty(it?.untoward_effect)){
+                    val d = GoodsDetailEntity.Explain()
+                    d.title = "不良反应"
+                    d?.content = it?.untoward_effect
+                    explainDatas.add(d)
+                }
+
+                //禁 忌 症
+                if (!TextUtils.isEmpty(it?.contraindication)){
+                    val d = GoodsDetailEntity.Explain()
+                    d.title = "禁 忌 症"
+                    d?.content = it?.contraindication
+                    explainDatas.add(d)
+                }
+
+
+                //注意事项
+                if (!TextUtils.isEmpty(it?.announcements)){
+                    val d = GoodsDetailEntity.Explain()
+                    d.title = "注意事项"
+                    d?.content = it?.announcements
+                    explainDatas.add(d)
+                }
+
+                //药物相互作用
+                if (!TextUtils.isEmpty(it?.drug_interaction)){
+                    val d = GoodsDetailEntity.Explain()
+                    d.title = "药物相互作用"
+                    d?.content = it?.drug_interaction
+                    explainDatas.add(d)
+                }
+
+
+                // 贮　　藏
+                if (!TextUtils.isEmpty(it?.depot)){
+                    val d = GoodsDetailEntity.Explain()
+                    d.title = "贮　　藏"
+                    d?.content = it?.depot
+                    explainDatas.add(d)
+                }
+
+                //包　　装
+                if (!TextUtils.isEmpty(it?.packaging)){
+                    val d = GoodsDetailEntity.Explain()
+                    d.title = "包　　装"
+                    d?.content = it?.packaging
+                    explainDatas.add(d)
+                }
+
+                //有 效 期
+                if (!TextUtils.isEmpty(it?.period_of_validity)){
+                    val d = GoodsDetailEntity.Explain()
+                    d.title = "有 效 期"
+                    d?.content = it?.period_of_validity
+                    explainDatas.add(d)
+                }
+
+
+                //孕妇及哺乳期妇女用药
+                if (!TextUtils.isEmpty(it?.pregnant_lactating)){
+                    val d = GoodsDetailEntity.Explain()
+                    d.title = "孕妇及哺乳期妇女用药"
+                    d?.content = it?.pregnant_lactating
+                    explainDatas.add(d)
+                }
+
+                //儿童用药
+                if (!TextUtils.isEmpty(it?.children)){
+                    val d = GoodsDetailEntity.Explain()
+                    d.title = "儿童用药"
+                    d?.content = it?.children
+                    explainDatas.add(d)
+                }
+
+                //药物过量
+                if (!TextUtils.isEmpty(it?.drug_overdose)){
+                    val d = GoodsDetailEntity.Explain()
+                    d.title = "药物过量"
+                    d?.content = it?.drug_overdose
+                    explainDatas.add(d)
+                }
+
+                //适宜人群
+                if (!TextUtils.isEmpty(it?.apply_crowd)){
+                    val d = GoodsDetailEntity.Explain()
+                    d.title = "药物过量"
+                    d?.content = it?.apply_crowd
+                    explainDatas.add(d)
+                }
+
+                //推荐人群
+                if (!TextUtils.isEmpty(it?.recommended_groups)){
+                    val d = GoodsDetailEntity.Explain()
+                    d.title = "推荐人群"
+                    d?.content = it?.recommended_groups
+                    explainDatas.add(d)
+                }
+
+                //不适宜人群
+                if (!TextUtils.isEmpty(it?.not_apply_crowd)){
+                    val d = GoodsDetailEntity.Explain()
+                    d.title = "不适宜人群"
+                    d?.content = it?.not_apply_crowd
+                    explainDatas.add(d)
+                }
+
+                //功效成份
+                if (!TextUtils.isEmpty(it?.effect_component)){
+                    val d = GoodsDetailEntity.Explain()
+                    d.title = "功效成份"
+                    d?.content = it?.effect_component
+                    explainDatas.add(d)
+                }
+            }
+
             return explainDatas
         }
 

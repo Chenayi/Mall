@@ -1,5 +1,6 @@
 package com.kzj.mall.ui.activity
 
+import android.os.Handler
 import android.support.v4.app.Fragment
 import com.gyf.barlibrary.ImmersionBar
 import com.kzj.mall.R
@@ -65,7 +66,7 @@ class MainActivity : BaseActivity<IPresenter, ActivityMainBinding>() {
             override fun onTabChoose(tab: Int) {
                 mBinding?.vpMain?.setCurrentItem(tab, false)
 
-                if(tab == 0){
+                if (tab == 0) {
                     (fragments?.get(0) as HomeFragment)?.changeBackgroundColor()
                 }
             }
@@ -75,24 +76,27 @@ class MainActivity : BaseActivity<IPresenter, ActivityMainBinding>() {
     @Subscribe
     fun backHomeEvent(backHomeEvent: BackHomeEvent) {
         if (mBinding?.vpMain?.currentItem != HomeBottomTabBar.TAB_HOME) {
-            mBinding?.homeTabBar?.switchHome()
-            mBinding?.vpMain?.setCurrentItem(HomeBottomTabBar.TAB_HOME,false)
+            Handler().postDelayed({
+                mBinding?.homeTabBar?.switchHome()
+            },300)
         }
     }
 
     @Subscribe
     fun backCartEvent(backCartEvent: BackCartEvent) {
         if (mBinding?.vpMain?.currentItem != HomeBottomTabBar.TAB_CART) {
-            mBinding?.homeTabBar?.switchCart()
-            mBinding?.vpMain?.setCurrentItem(HomeBottomTabBar.TAB_CART,false)
+            Handler().postDelayed({
+                mBinding?.homeTabBar?.switchCart()
+            }, 300)
         }
     }
 
     @Subscribe
     fun backMinetEvent(backMinetEvent: BackMinetEvent) {
         if (mBinding?.vpMain?.currentItem != HomeBottomTabBar.TAB_MINE) {
-            mBinding?.homeTabBar?.switchMine()
-            mBinding?.vpMain?.setCurrentItem(HomeBottomTabBar.TAB_MINE,false)
+            Handler().postDelayed({
+                mBinding?.homeTabBar?.switchMine()
+            },300)
         }
     }
 }

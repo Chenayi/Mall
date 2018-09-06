@@ -228,7 +228,7 @@ class GoodsDetailActivity : BaseActivity<GoodsDetailPresenter, ActivityGoodsDeta
      * 加入购物车
      */
     @Subscribe
-    fun addCart(addCartEvent: AddCartEvent){
+    fun addCart(addCartEvent: AddCartEvent) {
         if (mBinding?.tvCartNum?.visibility != View.VISIBLE) {
             mBinding?.tvCartNum?.visibility = View.VISIBLE
         }
@@ -246,7 +246,7 @@ class GoodsDetailActivity : BaseActivity<GoodsDetailPresenter, ActivityGoodsDeta
      * 立即购买
      */
     @Subscribe
-    fun buyNow(buyNowEvent: BuyNowEvent){
+    fun buyNow(buyNowEvent: BuyNowEvent) {
         var carType = "0"
         if (isCombination) {
             carType = "2"
@@ -337,22 +337,31 @@ class GoodsDetailActivity : BaseActivity<GoodsDetailPresenter, ActivityGoodsDeta
      * 商品详情信息
      */
     override fun showGoodsDetail(goodsDetailEntity: GoodsDetailEntity?) {
-        if (mBinding?.vpGoodsDetail?.currentItem == 0) {
-            val goodsInfoFragment = fragments?.get(0) as GoodsInfoFragment
-            goodsInfoFragment?.updateDatas(mGoodsDefaultInfoId, goodsDetailEntity)
-        }
+        val goodsInfoFragment = fragments?.get(0) as GoodsInfoFragment
+        goodsInfoFragment?.updateDatas(mGoodsDefaultInfoId, goodsDetailEntity)
+
+        (fragments?.get(1) as GoodsDetailFragment)?.updateDatas(goodsDetailEntity)
 
         val gn = goodsDetailEntity?.gn
+        gn?.goodsStock?.let {
+            if (it<=0){
+                mBinding?.tvNoStock?.visibility = View.VISIBLE
+                mBinding?.llBottom?.visibility = View.GONE
+            }else{
+                mBinding?.tvNoStock?.visibility = View.GONE
+                mBinding?.llBottom?.visibility = View.VISIBLE
+            }
+        }
         gn?.goodsType?.let {
             //处方
-            if (it.equals("0")){
+            if (it.equals("0")) {
                 mBinding?.rlCart?.visibility = View.GONE
                 mBinding?.llBuy?.visibility = View.GONE
                 mBinding?.tvRequestCheckin?.visibility = View.VISIBLE
             }
 
             //非处方
-            else{
+            else {
                 mBinding?.rlCart?.visibility = View.VISIBLE
                 mBinding?.llBuy?.visibility = View.VISIBLE
                 mBinding?.tvRequestCheckin?.visibility = View.GONE

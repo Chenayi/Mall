@@ -1,11 +1,15 @@
 package com.kzj.mall.ui.activity
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
+import android.os.Bundle
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.view.ViewGroup
 import com.blankj.utilcode.util.ToastUtils
+import com.gyf.barlibrary.ImmersionBar
 import com.kzj.mall.R
 import com.kzj.mall.adapter.AddressAdapter
 import com.kzj.mall.base.BaseActivity
@@ -17,12 +21,26 @@ import com.kzj.mall.entity.address.Address
 import com.kzj.mall.entity.address.AddressEntity
 import com.kzj.mall.mvp.contract.MyAddressListContract
 import com.kzj.mall.mvp.presenter.MyAddressListPresenter
+import com.kzj.mall.widget.RootLayout
 
 class MyAddressListActivity : BaseActivity<MyAddressListPresenter, ActivityAddressListBinding>(), View.OnClickListener, MyAddressListContract.View {
     private val REQUEST_CODE_CREATE_ADDRESS = 101
     private var addressAdapter: AddressAdapter? = null
     private var addressId: String? = null
     private var updatePosition = 0
+
+    private var isManager = false
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        intent?.getStringExtra("addressId")?.let {
+            addressId = it
+        }
+
+        intent?.getBooleanExtra("isManager", false)?.let {
+            isManager = it
+        }
+        super.onCreate(savedInstanceState)
+    }
 
     override fun getLayoutId(): Int {
         return R.layout.activity_address_list
@@ -36,9 +54,27 @@ class MyAddressListActivity : BaseActivity<MyAddressListPresenter, ActivityAddre
                 .inject(this)
     }
 
+    override fun initImmersionBar() {
+        mImmersionBar = ImmersionBar.with(this)
+        if (isManager) {
+            mImmersionBar?.fitsSystemWindows(true, R.color.colorPrimary)
+                    ?.init()
+        } else {
+            mImmersionBar?.fitsSystemWindows(true, R.color.fb)
+                    ?.statusBarDarkFont(true, 0.5f)
+                    ?.init()
+        }
+    }
+
     override fun initData() {
-        intent?.getStringExtra("addressId")?.let {
-            addressId = it
+        if (isManager) {
+            RootLayout.getInstance(this).setStatusBarViewColor(ContextCompat.getColor(this, R.color.colorPrimary))
+                    .setLeftIcon(R.mipmap.back_white)
+                    .setTitleTextColor(ContextCompat.getColor(this, R.color.white))
+        } else {
+            RootLayout.getInstance(this).setStatusBarViewColor(ContextCompat.getColor(this, R.color.fb))
+                    .setLeftIcon(R.mipmap.back_black)
+                    .setTitleTextColor(ContextCompat.getColor(this, R.color.c_2e3033))
         }
 
         addressAdapter = AddressAdapter(ArrayList())
@@ -88,7 +124,7 @@ class MyAddressListActivity : BaseActivity<MyAddressListPresenter, ActivityAddre
                     if (isUpdateAddress == true) {
                         mPresenter?.requestAddress()
                     } else {
-                        addressAdapter?.addData( address)
+                        addressAdapter?.addData(address)
                     }
                 }
             }

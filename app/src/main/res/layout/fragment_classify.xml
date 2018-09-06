@@ -44,6 +44,7 @@
                 android:layout_marginLeft="11dp"
                 android:layout_marginRight="11dp"
                 android:layout_weight="1"
+                android:id="@+id/rl_search"
                 android:background="@drawable/background_white_corners_9999">
 
                 <LinearLayout

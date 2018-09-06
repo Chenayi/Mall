@@ -269,8 +269,10 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
 
             //套餐
             it?.combinationList?.let {
-                mBinding?.goodsGroupView?.visibility = View.VISIBLE
-                mBinding?.goodsGroupView?.setNewDatas(it)
+                if (it?.size > 0){
+                    mBinding?.detailGroup?.visibility = View.VISIBLE
+                    mBinding?.goodsGroupView?.setNewDatas(it)
+                }
             }
 
             this.goodsDetailEntity = goodsDetailEntity

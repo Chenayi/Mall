@@ -33,6 +33,21 @@
             android:name="unit"
             android:value="dp" />
 
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation|screenSize"
+            android:exported="false"
+            android:screenOrientation="behind"
+            android:windowSoftInputMode="adjustResize|stateHidden" >
+        </activity>
+        <activity
+            android:name="com.alipay.sdk.app.H5AuthActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind"
+            android:windowSoftInputMode="adjustResize|stateHidden" >
+        </activity>
+
         <activity android:name=".ui.activity.SplashActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
@@ -62,6 +77,8 @@
         <activity android:name=".ui.activity.BrowseRecordsActivity" />
         <activity android:name=".ui.activity.SearchActivity" />
         <activity android:name=".ui.activity.SearchWithIdActivity" />
+        <activity android:name=".ui.activity.CooperationActivity" />
+        <activity android:name=".ui.activity.AboutKzjActivity" />
     </application>
 
 </manifest>

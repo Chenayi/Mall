@@ -55,6 +55,10 @@ class GoodsSpecDialog : BaseDialog<GoodsSpecPresenter, DialogGoodsSpecBinding>()
         }
     }
 
+    override fun intLayoutId(): Int {
+        return R.layout.dialog_goods_spec
+    }
+
     override fun initData() {
         mBinding?.rlRoot?.layoutParams?.height = (ScreenUtils.getScreenHeight() * 0.65f).toInt()
 
@@ -71,6 +75,27 @@ class GoodsSpecDialog : BaseDialog<GoodsSpecPresenter, DialogGoodsSpecBinding>()
             groupPosition = it
         }
 
+        val goodsStock = goodsDetailEntity?.gn?.goodsStock!!
+        if (goodsStock <= 0){
+            mBinding?.tvNoStock?.visibility = View.VISIBLE
+            mBinding?.tvRequestCheckin?.visibility = View.GONE
+            mBinding?.llBottom?.visibility = View.GONE
+        }else{
+            mBinding?.tvNoStock?.visibility = View.GONE
+            goodsDetailEntity?.gn?.goodsType?.let {
+                //处方
+                if (it.equals("0")) {
+                    mBinding?.llBottom?.visibility = View.GONE
+                    mBinding?.tvRequestCheckin?.visibility = View.VISIBLE
+                }
+
+                //非处方
+                else {
+                    mBinding?.llBottom?.visibility = View.VISIBLE
+                    mBinding?.tvRequestCheckin?.visibility = View.GONE
+                }
+            }
+        }
 
         setSpecGroup(goodsDetailEntity)
 
@@ -247,11 +272,6 @@ class GoodsSpecDialog : BaseDialog<GoodsSpecPresenter, DialogGoodsSpecBinding>()
                 .build()
                 .inject(this)
     }
-
-    override fun intLayoutId(): Int {
-        return R.layout.dialog_goods_spec
-    }
-
 
     override fun onClick(v: View?) {
         when (v?.id) {

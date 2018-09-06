@@ -5,14 +5,14 @@ import com.gyf.barlibrary.ImmersionBar
 import com.kzj.mall.R
 import com.kzj.mall.base.BaseActivity
 import com.kzj.mall.base.IPresenter
-import com.kzj.mall.databinding.ActivityCooperationBinding
+import com.kzj.mall.databinding.ActivityAboutKzjBinding
 import com.kzj.mall.di.component.AppComponent
 
-/**
- * 商业合作
+/**'
+ * 关于康之家
  */
-class CooperationActivity:BaseActivity<IPresenter,ActivityCooperationBinding>(){
-    override fun getLayoutId()= R.layout.activity_cooperation
+class AboutKzjActivity : BaseActivity<IPresenter, ActivityAboutKzjBinding>() {
+    override fun getLayoutId() = R.layout.activity_about_kzj
 
     override fun setupComponent(appComponent: AppComponent?) {
     }
@@ -23,8 +23,6 @@ class CooperationActivity:BaseActivity<IPresenter,ActivityCooperationBinding>(){
     }
 
     override fun initData() {
-        findViewById<ImageView>(R.id.iv_back).setOnClickListener {
-            finish()
-        }
+        findViewById<ImageView>(R.id.iv_back).setOnClickListener { finish() }
     }
 }

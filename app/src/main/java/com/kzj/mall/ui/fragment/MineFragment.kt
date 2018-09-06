@@ -81,15 +81,12 @@ class MineFragment : BaseFragment<MinePresenter, FragmentMineBinding>(), View.On
         mBinding?.rlOrderFinish?.setOnClickListener(this)
         mBinding?.rlBrowseRecord?.setOnClickListener(this)
         mBinding?.rlAddress?.setOnClickListener(this)
+        mBinding?.rlCooperation?.setOnClickListener(this)
+        mBinding?.rlAboutKzj?.setOnClickListener(this)
     }
 
     @Subscribe
     fun loginSuccess(loginSuccessEvent: LoginSuccessEvent) {
-//        setLoginStatus()
-//        setBadgeNum(mBinding?.rlOrderWaitPay, 5)
-//        setBadgeNum(mBinding?.rlOrderWaitSend, 5)
-//        setBadgeNum(mBinding?.rlOrderWaitTake, 5)
-//        setBadgeNum(mBinding?.rlOrderFinish, 5)
         mPresenter?.requestMine()
     }
 
@@ -251,7 +248,26 @@ class MineFragment : BaseFragment<MinePresenter, FragmentMineBinding>(), View.On
                 }
             }
             R.id.rl_address->{
-
+                if (!C.IS_LOGIN) {
+                    val intent = Intent(context, LoginActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    startActivity(intent)
+                } else {
+                    val intent = Intent(context, MyAddressListActivity::class.java)
+                    intent.putExtra("isManager",true)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    startActivity(intent)
+                }
+            }
+            R.id.rl_cooperation->{
+                val intent = Intent(context, CooperationActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent)
+            }
+            R.id.rl_about_kzj->{
+                val intent = Intent(context, AboutKzjActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent)
             }
         }
     }

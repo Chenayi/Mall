@@ -23,7 +23,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="12dp"
             android:scaleType="centerInside"
-            android:src="@mipmap/back2" />
+            android:src="@mipmap/back_white" />
 
         <TextView
             android:id="@+id/tv_title"

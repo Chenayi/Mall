@@ -17,7 +17,7 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:scaleType="centerInside"
-                android:src="@mipmap/back2" />
+                android:src="@mipmap/back_white" />
 
             <RelativeLayout
                 android:layout_width="0dp"

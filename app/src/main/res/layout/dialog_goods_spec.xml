@@ -78,7 +78,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_marginTop="10dp"
                     android:scaleType="centerInside"
-                    android:src="@mipmap/close2" />
+                    android:src="@mipmap/close" />
             </RelativeLayout>
 
             <View
@@ -231,41 +231,78 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
-                    android:background="@color/gray_default"/>
+                    android:background="@color/gray_default" />
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
+                    android:layout_weight="1">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:visibility="gone"
+                        android:id="@+id/ll_bottom">
+
+                        <TextView
+                            android:id="@+id/tv_add_cart"
+                            android:layout_width="0dp"
+                            android:layout_height="40dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/background_green_corners_9999"
+                            android:gravity="center"
+                            android:text="加入购物车"
+                            android:textColor="@color/white"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tv_buy"
+                            android:layout_width="0dp"
+                            android:layout_height="40dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/background_orange_corners_9999"
+                            android:gravity="center"
+                            android:text="立即购买"
+                            android:textColor="@color/white"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
 
                     <TextView
-                        android:id="@+id/tv_add_cart"
-                        android:layout_width="0dp"
+                        android:id="@+id/tv_request_checkin"
+                        android:layout_width="match_parent"
                         android:layout_height="40dp"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="1"
+                       android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
                         android:background="@drawable/background_green_corners_9999"
                         android:gravity="center"
-                        android:text="加入购物车"
+                        android:text="需求登记"
                         android:textColor="@color/white"
                         android:textStyle="bold"
-                        android:layout_marginLeft="10dp"/>
+                        android:visibility="gone" />
 
-                    <TextView
-                        android:id="@+id/tv_buy"
-                        android:layout_width="0dp"
+                    <com.allen.library.SuperTextView
+                        android:id="@+id/tv_no_stock"
+                        android:layout_width="match_parent"
                         android:layout_height="40dp"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="1"
-                        android:background="@drawable/background_orange_corners_9999"
-                        android:gravity="center"
-                        android:text="立即购买"
-                        android:textColor="@color/white"
-                        android:textStyle="bold"
+                        android:layout_centerVertical="true"
                         android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"/>
-                </LinearLayout>
+                        android:layout_marginRight="10dp"
+                        app:sCenterTextColor="@color/white"
+                        app:sCenterTextString="缺货"
+                        app:sShapeCornersRadius="999dp"
+                        app:sShapeSelectorNormalColor="#C2C6CC"
+                        app:sShapeSelectorPressedColor="#C2C6CC"
+                        app:sUseShape="true"
+                        android:visibility="gone"/>
+                </RelativeLayout>
             </LinearLayout>
         </RelativeLayout>
 

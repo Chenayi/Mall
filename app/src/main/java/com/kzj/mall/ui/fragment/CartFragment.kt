@@ -314,9 +314,16 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
         mBinding?.tvMinusPrice?.setText("已省：¥0.00")
     }
 
-    @Subscribe
-    fun loginSuccess(loginSuccessEvent: LoginSuccessEvent) {
-        mPresenter?.requesrCart(false)
+//    @Subscribe
+//    fun loginSuccess(loginSuccessEvent: LoginSuccessEvent) {
+//        mPresenter?.requesrCart(false)
+//    }
+
+    override fun onSupportVisible() {
+        super.onSupportVisible()
+        if (isAcquired && C.IS_LOGIN){
+            mPresenter?.requesrCart(false)
+        }
     }
 
     /**

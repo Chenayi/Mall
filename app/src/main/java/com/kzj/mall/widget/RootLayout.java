@@ -111,7 +111,7 @@ public class RootLayout extends LinearLayout {
         mTitleBarTitleColor = t.getColor(R.styleable.RootLayout_titleBarTitleColor, ContextCompat.getColor(context, R.color.white));
         mTitleBarLeftBackground = t.getColor(R.styleable.RootLayout_titleBarLeftBackgroundColor, -1);
         mTitleBarHeight = t.getDimension(R.styleable.RootLayout_titleBarHeight, getResources().getDimension(R.dimen.titleBarHeight));
-        mTitleBarLeftIcon = t.getResourceId(R.styleable.RootLayout_titleBarLeftIcon, R.mipmap.back2);
+        mTitleBarLeftIcon = t.getResourceId(R.styleable.RootLayout_titleBarLeftIcon, R.mipmap.back_white);
         mTitleBarRightIcon = t.getResourceId(R.styleable.RootLayout_titleBarRightIcon, 0);
         mTitleBarRightText = t.getString(R.styleable.RootLayout_titleBarRightText);
         mTitleBarRightText1 = t.getString(R.styleable.RootLayout_titleBarRightText1);
@@ -245,6 +245,27 @@ public class RootLayout extends LinearLayout {
         return mTitleBarView;
     }
 
+
+    public RootLayout setStatusBarViewColor(int color){
+        mTitleBarView.setBackgroundColor(color);
+        return this;
+    }
+
+    public RootLayout setLeftIcon(int iconRes){
+        ivLeft.setImageResource(iconRes);
+        return this;
+    }
+
+    public RootLayout setTitleTextColor(int color){
+        tvTitle.setTextColor(color);
+        return this;
+    }
+
+    public RootLayout setRightTextColor(int color){
+        tvRight.setTextColor(color);
+        tvRight1.setTextColor(color);
+        return this;
+    }
 
     public RootLayout setStatusBarViewHeight(int height) {
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, height);

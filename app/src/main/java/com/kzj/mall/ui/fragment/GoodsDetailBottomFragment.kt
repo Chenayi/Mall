@@ -62,7 +62,11 @@ class GoodsDetailBottomFragment : BaseFragment<IPresenter, FragmentGoodsDetailBi
         val firstFragment = findChildFragment(GoodsDetailDescribeFragment::class.java)
         if (firstFragment == null) {
             mFragments[FIRST] = GoodsDetailDescribeFragment.newInstance(goodsDetailEntity?.gin?.goods_mobile_desc);
-            mFragments[SECOND] = GoodsDetailExplainFragment.newInstance(LocalDatas.explainDatas());
+            val explainDatas = LocalDatas.explainDatas(goodsDetailEntity?.gn?.goodsName,
+                    goodsDetailEntity?.gn?.goodsNo,
+                    goodsDetailEntity?.gn?.goodsManufacturer,
+                    goodsDetailEntity?.gn?.goodsBooks)
+            mFragments[SECOND] = GoodsDetailExplainFragment.newInstance(explainDatas);
 
             loadMultipleRootFragment(R.id.fl_goods_detail, FIRST,
                     mFragments[FIRST],
