@@ -14,6 +14,8 @@ class BuyEntity : Serializable {
 
     var shippingCharge: Float? = null
 
+    var shoppingCartIds: LongArray? = null
+
     /**
      * 地址列表
      */

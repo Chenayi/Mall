@@ -4,6 +4,8 @@ import android.app.Activity
 import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import com.blankj.utilcode.util.LogUtils
+import com.blankj.utilcode.util.ToastUtils
 import com.chad.library.adapter.base.BaseViewHolder
 import com.kzj.mall.GlideApp
 import com.kzj.mall.R
@@ -13,17 +15,21 @@ import com.kzj.mall.base.BaseActivity
 import com.kzj.mall.base.IPresenter
 import com.kzj.mall.databinding.ActivityConfirmOrderBinding
 import com.kzj.mall.di.component.AppComponent
+import com.kzj.mall.di.component.DaggerConfirmOrderComponent
+import com.kzj.mall.di.module.ConfirmOrderModule
 import com.kzj.mall.entity.BuyEntity
+import com.kzj.mall.entity.ConfirmOrderEntity
 import com.kzj.mall.entity.address.Address
+import com.kzj.mall.mvp.contract.ConfirmOrderContract
+import com.kzj.mall.mvp.presenter.ConfirmOrderPresenter
 import com.kzj.mall.ui.dialog.ConfirmDialog
 import com.kzj.mall.utils.FloatUtils
 import com.kzj.mall.utils.Utils
 import com.kzj.mall.widget.RootLayout
 
-class ConfirmOrderActivity : BaseActivity<IPresenter, ActivityConfirmOrderBinding>(), View.OnClickListener {
-
-    val CHECK_ALIPAY = 0
-    val CHECK_ARRIVE_PAY = 1
+class ConfirmOrderActivity : BaseActivity<ConfirmOrderPresenter, ActivityConfirmOrderBinding>(), View.OnClickListener, ConfirmOrderContract.View {
+    val CHECK_ALIPAY = 1
+    val CHECK_ARRIVE_PAY = 0
 
     var payCheck = CHECK_ALIPAY
     var hasAddress = false
@@ -39,11 +45,21 @@ class ConfirmOrderActivity : BaseActivity<IPresenter, ActivityConfirmOrderBindin
     }
 
     override fun setupComponent(appComponent: AppComponent?) {
+        DaggerConfirmOrderComponent.builder()
+                .appComponent(appComponent)
+                .confirmOrderModule(ConfirmOrderModule(this))
+                .build()
+                .inject(this)
     }
 
     override fun initData() {
         intent?.getSerializableExtra("buyEntity")?.let {
             buyEntity = it as BuyEntity
+
+//            val cartIds = buyEntity?.shoppingCartIds
+//            for (i in 0 until cartIds?.size!!){
+//                LogUtils.e("cartId ===> "+cartIds?.get(i))
+//            }
         }
 
         val goodsImgs = ArrayList<String>()
@@ -105,6 +121,8 @@ class ConfirmOrderActivity : BaseActivity<IPresenter, ActivityConfirmOrderBindin
                 ?.setOnLeftOnClickListener {
                     onBackPressedSupport()
                 }
+
+        mBinding?.tvSubmitOrder?.setOnClickListener(this)
     }
 
     private fun setAddress(address: Address) {
@@ -151,6 +169,23 @@ class ConfirmOrderActivity : BaseActivity<IPresenter, ActivityConfirmOrderBindin
         }
     }
 
+    override fun submitOrderCallBack(confirmOrderEntity: ConfirmOrderEntity?) {
+        dismissLoadingDialog()
+    }
+
+    override fun showLoading() {
+        showLoadingDialog()
+    }
+
+    override fun hideLoading() {
+        dismissLoadingDialog()
+    }
+
+    override fun onError(code: Int, msg: String?) {
+        dismissLoadingDialog()
+        ToastUtils.showShort(msg)
+    }
+
     override fun onBackPressedSupport() {
         ConfirmDialog.newInstance("优惠不等人,真的要走么？")
                 .setOnConfirmClickListener(object : ConfirmDialog.OnConfirmClickListener {
@@ -193,6 +228,18 @@ class ConfirmOrderActivity : BaseActivity<IPresenter, ActivityConfirmOrderBindin
             R.id.ll_multi_goods -> {
                 val intent = Intent(this, OrderGoodsListActivity::class.java)
                 startActivity(intent)
+            }
+
+            R.id.tv_submit_order -> {
+                showLoadingDialog()
+                mPresenter?.submitOrder(
+                        buyEntity?.shoppingCartIds,
+                        payCheck?.toString(),
+                        "remark",
+                        buyEntity?.address?.addressId,
+                        buyEntity?.sumPrice,
+                        FloatUtils.format(buyEntity?.shippingCharge!!)
+                )
             }
         }
     }

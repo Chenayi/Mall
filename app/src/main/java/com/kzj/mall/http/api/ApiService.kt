@@ -115,6 +115,20 @@ interface ApiService {
             : Observable<BaseResponse<BuyEntity>>
 
     /**
+     * 提交订单
+     */
+    @FormUrlEncoded
+    @POST("/mobile/kzj/api/user_voucher/submitOrder.htm")
+    fun submitOrder(@Header("token") token: String?,
+                    @Field("shoppingCartIds") shoppingCartIds: LongArray?,
+                    @Field("pay") pay: String?,
+                    @Field("remark") remark: String?,
+                    @Field("addressId") addressId: String?,
+                    @Field("shopSumPrice") shopSumPrice: String?,
+                    @Field("shopSumshipping") shopSumshipping: String?)
+            : Observable<BaseResponse<ConfirmOrderEntity>>
+
+    /**
      * 我的
      */
     @POST("/mobile/kzj/api/user_voucher/user_index.htm")

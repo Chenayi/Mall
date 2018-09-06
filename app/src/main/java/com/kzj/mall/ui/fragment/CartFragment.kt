@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.allen.library.SuperTextView
+import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.gyf.barlibrary.ImmersionBar
 import com.kzj.mall.C
@@ -314,16 +315,9 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
         mBinding?.tvMinusPrice?.setText("已省：¥0.00")
     }
 
-//    @Subscribe
-//    fun loginSuccess(loginSuccessEvent: LoginSuccessEvent) {
-//        mPresenter?.requesrCart(false)
-//    }
-
-    override fun onSupportVisible() {
-        super.onSupportVisible()
-        if (isAcquired && C.IS_LOGIN){
-            mPresenter?.requesrCart(false)
-        }
+    @Subscribe
+    fun loginSuccess(loginSuccessEvent: LoginSuccessEvent) {
+        mPresenter?.requesrCart(false)
     }
 
     /**
@@ -416,6 +410,7 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
      * 结算
      */
     override fun banlance(buyEntity: BuyEntity?) {
+        buyEntity?.shoppingCartIds = cartIds()
         val intent = Intent(context, ConfirmOrderActivity::class.java)
         intent?.putExtra("buyEntity", buyEntity)
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -479,6 +474,7 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
             }
 
             R.id.tv_to_balance -> {
+                LogUtils.e("cartIds ===> " +cartIds()?.get(0))
                 mPresenter?.cartBanlance(cartIds())
             }
         }
