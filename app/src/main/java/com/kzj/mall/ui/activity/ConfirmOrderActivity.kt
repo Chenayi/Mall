@@ -7,6 +7,7 @@ import android.view.View
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.chad.library.adapter.base.BaseViewHolder
+import com.gyf.barlibrary.ImmersionBar
 import com.kzj.mall.GlideApp
 import com.kzj.mall.R
 import com.kzj.mall.RequestCode
@@ -26,6 +27,7 @@ import com.kzj.mall.ui.dialog.ConfirmDialog
 import com.kzj.mall.utils.FloatUtils
 import com.kzj.mall.utils.Utils
 import com.kzj.mall.widget.RootLayout
+import java.io.Serializable
 
 class ConfirmOrderActivity : BaseActivity<ConfirmOrderPresenter, ActivityConfirmOrderBinding>(), View.OnClickListener, ConfirmOrderContract.View {
     val CHECK_ALIPAY = 1
@@ -44,6 +46,15 @@ class ConfirmOrderActivity : BaseActivity<ConfirmOrderPresenter, ActivityConfirm
         return R.layout.activity_confirm_order
     }
 
+    override fun initImmersionBar() {
+        mImmersionBar = ImmersionBar.with(this)
+        mImmersionBar?.fitsSystemWindows(true, R.color.fb)
+                ?.statusBarDarkFont(true, 0.5f)
+                ?.keyboardEnable(keyboardEnable())
+                ?.keyboardMode(getKeyboardMode())
+                ?.init()
+    }
+
     override fun setupComponent(appComponent: AppComponent?) {
         DaggerConfirmOrderComponent.builder()
                 .appComponent(appComponent)
@@ -55,11 +66,6 @@ class ConfirmOrderActivity : BaseActivity<ConfirmOrderPresenter, ActivityConfirm
     override fun initData() {
         intent?.getSerializableExtra("buyEntity")?.let {
             buyEntity = it as BuyEntity
-
-//            val cartIds = buyEntity?.shoppingCartIds
-//            for (i in 0 until cartIds?.size!!){
-//                LogUtils.e("cartId ===> "+cartIds?.get(i))
-//            }
         }
 
         val goodsImgs = ArrayList<String>()
@@ -80,7 +86,7 @@ class ConfirmOrderActivity : BaseActivity<ConfirmOrderPresenter, ActivityConfirm
                                 return
                             }
 
-                            goodsImgs?.add(ggList?.get(j)?.goods_img!!)
+                            goodsImgs?.add(ggList?.get(j)?.c_goods?.goods_img!!)
                         }
                     }
                 }
@@ -92,6 +98,7 @@ class ConfirmOrderActivity : BaseActivity<ConfirmOrderPresenter, ActivityConfirm
         mBinding?.rvGoods?.adapter = goodsAdapter
         goodsAdapter?.setOnItemClickListener { adapter, view, position ->
             val intent = Intent(this@ConfirmOrderActivity, OrderGoodsListActivity::class.java)
+            intent.putExtra("buyEntity", buyEntity)
             startActivity(intent)
         }
 
@@ -222,20 +229,23 @@ class ConfirmOrderActivity : BaseActivity<ConfirmOrderPresenter, ActivityConfirm
                     startActivityForResult(intent, RequestCode.CHOOSE_ADDRESS)
                 } else {
                     val intent = Intent(this, CreateAddressActivity::class.java)
+                    intent?.putExtra("isManager",false)
                     startActivityForResult(intent, RequestCode.CREATE_ADDRESS)
                 }
             }
             R.id.ll_multi_goods -> {
                 val intent = Intent(this, OrderGoodsListActivity::class.java)
+                intent.putExtra("buyEntity", buyEntity)
                 startActivity(intent)
             }
 
             R.id.tv_submit_order -> {
                 showLoadingDialog()
+                val remark = mBinding?.etMark?.text?.toString()?.trim()
                 mPresenter?.submitOrder(
                         buyEntity?.shoppingCartIds,
                         payCheck?.toString(),
-                        "remark",
+                        remark,
                         buyEntity?.address?.addressId,
                         buyEntity?.sumPrice,
                         FloatUtils.format(buyEntity?.shippingCharge!!)

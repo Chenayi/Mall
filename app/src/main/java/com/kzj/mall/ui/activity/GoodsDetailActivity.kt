@@ -156,6 +156,7 @@ class GoodsDetailActivity : BaseActivity<GoodsDetailPresenter, ActivityGoodsDeta
 
         mBinding?.tvBuy?.setOnClickListener(this)
         mBinding?.tvAddCart?.setOnClickListener(this)
+        mBinding?.tvRequestCheckin?.setOnClickListener(this)
         mBinding?.goodsDetailBar?.setVp(mBinding?.vpGoodsDetail)
 
 
@@ -428,6 +429,17 @@ class GoodsDetailActivity : BaseActivity<GoodsDetailPresenter, ActivityGoodsDeta
                     carType = "2"
                 }
                 mPresenter?.buyNow(carType, mGoodsNum, mGoodsInfoId, mCombinationId)
+            }
+
+            R.id.tv_request_checkin->{
+                if (!C.IS_LOGIN) {
+                    val intent = Intent(this, LoginActivity::class.java)
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    startActivityForResult(intent, RequestCode.LOGIN)
+                    return
+                }
+
+                startActivity(Intent(this,DemandRegistrationActivity::class.java))
             }
         }
     }

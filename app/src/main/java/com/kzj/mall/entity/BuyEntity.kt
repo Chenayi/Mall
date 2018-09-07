@@ -29,20 +29,21 @@ class BuyEntity : Serializable {
     /**
      * 商品列表
      */
-    var shoplist: MutableList<Shoplist>? = null
+    var shoplist: MutableList<CartEntity.Shoplist>? = null
 
-    class Shoplist : Serializable {
-        var appgoods: Appgoods? = null
-        var ggList: MutableList<GGList>? = null
-    }
-
-    class Appgoods : Serializable {
-        var goods_img: String? = null
-    }
-
-    class GGList : Serializable {
-        var goods_img: String? = null
-    }
+//    class Shoplist : Serializable {
+//        var appgoods: Appgoods? = null
+//        var ggList: MutableList<GGList>? = null
+//        var shopping_cart_type:String?=null
+//    }
+//
+//    class Appgoods : Serializable {
+//        var goods_img: String? = null
+//    }
+//
+//    class GGList : Serializable {
+//        var goods_img: String? = null
+//    }
 
 
 }

@@ -1,6 +1,5 @@
 package com.kzj.mall.adapter
 
-import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.chad.library.adapter.base.MultipleItemRvAdapter
 import com.kzj.mall.adapter.provider.cart.GoodsGroupProvider

@@ -323,7 +323,7 @@ class LocalDatas {
             val goodsGroupEntity = GoodsGroupEntity()
             val groups = ArrayList<GoodsGroupEntity.Group>()
             for (i in 0 until 2) {
-                groups.add(GoodsGroupEntity().Group())
+                groups.add(GoodsGroupEntity.Group())
             }
             goodsGroupEntity.groups = groups
             return goodsGroupEntity

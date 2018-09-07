@@ -474,7 +474,6 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
             }
 
             R.id.tv_to_balance -> {
-                LogUtils.e("cartIds ===> " +cartIds()?.get(0))
                 mPresenter?.cartBanlance(cartIds())
             }
         }

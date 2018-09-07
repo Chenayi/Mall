@@ -12,4 +12,5 @@ import javax.inject.Inject
 class MyAddressListModel @Inject
 constructor(httpUtils: HttpUtils?) : BaseModel(httpUtils), MyAddressListContract.Model {
     override fun requestAddress()=httpUtils?.obtainRetrofitService(ApiService::class.java)?.addressList(C.TOKEN)
+    override fun addOrUpdateAddress(params: Map<String, String>?) = httpUtils?.obtainRetrofitService(ApiService::class.java)?.addOrUpdateAddress(C.TOKEN, params)
 }

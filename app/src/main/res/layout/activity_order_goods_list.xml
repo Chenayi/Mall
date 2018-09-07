@@ -5,7 +5,11 @@
     <com.kzj.mall.widget.RootLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:titleBarTitle="商品清单">
+        app:titleBarTitle="商品清单"
+        app:titleBarColor="@color/fb"
+        app:titleBarLeftIcon="@mipmap/back_black"
+        app:titleBarTitleColor="@color/c_2e3033"
+        app:titleBarRightTextColor="@color/c_2e3033">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_goods"

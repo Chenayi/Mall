@@ -2,6 +2,8 @@ package com.kzj.mall.ui.activity
 
 import android.app.Activity
 import android.content.Intent
+import android.os.Bundle
+import android.support.v4.content.ContextCompat
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
@@ -9,6 +11,7 @@ import android.view.View
 import com.blankj.utilcode.util.KeyboardUtils
 import com.blankj.utilcode.util.RegexUtils
 import com.blankj.utilcode.util.ToastUtils
+import com.gyf.barlibrary.ImmersionBar
 import com.kzj.mall.R
 import com.kzj.mall.base.BaseActivity
 import com.kzj.mall.databinding.ActivityCreateAddressBinding
@@ -24,6 +27,7 @@ import com.kzj.mall.widget.RootLayout
 class CreateAddressActivity : BaseActivity<CreateAddressPresenter, ActivityCreateAddressBinding>(), TextWatcher
         , View.OnClickListener, CreateAddressContract.View {
     var rootLayout: RootLayout? = null
+    private var isManager = false
 
     private var checkP: Address.Province? = null
     private var checkC: Address.City? = null
@@ -34,6 +38,29 @@ class CreateAddressActivity : BaseActivity<CreateAddressPresenter, ActivityCreat
     private var address: Address? = null
 
     private var addressId: String? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        intent?.getBooleanExtra("isManager", false)?.let {
+            isManager = it
+        }
+
+        intent?.getBooleanExtra("isUpdateAddress", false)?.let {
+            isUpdateAddress = it
+        }
+        super.onCreate(savedInstanceState)
+    }
+
+    override fun initImmersionBar() {
+        mImmersionBar = ImmersionBar.with(this)
+        if (isManager) {
+            mImmersionBar?.fitsSystemWindows(true, R.color.colorPrimary)
+                    ?.init()
+        } else {
+            mImmersionBar?.fitsSystemWindows(true, R.color.fb)
+                    ?.statusBarDarkFont(true, 0.5f)
+                    ?.init()
+        }
+    }
 
     override fun getLayoutId(): Int {
         return R.layout.activity_create_address
@@ -48,9 +75,12 @@ class CreateAddressActivity : BaseActivity<CreateAddressPresenter, ActivityCreat
     }
 
     override fun initData() {
+        rootLayout = RootLayout.getInstance(this)
 
-        intent?.getBooleanExtra("isUpdateAddress", false)?.let {
-            isUpdateAddress = it
+        if (isManager) {
+            rootLayout?.setStatusBarViewColor(ContextCompat.getColor(this, R.color.colorPrimary))
+                    ?.setLeftIcon(R.mipmap.back_white)
+                    ?.setTitleTextColor(ContextCompat.getColor(this, R.color.white))
         }
 
         if (isUpdateAddress) {
@@ -61,7 +91,6 @@ class CreateAddressActivity : BaseActivity<CreateAddressPresenter, ActivityCreat
             }
         }
 
-        rootLayout = RootLayout.getInstance(this)
         rootLayout?.setRightTextEnable(isUpdateAddress)
         rootLayout?.setOnRightOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
@@ -75,7 +104,7 @@ class CreateAddressActivity : BaseActivity<CreateAddressPresenter, ActivityCreat
                 val addressDetail = mBinding?.etAddress?.text?.toString()?.trim()
                 val default = if (mBinding?.switchDefault?.isChecked == true) "1" else "0"
                 mPresenter?.addAddress(checkP?.provinceId!!, checkC?.cityId!!, checkD?.districtId!!,
-                        name!!, mobile!!, addressDetail!!, default,addressId)
+                        name!!, mobile!!, addressDetail!!, default, addressId)
             }
         })
 
@@ -126,8 +155,11 @@ class CreateAddressActivity : BaseActivity<CreateAddressPresenter, ActivityCreat
     }
 
     override fun addOrUpdateAddressSuccess(address: Address?) {
+        this?.address?.let {
+            address?.isCheck = it?.isCheck
+        }
         val intent = Intent()
-        intent?.putExtra("isUpdateAddress",isUpdateAddress)
+        intent?.putExtra("isUpdateAddress", isUpdateAddress)
         intent.putExtra("address", address)
         setResult(Activity.RESULT_OK, intent)
         finish()

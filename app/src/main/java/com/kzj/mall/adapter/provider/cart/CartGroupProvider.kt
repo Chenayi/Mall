@@ -73,7 +73,7 @@ class CartGroupProvider : BaseItemProvider<CartGroupEntity, BaseViewHolder>() {
         : BaseAdapter<CartGroupEntity.Group, BaseViewHolder>(R.layout.item_cart_group_item, groupDatas) {
         override fun convert(helper: BaseViewHolder?, item: CartGroupEntity.Group?) {
             helper?.setGone(R.id.line, helper?.layoutPosition > 0)
-                    ?.setText(R.id.tv_goods_price, "￥" + item?.c_goods?.goods_price)
+                    ?.setText(R.id.tv_goods_price, "¥" + item?.c_goods?.goods_price)
                     ?.setText(R.id.tv_goods_name, item?.c_goods?.goods_name)
 
             GlideApp.with(mContext)

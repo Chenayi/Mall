@@ -35,7 +35,7 @@ class CartSingleProvider : BaseItemProvider<CartSingleEntity, BaseViewHolder>() 
                 ?.setGone(R.id.tv_goods_pre_price, data?.shopping_cart_type.equals("1"))
                 ?.setText(R.id.tv_goods_num, data?.goods_num?.toString()?.trim())
                 ?.setText(R.id.tv_goods_name, data?.goods_name)
-                ?.setText(R.id.tv_goods_price, "￥" + data?.goods_price)
+                ?.setText(R.id.tv_goods_price, "¥" + data?.goods_price)
 
         val ivMinus = helper?.getView<ImageView>(R.id.iv_minus)
         val ivPlus = helper?.getView<ImageView>(R.id.iv_plus)
@@ -55,7 +55,6 @@ class CartSingleProvider : BaseItemProvider<CartSingleEntity, BaseViewHolder>() 
         data?.shopping_cart_type?.let {
             if (it.equals("1")) {
                 helper?.setText(R.id.tv_goods_pre_price, data?.goods_pre_price)
-                        ?.setText(R.id.tv_combination_name, data?.combination_name)
                         ?.setText(R.id.tv_combination_name, data?.combination_name)
             }
         }

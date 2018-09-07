@@ -7,7 +7,11 @@
         android:layout_height="match_parent"
         app:titleBarRightText="保存"
         app:titleBarTitle="新建收货地址"
-        app:titleBarRightTextColor="@color/white">
+        app:titleBarColor="@color/fb"
+        app:titleBarLeftIcon="@mipmap/back_black"
+        app:titleBarTitleColor="@color/c_2e3033"
+        app:titleBarRightTextColor="@color/c_2e3033"
+        >
 
         <ScrollView
             android:layout_width="match_parent"

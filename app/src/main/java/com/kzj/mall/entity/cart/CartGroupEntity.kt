@@ -1,6 +1,8 @@
 package com.kzj.mall.entity.cart
 
-class CartGroupEntity : BaseCartEntity() {
+import java.io.Serializable
+
+class CartGroupEntity : BaseCartEntity(), Serializable {
     var groups: MutableList<Group>? = null
     var goods_pre_price: String? = null
     var combination_name: String? = null
@@ -10,11 +12,11 @@ class CartGroupEntity : BaseCartEntity() {
         return ICart.GROUP
     }
 
-    class Group {
+    class Group:Serializable {
         var c_goods: CGoods? = null
     }
 
-    class CGoods {
+    class CGoods:Serializable {
         var goods_img: String? = null
         var goods_name: String? = null
         var goods_price: String? = null

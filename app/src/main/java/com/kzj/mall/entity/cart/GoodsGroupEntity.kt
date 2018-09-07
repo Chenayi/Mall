@@ -7,7 +7,7 @@ class GoodsGroupEntity :BaseCartEntity(){
         return ICart.GROUP
     }
 
-    inner class Group{
+    class Group{
 
     }
 }

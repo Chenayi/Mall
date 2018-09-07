@@ -36,6 +36,8 @@ abstract class BaseActivity<P : IPresenter, D : ViewDataBinding> : SupportActivi
 
     protected var mLoadingDialog: LoadingDialog? = null
 
+    protected var immersionBarColor = R.color.colorPrimary
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
@@ -71,7 +73,7 @@ abstract class BaseActivity<P : IPresenter, D : ViewDataBinding> : SupportActivi
 
     protected open fun initImmersionBar() {
         mImmersionBar = ImmersionBar.with(this)
-        mImmersionBar?.fitsSystemWindows(true, R.color.colorPrimary)
+        mImmersionBar?.fitsSystemWindows(true, immersionBarColor)
                 ?.keyboardEnable(keyboardEnable())
                 ?.keyboardMode(getKeyboardMode())
                 ?.init()
@@ -102,7 +104,7 @@ abstract class BaseActivity<P : IPresenter, D : ViewDataBinding> : SupportActivi
         mLoadingDialog?.dismiss()
     }
 
-    protected fun hideKeyboard(){
+    protected fun hideKeyboard() {
         KeyboardUtils.hideSoftInput(this)
     }
 

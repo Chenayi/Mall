@@ -1,6 +1,8 @@
 package com.kzj.mall.entity.cart
 
-class CartSingleEntity : BaseCartEntity() {
+import java.io.Serializable
+
+class CartSingleEntity : BaseCartEntity(),Serializable {
     var goods_img: String? = null
     var goods_pre_price: String? = null
     var combination_name: String? = null

@@ -5,6 +5,7 @@ import com.kzj.mall.base.BaseObserver
 import com.kzj.mall.base.BasePresenter
 import com.kzj.mall.di.scope.ActivityScope
 import com.kzj.mall.entity.address.AddressEntity
+import com.kzj.mall.entity.address.CreateAddressEntity
 import com.kzj.mall.http.RxScheduler
 import com.kzj.mall.mvp.contract.MyAddressListContract
 import io.reactivex.disposables.Disposable
@@ -16,13 +17,15 @@ constructor(model: MyAddressListContract.Model, view: MyAddressListContract.View
     : BasePresenter<MyAddressListContract.Model, MyAddressListContract.View>(model, view, context) {
 
 
-    fun requestAddress(){
+    fun requestAddress(isShowLoading: Boolean) {
         model?.requestAddress()
                 ?.compose(RxScheduler.compose())
-                ?.subscribe(object :BaseObserver<AddressEntity>(){
+                ?.subscribe(object : BaseObserver<AddressEntity>() {
                     override fun onSubscribe(d: Disposable) {
                         addDisposable(d)
-                        view?.showLoading()
+                        if (isShowLoading) {
+                            view?.showLoading()
+                        }
                     }
 
                     override fun onHandleSuccess(t: AddressEntity?) {
@@ -30,7 +33,7 @@ constructor(model: MyAddressListContract.Model, view: MyAddressListContract.View
                     }
 
                     override fun onHandleError(code: Int, msg: String?) {
-                        view?.onError(code,msg)
+                        view?.onError(code, msg)
                     }
 
                     override fun onHandleAfter() {
@@ -40,4 +43,38 @@ constructor(model: MyAddressListContract.Model, view: MyAddressListContract.View
                 })
     }
 
+    fun updateAddress(infoProvince: String, infoCity: String, infoCounty: String, addressName: String,
+                   addressMoblie: String, addressDetail: String, isDefault: String, addressId: String) {
+        val params = HashMap<String, String>()
+        params.put("infoProvince", infoProvince)
+        params.put("infoCity", infoCity)
+        params.put("infoCounty", infoCounty)
+        params.put("addressName", addressName)
+        params.put("addressMoblie", addressMoblie)
+        params.put("addressDetail", addressDetail)
+        params.put("isDefault", isDefault)
+        params.put("addressId", addressId)
+
+        model?.addOrUpdateAddress(params)
+                ?.compose(RxScheduler.compose())
+                ?.subscribe(object : BaseObserver<CreateAddressEntity>() {
+                    override fun onSubscribe(d: Disposable) {
+                        addDisposable(d)
+                        view?.showLoading()
+                    }
+
+                    override fun onHandleSuccess(t: CreateAddressEntity?) {
+                        view?.addOrUpdateAddressSuccess(t?.cAddress)
+                    }
+
+                    override fun onHandleError(code: Int, msg: String?) {
+                        view?.onError(code, msg)
+                    }
+
+                    override fun onHandleAfter() {
+                        view?.hideLoading()
+                    }
+
+                })
+    }
 }
