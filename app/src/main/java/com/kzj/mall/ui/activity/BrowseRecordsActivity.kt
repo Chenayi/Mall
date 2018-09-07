@@ -11,6 +11,9 @@ import com.kzj.mall.di.component.AppComponent
 import com.kzj.mall.utils.LocalDatas
 import com.kzj.mall.widget.RootLayout
 
+/**
+ * 浏览记录
+ */
 class BrowseRecordsActivity : BaseActivity<IPresenter, ActivityBrowseRecordsBinding>() {
     private var deleteMode = false
     private var browseRecordsAdapter: BrowseRecordsAdapter? = null
