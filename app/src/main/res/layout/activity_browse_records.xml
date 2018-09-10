@@ -9,25 +9,36 @@
         app:titleBarRightText1="清空"
         app:titleBarTitle="浏览记录">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_record"
+        <android.support.v4.widget.SwipeRefreshLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:id="@+id/refresh_layout">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_record"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </android.support.v4.widget.SwipeRefreshLayout>
 
         <RelativeLayout
             android:id="@+id/rl_delete"
-            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="@color/white">
+            android:background="@color/white"
+            android:visibility="gone">
 
             <CheckBox
+                android:id="@+id/all_check"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="4dp"
-                android:text="全选" />
+                android:layout_marginLeft="10dp"
+                android:button="@drawable/selector_check"
+                android:paddingLeft="6dp"
+                android:paddingRight="6dp"
+                android:text="全选"
+                android:textColor="#6A6E75" />
 
 
             <com.allen.library.SuperTextView
@@ -36,10 +47,12 @@
                 android:layout_height="37dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
                 app:sCenterTextColor="@color/white"
                 app:sCenterTextString="删除"
                 app:sShapeCornersRadius="9999dp"
                 app:sShapeSelectorNormalColor="@color/colorPrimary"
+                app:sShapeSelectorPressedColor="@color/colorPrimary"
                 app:sUseShape="true" />
 
         </RelativeLayout>

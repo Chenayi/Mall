@@ -67,7 +67,7 @@ class HomeFlashSaleProvider : BaseItemProvider<HomeFlashSaleEntity, BaseViewHold
             var params: RelativeLayout.LayoutParams = ivGoods?.layoutParams as RelativeLayout.LayoutParams
 
             params.leftMargin = SizeUtils.dp2px(12f)
-            if (helper?.layoutPosition == datas?.size - 1) {
+            if (helper?.layoutPosition == data?.size - 1) {
                 params.rightMargin = SizeUtils.dp2px(12f)
             } else {
                 params.rightMargin = 0

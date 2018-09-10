@@ -6,11 +6,11 @@
     android:orientation="horizontal">
 
     <ImageView
-        android:id="@+id/iv_delete"
+        android:id="@+id/iv_check"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_marginLeft="10dp"
-        android:src="@color/colorPrimary"
+        android:src="@mipmap/check_nor"
         android:visibility="gone"/>
 
     <LinearLayout
@@ -21,12 +21,14 @@
         android:layout_marginTop="10dp"
         android:background="@drawable/background_white_corners_8"
         android:orientation="horizontal"
-        android:padding="13dp">
+        android:padding="13dp"
+        android:gravity="center_vertical">
 
         <ImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:src="@color/gray_default" />
+            android:src="@color/gray_default"
+            android:id="@+id/iv_goods"/>
 
 
         <LinearLayout
@@ -42,7 +44,8 @@
                 android:layout_height="wrap_content"
                 android:maxLines="2"
                 android:text="SwSwisse 澳大利亚 月见草油软胶囊isse 澳大利亚 月见草油软胶囊 "
-                android:textColor="@color/c_2e3033" />
+                android:textColor="@color/c_2e3033"
+                android:id="@+id/tv_goods_name"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -52,7 +55,8 @@
                 android:singleLine="true"
                 android:text="适用于治疗感冒、发烧、咳嗽等症…"
                 android:textColor="#8A9099"
-                android:textSize="12dp" />
+                android:textSize="12dp"
+                android:id="@+id/tv_goods_info"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -61,7 +65,8 @@
                 android:lines="1"
                 android:singleLine="true"
                 android:text="¥78.90"
-                android:textColor="@color/orange_default" />
+                android:textColor="@color/orange_default"
+                android:id="@+id/tv_goods_price"/>
 
 
         </LinearLayout>

@@ -1,8 +1,6 @@
 package com.kzj.mall.entity
 
 class BrowseRecordEntity {
-    var deleteMode = false
-
     var browserecords: Browserecords? = null
 
 
@@ -11,6 +9,16 @@ class BrowseRecordEntity {
     }
 
     class BrowserecordList {
+        var deleteMode: Boolean = false
+        var goods: Goods? = null
+        var check = false
+        var likeId: Long? = null
+    }
 
+    class Goods {
+        var goodsName: String? = null
+        var goodsImg: String? = null
+        var goodsPrice: String? = null
+        var goodsInfoSubtitle: String? = null
     }
 }

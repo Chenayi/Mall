@@ -179,7 +179,7 @@ public class RootLayout extends LinearLayout {
             tvRight1.setVisibility(VISIBLE);
         }
 
-        if (!TextUtils.isEmpty(mTitleBarRightText1)){
+        if (!TextUtils.isEmpty(mTitleBarRightText1)) {
             tvRight1.setText(mTitleBarRightText1);
         }
 
@@ -211,7 +211,7 @@ public class RootLayout extends LinearLayout {
     }
 
     public RootLayout setRightText(String text) {
-            tvRight.setText(text);
+        tvRight.setText(text);
         return this;
     }
 
@@ -241,27 +241,33 @@ public class RootLayout extends LinearLayout {
         return this;
     }
 
+    public RootLayout setOnRightOnClickListener1(OnClickListener l) {
+        tvRight1.setOnClickListener(l);
+        return this;
+    }
+
+
     public View getTitleBarView() {
         return mTitleBarView;
     }
 
 
-    public RootLayout setStatusBarViewColor(int color){
+    public RootLayout setStatusBarViewColor(int color) {
         mTitleBarView.setBackgroundColor(color);
         return this;
     }
 
-    public RootLayout setLeftIcon(int iconRes){
+    public RootLayout setLeftIcon(int iconRes) {
         ivLeft.setImageResource(iconRes);
         return this;
     }
 
-    public RootLayout setTitleTextColor(int color){
+    public RootLayout setTitleTextColor(int color) {
         tvTitle.setTextColor(color);
         return this;
     }
 
-    public RootLayout setRightTextColor(int color){
+    public RootLayout setRightTextColor(int color) {
         tvRight.setTextColor(color);
         tvRight1.setTextColor(color);
         return this;

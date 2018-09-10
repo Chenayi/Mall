@@ -76,7 +76,7 @@ class AndrologySpecialFieldProvider : BaseItemProvider<AndrologySpecialFieldEnti
             var params: RelativeLayout.LayoutParams = linearLayout?.layoutParams as RelativeLayout.LayoutParams
 
             params.leftMargin = SizeUtils.dp2px(10f)
-            if (helper?.layoutPosition == datas?.size - 1) {
+            if (helper?.layoutPosition == data?.size - 1) {
                 params.rightMargin = SizeUtils.dp2px(10f)
             } else {
                 params.rightMargin = 0

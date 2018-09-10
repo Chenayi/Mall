@@ -7,7 +7,7 @@ import com.chad.library.adapter.base.BaseViewHolder
 import com.yatoooon.screenadaptation.ScreenAdapterTools
 
 abstract class BaseAdapter<T, K : BaseViewHolder>
-constructor(val layoutResId: Int, val datas: MutableList<T>) : BaseQuickAdapter<T, K>(layoutResId, datas) {
+constructor(layoutResId: Int, datas: MutableList<T>) : BaseQuickAdapter<T, K>(layoutResId, datas) {
 
     override fun getItemView(layoutResId: Int, parent: ViewGroup?): View {
         val view = super.getItemView(layoutResId, parent)
