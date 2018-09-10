@@ -4,6 +4,9 @@ import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.kzj.mall.C
@@ -13,6 +16,7 @@ import com.kzj.mall.databinding.FragmentBaseListBinding
 
 abstract class BaseListFragment<P : IPresenter, D> : BaseFragment<P, FragmentBaseListBinding>() {
     private var listAdapter: ListAdapter? = null
+    protected var pageNo = 1
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_base_list
@@ -20,8 +24,11 @@ abstract class BaseListFragment<P : IPresenter, D> : BaseFragment<P, FragmentBas
 
     override fun initData() {
         listAdapter = ListAdapter(ArrayList())
+        listAdapter?.setEmptyView(R.layout.empty_view, mBinding?.rv?.parent as ViewGroup)
+        listAdapter?.emptyView?.findViewById<ImageView>(R.id.iv_empty)?.setImageResource(emptyViewIcon())
+        listAdapter?.emptyView?.findViewById<TextView>(R.id.tv_empty_msg)?.setText(emptyMsg())
         listAdapter?.setOnItemClickListener { adapter, view, position ->
-            onItemClick(view,position,listAdapter?.getItem(position))
+            onItemClick(view, position, listAdapter?.getItem(position))
         }
         mBinding?.rv?.layoutManager = layoutManager()
         mBinding?.rv?.adapter = listAdapter
@@ -62,6 +69,11 @@ abstract class BaseListFragment<P : IPresenter, D> : BaseFragment<P, FragmentBas
      */
     protected abstract fun onLoadMore();
 
+
+    protected fun emptyViewIcon() = R.mipmap.empty_default
+
+    protected abstract fun emptyMsg(): String
+
     protected abstract fun onItemClick(view: View, position: Int, data: D?);
 
     /**
@@ -85,7 +97,7 @@ abstract class BaseListFragment<P : IPresenter, D> : BaseFragment<P, FragmentBas
         mBinding?.refreshLayout?.isRefreshing = false
         listAdapter?.setNewData(datas)
         if (isLoadMoreEnable() && datas?.size < C.PAGE_SIZE) {
-            listAdapter?.loadMoreEnd(true)
+            listAdapter?.loadMoreEnd()
         }
     }
 

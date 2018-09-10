@@ -2,6 +2,8 @@ package com.kzj.mall.ui.activity
 
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import android.view.ViewGroup
+import android.widget.TextView
 import com.blankj.utilcode.util.ToastUtils
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.kzj.mall.C
@@ -40,6 +42,8 @@ class BrowseRecordsActivity : BaseActivity<BrowseRecordPresenter, ActivityBrowse
     override fun initData() {
         rootLayout = RootLayout.getInstance(this)
         browseRecordsAdapter = BrowseRecordsAdapter(ArrayList())
+        browseRecordsAdapter?.setEmptyView(R.layout.empty_view,mBinding?.rvRecord?.parent as ViewGroup)
+        browseRecordsAdapter?.emptyView?.findViewById<TextView>(R.id.tv_empty_msg)?.setText("暂时没有相关浏览记录哦～")
         browseRecordsAdapter?.setEnableLoadMore(true)
         mBinding?.rvRecord?.layoutManager = LinearLayoutManager(this)
         mBinding?.rvRecord?.adapter = browseRecordsAdapter
@@ -111,6 +115,11 @@ class BrowseRecordsActivity : BaseActivity<BrowseRecordPresenter, ActivityBrowse
         }
 
         rootLayout?.setOnRightOnClickListener {
+
+            if (browseRecordsAdapter?.data?.size!! <=0){
+                return@setOnRightOnClickListener
+            }
+
             deleteMode = !deleteMode
             if (deleteMode) {
                 rootLayout?.showOrHideRightText1(true)
@@ -179,6 +188,13 @@ class BrowseRecordsActivity : BaseActivity<BrowseRecordPresenter, ActivityBrowse
     }
 
     override fun deleteSuccrss() {
+        deleteMode = false
+            rootLayout?.showOrHideRightText1(false)
+            rootLayout?.setRightText("编辑")
+            mBinding?.rlDelete?.visibility = View.GONE
+        browseRecordsAdapter?.deleteMode = false
+        browseRecordsAdapter?.notifyDataSetChanged()
+
         pageNo = 1
         mPresenter?.browseRecords(pageNo,false,false)
     }

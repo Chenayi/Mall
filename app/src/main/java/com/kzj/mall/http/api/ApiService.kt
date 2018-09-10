@@ -171,14 +171,24 @@ interface ApiService {
     /**
      * 浏览记录
      */
-
     @FormUrlEncoded
     @POST("mobile/kzj/api/user_voucher/my_browserecord_list.htm")
     fun browseRecords(@Header("token") token: String?, @Field("pageNo") pageNo: Int?, @Field("pageSize") pageSize: Int?)
             : Observable<BaseResponse<BrowseRecordEntity>>
 
+    /**
+     * 删除浏览记录
+     */
     @FormUrlEncoded
     @POST("mobile/kzj/api/user_voucher/batch_delete_browserecord.htm")
     fun deleteBrowseRecords(@Header("token") token: String?, @Field("like_ids") likeIds: LongArray?)
             : Observable<BaseResponse<SimpleResultEntity>>
+
+    /**
+     * 订单列表
+     */
+    @FormUrlEncoded
+    @POST("mobile/kzj/api/user_voucher/my_order_list.htm")
+    fun myOrderList(@Header("token") token: String?, @FieldMap params: MutableMap<String, String>?)
+            : Observable<BaseResponse<OrderEntity>>
 }
