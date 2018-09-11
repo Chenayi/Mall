@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import com.alipay.sdk.app.PayTask
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.chad.library.adapter.base.BaseViewHolder
@@ -13,13 +14,12 @@ import com.kzj.mall.R
 import com.kzj.mall.RequestCode
 import com.kzj.mall.adapter.BaseAdapter
 import com.kzj.mall.base.BaseActivity
-import com.kzj.mall.base.IPresenter
 import com.kzj.mall.databinding.ActivityConfirmOrderBinding
 import com.kzj.mall.di.component.AppComponent
 import com.kzj.mall.di.component.DaggerConfirmOrderComponent
 import com.kzj.mall.di.module.ConfirmOrderModule
 import com.kzj.mall.entity.BuyEntity
-import com.kzj.mall.entity.ConfirmOrderEntity
+import com.kzj.mall.entity.order.ConfirmOrderEntity
 import com.kzj.mall.entity.address.Address
 import com.kzj.mall.mvp.contract.ConfirmOrderContract
 import com.kzj.mall.mvp.presenter.ConfirmOrderPresenter
@@ -27,7 +27,6 @@ import com.kzj.mall.ui.dialog.ConfirmDialog
 import com.kzj.mall.utils.FloatUtils
 import com.kzj.mall.utils.Utils
 import com.kzj.mall.widget.RootLayout
-import java.io.Serializable
 
 class ConfirmOrderActivity : BaseActivity<ConfirmOrderPresenter, ActivityConfirmOrderBinding>(), View.OnClickListener, ConfirmOrderContract.View {
     val CHECK_ALIPAY = 1
@@ -176,8 +175,22 @@ class ConfirmOrderActivity : BaseActivity<ConfirmOrderPresenter, ActivityConfirm
         }
     }
 
-    override fun submitOrderCallBack(confirmOrderEntity: ConfirmOrderEntity?) {
+    override fun showAliPayKey(key: String?) {
         dismissLoadingDialog()
+        LogUtils.e("key ===> " + key)
+
+        val payRunnable = Runnable {
+            val alipay = PayTask(this@ConfirmOrderActivity)
+            val result = alipay.payV2(key, true)
+            LogUtils.e("msp", result.toString())
+        }
+
+        val payThread = Thread(payRunnable)
+        payThread.start()
+    }
+
+    override fun submitOrderCallBack(confirmOrderEntity: ConfirmOrderEntity?) {
+        mPresenter?.aliPayKey(confirmOrderEntity?.orderId)
     }
 
     override fun showLoading() {
@@ -229,7 +242,7 @@ class ConfirmOrderActivity : BaseActivity<ConfirmOrderPresenter, ActivityConfirm
                     startActivityForResult(intent, RequestCode.CHOOSE_ADDRESS)
                 } else {
                     val intent = Intent(this, CreateAddressActivity::class.java)
-                    intent?.putExtra("isManager",false)
+                    intent?.putExtra("isManager", false)
                     startActivityForResult(intent, RequestCode.CREATE_ADDRESS)
                 }
             }

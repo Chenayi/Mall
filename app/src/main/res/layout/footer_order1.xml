@@ -27,22 +27,21 @@
                 android:textColor="@color/c_2e3033" />
 
             <TextView
+                android:id="@+id/tv_order_code"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="45478908907"
                 android:textColor="#6A6E75" />
 
-            <com.allen.library.SuperTextView
+            <TextView
+                android:id="@+id/tv_copy_order_code"
                 android:layout_width="43dp"
                 android:layout_height="18dp"
                 android:layout_marginLeft="16dp"
-                app:sCenterTextSize="12sp"
-                app:sCenterTextColor="#8A9099"
-                app:sCenterTextString="复制"
-                app:sShapeCornersRadius="9999dp"
-                app:sShapeStrokeColor="#8A9099"
-                app:sShapeStrokeWidth="1dp"
-                app:sUseShape="true" />
+                android:background="@drawable/background_8a9099_stroke_corners_9999"
+                android:gravity="center"
+                android:text="复制"
+                android:textColor="#8a9099"
+                android:textSize="12dp" />
 
         </LinearLayout>
 
@@ -59,9 +58,9 @@
                 android:textColor="@color/c_2e3033" />
 
             <TextView
+                android:id="@+id/tv_add_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2018-8-13  16:50:58"
                 android:textColor="#6A6E75" />
 
         </LinearLayout>

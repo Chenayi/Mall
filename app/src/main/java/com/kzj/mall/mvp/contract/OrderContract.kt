@@ -3,7 +3,7 @@ package com.kzj.mall.mvp.contract
 import com.kzj.mall.base.IModel
 import com.kzj.mall.base.IView
 import com.kzj.mall.entity.BaseResponse
-import com.kzj.mall.entity.OrderEntity
+import com.kzj.mall.entity.order.OrderEntity
 import io.reactivex.Observable
 
 interface OrderContract {

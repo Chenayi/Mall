@@ -90,14 +90,6 @@ class MineFragment : BaseFragment<MinePresenter, FragmentMineBinding>(), View.On
         mPresenter?.requestMine()
     }
 
-    private fun setLoginStatus() {
-        mBinding?.ivBg?.setImageResource(R.mipmap.mine_logined)
-        val mobile = "15718807588"
-        val maskNumber = mobile.substring(0, 3) + "****" + mobile.substring(7, mobile.length)
-        mBinding?.tvInfo?.setText(maskNumber)
-        mBinding?.llMyCollect?.visibility = View.VISIBLE
-    }
-
     override fun showLoading() {
         showLoadingDialog()
     }
@@ -146,6 +138,11 @@ class MineFragment : BaseFragment<MinePresenter, FragmentMineBinding>(), View.On
         mBinding?.ivBg?.setImageResource(R.mipmap.mine_default)
         mBinding?.tvInfo?.setText("登录/注册")
         mBinding?.llMyCollect?.visibility = View.GONE
+
+        setBadgeNum(mBinding?.rlOrderWaitPay, 0)
+        setBadgeNum(mBinding?.rlOrderWaitSend, 0)
+        setBadgeNum(mBinding?.rlOrderWaitTake, 0)
+        setBadgeNum(mBinding?.rlOrderFinish, 0)
     }
 
     private fun setBadgeNum(view: View?, num: Int) {
@@ -188,6 +185,7 @@ class MineFragment : BaseFragment<MinePresenter, FragmentMineBinding>(), View.On
                     startActivity(intent)
                 } else {
                     val intent = Intent(context, OrderActivity::class.java)
+                    intent.putExtra("position", 0)
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                     startActivity(intent)
                 }
@@ -199,6 +197,7 @@ class MineFragment : BaseFragment<MinePresenter, FragmentMineBinding>(), View.On
                     startActivity(intent)
                 } else {
                     val intent = Intent(context, OrderActivity::class.java)
+                    intent.putExtra("position", 1)
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                     startActivity(intent)
                 }
@@ -210,6 +209,7 @@ class MineFragment : BaseFragment<MinePresenter, FragmentMineBinding>(), View.On
                     startActivity(intent)
                 } else {
                     val intent = Intent(context, OrderActivity::class.java)
+                    intent.putExtra("position", 2)
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                     startActivity(intent)
                 }
@@ -221,6 +221,7 @@ class MineFragment : BaseFragment<MinePresenter, FragmentMineBinding>(), View.On
                     startActivity(intent)
                 } else {
                     val intent = Intent(context, OrderActivity::class.java)
+                    intent.putExtra("position", 3)
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                     startActivity(intent)
                 }
@@ -232,6 +233,7 @@ class MineFragment : BaseFragment<MinePresenter, FragmentMineBinding>(), View.On
                     startActivity(intent)
                 } else {
                     val intent = Intent(context, OrderActivity::class.java)
+                    intent.putExtra("position", 4)
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                     startActivity(intent)
                 }
@@ -247,24 +249,24 @@ class MineFragment : BaseFragment<MinePresenter, FragmentMineBinding>(), View.On
                     startActivity(intent)
                 }
             }
-            R.id.rl_address->{
+            R.id.rl_address -> {
                 if (!C.IS_LOGIN) {
                     val intent = Intent(context, LoginActivity::class.java)
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                     startActivity(intent)
                 } else {
                     val intent = Intent(context, MyAddressListActivity::class.java)
-                    intent.putExtra("isManager",true)
+                    intent.putExtra("isManager", true)
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                     startActivity(intent)
                 }
             }
-            R.id.rl_cooperation->{
+            R.id.rl_cooperation -> {
                 val intent = Intent(context, CooperationActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(intent)
             }
-            R.id.rl_about_kzj->{
+            R.id.rl_about_kzj -> {
                 val intent = Intent(context, AboutKzjActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(intent)

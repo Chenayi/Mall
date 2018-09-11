@@ -41,14 +41,14 @@ class SplashActivity : BaseActivity<SplashPresenter, ActivitySplashBinding>(), S
         requestPermissionWithPermissionCheck()
     }
 
-    @NeedsPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+    @NeedsPermission(Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.READ_PHONE_STATE)
     fun requestPermission() {
         mPresenter?.delayFinish(3)
     }
 
-    @OnShowRationale(Manifest.permission.READ_EXTERNAL_STORAGE)
+    @OnShowRationale(Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.READ_PHONE_STATE)
     fun showRationale(request: PermissionRequest) {
-        ConfirmDialog.newInstance("取消","确定","需要存储权限")
+        ConfirmDialog.newInstance("取消","确定","需要手机权限")
                 .setOnConfirmClickListener(object :ConfirmDialog.OnConfirmClickListener{
                     override fun onLeftClick() {
                         request.cancel()
@@ -62,9 +62,9 @@ class SplashActivity : BaseActivity<SplashPresenter, ActivitySplashBinding>(), S
                 .show(supportFragmentManager)
     }
 
-    @OnNeverAskAgain(Manifest.permission.READ_EXTERNAL_STORAGE)
+    @OnNeverAskAgain(Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.READ_PHONE_STATE)
     internal fun showNeverAsk() {
-        ConfirmDialog.newInstance("取消","确定","请到设置中打开存储权限")
+        ConfirmDialog.newInstance("取消","确定","请到设置中打开手机权限")
                 .setOnConfirmClickListener(object : ConfirmDialog.OnConfirmClickListener{
                     override fun onRightClick() {
                         val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
@@ -80,7 +80,7 @@ class SplashActivity : BaseActivity<SplashPresenter, ActivitySplashBinding>(), S
                 .show(supportFragmentManager)
     }
 
-    @OnPermissionDenied(Manifest.permission.READ_EXTERNAL_STORAGE)
+    @OnPermissionDenied(Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.READ_PHONE_STATE)
     fun showDenied() {
         requestPermissionWithPermissionCheck()
     }

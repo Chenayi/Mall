@@ -14,7 +14,7 @@ import com.kzj.mall.base.BaseListFragment
 import com.kzj.mall.di.component.AppComponent
 import com.kzj.mall.di.component.DaggerOrderComponent
 import com.kzj.mall.di.module.OrderModule
-import com.kzj.mall.entity.OrderEntity
+import com.kzj.mall.entity.order.OrderEntity
 import com.kzj.mall.mvp.contract.OrderContract
 import com.kzj.mall.mvp.presenter.OrderPresenter
 import com.kzj.mall.ui.activity.OrderDetailActivity
@@ -235,6 +235,7 @@ class OrderFragment : BaseListFragment<OrderPresenter, OrderEntity.List>(), Orde
 
     override fun onItemClick(view: View, position: Int, data: OrderEntity.List?) {
         val intent = Intent(context, OrderDetailActivity::class.java)
+        intent.putExtra("orderId", data?.order_id)
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(intent)
     }

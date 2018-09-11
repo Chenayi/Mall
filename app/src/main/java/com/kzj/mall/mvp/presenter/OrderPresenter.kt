@@ -5,7 +5,7 @@ import com.kzj.mall.C
 import com.kzj.mall.base.BaseObserver
 import com.kzj.mall.base.BasePresenter
 import com.kzj.mall.di.scope.FragmentScope
-import com.kzj.mall.entity.OrderEntity
+import com.kzj.mall.entity.order.OrderEntity
 import com.kzj.mall.http.RxScheduler
 import com.kzj.mall.mvp.contract.OrderContract
 import io.reactivex.disposables.Disposable

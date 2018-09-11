@@ -4,6 +4,9 @@ import com.kzj.mall.entity.*
 import com.kzj.mall.entity.address.*
 import com.kzj.mall.entity.cart.AddCartEntity
 import com.kzj.mall.entity.home.HomeRecommendEntity
+import com.kzj.mall.entity.order.ConfirmOrderEntity
+import com.kzj.mall.entity.order.OrderDetailEntity
+import com.kzj.mall.entity.order.OrderEntity
 import io.reactivex.Observable
 import retrofit2.http.*
 
@@ -137,21 +140,21 @@ interface ApiService {
     /**
      * 获取省份
      */
-    @POST("mobile/kzj/api/get_all_province.htm")
+    @POST("/mobile/kzj/api/get_all_province.htm")
     fun requestP(): Observable<BaseResponse<ProvinceEntity>>
 
     /**
      * 获取市
      */
     @FormUrlEncoded
-    @POST("mobile/kzj/api/get_all_citybypid.htm")
+    @POST("/mobile/kzj/api/get_all_citybypid.htm")
     fun requestC(@Field("provinceId") provinceId: String?): Observable<BaseResponse<CityEntity>>
 
     /**
      * 获取区
      */
     @FormUrlEncoded
-    @POST("mobile/kzj/api/get_all_districtbycid.htm")
+    @POST("/mobile/kzj/api/get_all_districtbycid.htm")
     fun requestD(@Field("cityId") cityId: String?): Observable<BaseResponse<DistrictEntity>>
 
 
@@ -159,20 +162,20 @@ interface ApiService {
      * 增加或修改地址
      */
     @FormUrlEncoded
-    @POST("mobile/kzj/api/user_voucher/addOrUpdate_address.htm")
+    @POST("/mobile/kzj/api/user_voucher/addOrUpdate_address.htm")
     fun addOrUpdateAddress(@Header("token") token: String?, @FieldMap params: Map<String, String>?): Observable<BaseResponse<CreateAddressEntity>>
 
     /**
      *  我的地址
      */
-    @POST("mobile/kzj/api/user_voucher/my_address.htm")
+    @POST("/mobile/kzj/api/user_voucher/my_address.htm")
     fun addressList(@Header("token") token: String?): Observable<BaseResponse<AddressEntity>>
 
     /**
      * 浏览记录
      */
     @FormUrlEncoded
-    @POST("mobile/kzj/api/user_voucher/my_browserecord_list.htm")
+    @POST("/mobile/kzj/api/user_voucher/my_browserecord_list.htm")
     fun browseRecords(@Header("token") token: String?, @Field("pageNo") pageNo: Int?, @Field("pageSize") pageSize: Int?)
             : Observable<BaseResponse<BrowseRecordEntity>>
 
@@ -180,7 +183,7 @@ interface ApiService {
      * 删除浏览记录
      */
     @FormUrlEncoded
-    @POST("mobile/kzj/api/user_voucher/batch_delete_browserecord.htm")
+    @POST("/mobile/kzj/api/user_voucher/batch_delete_browserecord.htm")
     fun deleteBrowseRecords(@Header("token") token: String?, @Field("like_ids") likeIds: LongArray?)
             : Observable<BaseResponse<SimpleResultEntity>>
 
@@ -188,7 +191,23 @@ interface ApiService {
      * 订单列表
      */
     @FormUrlEncoded
-    @POST("mobile/kzj/api/user_voucher/my_order_list.htm")
+    @POST("/mobile/kzj/api/user_voucher/my_order_list.htm")
     fun myOrderList(@Header("token") token: String?, @FieldMap params: MutableMap<String, String>?)
             : Observable<BaseResponse<OrderEntity>>
+
+    /**
+     * 订单详情
+     */
+    @FormUrlEncoded
+    @POST("/mobile/kzj/api/user_voucher/order_info.htm")
+    fun orderDetail(@Header("token") token: String?, @Field("orderId") orderId: String?)
+            : Observable<BaseResponse<OrderDetailEntity>>
+
+    /**
+     * 支付宝key
+     */
+    @FormUrlEncoded
+    @POST("/mobile/kzj/api/user_voucher/ali_pay_str.htm")
+    fun aliPayKey(@Header("token") token: String?, @Field("orderId") orderId: String?)
+            : Observable<BaseResponse<AliPayKeyEntity>>
 }

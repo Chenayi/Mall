@@ -24,6 +24,7 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorT
 class OrderActivity : BaseActivity<IPresenter, ActivityOrderBinding>() {
     private val mTitles: Array<String> = arrayOf("全部", "待付款", "待发货", "待收货", "已完成")
     private var fragments: MutableList<Fragment>? = null
+    private var position = 0
 
     private var commomViewPagerAdapter: CommomViewPagerAdapter? = null
 
@@ -35,6 +36,9 @@ class OrderActivity : BaseActivity<IPresenter, ActivityOrderBinding>() {
     }
 
     override fun initData() {
+
+        position = intent?.getIntExtra("position", 0)!!
+
         fragments = ArrayList()
         fragments?.add(OrderFragment.newInstance(OrderFragment.ORDER_STATUS_ALL))
         fragments?.add(OrderFragment.newInstance(OrderFragment.ORDER_STATUS_WAIT_PAY))
@@ -83,5 +87,7 @@ class OrderActivity : BaseActivity<IPresenter, ActivityOrderBinding>() {
 
         mBinding?.magicIndicator?.navigator = commonNavigator
         ViewPagerHelper.bind(mBinding?.magicIndicator, mBinding?.vpOrder);
+
+        mBinding?.vpOrder?.setCurrentItem(position, false)
     }
 }
