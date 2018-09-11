@@ -105,7 +105,7 @@ constructor(model: GoodsDetailContract.Model?, view: GoodsDetailContract.View?, 
     /**
      * 添加购物车
      */
-    fun addCar(carType: String, goodsNum: Int?, goodsInfoId: String?, fitId: String?){
+    fun addCar(carType: String, goodsNum: Int?, goodsInfoId: String?, fitId: String?) {
         val params = HashMap<String, String>()
         carType?.let {
             params.put("carType", it)
@@ -143,6 +143,50 @@ constructor(model: GoodsDetailContract.Model?, view: GoodsDetailContract.View?, 
 
                     override fun onHandleAfter() {
                     }
+                })
+    }
+
+    /**
+     * 处方登记
+     */
+    fun demandRecord(goodsType: String?, goodsInfoId: String?, fitId: String?) {
+        val params = HashMap<String, String>()
+        goodsType?.let {
+            params.put("goodsType", it)
+            //套餐
+            if (it.equals("2")) {
+                fitId?.let {
+                    params.put("fitId", it)
+                }
+            }
+            //单品，疗程
+            else {
+                goodsInfoId?.let {
+                    params.put("goods_info_id", it)
+                }
+            }
+        }
+
+        model?.demandRecord(params)
+                ?.compose(RxScheduler.compose())
+                ?.subscribe(object :BaseObserver<BuyEntity>(){
+                    override fun onSubscribe(d: Disposable) {
+                        addDisposable(d)
+                        view?.showLoading()
+                    }
+
+                    override fun onHandleSuccess(t: BuyEntity?) {
+                        view?.demandRecord(t)
+                    }
+
+                    override fun onHandleError(code: Int, msg: String?) {
+                        ToastUtils.showShort(msg)
+                    }
+
+                    override fun onHandleAfter() {
+                       view?.hideLoading()
+                    }
+
                 })
     }
 }

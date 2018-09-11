@@ -82,6 +82,13 @@ interface ApiService {
     fun buyNow(@Header("token") token: String?, @FieldMap params: MutableMap<String, String>?): Observable<BaseResponse<BuyEntity>>
 
     /**
+     * 处方登记
+     */
+    @FormUrlEncoded
+    @POST("/mobile//kzj/api/to_demand_record.htm")
+    fun demandRecord(@Header("token") token: String?, @FieldMap params: MutableMap<String, String>?): Observable<BaseResponse<BuyEntity>>
+
+    /**
      * 添加购物车
      */
     @FormUrlEncoded

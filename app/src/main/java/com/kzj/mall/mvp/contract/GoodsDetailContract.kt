@@ -12,11 +12,13 @@ interface GoodsDetailContract {
     interface View : IView {
         fun showGoodsDetail(goodsDetailEntity: GoodsDetailEntity?)
         fun buyNow(bayEntity: BuyEntity?)
+        fun demandRecord(buyEntity: BuyEntity?)
     }
 
     interface Model : IModel {
         fun requestGoodsDetail(params: MutableMap<String, String>): Observable<BaseResponse<GoodsDetailEntity>>?
         fun buyNow(params: MutableMap<String, String>): Observable<BaseResponse<BuyEntity>>?
         fun addCar(params: MutableMap<String, String>): Observable<BaseResponse<AddCartEntity>>?
+        fun demandRecord(params: MutableMap<String, String>):Observable<BaseResponse<BuyEntity>>?
     }
 }

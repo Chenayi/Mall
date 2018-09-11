@@ -370,8 +370,21 @@ class GoodsDetailActivity : BaseActivity<GoodsDetailPresenter, ActivityGoodsDeta
         }
     }
 
+    /**
+     * 立即购买
+     */
     override fun buyNow(buyEntity: BuyEntity?) {
         val intent = Intent(this, ConfirmOrderActivity::class.java)
+        intent?.putExtra("buyEntity", buyEntity)
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(intent)
+    }
+
+    /**
+     * 处方登记
+     */
+    override fun demandRecord(buyEntity: BuyEntity?) {
+        val intent = Intent(this, DemandRegistrationActivity::class.java)
         intent?.putExtra("buyEntity", buyEntity)
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(intent)
@@ -439,7 +452,11 @@ class GoodsDetailActivity : BaseActivity<GoodsDetailPresenter, ActivityGoodsDeta
                     return
                 }
 
-                startActivity(Intent(this,DemandRegistrationActivity::class.java))
+                var goodsType = "0"
+                if (isCombination) {
+                    goodsType = "2"
+                }
+               mPresenter?.demandRecord(goodsType,mGoodsInfoId,mCombinationId)
             }
         }
     }

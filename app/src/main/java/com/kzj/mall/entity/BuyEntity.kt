@@ -25,25 +25,26 @@ class BuyEntity : Serializable {
      * 当前地址
      */
     var address: Address? = null
+    var caddress: Address? = null
+
+    /**
+     * 处方商品
+     */
+    var goodsinfoMap: GoodsinfoMap? = null
 
     /**
      * 商品列表
      */
     var shoplist: MutableList<CartEntity.Shoplist>? = null
 
-//    class Shoplist : Serializable {
-//        var appgoods: Appgoods? = null
-//        var ggList: MutableList<GGList>? = null
-//        var shopping_cart_type:String?=null
-//    }
-//
-//    class Appgoods : Serializable {
-//        var goods_img: String? = null
-//    }
-//
-//    class GGList : Serializable {
-//        var goods_img: String? = null
-//    }
 
+    /**
+     * 处方商品
+     */
+    class GoodsinfoMap : Serializable {
+        var goods_img: String? = null
+        var goods_name: String? = null
+        var goods_price:String?=null
 
+    }
 }

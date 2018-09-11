@@ -5,11 +5,11 @@
     <com.kzj.mall.widget.RootLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:titleBarTitle="确认订单"
         app:titleBarColor="@color/fb"
         app:titleBarLeftIcon="@mipmap/back_black"
-        app:titleBarTitleColor="@color/c_2e3033"
-        app:titleBarRightTextColor="@color/c_2e3033">
+        app:titleBarRightTextColor="@color/c_2e3033"
+        app:titleBarTitle="确认订单"
+        app:titleBarTitleColor="@color/c_2e3033">
 
         <ScrollView
             android:layout_width="match_parent"
@@ -255,6 +255,7 @@
 
 
                             <ImageView
+                                android:id="@+id/iv_goods"
                                 android:layout_width="53dp"
                                 android:layout_height="53dp"
                                 android:src="@color/gray_default" />
@@ -267,6 +268,7 @@
                                 android:orientation="vertical">
 
                                 <TextView
+                                    android:id="@+id/tv_goods_name"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:maxLines="2"
@@ -281,6 +283,7 @@
                                     android:layout_weight="1">
 
                                     <TextView
+                                        android:id="@+id/tv_goods_price1"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_alignParentBottom="true"
@@ -289,13 +292,15 @@
                                         android:textSize="12dp" />
 
                                     <TextView
+                                        android:id="@+id/tv_goods_num"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_alignParentBottom="true"
                                         android:layout_alignParentRight="true"
                                         android:text="x7"
                                         android:textColor="#6A6E75"
-                                        android:textSize="12dp" />
+                                        android:textSize="12dp"
+                                        android:visibility="gone"/>
                                 </RelativeLayout>
 
                             </LinearLayout>

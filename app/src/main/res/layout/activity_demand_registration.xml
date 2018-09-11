@@ -151,100 +151,66 @@
                     android:orientation="vertical"
                     android:padding="10dp">
 
-                    <RelativeLayout
+
+                    <LinearLayout
+                        android:id="@+id/ll_one_goods"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <!--单件商品-->
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:visibility="visible">
+
+
+                        <ImageView
+                            android:id="@+id/iv_goods"
+                            android:layout_width="53dp"
+                            android:layout_height="53dp"
+                            android:src="@color/gray_default" />
 
                         <LinearLayout
-                            android:id="@+id/ll_one_goods"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:visibility="gone">
+                            android:layout_width="0dp"
+                            android:layout_height="53dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
 
-
-                            <ImageView
-                                android:layout_width="53dp"
-                                android:layout_height="53dp"
-                                android:src="@color/gray_default" />
-
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="53dp"
-                                android:layout_marginLeft="10dp"
-                                android:layout_weight="1"
-                                android:orientation="vertical">
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:maxLines="2"
-                                    android:text="SwSwisse 澳大利亚 月见草油软胶囊isse 澳大利亚 月见草油软胶囊"
-                                    android:textColor="#6A6E75"
-                                    android:textSize="12dp" />
-
-
-                                <RelativeLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="0dp"
-                                    android:layout_weight="1">
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_alignParentBottom="true"
-                                        android:text="¥158"
-                                        android:textColor="#2E3033"
-                                        android:textSize="12dp" />
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_alignParentBottom="true"
-                                        android:layout_alignParentRight="true"
-                                        android:text="x7"
-                                        android:textColor="#6A6E75"
-                                        android:textSize="12dp" />
-                                </RelativeLayout>
-
-                            </LinearLayout>
-
-                        </LinearLayout>
-
-                        <!--多件商品-->
-
-                        <LinearLayout
-                            android:id="@+id/ll_multi_goods"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:clickable="true"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal"
-                            android:visibility="visible">
-
-                            <FrameLayout
-                                android:layout_width="0dp"
+                            <TextView
+                                android:id="@+id/tv_goods_name"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:maxLines="2"
+                                android:text="SwSwisse 澳大利亚 月见草油软胶囊isse 澳大利亚 月见草油软胶囊"
+                                android:textColor="#6A6E75"
+                                android:textSize="12dp" />
+
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
                                 android:layout_weight="1">
 
-                                <com.takusemba.multisnaprecyclerview.MultiSnapRecyclerView
-                                    android:id="@+id/rv_goods"
+                                <TextView
+                                    android:id="@+id/tv_goods_price"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content" />
-                            </FrameLayout>
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentBottom="true"
+                                    android:text="¥158"
+                                    android:textColor="#2E3033"
+                                    android:textSize="12dp" />
 
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="10dp"
-                                android:src="@mipmap/more" />
-
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentBottom="true"
+                                    android:layout_alignParentRight="true"
+                                    android:text="x7"
+                                    android:textColor="#6A6E75"
+                                    android:textSize="12dp"
+                                    android:visibility="gone" />
+                            </RelativeLayout>
 
                         </LinearLayout>
 
-
-                    </RelativeLayout>
+                    </LinearLayout>
 
                     <EditText
                         android:id="@+id/et_mark"
@@ -270,8 +236,123 @@
                     android:layout_height="92dp"
                     android:layout_margin="10dp"
                     android:background="@drawable/background_white_corners_8"
-                    android:orientation="horizontal">
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="6dp"
+                    android:paddingRight="6dp">
 
+                    <FrameLayout
+                        android:id="@+id/fl_image1"
+                        android:layout_width="59dp"
+                        android:layout_height="59dp"
+                        android:layout_marginRight="6dp">
+
+                        <ImageView
+                            android:id="@+id/iv_image1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@color/gray_default" />
+
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:layout_gravity="right"
+                            android:src="@drawable/circle_orange" />
+
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:id="@+id/fl_image2"
+                        android:layout_width="59dp"
+                        android:layout_height="59dp"
+                        android:layout_marginRight="6dp">
+
+                        <ImageView
+                            android:id="@+id/iv_image2"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@color/gray_default" />
+
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:layout_gravity="right"
+                            android:src="@drawable/circle_orange" />
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:id="@+id/fl_image3"
+                        android:layout_width="59dp"
+                        android:layout_height="59dp"
+                        android:layout_marginRight="6dp">
+
+                        <ImageView
+                            android:id="@+id/iv_image3"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@color/gray_default" />
+
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:layout_gravity="right"
+                            android:src="@drawable/circle_orange" />
+
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:id="@+id/fl_image4"
+                        android:layout_width="59dp"
+                        android:layout_height="59dp"
+                        android:layout_marginRight="6dp">
+
+                        <ImageView
+                            android:id="@+id/iv_image4"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@color/gray_default" />
+
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:layout_gravity="right"
+                            android:src="@drawable/circle_orange" />
+
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <FrameLayout
+                            android:id="@+id/fl_imag5"
+                            android:layout_width="59dp"
+                            android:layout_height="59dp"
+                            android:layout_gravity="center"
+                            android:visibility="visible">
+
+                            <ImageView
+                                android:id="@+id/iv_image5"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:src="@color/gray_default" />
+
+                            <ImageView
+                                android:layout_width="16dp"
+                                android:layout_height="16dp"
+                                android:layout_gravity="right"
+                                android:src="@drawable/circle_orange" />
+                        </FrameLayout>
+
+                        <ImageView
+                            android:id="@+id/iv_camera"
+                            android:layout_width="69dp"
+                            android:layout_height="69dp"
+                            android:layout_gravity="center"
+                            android:src="@mipmap/icon_camera"
+                            android:visibility="gone" />
+
+                    </FrameLayout>
 
                 </LinearLayout>
 
@@ -282,9 +363,9 @@
                     android:layout_marginBottom="10dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
+                    android:lineSpacingMultiplier="1.2"
                     android:text="国家相关法律规定，处方药需凭处方笺销售，请上传处方笺，如需求紧急请直接拨400-636-5343药师咨询热线"
                     android:textColor="#8A9099"
-                    android:lineSpacingMultiplier="1.2"
                     android:textSize="12dp" />
 
 
@@ -305,7 +386,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/tv_goods_price"
+                android:id="@+id/tv_all_goods_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="合计：¥0.00"

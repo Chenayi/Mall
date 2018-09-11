@@ -92,13 +92,33 @@ class ConfirmOrderActivity : BaseActivity<ConfirmOrderPresenter, ActivityConfirm
             }
         }
 
-        goodsAdapter = GoodsAdapter(goodsImgs)
-        mBinding?.rvGoods?.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        mBinding?.rvGoods?.adapter = goodsAdapter
-        goodsAdapter?.setOnItemClickListener { adapter, view, position ->
-            val intent = Intent(this@ConfirmOrderActivity, OrderGoodsListActivity::class.java)
-            intent.putExtra("buyEntity", buyEntity)
-            startActivity(intent)
+        //单件商品
+        if (goodsImgs?.size == 1) {
+            mBinding?.llOneGoods?.visibility = View.VISIBLE
+            mBinding?.llMultiGoods?.visibility = View.GONE
+            buyEntity?.shoplist?.get(0)?.appgoods.let {
+                mBinding?.tvGoodsName?.text = it?.goods_name
+                mBinding?.tvGoodsPrice1?.text = "¥" + it?.goods_price
+                mBinding?.tvGoodsNum?.text = "x" + it?.goods_num
+                GlideApp.with(this)
+                        .load(it?.goods_img)
+                        .placeholder(R.color.gray_default)
+                        .centerCrop()
+                        .into(mBinding?.ivGoods!!)
+            }
+        }
+        //多件商品
+        else {
+            mBinding?.llOneGoods?.visibility = View.GONE
+            mBinding?.llMultiGoods?.visibility = View.VISIBLE
+            goodsAdapter = GoodsAdapter(goodsImgs)
+            mBinding?.rvGoods?.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+            mBinding?.rvGoods?.adapter = goodsAdapter
+            goodsAdapter?.setOnItemClickListener { adapter, view, position ->
+                val intent = Intent(this@ConfirmOrderActivity, OrderGoodsListActivity::class.java)
+                intent.putExtra("buyEntity", buyEntity)
+                startActivity(intent)
+            }
         }
 
         mBinding?.tvGoodsPrice?.text = "¥" + buyEntity?.sumOldPrice
