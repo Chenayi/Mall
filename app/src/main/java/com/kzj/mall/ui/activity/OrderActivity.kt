@@ -12,6 +12,7 @@ import com.kzj.mall.base.BaseActivity
 import com.kzj.mall.base.IPresenter
 import com.kzj.mall.databinding.ActivityOrderBinding
 import com.kzj.mall.di.component.AppComponent
+import com.kzj.mall.entity.order.OrderEntity
 import com.kzj.mall.ui.fragment.OrderFragment
 import net.lucode.hackware.magicindicator.ViewPagerHelper
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator
@@ -40,11 +41,11 @@ class OrderActivity : BaseActivity<IPresenter, ActivityOrderBinding>() {
         position = intent?.getIntExtra("position", 0)!!
 
         fragments = ArrayList()
-        fragments?.add(OrderFragment.newInstance(OrderFragment.ORDER_STATUS_ALL))
-        fragments?.add(OrderFragment.newInstance(OrderFragment.ORDER_STATUS_WAIT_PAY))
-        fragments?.add(OrderFragment.newInstance(OrderFragment.ORDER_STATUS_WAIT_SEND))
-        fragments?.add(OrderFragment.newInstance(OrderFragment.ORDER_STATUS_WAIT_TAKE))
-        fragments?.add(OrderFragment.newInstance(OrderFragment.ORDER_STATUS_FINISH))
+        fragments?.add(OrderFragment.newInstance(OrderEntity.ORDER_STATUS_ALL))
+        fragments?.add(OrderFragment.newInstance(OrderEntity.ORDER_STATUS_WAIT_PAY))
+        fragments?.add(OrderFragment.newInstance(OrderEntity.ORDER_STATUS_WAIT_SEND))
+        fragments?.add(OrderFragment.newInstance(OrderEntity.ORDER_STATUS_WAIT_TAKE))
+        fragments?.add(OrderFragment.newInstance(OrderEntity.ORDER_STATUS_FINISH))
         commomViewPagerAdapter = CommomViewPagerAdapter(supportFragmentManager, fragments!!)
         mBinding?.vpOrder?.adapter = commomViewPagerAdapter
         mBinding?.vpOrder?.offscreenPageLimit = fragments?.size!!

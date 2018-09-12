@@ -43,14 +43,14 @@ class OrderDetailEntity {
      * 单品
      */
     class DPMap : IGoodsDetail {
-        var goods: MutableList<Goods>? = null
+        var goods: Goods? = null
     }
 
     /**
      * 疗程
      */
     class LCMap : IGoodsDetail {
-        var goods: MutableList<Goods>? = null
+        var goods: Goods? = null
         var combination: Combination? = null
     }
 

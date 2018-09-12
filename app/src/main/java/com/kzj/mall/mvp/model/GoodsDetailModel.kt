@@ -6,6 +6,7 @@ import com.kzj.mall.di.scope.ActivityScope
 import com.kzj.mall.entity.BaseResponse
 import com.kzj.mall.entity.BuyEntity
 import com.kzj.mall.entity.GoodsDetailEntity
+import com.kzj.mall.entity.SimpleResultEntity
 import com.kzj.mall.entity.cart.AddCartEntity
 import com.kzj.mall.http.HttpUtils
 import com.kzj.mall.http.api.ApiService
@@ -17,7 +18,11 @@ import javax.inject.Inject
 class GoodsDetailModel @Inject
 constructor(httpUtils: HttpUtils?) : BaseModel(httpUtils), GoodsDetailContract.Model {
     override fun requestGoodsDetail(params: MutableMap<String, String>) = httpUtils?.obtainRetrofitService(ApiService::class.java)?.requestGoodsDetail(params)
+    override fun requestGoodsDetailWithLogin(params: MutableMap<String, String>) = httpUtils?.obtainRetrofitService(ApiService::class.java)
+            ?.requestGoodsDetailWithLogin(C.TOKEN, params)
+
     override fun buyNow(params: MutableMap<String, String>) = httpUtils?.obtainRetrofitService(ApiService::class.java)?.buyNow(C.Companion.TOKEN, params)
     override fun addCar(params: MutableMap<String, String>) = httpUtils?.obtainRetrofitService(ApiService::class.java)?.addCart(C.Companion.TOKEN, params)
     override fun demandRecord(params: MutableMap<String, String>) = httpUtils?.obtainRetrofitService(ApiService::class.java)?.demandRecord(C.TOKEN, params)
+    override fun saveGoodsAtte(goodsInfoId: String?) = httpUtils?.obtainRetrofitService(ApiService::class.java)?.saveGoodsAtte(C.TOKEN, goodsInfoId)
 }

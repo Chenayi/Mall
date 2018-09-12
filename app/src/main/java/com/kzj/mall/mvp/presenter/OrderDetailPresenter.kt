@@ -15,6 +15,9 @@ class OrderDetailPresenter @Inject
 constructor(model: OrderDetailContract.Model, view: OrderDetailContract.View?, context: Context?)
     : BasePresenter<OrderDetailContract.Model, OrderDetailContract.View>(model, view, context) {
 
+    /**
+     * 详情数据
+     */
     fun orderDetail(orderId:String?){
         model?.orderDetail(orderId)
                 ?.compose(RxScheduler.compose())

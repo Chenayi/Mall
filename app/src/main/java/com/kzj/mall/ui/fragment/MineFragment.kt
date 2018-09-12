@@ -26,6 +26,8 @@ import org.greenrobot.eventbus.Subscribe
 import q.rorbin.badgeview.QBadgeView
 
 class MineFragment : BaseFragment<MinePresenter, FragmentMineBinding>(), View.OnClickListener, MineContract.View {
+    private var followLists: MutableList<MineEntity.FollowList>? = null
+
     companion object {
         fun newInstance(): MineFragment {
             val mineFragment = MineFragment()
@@ -83,6 +85,11 @@ class MineFragment : BaseFragment<MinePresenter, FragmentMineBinding>(), View.On
         mBinding?.rlAddress?.setOnClickListener(this)
         mBinding?.rlCooperation?.setOnClickListener(this)
         mBinding?.rlAboutKzj?.setOnClickListener(this)
+        mBinding?.llMyCollect?.setOnClickListener(this)
+        mBinding?.ivCGoods1?.setOnClickListener(this)
+        mBinding?.ivCGoods2?.setOnClickListener(this)
+        mBinding?.ivCGoods3?.setOnClickListener(this)
+        mBinding?.ivCGoods4?.setOnClickListener(this)
     }
 
     @Subscribe
@@ -105,9 +112,87 @@ class MineFragment : BaseFragment<MinePresenter, FragmentMineBinding>(), View.On
         mBinding?.ivBg?.setImageResource(R.mipmap.mine_logined)
 
         //商品收藏
-        val followLists = mineEntity?.follows?.list
+        followLists = mineEntity?.follows?.list
         followLists?.let {
-            mBinding?.llMyCollect?.visibility = View.VISIBLE
+
+            if (it.size > 0) {
+
+                mBinding?.llMyCollect?.visibility = View.VISIBLE
+                if (it.size == 1) {
+                    mBinding?.ivCGoods1?.visibility = View.VISIBLE
+                    GlideApp.with(context!!)
+                            .load(it?.get(0)?.good?.goodsImg)
+                            .placeholder(R.color.gray_default)
+                            .centerCrop()
+                            .into(mBinding?.ivCGoods1!!)
+                } else if (it.size == 2) {
+                    mBinding?.ivCGoods1?.visibility = View.VISIBLE
+                    mBinding?.ivCGoods2?.visibility = View.VISIBLE
+                    GlideApp.with(context!!)
+                            .load(it?.get(0)?.good?.goodsImg)
+                            .placeholder(R.color.gray_default)
+                            .centerCrop()
+                            .into(mBinding?.ivCGoods1!!)
+
+                    GlideApp.with(context!!)
+                            .load(it?.get(1)?.good?.goodsImg)
+                            .placeholder(R.color.gray_default)
+                            .centerCrop()
+                            .into(mBinding?.ivCGoods2!!)
+                } else if (it.size == 3) {
+                    mBinding?.ivCGoods1?.visibility = View.VISIBLE
+                    mBinding?.ivCGoods2?.visibility = View.VISIBLE
+                    mBinding?.ivCGoods3?.visibility = View.VISIBLE
+
+                    GlideApp.with(context!!)
+                            .load(it?.get(0)?.good?.goodsImg)
+                            .placeholder(R.color.gray_default)
+                            .centerCrop()
+                            .into(mBinding?.ivCGoods1!!)
+
+                    GlideApp.with(context!!)
+                            .load(it?.get(1)?.good?.goodsImg)
+                            .placeholder(R.color.gray_default)
+                            .centerCrop()
+                            .into(mBinding?.ivCGoods2!!)
+
+                    GlideApp.with(context!!)
+                            .load(it?.get(2)?.good?.goodsImg)
+                            .placeholder(R.color.gray_default)
+                            .centerCrop()
+                            .into(mBinding?.ivCGoods3!!)
+
+                } else {
+                    mBinding?.ivCGoods1?.visibility = View.VISIBLE
+                    mBinding?.ivCGoods2?.visibility = View.VISIBLE
+                    mBinding?.ivCGoods3?.visibility = View.VISIBLE
+                    mBinding?.ivCGoods4?.visibility = View.VISIBLE
+
+                    GlideApp.with(context!!)
+                            .load(it?.get(0)?.good?.goodsImg)
+                            .placeholder(R.color.gray_default)
+                            .centerCrop()
+                            .into(mBinding?.ivCGoods1!!)
+
+                    GlideApp.with(context!!)
+                            .load(it?.get(1)?.good?.goodsImg)
+                            .placeholder(R.color.gray_default)
+                            .centerCrop()
+                            .into(mBinding?.ivCGoods2!!)
+
+                    GlideApp.with(context!!)
+                            .load(it?.get(2)?.good?.goodsImg)
+                            .placeholder(R.color.gray_default)
+                            .centerCrop()
+                            .into(mBinding?.ivCGoods3!!)
+
+                    GlideApp.with(context!!)
+                            .load(it?.get(3)?.good?.goodsImg)
+                            .placeholder(R.color.gray_default)
+                            .centerCrop()
+                            .into(mBinding?.ivCGoods4!!)
+                }
+            }
         }
 
         //订单数目
@@ -143,6 +228,12 @@ class MineFragment : BaseFragment<MinePresenter, FragmentMineBinding>(), View.On
         setBadgeNum(mBinding?.rlOrderWaitSend, 0)
         setBadgeNum(mBinding?.rlOrderWaitTake, 0)
         setBadgeNum(mBinding?.rlOrderFinish, 0)
+
+        mBinding?.ivCGoods1?.visibility = View.INVISIBLE
+        mBinding?.ivCGoods2?.visibility = View.INVISIBLE
+        mBinding?.ivCGoods3?.visibility = View.INVISIBLE
+        mBinding?.ivCGoods4?.visibility = View.INVISIBLE
+        mBinding?.llMyCollect?.visibility = View.GONE
     }
 
     private fun setBadgeNum(view: View?, num: Int) {
@@ -152,6 +243,14 @@ class MineFragment : BaseFragment<MinePresenter, FragmentMineBinding>(), View.On
                 .setGravityOffset(8f, 0f, true)
                 .setBadgeTextSize(12f, true)
                 .setBadgeNumber(num)
+    }
+
+
+    override fun onSupportVisible() {
+        super.onSupportVisible()
+        if (isAcquired && C.IS_LOGIN) {
+            mPresenter?.requestMine()
+        }
     }
 
     override fun onClick(v: View?) {
@@ -268,6 +367,53 @@ class MineFragment : BaseFragment<MinePresenter, FragmentMineBinding>(), View.On
             }
             R.id.rl_about_kzj -> {
                 val intent = Intent(context, AboutKzjActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent)
+            }
+
+            R.id.iv_c_goods1 -> {
+                followLists?.let {
+                    if (it.size > 0) {
+                        val intent = Intent(context, GoodsDetailActivity::class.java)
+                        intent?.putExtra(C.GOODS_INFO_ID, it.get(0)?.good?.goodsInfoId)
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        startActivity(intent)
+                    }
+                }
+            }
+            R.id.iv_c_goods2 -> {
+                followLists?.let {
+                    if (it.size > 1) {
+                        val intent = Intent(context, GoodsDetailActivity::class.java)
+                        intent?.putExtra(C.GOODS_INFO_ID, it.get(1)?.good?.goodsInfoId)
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        startActivity(intent)
+                    }
+                }
+            }
+            R.id.iv_c_goods3 -> {
+                followLists?.let {
+                    if (it.size > 2) {
+                        val intent = Intent(context, GoodsDetailActivity::class.java)
+                        intent?.putExtra(C.GOODS_INFO_ID, it.get(2)?.good?.goodsInfoId)
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        startActivity(intent)
+                    }
+                }
+            }
+            R.id.iv_c_goods4 -> {
+                followLists?.let {
+                    if (it.size > 3) {
+                        val intent = Intent(context, GoodsDetailActivity::class.java)
+                        intent?.putExtra(C.GOODS_INFO_ID, it.get(3)?.good?.goodsInfoId)
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        startActivity(intent)
+                    }
+                }
+            }
+
+            R.id.ll_my_collect -> {
+                val intent = Intent(context, MyCollectGoodsActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(intent)
             }

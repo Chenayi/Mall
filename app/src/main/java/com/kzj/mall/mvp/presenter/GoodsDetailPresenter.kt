@@ -7,11 +7,14 @@ import com.kzj.mall.C
 import com.kzj.mall.base.BaseObserver
 import com.kzj.mall.base.BasePresenter
 import com.kzj.mall.di.scope.ActivityScope
+import com.kzj.mall.entity.BaseResponse
 import com.kzj.mall.entity.BuyEntity
 import com.kzj.mall.entity.GoodsDetailEntity
+import com.kzj.mall.entity.SimpleResultEntity
 import com.kzj.mall.entity.cart.AddCartEntity
 import com.kzj.mall.http.RxScheduler
 import com.kzj.mall.mvp.contract.GoodsDetailContract
+import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
 import javax.inject.Inject
 
@@ -25,16 +28,17 @@ constructor(model: GoodsDetailContract.Model?, view: GoodsDetailContract.View?, 
      */
     fun requesrGoodsDetail(goodsId: String?) {
         val params = HashMap<String, String>()
-
+        val requestGoodsDetailWithLogin: Observable<BaseResponse<GoodsDetailEntity>>?
         if (C.IS_LOGIN) {
-
+            requestGoodsDetailWithLogin = model?.requestGoodsDetailWithLogin(params)
+        } else {
+            requestGoodsDetailWithLogin = model?.requestGoodsDetail(params)
         }
         goodsId?.let {
             params.put(C.GOODS_INFO_ID, it)
         }
 
-        model?.requestGoodsDetail(params)
-                ?.compose(RxScheduler.compose())
+        requestGoodsDetailWithLogin?.compose(RxScheduler.compose())
                 ?.subscribe(object : BaseObserver<GoodsDetailEntity>() {
                     override fun onSubscribe(d: Disposable) {
                         view?.showLoading()
@@ -151,7 +155,7 @@ constructor(model: GoodsDetailContract.Model?, view: GoodsDetailContract.View?, 
      */
     fun demandRecord(goodsType: String?, goodsInfoId: String?, fitId: String?) {
 
-        LogUtils.e(goodsType+" , " + goodsInfoId +" , " + fitId)
+        LogUtils.e(goodsType + " , " + goodsInfoId + " , " + fitId)
 
         val params = HashMap<String, String>()
         goodsType?.let {
@@ -172,7 +176,7 @@ constructor(model: GoodsDetailContract.Model?, view: GoodsDetailContract.View?, 
 
         model?.demandRecord(params)
                 ?.compose(RxScheduler.compose())
-                ?.subscribe(object :BaseObserver<BuyEntity>(){
+                ?.subscribe(object : BaseObserver<BuyEntity>() {
                     override fun onSubscribe(d: Disposable) {
                         addDisposable(d)
                         view?.showLoading()
@@ -187,7 +191,38 @@ constructor(model: GoodsDetailContract.Model?, view: GoodsDetailContract.View?, 
                     }
 
                     override fun onHandleAfter() {
-                       view?.hideLoading()
+                        view?.hideLoading()
+                    }
+
+                })
+    }
+
+    /**
+     * 收藏商品
+     */
+    fun saveGoodsAtte(goodsInfoId: String?, isAdd: Boolean) {
+        model?.saveGoodsAtte(goodsInfoId)
+                ?.compose(RxScheduler.compose())
+                ?.subscribe(object : BaseObserver<SimpleResultEntity>() {
+                    override fun onSubscribe(d: Disposable) {
+                        addDisposable(d)
+                        view?.showLoading()
+                    }
+
+                    override fun onHandleSuccess(t: SimpleResultEntity?) {
+                        if (isAdd) {
+                            view?.colllectSuccess()
+                        } else {
+                            view?.cancelCollectSuccess()
+                        }
+                    }
+
+                    override fun onHandleError(code: Int, msg: String?) {
+                        view?.onError(code, msg)
+                    }
+
+                    override fun onHandleAfter() {
+                        view?.hideLoading()
                     }
 
                 })

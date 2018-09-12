@@ -93,6 +93,7 @@
         <activity android:name=".ui.activity.CooperationActivity" />
         <activity android:name=".ui.activity.AboutKzjActivity" />
         <activity android:name=".ui.activity.DemandRegistrationActivity" />
+        <activity android:name=".ui.activity.MyCollectGoodsActivity" />
 
 
     </application>

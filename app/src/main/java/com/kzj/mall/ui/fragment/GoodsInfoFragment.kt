@@ -1,5 +1,6 @@
 package com.kzj.mall.ui.fragment
 
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.Paint
 import android.os.Bundle
@@ -11,6 +12,7 @@ import android.view.View
 import android.widget.*
 import cn.bingoogolapple.bgabanner.BGABanner
 import com.blankj.utilcode.util.ScreenUtils
+import com.kzj.mall.C
 import com.kzj.mall.GlideApp
 import com.kzj.mall.R
 import com.kzj.mall.base.BaseFragment
@@ -20,6 +22,7 @@ import com.kzj.mall.di.component.AppComponent
 import com.kzj.mall.entity.GoodsDetailEntity
 import com.kzj.mall.event.*
 import com.kzj.mall.ui.activity.GoodsDetailActivity
+import com.kzj.mall.ui.activity.login.LoginActivity
 import com.kzj.mall.ui.dialog.GoodsSpecDialog
 import com.kzj.mall.widget.ObservableScrollView
 import com.kzj.mall.widget.SlideDetailsLayout
@@ -338,6 +341,12 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
                 mBinding?.slideDetailsLayout?.smoothClose(true)
             }
             R.id.ll_follow -> {
+                if (!C.IS_LOGIN){
+                    val intent = Intent(context,LoginActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    startActivity(intent)
+                    return
+                }
                 addOrCancelFollow()
             }
         }
@@ -345,21 +354,23 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
 
     private fun addOrCancelFollow() {
         llFollow?.isEnabled = false
-        (activity as GoodsDetailActivity).addOrCancelFollow(isFollow, object : GoodsDetailActivity.OnFollowCallBack {
-            override fun onFollowCallBack(isFollow: Boolean?) {
-                if (isFollow == true) {
-                    tvFollow?.setText("已关注")
-                    tvFollow?.setTextColor(ContextCompat.getColor(context!!, R.color.colorPrimary))
-                    ivFollow?.setImageResource(R.mipmap.icon_collected)
-                } else {
-                    tvFollow?.setText("关注")
-                    tvFollow?.setTextColor(Color.parseColor("#6A6E75"))
-                    ivFollow?.setImageResource(R.mipmap.sc)
-                }
-                this@GoodsInfoFragment.isFollow = isFollow!!
-                llFollow?.isEnabled = true
-            }
-        })
+        (activity as GoodsDetailActivity).addOrCancelFollow(isFollow)
+    }
+
+    fun colllectSuccess() {
+        tvFollow?.setText("已关注")
+        tvFollow?.setTextColor(ContextCompat.getColor(context!!, R.color.colorPrimary))
+        ivFollow?.setImageResource(R.mipmap.icon_collected)
+        llFollow?.isEnabled = true
+        this@GoodsInfoFragment.isFollow = true
+    }
+
+    fun cancelCollectSuccess() {
+        tvFollow?.setText("关注")
+        tvFollow?.setTextColor(Color.parseColor("#6A6E75"))
+        ivFollow?.setImageResource(R.mipmap.sc)
+        llFollow?.isEnabled = true
+        this@GoodsInfoFragment.isFollow = false
     }
 
     fun onBackClick() {

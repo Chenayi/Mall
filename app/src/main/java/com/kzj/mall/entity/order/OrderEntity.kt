@@ -3,10 +3,11 @@ package com.kzj.mall.entity.order
 class OrderEntity {
 
     companion object {
+        val ORDER_STATUS_ALL = -1
         val ORDER_STATUS_WAIT_PAY = 0
         val ORDER_STATUS_WAIT_SEND = 1
         val ORDER_STATUS_WAIT_TAKE = 2
-        val ORDER_STATUS_FINISH = 11
+        val ORDER_STATUS_FINISH = 3
     }
 
     var orderList: OrderList? = null;

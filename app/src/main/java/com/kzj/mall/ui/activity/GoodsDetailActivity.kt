@@ -264,7 +264,7 @@ class GoodsDetailActivity : BaseActivity<GoodsDetailPresenter, ActivityGoodsDeta
         if (isCombination) {
             goodsType = "2"
         }
-        mPresenter?.demandRecord(goodsType,mGoodsInfoId,mCombinationId)
+        mPresenter?.demandRecord(goodsType, mGoodsInfoId, mCombinationId)
     }
 
 
@@ -357,10 +357,10 @@ class GoodsDetailActivity : BaseActivity<GoodsDetailPresenter, ActivityGoodsDeta
 
         val gn = goodsDetailEntity?.gn
         gn?.goodsStock?.let {
-            if (it<=0){
+            if (it <= 0) {
                 mBinding?.tvNoStock?.visibility = View.VISIBLE
                 mBinding?.llBottom?.visibility = View.GONE
-            }else{
+            } else {
                 mBinding?.tvNoStock?.visibility = View.GONE
                 mBinding?.llBottom?.visibility = View.VISIBLE
             }
@@ -428,18 +428,18 @@ class GoodsDetailActivity : BaseActivity<GoodsDetailPresenter, ActivityGoodsDeta
     /**
      * 关注或取消关注
      */
-    fun addOrCancelFollow(isFollow: Boolean?, c: OnFollowCallBack) {
-        LogUtils.e("关注或者取消关注...")
-        isFollow?.let {
-            c?.onFollowCallBack(!it)
-        }
+    fun addOrCancelFollow(isFollow: Boolean) {
+        mPresenter?.saveGoodsAtte(mGoodsInfoId, !isFollow)
     }
 
 
-    interface OnFollowCallBack {
-        fun onFollowCallBack(isFollow: Boolean?)
+    override fun colllectSuccess() {
+        (fragments?.get(0) as GoodsInfoFragment).colllectSuccess()
     }
 
+    override fun cancelCollectSuccess() {
+        (fragments?.get(0) as GoodsInfoFragment).cancelCollectSuccess()
+    }
 
     override fun onClick(v: View?) {
         when (v?.id) {
@@ -466,7 +466,7 @@ class GoodsDetailActivity : BaseActivity<GoodsDetailPresenter, ActivityGoodsDeta
                 mPresenter?.buyNow(carType, mGoodsNum, mGoodsInfoId, mCombinationId)
             }
 
-            R.id.tv_request_checkin->{
+            R.id.tv_request_checkin -> {
                 if (!C.IS_LOGIN) {
                     val intent = Intent(this, LoginActivity::class.java)
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -478,7 +478,7 @@ class GoodsDetailActivity : BaseActivity<GoodsDetailPresenter, ActivityGoodsDeta
                 if (isCombination) {
                     goodsType = "2"
                 }
-               mPresenter?.demandRecord(goodsType,mGoodsInfoId,mCombinationId)
+                mPresenter?.demandRecord(goodsType, mGoodsInfoId, mCombinationId)
             }
         }
     }

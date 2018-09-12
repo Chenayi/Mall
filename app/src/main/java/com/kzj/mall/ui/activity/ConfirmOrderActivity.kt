@@ -197,12 +197,10 @@ class ConfirmOrderActivity : BaseActivity<ConfirmOrderPresenter, ActivityConfirm
 
     override fun showAliPayKey(key: String?) {
         dismissLoadingDialog()
-        LogUtils.e("key ===> " + key)
-
         val payRunnable = Runnable {
             val alipay = PayTask(this@ConfirmOrderActivity)
             val result = alipay.payV2(key, true)
-            LogUtils.e("msp", result.toString())
+            LogUtils.e("msp ===> " + result.toString())
         }
 
         val payThread = Thread(payRunnable)

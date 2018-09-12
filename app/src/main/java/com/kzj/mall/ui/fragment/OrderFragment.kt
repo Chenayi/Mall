@@ -20,16 +20,10 @@ import com.kzj.mall.mvp.presenter.OrderPresenter
 import com.kzj.mall.ui.activity.OrderDetailActivity
 
 class OrderFragment : BaseListFragment<OrderPresenter, OrderEntity.List>(), OrderContract.View {
-    private var onderStatus = ORDER_STATUS_ALL
+    private var onderStatus =  OrderEntity.ORDER_STATUS_ALL
 
 
     companion object {
-        val ORDER_STATUS_ALL = -1
-        val ORDER_STATUS_WAIT_PAY = 0
-        val ORDER_STATUS_WAIT_SEND = 1
-        val ORDER_STATUS_WAIT_TAKE = 2
-        val ORDER_STATUS_FINISH = 11
-
         fun newInstance(orderStatus: Int): OrderFragment {
             val orderFragment = OrderFragment()
             val arguments = Bundle()
@@ -200,7 +194,7 @@ class OrderFragment : BaseListFragment<OrderPresenter, OrderEntity.List>(), Orde
         //订单状态
         val orderStatus = data?.order_status
         when (orderStatus) {
-            ORDER_STATUS_WAIT_PAY -> {
+            OrderEntity.ORDER_STATUS_WAIT_PAY -> {
                 helper?.setText(R.id.tv_order_status, "待付款")
                         ?.setGone(R.id.tv_handel, true)
                         ?.setText(R.id.tv_handel, "立即支付")
@@ -208,12 +202,12 @@ class OrderFragment : BaseListFragment<OrderPresenter, OrderEntity.List>(), Orde
                         ?.setBackgroundRes(R.id.tv_handel, R.drawable.background_orange_corners_9999)
             }
 
-            ORDER_STATUS_WAIT_SEND -> {
+            OrderEntity.ORDER_STATUS_WAIT_SEND -> {
                 helper?.setText(R.id.tv_order_status, "待发货")
                         ?.setGone(R.id.tv_handel, false)
             }
 
-            ORDER_STATUS_WAIT_TAKE -> {
+            OrderEntity.ORDER_STATUS_WAIT_TAKE -> {
                 helper?.setText(R.id.tv_order_status, "待收货")
                         ?.setGone(R.id.tv_handel, true)
                         ?.setText(R.id.tv_handel, "确认收货")
@@ -221,7 +215,7 @@ class OrderFragment : BaseListFragment<OrderPresenter, OrderEntity.List>(), Orde
                         ?.setBackgroundRes(R.id.tv_handel, R.drawable.background_orange_corners_9999)
             }
 
-            ORDER_STATUS_FINISH -> {
+            OrderEntity.ORDER_STATUS_FINISH -> {
                 helper?.setText(R.id.tv_order_status, "已完成")
                         ?.setGone(R.id.tv_handel, true)
                         ?.setText(R.id.tv_handel, "再次购买")
@@ -246,7 +240,7 @@ class OrderFragment : BaseListFragment<OrderPresenter, OrderEntity.List>(), Orde
 
     override fun initData() {
         super.initData()
-        if (onderStatus == ORDER_STATUS_ALL) {
+        if (onderStatus ==  OrderEntity.ORDER_STATUS_ALL) {
             mPresenter?.myOrderList(null, pageNo, false, true)
         } else {
             mPresenter?.myOrderList(onderStatus, pageNo, false, true)
@@ -255,7 +249,7 @@ class OrderFragment : BaseListFragment<OrderPresenter, OrderEntity.List>(), Orde
 
     override fun onRefresh() {
         pageNo = 1
-        if (onderStatus == ORDER_STATUS_ALL) {
+        if (onderStatus ==  OrderEntity.ORDER_STATUS_ALL) {
             mPresenter?.myOrderList(null, pageNo, false, false)
         } else {
             mPresenter?.myOrderList(onderStatus, pageNo, false, false)
@@ -264,7 +258,7 @@ class OrderFragment : BaseListFragment<OrderPresenter, OrderEntity.List>(), Orde
 
     override fun onLoadMore() {
         pageNo += 1
-        if (onderStatus == ORDER_STATUS_ALL) {
+        if (onderStatus ==  OrderEntity.ORDER_STATUS_ALL) {
             mPresenter?.myOrderList(null, pageNo, true, false)
         } else {
             mPresenter?.myOrderList(onderStatus, pageNo, true, false)

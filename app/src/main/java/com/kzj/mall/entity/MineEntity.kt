@@ -21,7 +21,12 @@ class MineEntity {
     }
 
     class FollowList {
+        var good: Good? = null
+    }
 
+    class Good {
+        var goodsImg: String? = null
+        var goodsInfoId: String? = null
     }
 
     class OrderSum {

@@ -248,7 +248,7 @@
                     android:background="@drawable/background_white_corners_8"
                     android:clickable="true"
                     android:orientation="vertical"
-                    android:visibility="gone">
+                    android:visibility="visible">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -306,9 +306,11 @@
                             android:layout_weight="1">
 
                             <com.kzj.mall.widget.RectImageView
+                                android:id="@+id/iv_c_goods1"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:src="#EFF9ED" />
+                                android:src="#EFF9ED"
+                                android:visibility="invisible" />
 
 
                         </LinearLayout>
@@ -320,9 +322,11 @@
                             android:layout_weight="1">
 
                             <com.kzj.mall.widget.RectImageView
+                                android:id="@+id/iv_c_goods2"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:src="#EFF9ED" />
+                                android:src="#EFF9ED"
+                                android:visibility="invisible" />
                         </RelativeLayout>
 
                         <RelativeLayout
@@ -332,9 +336,11 @@
                             android:layout_weight="1">
 
                             <com.kzj.mall.widget.RectImageView
+                                android:id="@+id/iv_c_goods3"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:src="#EFF9ED" />
+                                android:src="#EFF9ED"
+                                android:visibility="invisible" />
                         </RelativeLayout>
 
                         <RelativeLayout
@@ -345,9 +351,11 @@
                             android:layout_weight="1">
 
                             <com.kzj.mall.widget.RectImageView
+                                android:id="@+id/iv_c_goods4"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:src="#EFF9ED" />
+                                android:src="#EFF9ED"
+                                android:visibility="invisible" />
                         </RelativeLayout>
 
                     </LinearLayout>
