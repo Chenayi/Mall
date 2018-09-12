@@ -150,6 +150,9 @@ constructor(model: GoodsDetailContract.Model?, view: GoodsDetailContract.View?, 
      * 处方登记
      */
     fun demandRecord(goodsType: String?, goodsInfoId: String?, fitId: String?) {
+
+        LogUtils.e(goodsType+" , " + goodsInfoId +" , " + fitId)
+
         val params = HashMap<String, String>()
         goodsType?.let {
             params.put("goodsType", it)

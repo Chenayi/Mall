@@ -89,11 +89,15 @@ abstract class BaseActivity<P : IPresenter, D : ViewDataBinding> : SupportActivi
     }
 
     protected fun showLoadingDialog() {
+        showLoadingDialog(true)
+    }
+
+    protected fun showLoadingDialog(backCancelable: Boolean) {
         if (mLoadingDialog == null) {
             mLoadingDialog = LoadingDialog
                     .Builder(this)
                     .setCancelOutside(false)
-                    .setBackCancelable(true)
+                    .setBackCancelable(backCancelable)
                     .setShowMessage(false)
                     .create()
         }

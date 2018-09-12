@@ -104,6 +104,7 @@ class GoodsSpecDialog : BaseDialog<GoodsSpecPresenter, DialogGoodsSpecBinding>()
         mBinding?.ivClose?.setOnClickListener(this)
         mBinding?.tvAddCart?.setOnClickListener(this)
         mBinding?.tvBuy?.setOnClickListener(this)
+        mBinding?.tvRequestCheckin?.setOnClickListener(this)
     }
 
     /**
@@ -280,6 +281,7 @@ class GoodsSpecDialog : BaseDialog<GoodsSpecPresenter, DialogGoodsSpecBinding>()
             R.id.iv_close -> dismiss()
             R.id.tv_add_cart -> addCart()
             R.id.tv_buy -> buy()
+            R.id.tv_request_checkin->submitDemand()
         }
     }
 
@@ -296,6 +298,14 @@ class GoodsSpecDialog : BaseDialog<GoodsSpecPresenter, DialogGoodsSpecBinding>()
      */
     fun buy() {
         EventBus.getDefault().post(BuyNowEvent())
+        dismiss()
+    }
+
+    /**
+     *  提交处方登记
+     */
+    fun submitDemand(){
+        EventBus.getDefault().post(SubmitDemandEvent())
         dismiss()
     }
 

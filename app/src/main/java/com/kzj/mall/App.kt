@@ -1,6 +1,7 @@
 package com.kzj.mall
 
 import android.app.Application
+import android.support.multidex.MultiDexApplication
 import android.view.Gravity
 import com.blankj.utilcode.util.ToastUtils
 import com.blankj.utilcode.util.Utils
@@ -9,7 +10,7 @@ import com.kzj.mall.di.component.DaggerAppComponent
 import com.kzj.mall.di.module.AppModule
 import com.yatoooon.screenadaptation.ScreenAdapterTools
 
-class App : Application() {
+class App : MultiDexApplication() {
     val component: AppComponent by lazy {
         DaggerAppComponent.builder()
                 .appModule(AppModule(this))

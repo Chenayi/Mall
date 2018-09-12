@@ -254,6 +254,7 @@
                             android:src="@color/gray_default" />
 
                         <ImageView
+                            android:id="@+id/iv_delete1"
                             android:layout_width="16dp"
                             android:layout_height="16dp"
                             android:layout_gravity="right"
@@ -274,6 +275,7 @@
                             android:src="@color/gray_default" />
 
                         <ImageView
+                            android:id="@+id/iv_delete2"
                             android:layout_width="16dp"
                             android:layout_height="16dp"
                             android:layout_gravity="right"
@@ -293,6 +295,7 @@
                             android:src="@color/gray_default" />
 
                         <ImageView
+                            android:id="@+id/iv_delete3"
                             android:layout_width="16dp"
                             android:layout_height="16dp"
                             android:layout_gravity="right"
@@ -313,6 +316,7 @@
                             android:src="@color/gray_default" />
 
                         <ImageView
+                            android:id="@+id/iv_delete4"
                             android:layout_width="16dp"
                             android:layout_height="16dp"
                             android:layout_gravity="right"
@@ -338,6 +342,7 @@
                                 android:src="@color/gray_default" />
 
                             <ImageView
+                                android:id="@+id/iv_delete5"
                                 android:layout_width="16dp"
                                 android:layout_height="16dp"
                                 android:layout_gravity="right"

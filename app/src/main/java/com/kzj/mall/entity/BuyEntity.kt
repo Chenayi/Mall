@@ -44,7 +44,9 @@ class BuyEntity : Serializable {
     class GoodsinfoMap : Serializable {
         var goods_img: String? = null
         var goods_name: String? = null
-        var goods_price:String?=null
-
+        var goods_price: String? = null
+        var goods_type: String? = null
+        var goods_info_added: String? = null
+        var goods_spec: String? = null
     }
 }

@@ -85,8 +85,15 @@ interface ApiService {
      * 处方登记
      */
     @FormUrlEncoded
-    @POST("/mobile//kzj/api/to_demand_record.htm")
+    @POST("/mobile/kzj/api/to_demand_record.htm")
     fun demandRecord(@Header("token") token: String?, @FieldMap params: MutableMap<String, String>?): Observable<BaseResponse<BuyEntity>>
+
+    /**
+     * 提交处方登记
+     */
+    @FormUrlEncoded
+    @POST("/mobile/kzj/api/app_save_Rxrecord.htm")
+    fun submitDemandReord(@Header("token") token: String?, @FieldMap params: MutableMap<String, String>?): Observable<BaseResponse<SimpleResultEntity>>
 
     /**
      * 添加购物车

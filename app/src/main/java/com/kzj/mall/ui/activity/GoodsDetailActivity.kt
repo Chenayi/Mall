@@ -255,6 +255,18 @@ class GoodsDetailActivity : BaseActivity<GoodsDetailPresenter, ActivityGoodsDeta
         mPresenter?.buyNow(carType, mGoodsNum, mGoodsInfoId, mCombinationId)
     }
 
+    /**
+     * 提交处方登记
+     */
+    @Subscribe
+    fun submitDemand(submitDemandEvent: SubmitDemandEvent) {
+        var goodsType = "0"
+        if (isCombination) {
+            goodsType = "2"
+        }
+        mPresenter?.demandRecord(goodsType,mGoodsInfoId,mCombinationId)
+    }
+
 
     /**
      * 更多弹窗
@@ -384,8 +396,18 @@ class GoodsDetailActivity : BaseActivity<GoodsDetailPresenter, ActivityGoodsDeta
      * 处方登记
      */
     override fun demandRecord(buyEntity: BuyEntity?) {
+        var rxRecordType = "1"
+        var goodsinfoid = mGoodsInfoId
+        if (isCombination) {
+            rxRecordType = "2"
+            goodsinfoid = mCombinationId
+        }
+
         val intent = Intent(this, DemandRegistrationActivity::class.java)
         intent?.putExtra("buyEntity", buyEntity)
+        intent?.putExtra("goodsNum", mGoodsNum)
+        intent?.putExtra("rxRecordType", rxRecordType)
+        intent?.putExtra("goodsinfoid", goodsinfoid)
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(intent)
     }
