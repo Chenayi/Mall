@@ -87,7 +87,7 @@ class OrderActivity : BaseActivity<IPresenter, ActivityOrderBinding>() {
         }
 
         mBinding?.magicIndicator?.navigator = commonNavigator
-        ViewPagerHelper.bind(mBinding?.magicIndicator, mBinding?.vpOrder);
+        ViewPagerHelper.bind(mBinding?.magicIndicator, mBinding?.vpOrder)
 
         mBinding?.vpOrder?.setCurrentItem(position, false)
     }

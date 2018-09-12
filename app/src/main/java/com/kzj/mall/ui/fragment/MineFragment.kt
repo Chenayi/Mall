@@ -113,88 +113,7 @@ class MineFragment : BaseFragment<MinePresenter, FragmentMineBinding>(), View.On
 
         //商品收藏
         followLists = mineEntity?.follows?.list
-        followLists?.let {
-
-            if (it.size > 0) {
-
-                mBinding?.llMyCollect?.visibility = View.VISIBLE
-                if (it.size == 1) {
-                    mBinding?.ivCGoods1?.visibility = View.VISIBLE
-                    GlideApp.with(context!!)
-                            .load(it?.get(0)?.good?.goodsImg)
-                            .placeholder(R.color.gray_default)
-                            .centerCrop()
-                            .into(mBinding?.ivCGoods1!!)
-                } else if (it.size == 2) {
-                    mBinding?.ivCGoods1?.visibility = View.VISIBLE
-                    mBinding?.ivCGoods2?.visibility = View.VISIBLE
-                    GlideApp.with(context!!)
-                            .load(it?.get(0)?.good?.goodsImg)
-                            .placeholder(R.color.gray_default)
-                            .centerCrop()
-                            .into(mBinding?.ivCGoods1!!)
-
-                    GlideApp.with(context!!)
-                            .load(it?.get(1)?.good?.goodsImg)
-                            .placeholder(R.color.gray_default)
-                            .centerCrop()
-                            .into(mBinding?.ivCGoods2!!)
-                } else if (it.size == 3) {
-                    mBinding?.ivCGoods1?.visibility = View.VISIBLE
-                    mBinding?.ivCGoods2?.visibility = View.VISIBLE
-                    mBinding?.ivCGoods3?.visibility = View.VISIBLE
-
-                    GlideApp.with(context!!)
-                            .load(it?.get(0)?.good?.goodsImg)
-                            .placeholder(R.color.gray_default)
-                            .centerCrop()
-                            .into(mBinding?.ivCGoods1!!)
-
-                    GlideApp.with(context!!)
-                            .load(it?.get(1)?.good?.goodsImg)
-                            .placeholder(R.color.gray_default)
-                            .centerCrop()
-                            .into(mBinding?.ivCGoods2!!)
-
-                    GlideApp.with(context!!)
-                            .load(it?.get(2)?.good?.goodsImg)
-                            .placeholder(R.color.gray_default)
-                            .centerCrop()
-                            .into(mBinding?.ivCGoods3!!)
-
-                } else {
-                    mBinding?.ivCGoods1?.visibility = View.VISIBLE
-                    mBinding?.ivCGoods2?.visibility = View.VISIBLE
-                    mBinding?.ivCGoods3?.visibility = View.VISIBLE
-                    mBinding?.ivCGoods4?.visibility = View.VISIBLE
-
-                    GlideApp.with(context!!)
-                            .load(it?.get(0)?.good?.goodsImg)
-                            .placeholder(R.color.gray_default)
-                            .centerCrop()
-                            .into(mBinding?.ivCGoods1!!)
-
-                    GlideApp.with(context!!)
-                            .load(it?.get(1)?.good?.goodsImg)
-                            .placeholder(R.color.gray_default)
-                            .centerCrop()
-                            .into(mBinding?.ivCGoods2!!)
-
-                    GlideApp.with(context!!)
-                            .load(it?.get(2)?.good?.goodsImg)
-                            .placeholder(R.color.gray_default)
-                            .centerCrop()
-                            .into(mBinding?.ivCGoods3!!)
-
-                    GlideApp.with(context!!)
-                            .load(it?.get(3)?.good?.goodsImg)
-                            .placeholder(R.color.gray_default)
-                            .centerCrop()
-                            .into(mBinding?.ivCGoods4!!)
-                }
-            }
-        }
-
+        setFollow()
         //订单数目
         val orderSum = mineEntity?.orderSum
         orderSum?.let {
@@ -215,6 +134,105 @@ class MineFragment : BaseFragment<MinePresenter, FragmentMineBinding>(), View.On
                     .placeholder(R.mipmap.icon_avatar_default)
                     .centerCrop()
                     .into(mBinding?.ivAvatar!!)
+        }
+    }
+
+    /**
+     * 商品收藏
+     */
+    private fun setFollow() {
+        if (followLists == null) {
+            mBinding?.llMyCollect?.visibility = View.GONE
+        } else {
+            followLists?.let {
+
+                if (it.size > 0) {
+                    mBinding?.llMyCollect?.visibility = View.VISIBLE
+                    if (it.size == 1) {
+                        mBinding?.ivCGoods1?.visibility = View.VISIBLE
+                        mBinding?.ivCGoods2?.visibility = View.INVISIBLE
+                        mBinding?.ivCGoods3?.visibility = View.INVISIBLE
+                        mBinding?.ivCGoods4?.visibility = View.INVISIBLE
+                        GlideApp.with(context!!)
+                                .load(it?.get(0)?.good?.goodsImg)
+                                .placeholder(R.color.gray_default)
+                                .centerCrop()
+                                .into(mBinding?.ivCGoods1!!)
+                    } else if (it.size == 2) {
+                        mBinding?.ivCGoods1?.visibility = View.VISIBLE
+                        mBinding?.ivCGoods2?.visibility = View.VISIBLE
+                        mBinding?.ivCGoods3?.visibility = View.INVISIBLE
+                        mBinding?.ivCGoods4?.visibility = View.INVISIBLE
+                        GlideApp.with(context!!)
+                                .load(it?.get(0)?.good?.goodsImg)
+                                .placeholder(R.color.gray_default)
+                                .centerCrop()
+                                .into(mBinding?.ivCGoods1!!)
+
+                        GlideApp.with(context!!)
+                                .load(it?.get(1)?.good?.goodsImg)
+                                .placeholder(R.color.gray_default)
+                                .centerCrop()
+                                .into(mBinding?.ivCGoods2!!)
+                    } else if (it.size == 3) {
+                        mBinding?.ivCGoods1?.visibility = View.VISIBLE
+                        mBinding?.ivCGoods2?.visibility = View.VISIBLE
+                        mBinding?.ivCGoods3?.visibility = View.VISIBLE
+                        mBinding?.ivCGoods4?.visibility = View.INVISIBLE
+
+                        GlideApp.with(context!!)
+                                .load(it?.get(0)?.good?.goodsImg)
+                                .placeholder(R.color.gray_default)
+                                .centerCrop()
+                                .into(mBinding?.ivCGoods1!!)
+
+                        GlideApp.with(context!!)
+                                .load(it?.get(1)?.good?.goodsImg)
+                                .placeholder(R.color.gray_default)
+                                .centerCrop()
+                                .into(mBinding?.ivCGoods2!!)
+
+                        GlideApp.with(context!!)
+                                .load(it?.get(2)?.good?.goodsImg)
+                                .placeholder(R.color.gray_default)
+                                .centerCrop()
+                                .into(mBinding?.ivCGoods3!!)
+
+                    } else {
+                        mBinding?.ivCGoods1?.visibility = View.VISIBLE
+                        mBinding?.ivCGoods2?.visibility = View.VISIBLE
+                        mBinding?.ivCGoods3?.visibility = View.VISIBLE
+                        mBinding?.ivCGoods4?.visibility = View.VISIBLE
+
+                        GlideApp.with(context!!)
+                                .load(it?.get(0)?.good?.goodsImg)
+                                .placeholder(R.color.gray_default)
+                                .centerCrop()
+                                .into(mBinding?.ivCGoods1!!)
+
+                        GlideApp.with(context!!)
+                                .load(it?.get(1)?.good?.goodsImg)
+                                .placeholder(R.color.gray_default)
+                                .centerCrop()
+                                .into(mBinding?.ivCGoods2!!)
+
+                        GlideApp.with(context!!)
+                                .load(it?.get(2)?.good?.goodsImg)
+                                .placeholder(R.color.gray_default)
+                                .centerCrop()
+                                .into(mBinding?.ivCGoods3!!)
+
+                        GlideApp.with(context!!)
+                                .load(it?.get(3)?.good?.goodsImg)
+                                .placeholder(R.color.gray_default)
+                                .centerCrop()
+                                .into(mBinding?.ivCGoods4!!)
+                    }
+                } else {
+                    mBinding?.llMyCollect?.visibility = View.GONE
+                }
+            }
+
         }
     }
 

@@ -107,7 +107,7 @@ interface ApiService {
      */
     @FormUrlEncoded
     @POST("/kzj/api/user_voucher/save_goods_atte.htm")
-    fun saveGoodsAtte(@Header("token") token: String?, @Field("goods_info_id") goodsInfoId: String?):Observable<BaseResponse<SimpleResultEntity>>
+    fun saveGoodsAtte(@Header("token") token: String?, @Field("goods_info_id") goodsInfoId: String?): Observable<BaseResponse<SimpleResultEntity>>
 
     /**
      * 添加购物车
@@ -164,6 +164,22 @@ interface ApiService {
      */
     @POST("/kzj/api/user_voucher/user_index.htm")
     fun requestMine(@Header("token") token: String?): Observable<BaseResponse<MineEntity>>
+
+    /**
+     * 我的收藏
+     */
+    @FormUrlEncoded
+    @POST("/kzj/api/user_voucher/my_follow_list.htm")
+    fun myFollow(@Header("token") token: String?, @Field("goods_type") goosType: String?, @Field("pageNo") pageNo: Int?, @Field("pageSize") pageSize: Int?)
+            : Observable<BaseResponse<MyCollectEntity>>
+
+    /**
+     * 删除收藏
+     */
+    @FormUrlEncoded
+    @POST("/kzj/api/user_voucher/batch_delete_follow.htm")
+    fun deleteMyFollow(@Header("token") token: String?, @Field("followIds") followIds: LongArray?)
+            : Observable<BaseResponse<SimpleResultEntity>>
 
     /**
      * 获取省份

@@ -15,7 +15,7 @@ import com.kzj.mall.adapter.BaseAdapter
 import com.kzj.mall.databinding.FragmentBaseListBinding
 
 abstract class BaseListFragment<P : IPresenter, D> : BaseFragment<P, FragmentBaseListBinding>() {
-    private var listAdapter: ListAdapter? = null
+    protected var listAdapter: ListAdapter? = null
     protected var pageNo = 1
 
     override fun getLayoutId(): Int {
@@ -70,7 +70,7 @@ abstract class BaseListFragment<P : IPresenter, D> : BaseFragment<P, FragmentBas
     protected abstract fun onLoadMore();
 
 
-    protected fun emptyViewIcon() = R.mipmap.empty_default
+    protected open fun emptyViewIcon() = R.mipmap.empty_default
 
     protected abstract fun emptyMsg(): String
 
