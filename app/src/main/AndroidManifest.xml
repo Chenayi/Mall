@@ -94,6 +94,7 @@
         <activity android:name=".ui.activity.AboutKzjActivity" />
         <activity android:name=".ui.activity.DemandRegistrationActivity" />
         <activity android:name=".ui.activity.MyCollectGoodsActivity" />
+        <activity android:name=".ui.activity.PaySuccessActivity" />
 
 
     </application>

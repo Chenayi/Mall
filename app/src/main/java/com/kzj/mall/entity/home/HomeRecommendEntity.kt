@@ -1,7 +1,5 @@
 package com.kzj.mall.entity.home
 
-import com.kzj.mall.entity.SearchEntity
-
 class HomeRecommendEntity {
     var results: Results? = null
 

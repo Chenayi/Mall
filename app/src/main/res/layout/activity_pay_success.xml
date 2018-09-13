@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.kzj.mall.widget.RootLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:titleBarColor="@color/fb"
+        app:titleBarLeftIcon="@mipmap/back_black"
+        app:titleBarTitle="订单提交成功"
+        app:titleBarTitleColor="@color/c_2e3033">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+
+    </com.kzj.mall.widget.RootLayout>
+
+</layout>

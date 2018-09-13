@@ -18,7 +18,7 @@ class SearchGridAdapter constructor(val searchDatas: MutableList<SearchEntity.Da
         helper?.setGone(R.id.view_top, layoutPosition == 0 || layoutPosition == 1)
                 ?.setGone(R.id.view_right, layoutPosition!! % 2 != 0)
         val ivGoods = helper?.getView<ImageView>(R.id.iv_goods)
-        val goodsImageViewWidth = (ScreenUtils.getScreenWidth() - SizeUtils.dp2px(60f)) / 2f
+        val goodsImageViewWidth = (ScreenUtils.getScreenWidth() - SizeUtils.dp2px(70f)) / 2f
         val layoutParams = ivGoods?.layoutParams as LinearLayout.LayoutParams
         layoutParams?.width = goodsImageViewWidth.toInt()
         layoutParams?.height = goodsImageViewWidth.toInt()
@@ -26,8 +26,8 @@ class SearchGridAdapter constructor(val searchDatas: MutableList<SearchEntity.Da
 
         helper?.setText(R.id.tv_goods_name, item?.goods_name)
                 ?.setText(R.id.tv_goods_indication, item?.goods_indication)
-                ?.setText(R.id.tv_goods_price, "￥" + item?.goods_price)
-                ?.setText(R.id.tv_goods_market_price, "￥" + item?.goods_market_price)
+                ?.setText(R.id.tv_goods_price, "¥" + item?.goods_price)
+                ?.setText(R.id.tv_goods_market_price, "¥" + item?.goods_market_price)
 
         helper?.getView<TextView>(R.id.tv_goods_market_price)?.getPaint()?.setFlags(Paint. STRIKE_THRU_TEXT_FLAG ); //中间横线
 

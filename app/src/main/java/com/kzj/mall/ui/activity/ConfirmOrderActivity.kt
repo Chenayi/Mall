@@ -2,10 +2,12 @@ package com.kzj.mall.ui.activity
 
 import android.app.Activity
 import android.content.Intent
+import android.os.Handler
+import android.os.Message
 import android.support.v7.widget.LinearLayoutManager
+import android.text.TextUtils
 import android.view.View
 import com.alipay.sdk.app.PayTask
-import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.chad.library.adapter.base.BaseViewHolder
 import com.gyf.barlibrary.ImmersionBar
@@ -19,6 +21,7 @@ import com.kzj.mall.di.component.AppComponent
 import com.kzj.mall.di.component.DaggerConfirmOrderComponent
 import com.kzj.mall.di.module.ConfirmOrderModule
 import com.kzj.mall.entity.BuyEntity
+import com.kzj.mall.entity.PayResult
 import com.kzj.mall.entity.order.ConfirmOrderEntity
 import com.kzj.mall.entity.address.Address
 import com.kzj.mall.mvp.contract.ConfirmOrderContract
@@ -32,6 +35,7 @@ class ConfirmOrderActivity : BaseActivity<ConfirmOrderPresenter, ActivityConfirm
     val CHECK_ALIPAY = 1
     val CHECK_ARRIVE_PAY = 0
 
+    private val SDK_PAY_FLAG = 1
     var payCheck = CHECK_ALIPAY
     var hasAddress = false
 
@@ -40,6 +44,9 @@ class ConfirmOrderActivity : BaseActivity<ConfirmOrderPresenter, ActivityConfirm
     private var buyEntity: BuyEntity? = null
 
     private var addressId: String? = null
+
+    private var orderId: String? = null
+    private var orderPrice: String? = null
 
     override fun getLayoutId(): Int {
         return R.layout.activity_confirm_order
@@ -200,15 +207,55 @@ class ConfirmOrderActivity : BaseActivity<ConfirmOrderPresenter, ActivityConfirm
         val payRunnable = Runnable {
             val alipay = PayTask(this@ConfirmOrderActivity)
             val result = alipay.payV2(key, true)
-            LogUtils.e("msp ===> " + result.toString())
+            val msg = Message()
+            msg.what = SDK_PAY_FLAG
+            msg.obj = result
+            mHandler.sendMessage(msg)
         }
 
         val payThread = Thread(payRunnable)
         payThread.start()
     }
 
+
+    private val mHandler = object : Handler() {
+        override fun handleMessage(msg: Message?) {
+            super.handleMessage(msg)
+            if (msg?.what == SDK_PAY_FLAG) {
+                val payResult = PayResult(msg.obj as Map<String, String>)
+                val resultStatus = payResult.resultStatus
+                val resultInfo = payResult.result
+                if (TextUtils.equals(resultStatus, "9000")) {
+                    // 该笔订单是否真实支付成功，需要依赖服务端的异步通知。
+                    ToastUtils.showShort("支付成功")
+                    val intent = Intent(this@ConfirmOrderActivity, PaySuccessActivity::class.java)
+                    intent.putExtra("orderId", orderId)
+                    intent.putExtra("payType", "支付宝")
+                    intent.putExtra("orderPrice", orderPrice)
+                    startActivity(intent)
+                    finish()
+                } else {
+                    // 该笔订单真实的支付结果，需要依赖服务端的异步通知。
+                    ToastUtils.showShort("支付失败：" + resultInfo)
+                }
+            }
+        }
+    }
+
     override fun submitOrderCallBack(confirmOrderEntity: ConfirmOrderEntity?) {
-        mPresenter?.aliPayKey(confirmOrderEntity?.orderId)
+        this.orderId = confirmOrderEntity?.orderId
+        this.orderPrice = confirmOrderEntity?.sumPrice
+
+        if (payCheck == CHECK_ALIPAY) {
+            mPresenter?.aliPayKey(confirmOrderEntity?.orderId)
+        } else if (payCheck == CHECK_ARRIVE_PAY) {
+            val intent = Intent(this, PaySuccessActivity::class.java)
+            intent.putExtra("orderId", this.orderId)
+            intent.putExtra("payType", "货到付款")
+            intent.putExtra("orderPrice", this.orderPrice)
+            startActivity(intent)
+            finish()
+        }
     }
 
     override fun showLoading() {

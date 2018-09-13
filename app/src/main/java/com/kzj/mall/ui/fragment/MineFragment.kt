@@ -28,6 +28,10 @@ import q.rorbin.badgeview.QBadgeView
 class MineFragment : BaseFragment<MinePresenter, FragmentMineBinding>(), View.OnClickListener, MineContract.View {
     private var followLists: MutableList<MineEntity.FollowList>? = null
 
+    private var waitPayNum:QBadgeView?=null
+    private var waitSendNum:QBadgeView?=null
+    private var waitTakeNum:QBadgeView?=null
+
     companion object {
         fun newInstance(): MineFragment {
             val mineFragment = MineFragment()
@@ -67,6 +71,10 @@ class MineFragment : BaseFragment<MinePresenter, FragmentMineBinding>(), View.On
         layoutParams.topMargin = BarUtils.getStatusBarHeight() + SizeUtils.dp2px(14f)
         mBinding?.ivMsg?.requestLayout()
 
+
+        waitPayNum = QBadgeView(context)
+        waitSendNum = QBadgeView(context)
+        waitTakeNum = QBadgeView(context)
         if (C.IS_LOGIN) {
             mPresenter?.requestMine()
         }
@@ -117,10 +125,26 @@ class MineFragment : BaseFragment<MinePresenter, FragmentMineBinding>(), View.On
         //订单数目
         val orderSum = mineEntity?.orderSum
         orderSum?.let {
-            setBadgeNum(mBinding?.rlOrderWaitPay, it?.notpay)
-            setBadgeNum(mBinding?.rlOrderWaitSend, it?.notdy)
-            setBadgeNum(mBinding?.rlOrderWaitTake, it?.nottdy)
-            setBadgeNum(mBinding?.rlOrderFinish, it?.ots)
+            waitPayNum?.bindTarget(mBinding?.rlOrderWaitPay)
+                    ?.setShowShadow(false)
+                    ?.setBadgeBackgroundColor(Color.RED)
+                    ?.setGravityOffset(8f, 0f, true)
+                    ?.setBadgeTextSize(12f, true)
+                    ?.setBadgeNumber(it?.notpay)
+
+            waitSendNum?.bindTarget(mBinding?.rlOrderWaitSend)
+                    ?.setShowShadow(false)
+                    ?.setBadgeBackgroundColor(Color.RED)
+                    ?.setGravityOffset(8f, 0f, true)
+                    ?.setBadgeTextSize(12f, true)
+                    ?.setBadgeNumber(it?.notdy)
+
+            waitTakeNum?.bindTarget(mBinding?.rlOrderWaitTake)
+                    ?.setShowShadow(false)
+                    ?.setBadgeBackgroundColor(Color.RED)
+                    ?.setGravityOffset(8f, 0f, true)
+                    ?.setBadgeTextSize(12f, true)
+                    ?.setBadgeNumber(it?.nottdy)
         }
 
         //个人信息
@@ -242,10 +266,9 @@ class MineFragment : BaseFragment<MinePresenter, FragmentMineBinding>(), View.On
         mBinding?.tvInfo?.setText("登录/注册")
         mBinding?.llMyCollect?.visibility = View.GONE
 
-        setBadgeNum(mBinding?.rlOrderWaitPay, 0)
-        setBadgeNum(mBinding?.rlOrderWaitSend, 0)
-        setBadgeNum(mBinding?.rlOrderWaitTake, 0)
-        setBadgeNum(mBinding?.rlOrderFinish, 0)
+        waitPayNum?.hide(true)
+        waitTakeNum?.hide(true)
+        waitSendNum?.hide(true)
 
         mBinding?.ivCGoods1?.visibility = View.INVISIBLE
         mBinding?.ivCGoods2?.visibility = View.INVISIBLE
@@ -253,16 +276,6 @@ class MineFragment : BaseFragment<MinePresenter, FragmentMineBinding>(), View.On
         mBinding?.ivCGoods4?.visibility = View.INVISIBLE
         mBinding?.llMyCollect?.visibility = View.GONE
     }
-
-    private fun setBadgeNum(view: View?, num: Int) {
-        QBadgeView(context).bindTarget(view)
-                .setShowShadow(false)
-                .setBadgeBackgroundColor(Color.RED)
-                .setGravityOffset(8f, 0f, true)
-                .setBadgeTextSize(12f, true)
-                .setBadgeNumber(num)
-    }
-
 
     override fun onSupportVisible() {
         super.onSupportVisible()
