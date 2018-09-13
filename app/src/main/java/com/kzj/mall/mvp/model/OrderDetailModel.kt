@@ -12,4 +12,6 @@ import javax.inject.Inject
 class OrderDetailModel @Inject
 constructor(httpUtils: HttpUtils?) : BaseModel(httpUtils), OrderDetailContract.Model {
     override fun orderDetail(orderId: String?) = httpUtils?.obtainRetrofitService(ApiService::class.java)?.orderDetail(C.TOKEN, orderId)
+
+    override fun aliPayKey(orderId: String?) = httpUtils?.obtainRetrofitService(ApiService::class.java)?.aliPayKey(C.TOKEN,orderId)
 }

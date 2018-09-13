@@ -89,6 +89,7 @@
                         </RelativeLayout>
 
                         <TextView
+                            android:id="@+id/tv_otc"
                             android:layout_width="wrap_content"
                             android:layout_height="18dp"
                             android:layout_marginLeft="10dp"

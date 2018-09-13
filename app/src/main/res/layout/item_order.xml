@@ -157,6 +157,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp"
         android:gravity="right"
         android:orientation="horizontal">
 
@@ -194,11 +195,11 @@
         android:layout_gravity="right"
         android:layout_marginBottom="13dp"
         android:layout_marginRight="13dp"
-        android:layout_marginTop="10dp"
         android:background="@drawable/background_orange_corners_9999"
         android:gravity="center"
         android:text="立即支付"
         android:textColor="@color/white"
-        android:textSize="13dp" />
+        android:textSize="13dp"
+        android:visibility="visible"/>
 
 </LinearLayout>

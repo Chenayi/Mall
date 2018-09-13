@@ -24,7 +24,13 @@ import com.kzj.mall.utils.Utils
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
-
+import android.content.Intent
+import android.os.Handler
+import android.os.Message
+import android.widget.ImageView
+import android.widget.LinearLayout
+import com.alipay.sdk.app.PayTask
+import com.kzj.mall.entity.PayResult
 
 
 class OrderDetailActivity : BaseActivity<OrderDetailPresenter, ActivityOrderDetailBinding>()
@@ -36,6 +42,10 @@ class OrderDetailActivity : BaseActivity<OrderDetailPresenter, ActivityOrderDeta
     private var footerView1: View? = null
     private var footerView2: View? = null
 
+    private var llExpress: LinearLayout? = null
+    private var tvExpressNo: TextView? = null
+    private var tvCopyExpressNo: TextView? = null
+    private var ivOrderStatus: ImageView? = null
     private var tvOrderStatus: TextView? = null
     private var tvName: TextView? = null
     private var tvMobile: TextView? = null
@@ -50,6 +60,8 @@ class OrderDetailActivity : BaseActivity<OrderDetailPresenter, ActivityOrderDeta
     private var tvFee: TextView? = null
     private var tvAllGoodsPrice: TextView? = null
     private var tvPayPrice: TextView? = null
+
+    private var order: OrderDetailEntity.Order? = null
 
     override fun getLayoutId() = R.layout.activity_order_detail
 
@@ -76,11 +88,18 @@ class OrderDetailActivity : BaseActivity<OrderDetailPresenter, ActivityOrderDeta
         mBinding?.rvOrderDetail?.layoutManager = LinearLayoutManager(this)
         mBinding?.rvOrderDetail?.adapter = orderDetailAdapter
 
+        mBinding?.tvHandle?.setOnClickListener(this)
 
         mPresenter?.orderDetail(orderId)
     }
 
     private fun initViews() {
+
+        llExpress = headerView?.findViewById(R.id.ll_express)
+        tvExpressNo = headerView?.findViewById(R.id.tv_express_no)
+        tvCopyExpressNo = headerView?.findViewById(R.id.tv_copy_express_no)
+        tvCopyExpressNo?.setOnClickListener(this)
+        ivOrderStatus = headerView?.findViewById(R.id.iv_order_status)
         tvOrderStatus = headerView?.findViewById(R.id.tv_order_status)
         tvName = headerView?.findViewById(R.id.tv_name)
         tvMobile = headerView?.findViewById(R.id.tv_mobile)
@@ -99,26 +118,38 @@ class OrderDetailActivity : BaseActivity<OrderDetailPresenter, ActivityOrderDeta
     }
 
     override fun orderDetail(orderDetailEntity: OrderDetailEntity?) {
-        val order = orderDetailEntity?.order
+        order = orderDetailEntity?.order
+
+        order?.expressno?.let {
+            if (it?.size > 0){
+                llExpress?.visibility = View.VISIBLE
+                tvExpressNo?.text = it?.get(0)?.expressNo
+            }
+        }
+
         when (order?.orderStatus) {
             OrderEntity.ORDER_STATUS_WAIT_PAY -> {
+                ivOrderStatus?.setImageResource(R.mipmap.icon_wait_pay)
                 tvOrderStatus?.setText("订单待付款")
                 mBinding?.llBottom?.visibility = View.VISIBLE
                 mBinding?.tvHandle?.setBackgroundResource(R.drawable.background_orange_corners_9999)
                 mBinding?.tvHandle?.setText("立即支付")
             }
             OrderEntity.ORDER_STATUS_WAIT_SEND -> {
+                ivOrderStatus?.setImageResource(R.mipmap.icon_wait_send)
                 tvOrderStatus?.setText("订单待发货")
                 mBinding?.tvHandle?.setBackgroundResource(R.drawable.background_orange_corners_9999)
                 mBinding?.llBottom?.visibility = View.GONE
             }
             OrderEntity.ORDER_STATUS_WAIT_TAKE -> {
+                ivOrderStatus?.setImageResource(R.mipmap.icon_wait_take)
                 tvOrderStatus?.setText("订单待收货")
                 mBinding?.llBottom?.visibility = View.VISIBLE
                 mBinding?.tvHandle?.setBackgroundResource(R.drawable.background_orange_corners_9999)
                 mBinding?.tvHandle?.setText("确认收货")
             }
             OrderEntity.ORDER_STATUS_FINISH -> {
+                ivOrderStatus?.setImageResource(R.mipmap.icon_finish)
                 tvOrderStatus?.setText("订单已完成")
                 mBinding?.llBottom?.visibility = View.VISIBLE
                 mBinding?.tvHandle?.setBackgroundResource(R.drawable.background_8a9099_stroke_corners_9999)
@@ -168,6 +199,71 @@ class OrderDetailActivity : BaseActivity<OrderDetailPresenter, ActivityOrderDeta
                     val mClipData = ClipData.newPlainText("复制订单编号", orderCode)
                     cm.setPrimaryClip(mClipData)
                     ToastUtils.showShort("复制成功")
+                }
+            }
+            R.id.tv_handle -> {
+                when (order?.orderStatus) {
+                    OrderEntity.ORDER_STATUS_WAIT_PAY -> {
+                        showLoadingDialog()
+                        mPresenter?.aliPayKey(orderId)
+                    }
+                    OrderEntity.ORDER_STATUS_WAIT_SEND -> {
+                    }
+                    OrderEntity.ORDER_STATUS_WAIT_TAKE -> {
+
+                    }
+                    OrderEntity.ORDER_STATUS_FINISH -> {
+
+                    }
+                }
+            }
+            R.id.tv_copy_express_no->{
+                val no = tvExpressNo?.text?.toString()?.trim()
+                if (!TextUtils.isEmpty(no)) {
+                    val cm = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                    val mClipData = ClipData.newPlainText("复制物流编号", no)
+                    cm.setPrimaryClip(mClipData)
+                    ToastUtils.showShort("复制成功")
+                }
+            }
+        }
+    }
+
+    private val SDK_PAY_FLAG = 1
+    override fun showAliPayKey(key: String?) {
+        dismissLoadingDialog()
+        val payRunnable = Runnable {
+            val alipay = PayTask(this)
+            val result = alipay.payV2(key, true)
+            val msg = Message()
+            msg.what = SDK_PAY_FLAG
+            msg.obj = result
+            mHandler.sendMessage(msg)
+        }
+
+        val payThread = Thread(payRunnable)
+        payThread.start()
+    }
+
+    private val mHandler = object : Handler() {
+        override fun handleMessage(msg: Message?) {
+            super.handleMessage(msg)
+            if (msg?.what == SDK_PAY_FLAG) {
+                val payResult = PayResult(msg.obj as Map<String, String>)
+                val resultStatus = payResult.resultStatus
+                val resultInfo = payResult.result
+                if (TextUtils.equals(resultStatus, "9000")) {
+                    // 该笔订单是否真实支付成功，需要依赖服务端的异步通知。
+                    ToastUtils.showShort("支付成功")
+                    val intent = Intent(this@OrderDetailActivity, PaySuccessActivity::class.java)
+                    intent.putExtra("orderId", orderId)
+                    intent.putExtra("payType", "支付宝")
+                    intent.putExtra("orderPrice", order?.moneyPaid)
+                    startActivity(intent)
+                    finish()
+                } else {
+                    // 该笔订单真实的支付结果，需要依赖服务端的异步通知。
+                    ToastUtils.showShort("支付失败：" + resultInfo)
                 }
             }
         }

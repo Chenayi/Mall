@@ -30,10 +30,10 @@ import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 
 class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), View.OnClickListener {
-    /**
-     * 添加购物车
-     */
-    private var tvGroupAddCart: TextView? = null
+    private var tvOtc: TextView? = null
+
+    private var tvTejie: TextView? = null
+
     /**
      * 商品价格
      */
@@ -122,6 +122,8 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
             barHeight = it
         }
 
+        tvOtc = view?.findViewById(R.id.tv_otc)
+        tvTejie = view?.findViewById(R.id.tv_tejie_tag)
         tvGoodsPrice = view?.findViewById(R.id.tv_goods_price)
         tvGoodsMarketPrice = view?.findViewById(R.id.tv_goods_market_price)
         tvMonthSalesNum = view?.findViewById(R.id.tv_month_sales_num)
@@ -254,6 +256,23 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
                 tvMonthSalesNum?.setText("月销量:" + it?.goodsSole)
                 tvGoodsName?.setText(it?.goodsName)
                 tvApprovalNo?.setText("批准文号：" + it?.goodsApprovalNo?.approvalNo)
+
+
+                if (it?.goodsPrice?.toFloat()!! < it?.goodsMarketPrice?.toFloat()!!){
+                    tvTejie?.visibility = View.VISIBLE
+                }else{
+                    tvTejie?.visibility = View.GONE
+                }
+
+                //处方
+                if (it.goodsType.equals("0")) {
+                    tvOtc?.visibility =View.VISIBLE
+                }
+
+                //非处方
+                else {
+                    tvOtc?.visibility =View.GONE
+                }
             }
 
             //商品信息
@@ -272,7 +291,7 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
 
             //套餐
             it?.combinationList?.let {
-                if (it?.size > 0){
+                if (it?.size > 0) {
                     mBinding?.detailGroup?.visibility = View.VISIBLE
                     mBinding?.goodsGroupView?.setNewDatas(it)
                 }
@@ -334,15 +353,12 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
             R.id.detail_spec -> {
                 showSpecDialog()
             }
-            R.id.tv_group_add_cart -> {
-                EventBus.getDefault().post(AddGroupCartEvent(tvGroupAddCart))
-            }
             R.id.fab_up_slide -> {
                 mBinding?.slideDetailsLayout?.smoothClose(true)
             }
             R.id.ll_follow -> {
-                if (!C.IS_LOGIN){
-                    val intent = Intent(context,LoginActivity::class.java)
+                if (!C.IS_LOGIN) {
+                    val intent = Intent(context, LoginActivity::class.java)
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                     startActivity(intent)
                     return

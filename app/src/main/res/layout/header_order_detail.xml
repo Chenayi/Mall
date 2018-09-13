@@ -8,48 +8,72 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="75dp"
+        android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
         android:gravity="center_vertical"
         android:orientation="vertical"
+        android:paddingBottom="16dp"
         android:paddingLeft="13dp"
-        android:paddingRight="13dp">
+        android:paddingRight="13dp"
+        android:paddingTop="16dp">
 
-        <TextView
-            android:id="@+id/tv_order_status"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="订单已完成"
-            android:textColor="@color/white"
-            android:textSize="17dp"
-            android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:gravity="center_vertical"
             android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/iv_order_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+
+            <TextView
+                android:id="@+id/tv_order_status"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:textColor="@color/white"
+                android:textSize="17dp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_express"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:visibility="gone">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="物流单号：2016112554014"
+                android:text="物流单号："
                 android:textColor="@color/white"
                 android:textSize="13dp" />
 
-            <com.allen.library.SuperTextView
+            <TextView
+                android:id="@+id/tv_express_no"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2016112554014"
+                android:textColor="@color/white"
+                android:textSize="13dp" />
+
+            <TextView
+                android:id="@+id/tv_copy_express_no"
                 android:layout_width="43dp"
                 android:layout_height="17dp"
                 android:layout_marginLeft="16dp"
-                app:sCenterTextColor="@color/white"
-                app:sCenterTextSize="12dp"
-                app:sCenterTextString="复制"
-                app:sShapeCornersRadius="999dp"
-                app:sShapeSelectorNormalColor="@color/tran"
-                app:sShapeSolidColor="@color/white"
-                app:sShapeStrokeWidth="0.5dp"
-                app:sUseShape="true" />
+                android:background="@drawable/bg_tran_stroke_white_9999"
+                android:gravity="center"
+                android:text="复制"
+                android:textColor="@color/white"
+                android:textSize="12dp" />
 
         </LinearLayout>
     </LinearLayout>
@@ -98,14 +122,13 @@
                 <ImageView
                     android:layout_width="15dp"
                     android:layout_height="15dp"
-                    android:src="@color/gray_default" />
+                    android:src="@mipmap/icon_address" />
 
                 <TextView
                     android:id="@+id/tv_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:text="用户姓名"
+                    android:layout_marginLeft="6dp"
                     android:textColor="@color/c_2e3033"
                     android:textSize="15dp"
                     android:textStyle="bold" />
@@ -125,7 +148,7 @@
                 android:id="@+id/tv_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
+                android:layout_marginLeft="21dp"
                 android:layout_marginTop="8dp"
                 android:textColor="#6A6E75"
                 android:textSize="13dp" />

@@ -13,7 +13,9 @@ import com.kzj.mall.adapter.BaseAdapter
 import com.kzj.mall.base.BaseRelativeLayout
 import com.kzj.mall.databinding.GoodsGroupViewBinding
 import com.kzj.mall.entity.GoodsDetailEntity
+import com.kzj.mall.event.AddGroupCartEvent
 import com.takusemba.multisnaprecyclerview.MultiSnapRecyclerView
+import org.greenrobot.eventbus.EventBus
 
 class GoodsGroupView : BaseRelativeLayout<GoodsGroupViewBinding> {
     private var groupAdapter: GroupAdapter? = null
@@ -39,6 +41,9 @@ class GoodsGroupView : BaseRelativeLayout<GoodsGroupViewBinding> {
                     groupAdapter?.notifyItemChanged(position)
                     groupAdapter?.notifyItemChanged(openPosition)
                     openPosition = position
+                }
+                R.id.tv_group_add_cart->{
+                    EventBus.getDefault().post(AddGroupCartEvent(view))
                 }
             }
         }
@@ -71,6 +76,7 @@ class GoodsGroupView : BaseRelativeLayout<GoodsGroupViewBinding> {
                     ?.setGone(R.id.rv_group, item?.isOpen == true)
                     ?.setGone(R.id.iv_down, item?.isOpen == false)
                     ?.addOnClickListener(R.id.iv_down)
+                    ?.addOnClickListener(R.id.tv_group_add_cart)
 
             val rvGroup = helper?.getView<MultiSnapRecyclerView>(R.id.rv_group)
             item?.ggList?.let {

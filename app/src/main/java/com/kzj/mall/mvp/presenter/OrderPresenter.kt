@@ -5,6 +5,7 @@ import com.kzj.mall.C
 import com.kzj.mall.base.BaseObserver
 import com.kzj.mall.base.BasePresenter
 import com.kzj.mall.di.scope.FragmentScope
+import com.kzj.mall.entity.AliPayKeyEntity
 import com.kzj.mall.entity.order.OrderEntity
 import com.kzj.mall.http.RxScheduler
 import com.kzj.mall.mvp.contract.OrderContract
@@ -51,6 +52,28 @@ constructor(model: OrderContract.Model?, view: OrderContract.View?, context: Con
 
                     override fun onHandleAfter() {
                         view?.hideLoading()
+                    }
+
+                })
+    }
+
+    fun aliPayKey(orderId:String?){
+        model?.aliPayKey(orderId)
+                ?.compose(RxScheduler.compose())
+                ?.subscribe(object :BaseObserver<AliPayKeyEntity>(){
+                    override fun onSubscribe(d: Disposable) {
+                        addDisposable(d)
+                    }
+
+                    override fun onHandleSuccess(t: AliPayKeyEntity?) {
+                        view?.showAliPayKey(t?.payStr)
+                    }
+
+                    override fun onHandleError(code: Int, msg: String?) {
+                        view?.onError(code, msg)
+                    }
+
+                    override fun onHandleAfter() {
                     }
 
                 })

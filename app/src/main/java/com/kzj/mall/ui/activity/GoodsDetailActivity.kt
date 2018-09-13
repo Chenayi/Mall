@@ -158,6 +158,7 @@ class GoodsDetailActivity : BaseActivity<GoodsDetailPresenter, ActivityGoodsDeta
         mBinding?.tvAddCart?.setOnClickListener(this)
         mBinding?.tvRequestCheckin?.setOnClickListener(this)
         mBinding?.goodsDetailBar?.setVp(mBinding?.vpGoodsDetail)
+        mBinding?.llCart?.setOnClickListener(this)
 
 
         mPresenter?.requesrGoodsDetail(mGoodsInfoId)
@@ -479,6 +480,11 @@ class GoodsDetailActivity : BaseActivity<GoodsDetailPresenter, ActivityGoodsDeta
                     goodsType = "2"
                 }
                 mPresenter?.demandRecord(goodsType, mGoodsInfoId, mCombinationId)
+            }
+
+            R.id.ll_cart->{
+                EventBus.getDefault().post(CloseActivityEvent())
+                EventBus.getDefault().post(BackCartEvent())
             }
         }
     }

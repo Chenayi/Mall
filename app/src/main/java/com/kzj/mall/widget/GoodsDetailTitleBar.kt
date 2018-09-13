@@ -1,6 +1,7 @@
 package com.kzj.mall.widget
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.support.v4.view.ViewPager
 import android.util.AttributeSet
@@ -11,6 +12,7 @@ import com.blankj.utilcode.util.SizeUtils
 import com.kzj.mall.R
 import com.kzj.mall.base.BaseRelativeLayout
 import com.kzj.mall.databinding.TitlebarGoodsDetailBinding
+import com.kzj.mall.ui.activity.SearchActivity
 import net.lucode.hackware.magicindicator.ViewPagerHelper
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.CommonNavigatorAdapter
@@ -40,6 +42,7 @@ class GoodsDetailTitleBar : BaseRelativeLayout<TitlebarGoodsDetailBinding>, View
         mBinding?.topView?.requestLayout()
         mBinding?.ivBack?.setOnClickListener(this)
         mBinding?.ivMore?.setOnClickListener(this)
+        mBinding?.ivSearch?.setOnClickListener(this)
     }
 
     fun setVp(viewPager: ViewPager?) {
@@ -92,6 +95,11 @@ class GoodsDetailTitleBar : BaseRelativeLayout<TitlebarGoodsDetailBinding>, View
             R.id.iv_more -> {
                 onMoreClickListener?.onMoreClick()
             }
+            R.id.iv_search->{
+                val intent = Intent(context, SearchActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                context?.startActivity(intent)
+            }
         }
     }
 
@@ -103,24 +111,6 @@ class GoodsDetailTitleBar : BaseRelativeLayout<TitlebarGoodsDetailBinding>, View
             mBinding?.magicIndicator?.visibility = View.VISIBLE
             mBinding?.tvTitleDetail?.visibility = View.INVISIBLE
         }
-    }
-
-    /**
-     * 商品
-     */
-    fun switchGoods() {
-    }
-
-    /**
-     *  详情
-     */
-    fun switchDetail() {
-    }
-
-    /**
-     * 资质
-     */
-    fun switchQuality() {
     }
 
     fun setOnTabClickListener(onTabClickListener: OnTabClickListener) {
