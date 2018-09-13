@@ -66,6 +66,7 @@ class DemandRegistrationActivity : BaseActivity<DemandRegistrationPresenter, Act
     private var mGoodsNum = 1
     private var rxRecordType = "1"
     private var goodsinfoid: String? = null
+    private var maxCount = 5
 
     private var mImages: MutableList<String>? = null
     private var mImageUrls = ArrayList<String>()
@@ -143,6 +144,10 @@ class DemandRegistrationActivity : BaseActivity<DemandRegistrationPresenter, Act
             goodsinfoid = it
         }
 
+        if(rxRecordType?.equals("1")){
+            maxCount = 1
+        }
+
         mImages = ArrayList()
 
         //商品
@@ -206,7 +211,7 @@ class DemandRegistrationActivity : BaseActivity<DemandRegistrationPresenter, Act
 
     @NeedsPermission(Manifest.permission.CAMERA)
     fun requestPermission() {
-        if (mImages?.size!! >= 5) {
+        if (mImages?.size!! >= maxCount) {
             return
         }
 
@@ -217,7 +222,7 @@ class DemandRegistrationActivity : BaseActivity<DemandRegistrationPresenter, Act
                         CaptureStrategy(true, "com.kzj.mall.fileprovider"))
                 .imageEngine(Glide4Engine())
                 .countable(true)
-                .maxSelectable(5 - mImages?.size!!)
+                .maxSelectable(maxCount - mImages?.size!!)
                 .forResult(REQUEST_ALBUM);
     }
 
@@ -294,11 +299,9 @@ class DemandRegistrationActivity : BaseActivity<DemandRegistrationPresenter, Act
     private fun startUpLoad() {
         val file = File(mImages?.get(curImagePosition))
 
-//        LogUtils.e("file ===> " +file)
         var newFile = file
         if (file?.name?.endsWith(".png") == false) {
             newFile = CompressHelper.getDefault(this).compressToFile(file)
-//            LogUtils.e("压缩图片...")
         }
         val paramsMap = HashMap<String, Any>()
         paramsMap[Params.BUCKET] = SPACE
@@ -317,6 +320,9 @@ class DemandRegistrationActivity : BaseActivity<DemandRegistrationPresenter, Act
                         .placeholder(R.color.gray_default)
                         .centerCrop()
                         .into(mBinding?.ivImage1!!)
+                if (maxCount == 1){
+                    mBinding?.ivCamera?.visibility = View.GONE
+                }
             } else if (curImagePosition == 1) {
                 mBinding?.flImage2?.visibility = View.VISIBLE
                 GlideApp.with(applicationContext)

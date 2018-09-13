@@ -45,6 +45,7 @@ class GoodsDetailActivity : BaseActivity<GoodsDetailPresenter, ActivityGoodsDeta
      */
     private var mGoodsInfoId: String? = null
     private var mGoodsDefaultInfoId: String? = null
+    private var goodsDetailEntity: GoodsDetailEntity? = null
 
     /**
      * 组合套餐id
@@ -81,7 +82,7 @@ class GoodsDetailActivity : BaseActivity<GoodsDetailPresenter, ActivityGoodsDeta
     }
 
     override fun initData() {
-//        mGoodsInfoId = "17124"
+//        mGoodsInfoId = "29921"
         mGoodsInfoId = intent?.getStringExtra(C.GOODS_INFO_ID)
         mGoodsDefaultInfoId = mGoodsInfoId
 
@@ -185,7 +186,11 @@ class GoodsDetailActivity : BaseActivity<GoodsDetailPresenter, ActivityGoodsDeta
      */
     @Subscribe
     fun addCartEvent(addCartEvent: AddGroupCartEvent) {
-        startAddCartAnim(true, addCartEvent?.startView!!, mBinding?.ivCart!!)
+        goodsDetailEntity?.gn?.goodsStock?.let {
+            if (it > 0) {
+                startAddCartAnim(true, addCartEvent?.startView!!, mBinding?.ivCart!!)
+            }
+        }
     }
 
     /**
@@ -351,6 +356,8 @@ class GoodsDetailActivity : BaseActivity<GoodsDetailPresenter, ActivityGoodsDeta
      * 商品详情信息
      */
     override fun showGoodsDetail(goodsDetailEntity: GoodsDetailEntity?) {
+        this.goodsDetailEntity = goodsDetailEntity
+
         val goodsInfoFragment = fragments?.get(0) as GoodsInfoFragment
         goodsInfoFragment?.updateDatas(mGoodsDefaultInfoId, goodsDetailEntity)
 
@@ -482,7 +489,7 @@ class GoodsDetailActivity : BaseActivity<GoodsDetailPresenter, ActivityGoodsDeta
                 mPresenter?.demandRecord(goodsType, mGoodsInfoId, mCombinationId)
             }
 
-            R.id.ll_cart->{
+            R.id.ll_cart -> {
                 EventBus.getDefault().post(CloseActivityEvent())
                 EventBus.getDefault().post(BackCartEvent())
             }
