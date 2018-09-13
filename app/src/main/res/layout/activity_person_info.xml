@@ -35,13 +35,14 @@
                         android:textSize="13dp" />
 
 
-                    <ImageView
+                    <com.allen.library.CircleImageView
+                        android:id="@+id/iv_avatar"
                         android:layout_width="67dp"
                         android:layout_height="67dp"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="13dp"
-                        android:src="@color/gray_default" />
+                        android:src="@mipmap/icon_avatar_default" />
                 </RelativeLayout>
 
 
@@ -71,6 +72,7 @@
                             android:textSize="13dp" />
 
                         <TextView
+                            android:id="@+id/tv_nick_name"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="10dp"
@@ -109,14 +111,22 @@
                             android:layout_marginRight="10dp"
                             android:layout_weight="1"
                             android:gravity="right"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:id="@+id/rg">
 
+                            <RadioButton
+                                android:id="@+id/sex_nor"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:checked="true"
+                                android:text="保密"
+                                android:textColor="#2E3033"
+                                android:textSize="13dp" />
 
                             <RadioButton
                                 android:id="@+id/sex_man"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:checked="true"
                                 android:text="男"
                                 android:textColor="#2E3033"
                                 android:textSize="13dp" />
@@ -155,12 +165,12 @@
                             android:textSize="13dp" />
 
                         <TextView
+                            android:id="@+id/tv_birthday"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="10dp"
                             android:layout_weight="1"
                             android:gravity="right"
-                            android:text="1991-03-20"
                             android:textColor="#6A6E75"
                             android:textSize="13dp" />
 
@@ -177,7 +187,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:visibility="gone">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -220,6 +231,7 @@
                         android:textSize="13dp" />
 
                     <TextView
+                        android:id="@+id/tv_mobile"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -228,7 +240,6 @@
                         android:layout_marginRight="10dp"
                         android:lines="1"
                         android:singleLine="true"
-                        android:text="15989118666"
                         android:textColor="#6A6E75"
                         android:textSize="13dp" />
                 </RelativeLayout>

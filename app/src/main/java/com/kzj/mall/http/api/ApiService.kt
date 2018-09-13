@@ -166,6 +166,19 @@ interface ApiService {
     fun requestMine(@Header("token") token: String?): Observable<BaseResponse<MineEntity>>
 
     /**
+     * 个人信息
+     */
+    @POST("/kzj/api/user_voucher/customerInfo.htm")
+    fun customerInfo(@Header("token") token: String?): Observable<BaseResponse<CustomerEntity>>
+
+    /**
+     * 修改个人信息
+     */
+    @FormUrlEncoded
+    @POST("/kzj/api/user_voucher/update_customerInfo.htm")
+    fun updateInfo(@Header("token") token: String?, @FieldMap params: MutableMap<String, String>?): Observable<SimpleResultEntity>
+
+    /**
      * 我的收藏
      */
     @FormUrlEncoded
