@@ -121,7 +121,7 @@ class OrderDetailActivity : BaseActivity<OrderDetailPresenter, ActivityOrderDeta
         order = orderDetailEntity?.order
 
         order?.expressno?.let {
-            if (it?.size > 0){
+            if (it?.size > 0) {
                 llExpress?.visibility = View.VISIBLE
                 tvExpressNo?.text = it?.get(0)?.expressNo
             }
@@ -210,14 +210,13 @@ class OrderDetailActivity : BaseActivity<OrderDetailPresenter, ActivityOrderDeta
                     OrderEntity.ORDER_STATUS_WAIT_SEND -> {
                     }
                     OrderEntity.ORDER_STATUS_WAIT_TAKE -> {
-
+                        mPresenter?.takeDelivery(orderId)
                     }
                     OrderEntity.ORDER_STATUS_FINISH -> {
-
                     }
                 }
             }
-            R.id.tv_copy_express_no->{
+            R.id.tv_copy_express_no -> {
                 val no = tvExpressNo?.text?.toString()?.trim()
                 if (!TextUtils.isEmpty(no)) {
                     val cm = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
@@ -267,6 +266,11 @@ class OrderDetailActivity : BaseActivity<OrderDetailPresenter, ActivityOrderDeta
                 }
             }
         }
+    }
+
+    override fun takeDeliverySuccess() {
+        ToastUtils.showShort("收货成功")
+        finish()
     }
 
     override fun showLoading() {

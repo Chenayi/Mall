@@ -95,6 +95,13 @@ interface ApiService {
     fun buyNow(@Header("token") token: String?, @FieldMap params: MutableMap<String, String>?): Observable<BaseResponse<BuyEntity>>
 
     /**
+     * 立即收货
+     */
+    @FormUrlEncoded
+    @POST("/kzj/api/user_voucher/take_delivery.htm")
+    fun takeDelivery(@Header("token") token: String?, @Field("orderId") orderId: String?):Observable<BaseResponse<SimpleResultEntity>>
+
+    /**
      * 处方登记
      */
     @FormUrlEncoded

@@ -14,4 +14,6 @@ constructor(httpUtils: HttpUtils?) : BaseModel(httpUtils), OrderDetailContract.M
     override fun orderDetail(orderId: String?) = httpUtils?.obtainRetrofitService(ApiService::class.java)?.orderDetail(C.TOKEN, orderId)
 
     override fun aliPayKey(orderId: String?) = httpUtils?.obtainRetrofitService(ApiService::class.java)?.aliPayKey(C.TOKEN,orderId)
+
+    override fun takeDelivery(orderId: String?) = httpUtils?.obtainRetrofitService(ApiService::class.java)?.takeDelivery(C.TOKEN, orderId)
 }

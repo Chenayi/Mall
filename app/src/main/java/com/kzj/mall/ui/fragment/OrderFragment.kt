@@ -70,11 +70,11 @@ class OrderFragment : BaseListFragment<OrderPresenter, OrderEntity.List>(), Orde
                     }
 
                     OrderEntity.ORDER_STATUS_WAIT_SEND -> {
-
                     }
 
                     OrderEntity.ORDER_STATUS_WAIT_TAKE -> {
-
+                        val oid = listAdapter?.data?.get(position)?.order_id
+                        mPresenter?.takeDelivery(oid)
                     }
 
                     OrderEntity.ORDER_STATUS_FINISH -> {
@@ -139,6 +139,16 @@ class OrderFragment : BaseListFragment<OrderPresenter, OrderEntity.List>(), Orde
                     ToastUtils.showShort("支付失败")
                 }
             }
+        }
+    }
+
+    override fun takeDeliverySuccess() {
+        ToastUtils.showShort("收货成功")
+        pageNo = 1
+        if (onderStatus == OrderEntity.ORDER_STATUS_ALL) {
+            mPresenter?.myOrderList(null, pageNo, false, false)
+        } else {
+            mPresenter?.myOrderList(onderStatus, pageNo, false, false)
         }
     }
 

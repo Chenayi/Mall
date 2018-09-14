@@ -4,6 +4,7 @@ import com.kzj.mall.base.IModel
 import com.kzj.mall.base.IView
 import com.kzj.mall.entity.AliPayKeyEntity
 import com.kzj.mall.entity.BaseResponse
+import com.kzj.mall.entity.SimpleResultEntity
 import com.kzj.mall.entity.order.OrderDetailEntity
 import io.reactivex.Observable
 
@@ -12,11 +13,15 @@ interface OrderDetailContract {
         fun orderDetail(orderDetailEntity: OrderDetailEntity?)
 
         fun showAliPayKey(key: String?)
+
+        fun takeDeliverySuccess()
     }
 
     interface Model : IModel {
         fun orderDetail(orderId: String?): Observable<BaseResponse<OrderDetailEntity>>?
 
         fun aliPayKey(orderId: String?): Observable<BaseResponse<AliPayKeyEntity>>?
+
+        fun takeDelivery(orderId: String?):Observable<BaseResponse<SimpleResultEntity>>?
     }
 }

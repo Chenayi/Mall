@@ -6,6 +6,7 @@ import com.kzj.mall.base.BaseObserver
 import com.kzj.mall.base.BasePresenter
 import com.kzj.mall.di.scope.FragmentScope
 import com.kzj.mall.entity.AliPayKeyEntity
+import com.kzj.mall.entity.SimpleResultEntity
 import com.kzj.mall.entity.order.OrderEntity
 import com.kzj.mall.http.RxScheduler
 import com.kzj.mall.mvp.contract.OrderContract
@@ -57,10 +58,10 @@ constructor(model: OrderContract.Model?, view: OrderContract.View?, context: Con
                 })
     }
 
-    fun aliPayKey(orderId:String?){
+    fun aliPayKey(orderId: String?) {
         model?.aliPayKey(orderId)
                 ?.compose(RxScheduler.compose())
-                ?.subscribe(object :BaseObserver<AliPayKeyEntity>(){
+                ?.subscribe(object : BaseObserver<AliPayKeyEntity>() {
                     override fun onSubscribe(d: Disposable) {
                         addDisposable(d)
                     }
@@ -74,6 +75,30 @@ constructor(model: OrderContract.Model?, view: OrderContract.View?, context: Con
                     }
 
                     override fun onHandleAfter() {
+                    }
+
+                })
+    }
+
+    fun takeDelivery(orderId: String?) {
+        model?.takeDelivery(orderId)
+                ?.compose(RxScheduler.compose())
+                ?.subscribe(object : BaseObserver<SimpleResultEntity>() {
+                    override fun onSubscribe(d: Disposable) {
+                        addDisposable(d)
+                        view?.showLoading()
+                    }
+
+                    override fun onHandleSuccess(t: SimpleResultEntity?) {
+                        view?.takeDeliverySuccess()
+                    }
+
+                    override fun onHandleError(code: Int, msg: String?) {
+                        view?.onError(code, msg)
+                    }
+
+                    override fun onHandleAfter() {
+                        view?.hideLoading()
                     }
 
                 })
