@@ -2,6 +2,7 @@ package com.kzj.mall.ui.activity
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.text.Editable
@@ -81,6 +82,7 @@ class CreateAddressActivity : BaseActivity<CreateAddressPresenter, ActivityCreat
             rootLayout?.setStatusBarViewColor(ContextCompat.getColor(this, R.color.colorPrimary))
                     ?.setLeftIcon(R.mipmap.back_white)
                     ?.setTitleTextColor(ContextCompat.getColor(this, R.color.white))
+                    ?.setRightTextColor(Color.WHITE)
         }
 
         if (isUpdateAddress) {

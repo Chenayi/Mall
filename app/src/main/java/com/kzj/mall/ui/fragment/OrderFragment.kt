@@ -325,8 +325,7 @@ class OrderFragment : BaseListFragment<OrderPresenter, OrderEntity.List>(), Orde
 
             OrderEntity.ORDER_STATUS_FINISH -> {
                 helper?.setText(R.id.tv_order_status, "已完成")
-                        ?.setGone(R.id.tv_handel, true)
-                        ?.setText(R.id.tv_handel, "再次购买")
+                        ?.setGone(R.id.tv_handel, false)
                         ?.setTextColor(R.id.tv_handel, Color.parseColor("#8A9099"))
                         ?.setBackgroundRes(R.id.tv_handel, R.drawable.background_8a9099_stroke_corners_9999)
             }

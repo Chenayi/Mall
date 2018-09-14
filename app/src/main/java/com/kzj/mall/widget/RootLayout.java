@@ -268,6 +268,7 @@ public class RootLayout extends LinearLayout {
     }
 
     public RootLayout setRightTextColor(int color) {
+        mTitleBarRightTextColor = color;
         tvRight.setTextColor(color);
         tvRight1.setTextColor(color);
         return this;

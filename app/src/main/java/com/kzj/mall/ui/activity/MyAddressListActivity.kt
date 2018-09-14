@@ -6,6 +6,9 @@ import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import com.blankj.utilcode.util.ToastUtils
 import com.gyf.barlibrary.ImmersionBar
 import com.kzj.mall.R
@@ -19,6 +22,7 @@ import com.kzj.mall.entity.address.Address
 import com.kzj.mall.entity.address.AddressEntity
 import com.kzj.mall.mvp.contract.MyAddressListContract
 import com.kzj.mall.mvp.presenter.MyAddressListPresenter
+import com.kzj.mall.ui.dialog.ConfirmDialog
 import com.kzj.mall.widget.RootLayout
 
 class MyAddressListActivity : BaseActivity<MyAddressListPresenter, ActivityAddressListBinding>(), View.OnClickListener, MyAddressListContract.View {
@@ -77,6 +81,8 @@ class MyAddressListActivity : BaseActivity<MyAddressListPresenter, ActivityAddre
         }
 
         addressAdapter = AddressAdapter(ArrayList(), isManager)
+        addressAdapter?.setEmptyView(R.layout.empty_view, mBinding?.rvAddress?.parent as ViewGroup)
+        addressAdapter?.emptyView?.findViewById<TextView>(R.id.tv_empty_msg)?.setText("一个地址都没有哦～")
         mBinding?.rvAddress?.layoutManager = LinearLayoutManager(this)
         mBinding?.rvAddress?.adapter = addressAdapter
 
@@ -97,7 +103,7 @@ class MyAddressListActivity : BaseActivity<MyAddressListPresenter, ActivityAddre
                     updatePosition = position
                     val address = addressAdapter?.getItem(position)
                     val intent = Intent(this, CreateAddressActivity::class.java)
-                    intent?.putExtra("isManager",isManager)
+                    intent?.putExtra("isManager", isManager)
                     intent?.putExtra("isUpdateAddress", true)
                     intent?.putExtra("address", address)
                     startActivityForResult(intent, REQUEST_CODE_CREATE_ADDRESS)
@@ -109,6 +115,18 @@ class MyAddressListActivity : BaseActivity<MyAddressListPresenter, ActivityAddre
                                 item?.addressName!!, item?.addressMoblie!!, item?.addressDetail!!, "1", item?.addressId!!)
                         changeDefaultPosition = position
                     }
+                }
+                R.id.ll_delete -> {
+                    ConfirmDialog.newInstance("取消", "确定", "确定删除此地址？")
+                            .setOnConfirmClickListener(object : ConfirmDialog.OnConfirmClickListener {
+                                override fun onLeftClick() {
+                                }
+
+                                override fun onRightClick() {
+                                    mPresenter?.deleteAddress(addressAdapter?.getItem(position)?.addressId)
+                                }
+                            })
+                            .show(supportFragmentManager)
                 }
             }
         }
@@ -159,6 +177,10 @@ class MyAddressListActivity : BaseActivity<MyAddressListPresenter, ActivityAddre
         }
     }
 
+    override fun deleteAddressSuccess() {
+        mPresenter?.requestAddress(false)
+    }
+
     override fun showAddress(addressEntity: AddressEntity?) {
         mBinding?.refreshLayout?.isRefreshing = false
         addressEntity?.customerAddresses?.let {
@@ -201,7 +223,7 @@ class MyAddressListActivity : BaseActivity<MyAddressListPresenter, ActivityAddre
         when (v?.id) {
             R.id.tv_create_address -> {
                 val intent = Intent(this, CreateAddressActivity::class.java)
-                intent?.putExtra("isManager",isManager)
+                intent?.putExtra("isManager", isManager)
                 startActivityForResult(intent, REQUEST_CODE_CREATE_ADDRESS)
             }
         }

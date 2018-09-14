@@ -4,12 +4,10 @@ import android.content.Intent
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
-import com.gyf.barlibrary.ImmersionBar
 import com.kzj.mall.R
 import com.kzj.mall.adapter.ClassifyLeftAdapter
 import com.kzj.mall.adapter.CommomViewPagerAdapter
 import com.kzj.mall.base.BaseFragment
-import com.kzj.mall.base.IPresenter
 import com.kzj.mall.databinding.FragmentClassifyBinding
 import com.kzj.mall.di.component.AppComponent
 import com.kzj.mall.di.component.DaggerClassifyLeftComponent
@@ -18,7 +16,6 @@ import com.kzj.mall.entity.ClassifyLeftEntity
 import com.kzj.mall.mvp.contract.ClassifyLeftContract
 import com.kzj.mall.mvp.presenter.ClassifyLeftPresenter
 import com.kzj.mall.ui.activity.SearchActivity
-import com.kzj.mall.utils.LocalDatas
 
 class ClassifyFragment : BaseFragment<ClassifyLeftPresenter, FragmentClassifyBinding>(), ClassifyLeftContract.View,View.OnClickListener {
     private var classifyleftAdapter: ClassifyLeftAdapter? = null
@@ -55,9 +52,10 @@ class ClassifyFragment : BaseFragment<ClassifyLeftPresenter, FragmentClassifyBin
 
     override fun initData() {
         mBinding?.vpClassify?.setNoScroll(true)
-        mBinding?.rlSearch?.setOnClickListener(this)
         initLeft()
         mPresenter?.requestClassifyLeft()
+
+        mBinding?.rlSearch?.setOnClickListener(this)
     }
 
     fun initLeft() {
@@ -120,7 +118,7 @@ class ClassifyFragment : BaseFragment<ClassifyLeftPresenter, FragmentClassifyBin
     }
 
     override fun onClick(v: View?) {
-        when(view?.id){
+        when(v?.id){
             R.id.rl_search->{
                 val intent = Intent(context,SearchActivity::class.java)
                 intent?.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)

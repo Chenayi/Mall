@@ -34,7 +34,7 @@
                 android:layout_height="25dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:src="@color/gray_default"
+                android:src="@mipmap/yes"
                 android:id="@+id/iv_check_default"/>
 
         </RelativeLayout>
@@ -61,7 +61,7 @@
                 android:layout_height="25dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:src="@color/gray_default"
+                android:src="@mipmap/yes"
                 android:visibility="gone"
                 android:id="@+id/iv_check_1"/>
 
@@ -89,7 +89,7 @@
                 android:layout_height="25dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:src="@color/gray_default"
+                android:src="@mipmap/yes"
                 android:visibility="gone"
                 android:id="@+id/iv_check_2"/>
 

@@ -126,6 +126,7 @@ abstract class BaseActivity<P : IPresenter, D : ViewDataBinding> : SupportActivi
             mPresenter.onDestory();
         }
         EventBus.getDefault().unregister(this)
+        KeyboardUtils.hideSoftInput(this)
         super.onDestroy()
     }
 }

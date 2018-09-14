@@ -151,9 +151,8 @@ class OrderDetailActivity : BaseActivity<OrderDetailPresenter, ActivityOrderDeta
             OrderEntity.ORDER_STATUS_FINISH -> {
                 ivOrderStatus?.setImageResource(R.mipmap.icon_finish)
                 tvOrderStatus?.setText("订单已完成")
-                mBinding?.llBottom?.visibility = View.VISIBLE
+                mBinding?.llBottom?.visibility = View.GONE
                 mBinding?.tvHandle?.setBackgroundResource(R.drawable.background_8a9099_stroke_corners_9999)
-                mBinding?.tvHandle?.setText("再次购买")
             }
         }
 

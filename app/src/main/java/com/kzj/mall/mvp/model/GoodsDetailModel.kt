@@ -25,5 +25,4 @@ constructor(httpUtils: HttpUtils?) : BaseModel(httpUtils), GoodsDetailContract.M
     override fun addCar(params: MutableMap<String, String>) = httpUtils?.obtainRetrofitService(ApiService::class.java)?.addCart(C.Companion.TOKEN, params)
     override fun demandRecord(params: MutableMap<String, String>) = httpUtils?.obtainRetrofitService(ApiService::class.java)?.demandRecord(C.TOKEN, params)
     override fun saveGoodsAtte(goodsInfoId: String?) = httpUtils?.obtainRetrofitService(ApiService::class.java)?.saveGoodsAtte(C.TOKEN, goodsInfoId)
-    override fun takeDelivery(orderId: String?) = httpUtils?.obtainRetrofitService(ApiService::class.java)?.takeDelivery(C.TOKEN, orderId)
 }

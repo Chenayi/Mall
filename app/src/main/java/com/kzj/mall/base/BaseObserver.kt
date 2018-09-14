@@ -1,6 +1,5 @@
 package com.kzj.mall.base
 
-import com.blankj.utilcode.util.LogUtils
 import com.kzj.mall.entity.BaseResponse
 import com.kzj.mall.exception.ResultException
 import io.reactivex.Observer

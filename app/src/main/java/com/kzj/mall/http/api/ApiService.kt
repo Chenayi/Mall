@@ -2,6 +2,8 @@ package com.kzj.mall.http.api
 
 import com.kzj.mall.entity.*
 import com.kzj.mall.entity.address.*
+import com.kzj.mall.entity.ask.AskAnswerDetailEntity
+import com.kzj.mall.entity.ask.AskAnswerEntity
 import com.kzj.mall.entity.cart.AddCartEntity
 import com.kzj.mall.entity.cart.CartRecommendEntity
 import com.kzj.mall.entity.home.HomeRecommendEntity
@@ -99,7 +101,7 @@ interface ApiService {
      */
     @FormUrlEncoded
     @POST("/kzj/api/user_voucher/take_delivery.htm")
-    fun takeDelivery(@Header("token") token: String?, @Field("orderId") orderId: String?):Observable<BaseResponse<SimpleResultEntity>>
+    fun takeDelivery(@Header("token") token: String?, @Field("orderId") orderId: String?): Observable<BaseResponse<SimpleResultEntity>>
 
     /**
      * 处方登记
@@ -241,6 +243,15 @@ interface ApiService {
     @POST("/kzj/api/user_voucher/my_address.htm")
     fun addressList(@Header("token") token: String?): Observable<BaseResponse<AddressEntity>>
 
+
+    /**
+     * 删除地址
+     */
+    @FormUrlEncoded
+    @POST("/kzj/api/user_voucher/delete_address_by_id.htm")
+    fun deleteAddress(@Header("token") token: String?, @Field("addressId") addressId: String?)
+            : Observable<BaseResponse<SimpleResultEntity>>
+
     /**
      * 浏览记录
      */
@@ -280,4 +291,13 @@ interface ApiService {
     @POST("/kzj/api/user_voucher/ali_pay_str.htm")
     fun aliPayKey(@Header("token") token: String?, @Field("orderId") orderId: String?)
             : Observable<BaseResponse<AliPayKeyEntity>>
+
+    /**
+     * 问答
+     */
+    @FormUrlEncoded
+    @POST("/kzj/api/user_voucher/interlucation_list.htm")
+    fun askanswer(@Header("token") token: String?, @Field("q_status") qStatus: String?,
+                  @Field("pageNo") pageNo: Int?, @Field("pageSize") pageSize: Int?)
+            : Observable<BaseResponse<AskAnswerEntity>>
 }
