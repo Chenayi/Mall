@@ -17,7 +17,7 @@ class C {
 
         var IS_LOGIN = false
 
-        val CUSTOMER_TEL = "123456"
+        val CUSTOMER_TEL = "4006365343"
 
         val SP_TOKEN = "token"
 

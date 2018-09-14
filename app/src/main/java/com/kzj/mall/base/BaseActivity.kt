@@ -5,12 +5,14 @@ import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
+import android.net.Uri
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.WindowManager
 import com.blankj.utilcode.util.KeyboardUtils
 import com.gyf.barlibrary.ImmersionBar
 import com.kzj.mall.App
+import com.kzj.mall.C
 import com.kzj.mall.R
 import com.kzj.mall.di.component.AppComponent
 import com.kzj.mall.event.CloseActivityEvent
@@ -110,6 +112,11 @@ abstract class BaseActivity<P : IPresenter, D : ViewDataBinding> : SupportActivi
 
     protected fun hideKeyboard() {
         KeyboardUtils.hideSoftInput(this)
+    }
+
+    protected fun call(){
+        val dialIntent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + C.CUSTOMER_TEL))
+        startActivity(dialIntent)
     }
 
     fun jumpActivity(cls: Class<Any>) {

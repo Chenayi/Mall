@@ -98,6 +98,7 @@ class MineFragment : BaseFragment<MinePresenter, FragmentMineBinding>(), View.On
         mBinding?.ivCGoods2?.setOnClickListener(this)
         mBinding?.ivCGoods3?.setOnClickListener(this)
         mBinding?.ivCGoods4?.setOnClickListener(this)
+        mBinding?.rlMobile?.setOnClickListener(this)
     }
 
     @Subscribe
@@ -449,6 +450,9 @@ class MineFragment : BaseFragment<MinePresenter, FragmentMineBinding>(), View.On
                 val intent = Intent(context, MyCollectGoodsActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(intent)
+            }
+            R.id.rl_mobile->{
+                call()
             }
         }
     }

@@ -1,7 +1,9 @@
 package com.kzj.mall.base
 
+import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +13,7 @@ import me.yokeyword.fragmentation.SupportFragment
 import javax.inject.Inject
 import com.gyf.barlibrary.ImmersionBar
 import com.kzj.mall.App
+import com.kzj.mall.C
 import com.kzj.mall.R
 import com.kzj.mall.di.component.AppComponent
 import com.kzj.mall.ui.dialog.LoadingDialog
@@ -98,6 +101,11 @@ abstract class BaseFragment<P : IPresenter, D : ViewDataBinding> : SupportFragme
         mImmersionBar = ImmersionBar.with(this)
         mImmersionBar?.fitsSystemWindows(true, immersionBarColor)
                 ?.init()
+    }
+
+    protected fun call(){
+        val dialIntent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + C.CUSTOMER_TEL))
+        startActivity(dialIntent)
     }
 
     override fun onDestroy() {

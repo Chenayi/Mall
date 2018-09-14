@@ -42,10 +42,16 @@ class GoodsSpecDialog : BaseDialog<GoodsSpecPresenter, DialogGoodsSpecBinding>()
      */
     private var groupPosition = 0
 
+    /**
+     * 商品数量
+     */
+    private var mGoodsNum = 1
+
     companion object {
-        fun newInstance(specPosition: Int?, groupPosition: Int?, goodsDefaultInfoId: String?, goodsDetailEntity: GoodsDetailEntity?): GoodsSpecDialog {
+        fun newInstance(goodsNum: Int?, specPosition: Int?, groupPosition: Int?, goodsDefaultInfoId: String?, goodsDetailEntity: GoodsDetailEntity?): GoodsSpecDialog {
             val goodsSpecDialog = GoodsSpecDialog()
             val arguments = Bundle()
+            arguments?.putInt("goodsNum", goodsNum!!)
             arguments?.putInt("specPosition", specPosition!!)
             arguments?.putInt("groupPosition", groupPosition!!)
             arguments?.putString("goodsDefaultInfoId", goodsDefaultInfoId)
@@ -75,12 +81,16 @@ class GoodsSpecDialog : BaseDialog<GoodsSpecPresenter, DialogGoodsSpecBinding>()
             groupPosition = it
         }
 
+        arguments?.getInt("goodsNum")?.let {
+            mGoodsNum = it
+        }
+
         val goodsStock = goodsDetailEntity?.gn?.goodsStock!!
-        if (goodsStock <= 0){
+        if (goodsStock <= 0) {
             mBinding?.tvNoStock?.visibility = View.VISIBLE
             mBinding?.tvRequestCheckin?.visibility = View.GONE
             mBinding?.llBottom?.visibility = View.GONE
-        }else{
+        } else {
             mBinding?.tvNoStock?.visibility = View.GONE
             goodsDetailEntity?.gn?.goodsType?.let {
                 //处方
@@ -96,6 +106,9 @@ class GoodsSpecDialog : BaseDialog<GoodsSpecPresenter, DialogGoodsSpecBinding>()
                 }
             }
         }
+
+        //数量
+        mBinding?.tvNum?.text = mGoodsNum?.toString()
 
         setSpecGroup(goodsDetailEntity)
 
@@ -281,7 +294,7 @@ class GoodsSpecDialog : BaseDialog<GoodsSpecPresenter, DialogGoodsSpecBinding>()
             R.id.iv_close -> dismiss()
             R.id.tv_add_cart -> addCart()
             R.id.tv_buy -> buy()
-            R.id.tv_request_checkin->submitDemand()
+            R.id.tv_request_checkin -> submitDemand()
         }
     }
 
@@ -304,7 +317,7 @@ class GoodsSpecDialog : BaseDialog<GoodsSpecPresenter, DialogGoodsSpecBinding>()
     /**
      *  提交处方登记
      */
-    fun submitDemand(){
+    fun submitDemand() {
         EventBus.getDefault().post(SubmitDemandEvent())
         dismiss()
     }

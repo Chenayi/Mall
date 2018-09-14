@@ -80,6 +80,11 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
     private var isLoadDetailFragment = false
 
     /**
+     * 商品数量
+     */
+    private var mGoodsNum = 1
+
+    /**
      * 是否添加关注
      */
     private var isFollow = false
@@ -214,6 +219,14 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
     }
 
     /**
+     * 商品数量
+     */
+    @Subscribe
+    fun goodsNumChange(goodsNumChangeEvent: GoodsNumChangeEvent) {
+        mGoodsNum = goodsNumChangeEvent?.goodsNum
+    }
+
+    /**
      * 更新数据
      */
     fun updateDatas(goodsDefaultInfoId: String?, goodsDetailEntity: GoodsDetailEntity?) {
@@ -258,20 +271,20 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
                 tvApprovalNo?.setText("批准文号：" + it?.goodsApprovalNo?.approvalNo)
 
 
-                if (it?.goodsPrice?.toFloat()!! < it?.goodsMarketPrice?.toFloat()!!){
+                if (it?.goodsPrice?.toFloat()!! < it?.goodsMarketPrice?.toFloat()!!) {
                     tvTejie?.visibility = View.VISIBLE
-                }else{
+                } else {
                     tvTejie?.visibility = View.GONE
                 }
 
                 //处方
                 if (it.goodsType.equals("0")) {
-                    tvOtc?.visibility =View.VISIBLE
+                    tvOtc?.visibility = View.VISIBLE
                 }
 
                 //非处方
                 else {
-                    tvOtc?.visibility =View.GONE
+                    tvOtc?.visibility = View.GONE
                 }
             }
 
@@ -308,7 +321,7 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
      * 规格弹窗
      */
     fun showSpecDialog() {
-        GoodsSpecDialog.newInstance(specPosition, groupPosition, mGoodsDefaultInfoId, goodsDetailEntity)
+        GoodsSpecDialog.newInstance(mGoodsNum, specPosition, groupPosition, mGoodsDefaultInfoId, goodsDetailEntity)
                 .setShowBottom(true)
                 .show(childFragmentManager)
     }
