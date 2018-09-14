@@ -24,12 +24,14 @@ import com.kzj.mall.entity.BuyEntity
 import com.kzj.mall.entity.PayResult
 import com.kzj.mall.entity.order.ConfirmOrderEntity
 import com.kzj.mall.entity.address.Address
+import com.kzj.mall.event.CartChangeEvent
 import com.kzj.mall.mvp.contract.ConfirmOrderContract
 import com.kzj.mall.mvp.presenter.ConfirmOrderPresenter
 import com.kzj.mall.ui.dialog.ConfirmDialog
 import com.kzj.mall.utils.FloatUtils
 import com.kzj.mall.utils.Utils
 import com.kzj.mall.widget.RootLayout
+import org.greenrobot.eventbus.EventBus
 
 class ConfirmOrderActivity : BaseActivity<ConfirmOrderPresenter, ActivityConfirmOrderBinding>(), View.OnClickListener, ConfirmOrderContract.View {
     val CHECK_ALIPAY = 1
@@ -38,6 +40,7 @@ class ConfirmOrderActivity : BaseActivity<ConfirmOrderPresenter, ActivityConfirm
     private val SDK_PAY_FLAG = 1
     var payCheck = CHECK_ALIPAY
     var hasAddress = false
+    var isFromCart = false
 
     private var goodsAdapter: GoodsAdapter? = null
 
@@ -72,6 +75,10 @@ class ConfirmOrderActivity : BaseActivity<ConfirmOrderPresenter, ActivityConfirm
     override fun initData() {
         intent?.getSerializableExtra("buyEntity")?.let {
             buyEntity = it as BuyEntity
+        }
+
+        intent?.getBooleanExtra("isFromCart",false)?.let {
+            isFromCart = it
         }
 
         val goodsImgs = ArrayList<String>()
@@ -243,6 +250,8 @@ class ConfirmOrderActivity : BaseActivity<ConfirmOrderPresenter, ActivityConfirm
     }
 
     override fun submitOrderCallBack(confirmOrderEntity: ConfirmOrderEntity?) {
+        EventBus.getDefault().post(CartChangeEvent())
+
         this.orderId = confirmOrderEntity?.orderId
         this.orderPrice = confirmOrderEntity?.sumPrice
 

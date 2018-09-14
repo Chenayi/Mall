@@ -19,12 +19,12 @@ import com.kzj.mall.di.component.DaggerCartComponent
 import com.kzj.mall.di.module.CartModule
 import com.kzj.mall.entity.BuyEntity
 import com.kzj.mall.entity.CartEntity
+import com.kzj.mall.entity.cart.*
 import com.kzj.mall.utils.LocalDatas
-import com.kzj.mall.entity.cart.BaseCartEntity
-import com.kzj.mall.entity.cart.CartGroupEntity
-import com.kzj.mall.entity.cart.CartSingleEntity
-import com.kzj.mall.entity.cart.ICart
+import com.kzj.mall.entity.home.HomeRecommendEntity
+import com.kzj.mall.event.CartChangeEvent
 import com.kzj.mall.event.LoginSuccessEvent
+import com.kzj.mall.event.LogoutEvent
 import com.kzj.mall.mvp.contract.CartContract
 import com.kzj.mall.mvp.presenter.CartPresenter
 import com.kzj.mall.ui.activity.ConfirmOrderActivity
@@ -42,6 +42,8 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
     private var headerView: View? = null
     private var tvContent: TextView? = null
     private var tvLogin: SuperTextView? = null
+
+    private var isCartChange = false
 
     companion object {
         fun newInstance(): CartFragment {
@@ -89,26 +91,28 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
         tvLogin = headerView?.findViewById(R.id.tv_login)
         if (C.IS_LOGIN) {
             mBinding?.refreshLayout?.isEnabled = true
-            mBinding?.llBalance?.visibility = View.GONE
-            tvContent?.setText("购物车空空如也")
-            tvLogin?.visibility = View.GONE
-            mBinding?.tvEdit?.visibility = View.GONE
-            cartAdapter?.addHeaderView(headerView)
         } else {
             mBinding?.refreshLayout?.isEnabled = false
             mBinding?.llBalance?.visibility = View.GONE
             mBinding?.tvEdit?.visibility = View.GONE
+            tvLogin?.visibility = View.VISIBLE
             tvLogin?.setOnClickListener {
                 val intent = Intent(context, LoginActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(intent)
             }
-            cartAdapter?.addHeaderView(headerView)
+            cartAdapter?.setHeaderView(headerView)
+            mPresenter?.loadRecommendsData()
         }
 
         cartAdapter?.setOnItemClickListener { adapter, view, position ->
             val iCart = cartAdapter?.data?.get(position)
             if (iCart is CartSingleEntity && !isDeleteMode) {
+                val intent = Intent(context, GoodsDetailActivity::class.java)
+                intent?.putExtra(C.GOODS_INFO_ID, iCart?.goods_info_id)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent)
+            } else if (iCart is CartRecommendEntity.Data) {
                 val intent = Intent(context, GoodsDetailActivity::class.java)
                 intent?.putExtra(C.GOODS_INFO_ID, iCart?.goods_info_id)
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -196,7 +200,7 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
                 return
             }
         }
-        cartAdapter?.addHeaderView(headerView, 0)
+        cartAdapter?.setHeaderView(headerView, 0)
         mBinding?.llBalance?.visibility = View.GONE
         tvLogin?.visibility = View.GONE
         mBinding?.tvEdit?.visibility = View.GONE
@@ -316,8 +320,55 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
     }
 
     @Subscribe
+    fun cartChange(cartChangeEvent: CartChangeEvent) {
+        isCartChange = true
+    }
+
+    @Subscribe
     fun loginSuccess(loginSuccessEvent: LoginSuccessEvent) {
+        mBinding?.refreshLayout?.isEnabled = true
         mPresenter?.requesrCart(false)
+    }
+
+    @Subscribe
+    fun logout(logoutEvent: LogoutEvent) {
+        mBinding?.refreshLayout?.isEnabled = false
+        cartAdapter?.setNewData(ArrayList())
+
+        mBinding?.llBalance?.visibility = View.GONE
+        mBinding?.tvEdit?.visibility = View.GONE
+        tvLogin?.visibility = View.VISIBLE
+        tvLogin?.setOnClickListener {
+            val intent = Intent(context, LoginActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
+        }
+        cartAdapter?.setHeaderView(headerView)
+
+        mBinding?.rvCart?.scrollToPosition(0)
+
+        mPresenter?.loadRecommendsData()
+    }
+
+    override fun onSupportVisible() {
+        super.onSupportVisible()
+        if (C.IS_LOGIN && isCartChange) {
+            mPresenter?.requesrCart(false)
+        }
+    }
+
+    override fun loadRecommendDatas(t: MutableList<CartRecommendEntity.Data>?) {
+        t?.let {
+            it?.get(0)?.isShowRecommendText = true
+            val iCart = ArrayList<ICart>()
+            iCart?.addAll(it)
+            if (cartAdapter?.data?.size!! > 0) {
+                cartAdapter?.addData(iCart)
+            } else {
+                cartAdapter?.setNewData(iCart)
+            }
+            cartAdapter?.loadMoreEnd()
+        }
     }
 
     /**
@@ -325,10 +376,10 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
      */
     override fun changeCartNumSeccess(position: Int, t: CartEntity?) {
         val cartEntity = cartAdapter?.getItem(position)
-        if (cartEntity is CartSingleEntity){
+        if (cartEntity is CartSingleEntity) {
             cartEntity?.goods_num = t?.shoppingCart?.goods_num
             cartEntity?.goods_stock = t?.shoppingCart?.goods_stock
-        }else if (cartEntity is CartGroupEntity){
+        } else if (cartEntity is CartGroupEntity) {
             cartEntity?.goods_num = t?.shoppingCart?.goods_num
             cartEntity?.goods_stock = t?.shoppingCart?.goods_stock
         }
@@ -348,6 +399,7 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
      * 购物车数据
      */
     override fun showCart(cartEntity: CartEntity?) {
+        isCartChange = false
         mBinding?.refreshLayout?.isRefreshing = false
         mBinding?.ivAllCheck?.setImageResource(R.mipmap.check_nor)
         mBinding?.tvToBalance?.isEnabled = false
@@ -359,6 +411,12 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
 
         if (shoplist == null || shoplist?.size!! <= 0) {
             cartAdapter?.setNewData(iCarts)
+            mBinding?.llBalance?.visibility = View.GONE
+            tvContent?.setText("购物车空空如也")
+            tvLogin?.visibility = View.GONE
+            mBinding?.tvEdit?.visibility = View.GONE
+            cartAdapter?.setHeaderView(headerView)
+            mPresenter?.loadRecommendsData()
             return
         }
 
@@ -404,6 +462,8 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
         }
 
         cartAdapter?.setNewData(iCarts)
+
+        mPresenter?.loadRecommendsData()
     }
 
     /**
@@ -413,6 +473,7 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
         buyEntity?.shoppingCartIds = cartIds()
         val intent = Intent(context, ConfirmOrderActivity::class.java)
         intent?.putExtra("buyEntity", buyEntity)
+        intent?.putExtra("isFromCart", true)
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(intent)
     }

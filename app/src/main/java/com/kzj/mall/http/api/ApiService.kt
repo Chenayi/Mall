@@ -3,6 +3,7 @@ package com.kzj.mall.http.api
 import com.kzj.mall.entity.*
 import com.kzj.mall.entity.address.*
 import com.kzj.mall.entity.cart.AddCartEntity
+import com.kzj.mall.entity.cart.CartRecommendEntity
 import com.kzj.mall.entity.home.HomeRecommendEntity
 import com.kzj.mall.entity.order.ConfirmOrderEntity
 import com.kzj.mall.entity.order.OrderDetailEntity
@@ -65,6 +66,11 @@ interface ApiService {
     @POST("/kzj/api/search_goods_by_cid.htm")
     fun loadRecommendHomeDatas(@Field("pageNo") pageNo: Int?, @Field("pageSize") pageSize: Int?, @Field("c_id") cid: String?)
             : Observable<BaseResponse<HomeRecommendEntity>>
+
+    @FormUrlEncoded
+    @POST("/kzj/api/search_goods_by_cid.htm")
+    fun loadCartRecommendDatas(@Field("pageNo") pageNo: Int?, @Field("pageSize") pageSize: Int?, @Field("c_id") cid: String?)
+            : Observable<BaseResponse<CartRecommendEntity>>
 
 
     /**
@@ -176,7 +182,7 @@ interface ApiService {
      */
     @FormUrlEncoded
     @POST("/kzj/api/user_voucher/update_customerInfo.htm")
-    fun updateInfo(@Header("token") token: String?, @FieldMap params: MutableMap<String, String>?): Observable<SimpleResultEntity>
+    fun updateInfo(@Header("token") token: String?, @FieldMap params: MutableMap<String, String>?): Observable<BaseResponse<SimpleResultEntity>>
 
     /**
      * 我的收藏

@@ -23,4 +23,6 @@ constructor(httpUtils: HttpUtils?) : BaseModel(httpUtils), CartContract.Model {
     override fun changeCartNum(cardID: String?, num: String) = httpUtils?.obtainRetrofitService(ApiService::class.java)?.changeCartNum(C.TOKEN, cardID, num)
 
     override fun cartBanlance(cardIDs: LongArray?) = httpUtils?.obtainRetrofitService(ApiService::class.java)?.cartBalance(C.TOKEN, cardIDs)
+
+    override fun loadRecommendHomeDatas(pageNo: Int, pageSize: Int, cid: String) = httpUtils?.obtainRetrofitService(ApiService::class.java)?.loadCartRecommendDatas(pageNo, pageSize, cid)
 }

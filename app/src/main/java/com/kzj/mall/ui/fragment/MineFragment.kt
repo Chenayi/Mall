@@ -275,6 +275,8 @@ class MineFragment : BaseFragment<MinePresenter, FragmentMineBinding>(), View.On
         mBinding?.ivCGoods3?.visibility = View.INVISIBLE
         mBinding?.ivCGoods4?.visibility = View.INVISIBLE
         mBinding?.llMyCollect?.visibility = View.GONE
+
+        mBinding?.ivAvatar?.setImageResource(R.mipmap.icon_avatar_default)
     }
 
     override fun onSupportVisible() {

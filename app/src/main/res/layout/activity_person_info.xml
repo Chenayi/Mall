@@ -20,6 +20,7 @@
                 android:padding="10dp">
 
                 <RelativeLayout
+                    android:id="@+id/rl_avatar"
                     android:layout_width="match_parent"
                     android:layout_height="93dp"
                     android:background="@drawable/background_white_corners_8">
@@ -61,7 +62,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:id="@+id/ll_nick_name">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -106,13 +108,13 @@
                             android:textSize="13dp" />
 
                         <RadioGroup
+                            android:id="@+id/rg"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="10dp"
                             android:layout_weight="1"
                             android:gravity="right"
-                            android:orientation="horizontal"
-                            android:id="@+id/rg">
+                            android:orientation="horizontal">
 
                             <RadioButton
                                 android:id="@+id/sex_nor"
@@ -154,7 +156,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:id="@+id/ll_birthday">
 
                         <TextView
                             android:layout_width="wrap_content"

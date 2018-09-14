@@ -251,25 +251,6 @@ class LocalDatas {
         }
 
         /**
-         * 购物车为您推荐
-         */
-        fun cartRecommendDatas(): MutableList<CartRecommendEntity> {
-            val list = ArrayList<CartRecommendEntity>()
-            for (i in 0..8) {
-                val cartRecommendEntity = CartRecommendEntity()
-                cartRecommendEntity.isBackgroundCorners = true
-                if (i == 0) {
-                    cartRecommendEntity.isShowRecommendText = true
-                } else {
-                    cartRecommendEntity.isShowRecommendText = false
-                }
-                list.add(cartRecommendEntity)
-            }
-            return list
-        }
-
-
-        /**
          * 购物车组合数据
          */
         fun cartGroupDatas(): CartGroupEntity {

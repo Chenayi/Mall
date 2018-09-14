@@ -12,10 +12,12 @@ import com.kzj.mall.entity.BuyEntity
 import com.kzj.mall.entity.GoodsDetailEntity
 import com.kzj.mall.entity.SimpleResultEntity
 import com.kzj.mall.entity.cart.AddCartEntity
+import com.kzj.mall.event.CartChangeEvent
 import com.kzj.mall.http.RxScheduler
 import com.kzj.mall.mvp.contract.GoodsDetailContract
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
+import org.greenrobot.eventbus.EventBus
 import javax.inject.Inject
 
 @ActivityScope
@@ -140,6 +142,7 @@ constructor(model: GoodsDetailContract.Model?, view: GoodsDetailContract.View?, 
                     }
 
                     override fun onHandleSuccess(t: AddCartEntity?) {
+                        EventBus.getDefault().post(CartChangeEvent())
                     }
 
                     override fun onHandleError(code: Int, msg: String?) {
