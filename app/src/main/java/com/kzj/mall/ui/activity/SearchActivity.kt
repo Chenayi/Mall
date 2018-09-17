@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
 import android.view.View
 import android.view.WindowManager
+import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.kzj.mall.C
@@ -228,12 +229,12 @@ class SearchActivity : BaseActivity<SearchPresenter, ActivitySearchBinding>()
      * 搜索
      */
     private fun searchWithLoading(keywords: String) {
+        this.keywords = keywords
         curPage = 1
         startSearch(true)
         mBinding?.goodsSortView?.setDefault()
         mBinding?.goodsSortView?.setPopDefault()
         sort = GoodsSortView.S_DEFAULT
-        this.keywords = keywords
     }
 
     /**

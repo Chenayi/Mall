@@ -203,6 +203,8 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
         cartAdapter?.setHeaderView(headerView, 0)
         mBinding?.llBalance?.visibility = View.GONE
         tvLogin?.visibility = View.GONE
+        isDeleteMode = false
+        mBinding?.tvEdit?.text = "编辑"
         mBinding?.tvEdit?.visibility = View.GONE
         tvContent?.setText("购物车空空如也")
         mBinding?.rvCart?.scrollToPosition(0)
@@ -483,7 +485,7 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
         val ids = ArrayList<Long>()
         for (i in 0 until data?.size!!) {
             val cartEntity = data?.get(i) as BaseCartEntity
-            if (cartEntity?.isCheck) {
+            if (cartEntity?.isCheck && (cartEntity is CartSingleEntity || cartEntity is CartGroupEntity)) {
                 ids?.add(cartEntity?.shopping_cart_id?.toLong()!!)
             }
         }

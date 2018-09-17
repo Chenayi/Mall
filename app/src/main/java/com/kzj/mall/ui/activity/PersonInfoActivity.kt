@@ -6,10 +6,8 @@ import android.content.Intent
 import android.net.Uri
 import android.provider.Settings
 import android.view.View
-import android.widget.Toast
 import com.bigkoo.pickerview.builder.TimePickerBuilder
 import com.bigkoo.pickerview.listener.OnTimeSelectListener
-import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.TimeUtils
 import com.blankj.utilcode.util.ToastUtils
@@ -18,16 +16,13 @@ import com.gyf.barlibrary.ImmersionBar
 import com.kzj.mall.C
 import com.kzj.mall.GlideApp
 import com.kzj.mall.R
-import com.kzj.mall.RequestCode
 import com.kzj.mall.base.BaseActivity
-import com.kzj.mall.base.IPresenter
 import com.kzj.mall.databinding.ActivityPersonInfoBinding
 import com.kzj.mall.di.component.AppComponent
 import com.kzj.mall.di.component.DaggerPersonInfoComponent
 import com.kzj.mall.di.module.PersonInfoModule
 import com.kzj.mall.entity.CustomerEntity
 import com.kzj.mall.entity.ImageJsonEntity
-import com.kzj.mall.entity.address.Address
 import com.kzj.mall.event.LogoutEvent
 import com.kzj.mall.image.Glide4Engine
 import com.kzj.mall.mvp.contract.PersonInfoContract
@@ -290,7 +285,8 @@ class PersonInfoActivity : BaseActivity<PersonInfoPresenter, ActivityPersonInfoB
                 showDateDialog()
             }
             R.id.ll_nick_name -> {
-                EditDialog.newInstance()
+                val content = mBinding?.tvNickName?.text?.toString()?.trim()
+                EditDialog.newInstance(content)
                         .setOnConfirmClickListener(object :EditDialog.OnConfirmClickListener{
                             override fun onLeftClick() {
                             }

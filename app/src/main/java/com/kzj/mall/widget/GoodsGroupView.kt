@@ -1,12 +1,14 @@
 package com.kzj.mall.widget
 
 import android.content.Context
+import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.util.AttributeSet
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import com.blankj.utilcode.util.SizeUtils
 import com.chad.library.adapter.base.BaseViewHolder
+import com.kzj.mall.C
 import com.kzj.mall.GlideApp
 import com.kzj.mall.R
 import com.kzj.mall.adapter.BaseAdapter
@@ -14,11 +16,13 @@ import com.kzj.mall.base.BaseRelativeLayout
 import com.kzj.mall.databinding.GoodsGroupViewBinding
 import com.kzj.mall.entity.GoodsDetailEntity
 import com.kzj.mall.event.AddGroupCartEvent
+import com.kzj.mall.ui.activity.login.LoginActivity
 import com.takusemba.multisnaprecyclerview.MultiSnapRecyclerView
 import org.greenrobot.eventbus.EventBus
 
 class GoodsGroupView : BaseRelativeLayout<GoodsGroupViewBinding> {
     private var groupAdapter: GroupAdapter? = null
+    private var isShowAddCart = false
 
     constructor(context: Context?) : super(context)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
@@ -30,6 +34,8 @@ class GoodsGroupView : BaseRelativeLayout<GoodsGroupViewBinding> {
 
     override fun init(attrs: AttributeSet, defStyleAttr: Int) {
         groupAdapter = GroupAdapter(ArrayList())
+        mBinding?.rvGroup?.setFocusableInTouchMode(false);
+        mBinding?.rvGroup?.requestFocus();
         mBinding?.rvGroup?.layoutManager = LinearLayoutManager(context)
         mBinding?.rvGroup?.adapter = groupAdapter
 
@@ -42,20 +48,27 @@ class GoodsGroupView : BaseRelativeLayout<GoodsGroupViewBinding> {
                     groupAdapter?.notifyItemChanged(openPosition)
                     openPosition = position
                 }
-                R.id.tv_group_add_cart->{
+                R.id.tv_group_add_cart -> {
+                    if (!C.IS_LOGIN) {
+                        val intent = Intent(context, LoginActivity::class.java)
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        context?.startActivity(intent)
+                        return@setOnItemChildClickListener
+                    }
                     EventBus.getDefault().post(AddGroupCartEvent(view))
                 }
             }
         }
     }
 
-    fun setNewDatas(datas: MutableList<GoodsDetailEntity.CombinationList>?) {
+    fun setNewDatas(isShowAddCart: Boolean, datas: MutableList<GoodsDetailEntity.CombinationList>?) {
+        this.isShowAddCart = isShowAddCart
         datas?.let {
-            if (it?.size > 0){
-                for (i in 0 until it?.size){
-                    if (i == 0){
+            if (it?.size > 0) {
+                for (i in 0 until it?.size) {
+                    if (i == 0) {
                         it?.get(i)?.isOpen = true
-                    }else{
+                    } else {
                         it?.get(i)?.isOpen = false
                     }
                 }
@@ -65,14 +78,14 @@ class GoodsGroupView : BaseRelativeLayout<GoodsGroupViewBinding> {
     }
 
 
-    class GroupAdapter(combinationList: MutableList<GoodsDetailEntity.CombinationList>)
+    inner class GroupAdapter(combinationList: MutableList<GoodsDetailEntity.CombinationList>)
         : BaseAdapter<GoodsDetailEntity.CombinationList, BaseViewHolder>(R.layout.item_goods_group, combinationList) {
         override fun convert(helper: BaseViewHolder?, item: GoodsDetailEntity.CombinationList?) {
 
             helper?.setText(R.id.tv_group_name, item?.combination_name)
                     ?.setText(R.id.tv_goods_price, "优惠价：¥" + item?.combination_price?.toString())
                     ?.setText(R.id.tv_goods_pre_price, "立省：¥" + item?.sumPrePrice)
-                    ?.setGone(R.id.tv_group_add_cart, item?.isOpen == true)
+                    ?.setGone(R.id.tv_group_add_cart, item?.isOpen == true && isShowAddCart)
                     ?.setGone(R.id.rv_group, item?.isOpen == true)
                     ?.setGone(R.id.iv_down, item?.isOpen == false)
                     ?.addOnClickListener(R.id.iv_down)

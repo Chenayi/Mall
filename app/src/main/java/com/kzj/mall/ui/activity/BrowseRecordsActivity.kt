@@ -1,5 +1,6 @@
 package com.kzj.mall.ui.activity
 
+import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.view.ViewGroup
@@ -42,11 +43,18 @@ class BrowseRecordsActivity : BaseActivity<BrowseRecordPresenter, ActivityBrowse
     override fun initData() {
         rootLayout = RootLayout.getInstance(this)
         browseRecordsAdapter = BrowseRecordsAdapter(ArrayList())
-        browseRecordsAdapter?.setEmptyView(R.layout.empty_view,mBinding?.rvRecord?.parent as ViewGroup)
+        browseRecordsAdapter?.setEmptyView(R.layout.empty_view, mBinding?.rvRecord?.parent as ViewGroup)
         browseRecordsAdapter?.emptyView?.findViewById<TextView>(R.id.tv_empty_msg)?.setText("暂时没有相关浏览记录哦～")
         browseRecordsAdapter?.setEnableLoadMore(true)
         mBinding?.rvRecord?.layoutManager = LinearLayoutManager(this)
         mBinding?.rvRecord?.adapter = browseRecordsAdapter
+
+        browseRecordsAdapter?.setOnItemClickListener { adapter, view, position ->
+            val intent = Intent(this, GoodsDetailActivity::class.java)
+            intent?.putExtra(C.GOODS_INFO_ID, browseRecordsAdapter?.getItem(position)?.goods?.goodsInfoId)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
+        }
 
         initLinstener()
 
@@ -75,26 +83,28 @@ class BrowseRecordsActivity : BaseActivity<BrowseRecordPresenter, ActivityBrowse
                 }
             }
 
-            ConfirmDialog.newInstance("取消", "删除", "确定要将这" + ids?.size + "件商品删除？")
-                    .setOnConfirmClickListener(object :ConfirmDialog.OnConfirmClickListener{
-                        override fun onLeftClick() {
-                        }
-
-                        override fun onRightClick() {
-                            val idArray = LongArray(ids?.size)
-                            for (i in 0 until ids?.size) {
-                                idArray[i] = ids?.get(i)
+            if (ids?.size > 0) {
+                ConfirmDialog.newInstance("取消", "删除", "确定要将这" + ids?.size + "件商品删除？")
+                        .setOnConfirmClickListener(object : ConfirmDialog.OnConfirmClickListener {
+                            override fun onLeftClick() {
                             }
-                            mPresenter?.deleteRecords(idArray)
-                        }
 
-                    }).show(supportFragmentManager)
+                            override fun onRightClick() {
+                                val idArray = LongArray(ids?.size)
+                                for (i in 0 until ids?.size) {
+                                    idArray[i] = ids?.get(i)
+                                }
+                                mPresenter?.deleteRecords(idArray)
+                            }
+
+                        }).show(supportFragmentManager)
+            }
         }
 
         //清空
         rootLayout?.setOnRightOnClickListener1 {
             ConfirmDialog.newInstance("取消", "删除", "确定要清空商品？")
-                    .setOnConfirmClickListener(object :ConfirmDialog.OnConfirmClickListener{
+                    .setOnConfirmClickListener(object : ConfirmDialog.OnConfirmClickListener {
                         override fun onLeftClick() {
                         }
 
@@ -116,7 +126,7 @@ class BrowseRecordsActivity : BaseActivity<BrowseRecordPresenter, ActivityBrowse
 
         rootLayout?.setOnRightOnClickListener {
 
-            if (browseRecordsAdapter?.data?.size!! <=0){
+            if (browseRecordsAdapter?.data?.size!! <= 0) {
                 return@setOnRightOnClickListener
             }
 
@@ -189,27 +199,28 @@ class BrowseRecordsActivity : BaseActivity<BrowseRecordPresenter, ActivityBrowse
 
     override fun deleteSuccrss() {
         deleteMode = false
-            rootLayout?.showOrHideRightText1(false)
-            rootLayout?.setRightText("编辑")
-            mBinding?.rlDelete?.visibility = View.GONE
+        rootLayout?.showOrHideRightText1(false)
+        rootLayout?.setRightText("编辑")
+        mBinding?.rlDelete?.visibility = View.GONE
         browseRecordsAdapter?.deleteMode = false
         browseRecordsAdapter?.notifyDataSetChanged()
+        mBinding?.allCheck?.isChecked = false
 
         pageNo = 1
-        mPresenter?.browseRecords(pageNo,false,false)
+        mPresenter?.browseRecords(pageNo, false, false)
     }
 
     override fun browseRecords(browseRecordEntity: BrowseRecordEntity?) {
         mBinding?.refreshLayout?.isRefreshing = false
         val list = browseRecordEntity?.browserecords?.list
-        if (list!=null){
+        if (list != null) {
             list?.let {
                 browseRecordsAdapter?.setNewData(it)
                 if (it?.size < C.PAGE_SIZE) {
                     browseRecordsAdapter?.loadMoreEnd()
                 }
             }
-        }else{
+        } else {
             browseRecordsAdapter?.setNewData(ArrayList())
         }
     }

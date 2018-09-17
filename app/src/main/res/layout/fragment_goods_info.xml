@@ -133,6 +133,36 @@
                             <include layout="@layout/include_detail_spec" />
                         </LinearLayout>
 
+
+                        <!-- 处方提示 -->
+                        <LinearLayout
+                            android:id="@+id/ll_chufang"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/background_white_corners_8"
+                            android:orientation="vertical"
+                            android:padding="10dp"
+                            android:visibility="gone">
+
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="处方提示"
+                                android:textColor="@color/c_2e3033"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="16dp"
+                                android:text="本品为处方药，如需订购可点击【需求登记】提交信息，药师会根据处方审核结果主动联系您。如需协助可在线咨询药师或拨打热线4006356343"
+                                android:textColor="#6A6E75"
+                                android:textSize="12dp" />
+
+                        </LinearLayout>
+
                         <!-- 组合 -->
                         <LinearLayout
                             android:id="@+id/detail_group"

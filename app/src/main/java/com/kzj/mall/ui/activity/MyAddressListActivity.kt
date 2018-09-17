@@ -154,13 +154,11 @@ class MyAddressListActivity : BaseActivity<MyAddressListPresenter, ActivityAddre
                     if (isUpdateAddress == true) {
                         addressAdapter?.data?.set(updatePosition, address)
                         addressAdapter?.notifyItemChanged(updatePosition)
-
-                        return
                     }
-
-
                     //新增地址
-                    addressAdapter?.addData(address)
+                    else{
+                        addressAdapter?.addData(address)
+                    }
 
                     if (address?.isDefault.equals("1")) {
                         val d = addressAdapter?.data

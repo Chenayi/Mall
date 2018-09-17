@@ -259,7 +259,7 @@
                             android:layout_height="match_parent"
                             android:layout_marginLeft="13dp"
                             android:gravity="bottom"
-                            android:text="我的收藏"
+                            android:text="我的关注"
                             android:textColor="#333333"
                             android:textSize="14dp"
                             android:textStyle="bold" />

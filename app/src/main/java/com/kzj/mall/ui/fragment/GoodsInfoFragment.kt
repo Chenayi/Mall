@@ -279,12 +279,14 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
 
                 //处方
                 if (it.goodsType.equals("0")) {
-                    tvOtc?.visibility = View.VISIBLE
+                    tvOtc?.text = "RX"
+                    mBinding?.llChufang?.visibility = View.VISIBLE
                 }
 
                 //非处方
                 else {
-                    tvOtc?.visibility = View.GONE
+                    tvOtc?.text = "OTC"
+                    mBinding?.llChufang?.visibility = View.GONE
                 }
             }
 
@@ -306,7 +308,7 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
             it?.combinationList?.let {
                 if (it?.size > 0) {
                     mBinding?.detailGroup?.visibility = View.VISIBLE
-                    mBinding?.goodsGroupView?.setNewDatas(it)
+                    mBinding?.goodsGroupView?.setNewDatas(goodsDetailEntity?.gn?.goodsType?.equals("0") == false, it)
                 }
             }
 
@@ -315,6 +317,8 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
         goodsDefaultInfoId?.let {
             mGoodsDefaultInfoId = it
         }
+
+        mBinding?.osv?.scrollTo(0, 0)
     }
 
     /**

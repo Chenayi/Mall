@@ -20,5 +20,6 @@ class BrowseRecordEntity {
         var goodsImg: String? = null
         var goodsPrice: String? = null
         var goodsInfoSubtitle: String? = null
+        var goodsInfoId:String?=null
     }
 }

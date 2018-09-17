@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.util.AttributeSet
 import android.view.View
 import android.widget.TextView
+import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.SizeUtils
 import com.kzj.mall.R
 import com.kzj.mall.base.BaseRelativeLayout
@@ -76,6 +77,24 @@ class SuperFlowLayout : BaseRelativeLayout<SuperFlowLayoutBinding>, View.OnClick
         }
         if (position != curPosition) {
             onTagClickListener?.onTagClick(position, datas?.get(position))
+        }
+        curPosition = position
+    }
+
+    /**
+     * 返回到上一个tag
+     */
+    fun returnPrePosition(position: Int){
+        for (i in 0 until textViews?.size!!) {
+            val tv = textViews?.get(i)
+            tv?.setPadding(SizeUtils.dp2px(12f), SizeUtils.dp2px(8f), SizeUtils.dp2px(12f), SizeUtils.dp2px(8f))
+            if (position == i) {
+                tv?.setBackgroundResource(R.drawable.background_green_stroke_corners_9999)
+                tv?.setTextColor(Color.parseColor("#48B828"))
+            } else {
+                tv?.setBackgroundResource(R.drawable.background_f0_corners_9999)
+                tv?.setTextColor(Color.parseColor("#2E3033"))
+            }
         }
         curPosition = position
     }

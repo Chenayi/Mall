@@ -1,10 +1,12 @@
 package com.kzj.mall.ui.dialog
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ScreenUtils
 import com.blankj.utilcode.util.ToastUtils
+import com.kzj.mall.C
 import com.kzj.mall.GlideApp
 import com.kzj.mall.R
 import com.kzj.mall.base.BaseDialog
@@ -16,6 +18,7 @@ import com.kzj.mall.entity.GoodsDetailEntity
 import com.kzj.mall.event.*
 import com.kzj.mall.mvp.contract.GoodsSpecContract
 import com.kzj.mall.mvp.presenter.GoodsSpecPresenter
+import com.kzj.mall.ui.activity.login.LoginActivity
 import com.kzj.mall.utils.FloatUtils
 import com.kzj.mall.widget.SuperFlowLayout
 import org.greenrobot.eventbus.EventBus
@@ -110,6 +113,48 @@ class GoodsSpecDialog : BaseDialog<GoodsSpecPresenter, DialogGoodsSpecBinding>()
         //数量
         mBinding?.tvNum?.text = mGoodsNum?.toString()
 
+
+        //规格
+        mBinding?.sflGoodsSpec?.setOnTagClickListener(object : SuperFlowLayout.OnTagClickListener {
+            override fun onTagClick(position: Int, tag: String?) {
+                mPresenter.requesrGoodsDetail(position, tag, goodsDetailEntity?.openSpec?.get(position)?.goodsId)
+            }
+        })
+        mBinding?.sflGoodsGroup?.setOnTagClickListener(object : SuperFlowLayout.OnTagClickListener {
+            override fun onTagClick(position: Int, tag: String?) {
+                val iGroup = iGruops?.get(position)
+                var packetCount = 1
+                if (iGroup is GoodsDetailEntity.PackageList) {
+                    isCombination = false
+                    if (iGroup.package_count != null && iGroup.package_count!! > 0) {
+                        packetCount = iGroup.package_count!!
+                    }
+                    if (position > 0) {
+                        mBinding?.tvPreGoodsPrice?.visibility = View.VISIBLE
+                        mBinding?.tvGroupName?.text = "疗程装"
+                    } else {
+                        mBinding?.tvPreGoodsPrice?.visibility = View.INVISIBLE
+                        mBinding?.tvGroupName?.text = "标准装"
+                    }
+
+                    EventBus.getDefault().post(GoodsNumChangeEvent(iGroup?.package_count))
+                    setPackagesPrice(position, iGroup?.goods_info_id!!, iGroup?.combination_unit_price, iGroup?.package_count)
+                } else if (iGroup is GoodsDetailEntity.CombinationList) {
+                    isCombination = true
+                    if (iGroup.package_count != null && iGroup.package_count!! > 0) {
+                        packetCount = iGroup.package_count!!
+                    }
+                    mBinding?.tvGoodsPrice?.setText("合计：¥" + FloatUtils.format(iGroup.combination_price))
+                    mBinding?.tvPreGoodsPrice?.visibility = View.VISIBLE
+                    mBinding?.tvPreGoodsPrice?.setCenterString("立省：¥" + FloatUtils.format(iGroup.sumPrePrice))
+                    mBinding?.tvGroupName?.text = "活动套餐"
+                    EventBus.getDefault().post(GoodsNumChangeEvent(1))
+                    EventBus.getDefault().post(CombinationEvent(isCombination, position, iGroup))
+                }
+
+                mBinding?.tvNum?.text = packetCount?.toString()
+            }
+        })
         setSpecGroup(goodsDetailEntity)
 
         mBinding?.ivPlus?.setOnClickListener(this)
@@ -187,49 +232,6 @@ class GoodsSpecDialog : BaseDialog<GoodsSpecPresenter, DialogGoodsSpecBinding>()
 
             mBinding?.sflGoodsGroup?.setDatas(groups)
             mBinding?.sflGoodsGroup?.switchTag(groupPosition)
-
-
-            mBinding?.sflGoodsSpec?.setOnTagClickListener(object : SuperFlowLayout.OnTagClickListener {
-                override fun onTagClick(position: Int, tag: String?) {
-                    mPresenter.requesrGoodsDetail(position, tag, goodsDetailEntity?.openSpec?.get(position)?.goodsId)
-                }
-            })
-
-            mBinding?.sflGoodsGroup?.setOnTagClickListener(object : SuperFlowLayout.OnTagClickListener {
-                override fun onTagClick(position: Int, tag: String?) {
-                    val iGroup = iGruops?.get(position)
-                    var packetCount = 1
-                    if (iGroup is GoodsDetailEntity.PackageList) {
-                        isCombination = false
-                        if (iGroup.package_count != null && iGroup.package_count!! > 0) {
-                            packetCount = iGroup.package_count!!
-                        }
-                        if (position > 0) {
-                            mBinding?.tvPreGoodsPrice?.visibility = View.VISIBLE
-                            mBinding?.tvGroupName?.text = "疗程装"
-                        } else {
-                            mBinding?.tvPreGoodsPrice?.visibility = View.INVISIBLE
-                            mBinding?.tvGroupName?.text = "标准装"
-                        }
-
-                        EventBus.getDefault().post(GoodsNumChangeEvent(iGroup?.package_count))
-                        setPackagesPrice(position, iGroup?.goods_info_id!!, iGroup?.combination_unit_price, iGroup?.package_count)
-                    } else if (iGroup is GoodsDetailEntity.CombinationList) {
-                        isCombination = true
-                        if (iGroup.package_count != null && iGroup.package_count!! > 0) {
-                            packetCount = iGroup.package_count!!
-                        }
-                        mBinding?.tvGoodsPrice?.setText("合计：¥" + FloatUtils.format(iGroup.combination_price))
-                        mBinding?.tvPreGoodsPrice?.visibility = View.VISIBLE
-                        mBinding?.tvPreGoodsPrice?.setCenterString("立省：¥" + FloatUtils.format(iGroup.sumPrePrice))
-                        mBinding?.tvGroupName?.text = "活动套餐"
-                        EventBus.getDefault().post(GoodsNumChangeEvent(1))
-                        EventBus.getDefault().post(CombinationEvent(isCombination, position, iGroup))
-                    }
-
-                    mBinding?.tvNum?.text = packetCount?.toString()
-                }
-            })
         }
     }
 
@@ -302,6 +304,12 @@ class GoodsSpecDialog : BaseDialog<GoodsSpecPresenter, DialogGoodsSpecBinding>()
      * 加入购物车
      */
     fun addCart() {
+        if (!C.IS_LOGIN) {
+            val intent = Intent(context, LoginActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
+            return
+        }
         EventBus.getDefault().post(AddCartEvent())
         dismiss()
     }
@@ -310,6 +318,12 @@ class GoodsSpecDialog : BaseDialog<GoodsSpecPresenter, DialogGoodsSpecBinding>()
      * 购买
      */
     fun buy() {
+        if (!C.IS_LOGIN) {
+            val intent = Intent(context, LoginActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
+            return
+        }
         EventBus.getDefault().post(BuyNowEvent())
         dismiss()
     }
@@ -318,6 +332,12 @@ class GoodsSpecDialog : BaseDialog<GoodsSpecPresenter, DialogGoodsSpecBinding>()
      *  提交处方登记
      */
     fun submitDemand() {
+        if (!C.IS_LOGIN){
+            val intent = Intent(context, LoginActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            context?.startActivity(intent)
+            return
+        }
         EventBus.getDefault().post(SubmitDemandEvent())
         dismiss()
     }
@@ -328,6 +348,7 @@ class GoodsSpecDialog : BaseDialog<GoodsSpecPresenter, DialogGoodsSpecBinding>()
      */
     override fun showGoodsDetail(position: Int, spec: String?, goodsInfoId: String?, goodsDetailEntity: GoodsDetailEntity?) {
         specPosition = position
+        groupPosition = 0
         setSpecGroup(goodsDetailEntity)
         this.goodsDetailEntity = goodsDetailEntity
         goodsDetailEntity?.let {
@@ -345,6 +366,7 @@ class GoodsSpecDialog : BaseDialog<GoodsSpecPresenter, DialogGoodsSpecBinding>()
 
     override fun onError(code: Int, msg: String?) {
         ToastUtils.showShort(msg)
+        mBinding?.sflGoodsSpec?.returnPrePosition(specPosition)
     }
 
     /**

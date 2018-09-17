@@ -1,6 +1,7 @@
 package com.kzj.mall.ui.activity
 
 import android.content.Intent
+import android.net.Uri
 import android.support.v4.app.Fragment
 import android.support.v4.view.ViewPager
 import android.view.View
@@ -155,6 +156,7 @@ class GoodsDetailActivity : BaseActivity<GoodsDetailPresenter, ActivityGoodsDeta
             }
         })
 
+        mBinding?.llPhone?.setOnClickListener(this)
         mBinding?.tvBuy?.setOnClickListener(this)
         mBinding?.tvAddCart?.setOnClickListener(this)
         mBinding?.tvRequestCheckin?.setOnClickListener(this)
@@ -404,6 +406,8 @@ class GoodsDetailActivity : BaseActivity<GoodsDetailPresenter, ActivityGoodsDeta
      * 处方登记
      */
     override fun demandRecord(buyEntity: BuyEntity?) {
+
+
         var rxRecordType = "1"
         var goodsinfoid = mGoodsInfoId
         if (isCombination) {
@@ -430,6 +434,10 @@ class GoodsDetailActivity : BaseActivity<GoodsDetailPresenter, ActivityGoodsDeta
 
     override fun onError(code: Int, msg: String?) {
         ToastUtils.showShort(msg)
+        //商品已下架
+        if (code == 3002) {
+            finish()
+        }
     }
 
 
@@ -492,6 +500,11 @@ class GoodsDetailActivity : BaseActivity<GoodsDetailPresenter, ActivityGoodsDeta
             R.id.ll_cart -> {
                 EventBus.getDefault().post(CloseActivityEvent())
                 EventBus.getDefault().post(BackCartEvent())
+            }
+
+            R.id.ll_phone->{
+                val dialIntent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + C.CUSTOMER_TEL))
+                startActivity(dialIntent)
             }
         }
     }
