@@ -300,4 +300,20 @@ interface ApiService {
     fun askanswer(@Header("token") token: String?, @Field("q_status") qStatus: String?,
                   @Field("pageNo") pageNo: Int?, @Field("pageSize") pageSize: Int?)
             : Observable<BaseResponse<AskAnswerEntity>>
+
+    /**
+     * 问答详情
+     */
+    @FormUrlEncoded
+    @POST("/kzj/api/interlucation_info.htm")
+    fun interlucationInfo(@Header("token") token: String?, @Field("qId") qId: String?): Observable<BaseResponse<AskAnswerDetailEntity>>
+
+    /**
+     * 问答提交
+     */
+    @FormUrlEncoded
+    @POST("/kzj/api/user_voucher/save_interlucation.htm")
+    fun saveInterlucation(@Header("token") token: String?, @Field("cat_id") catId: String?, @Field("q_name") content: String?
+                          , @Field("user_age") userAge: String?, @Field("user_sex") userSex: String?)
+            : Observable<BaseResponse<SimpleResultEntity>>
 }

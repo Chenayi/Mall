@@ -37,8 +37,8 @@ class MyAskAnswerActivity : BaseActivity<IPresenter, ActivityMyAskAnswerBinding>
     override fun initData() {
         fragments = ArrayList()
         fragments?.add(MyAskAnswerFragment.newInstance("0"))
-        fragments?.add(MyAskAnswerFragment.newInstance("1"))
         fragments?.add(MyAskAnswerFragment.newInstance("2"))
+        fragments?.add(MyAskAnswerFragment.newInstance("1"))
         commomViewPagerAdapter = CommomViewPagerAdapter(supportFragmentManager, fragments!!)
         mBinding?.vpAsk?.adapter = commomViewPagerAdapter
         mBinding?.vpAsk?.offscreenPageLimit = mTitles?.size

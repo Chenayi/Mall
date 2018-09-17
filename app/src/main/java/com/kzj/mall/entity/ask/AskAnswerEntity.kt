@@ -12,6 +12,7 @@ class AskAnswerEntity {
         var qContent: String? = null
         var qAddTime: Long? = null
         var qStatus: String? = null
+        var qId: String? = null
     }
 
     class Cat {

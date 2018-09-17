@@ -1,5 +1,6 @@
 package com.kzj.mall.ui.fragment
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -17,6 +18,7 @@ import com.kzj.mall.di.module.MyAskAnswerModule
 import com.kzj.mall.entity.ask.AskAnswerEntity
 import com.kzj.mall.mvp.contract.MyAskAnswerContract
 import com.kzj.mall.mvp.presenter.MyAskAnswerPresenter
+import com.kzj.mall.ui.activity.MyAskAnswerDetailActivity
 import java.text.SimpleDateFormat
 
 class MyAskAnswerFragment : BaseListFragment<MyAskAnswerPresenter, AskAnswerEntity.List>(), MyAskAnswerContract.View {
@@ -64,7 +66,7 @@ class MyAskAnswerFragment : BaseListFragment<MyAskAnswerPresenter, AskAnswerEnti
             tvRepeatStatus?.setTextColor(Color.parseColor("#C2C6CC"))
         }else{
             tvRepeatStatus?.setText("待回复")
-            tvRepeatStatus?.setTextColor(Color.parseColor("#FF4F0AC"))
+            tvRepeatStatus?.setTextColor(Color.parseColor("#FF4F0A"))
         }
     }
 
@@ -82,6 +84,10 @@ class MyAskAnswerFragment : BaseListFragment<MyAskAnswerPresenter, AskAnswerEnti
     override fun emptyMsg() = "暂时没有相关问答~"
 
     override fun onItemClick(view: View, position: Int, data: AskAnswerEntity.List?) {
+        val intent = Intent(context,MyAskAnswerDetailActivity::class.java)
+        intent.putExtra("qId",data?.qId)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(intent)
     }
 
     override fun showAskAnswer(datas: MutableList<AskAnswerEntity.List>?) {
