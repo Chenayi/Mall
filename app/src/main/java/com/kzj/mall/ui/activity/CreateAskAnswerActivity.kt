@@ -8,8 +8,10 @@ import com.kzj.mall.databinding.ActivityCreateAskAnswerBinding
 import com.kzj.mall.di.component.AppComponent
 import com.kzj.mall.di.component.DaggerCreateAskAnswerComponent
 import com.kzj.mall.di.module.CreateAskAnswerModule
+import com.kzj.mall.entity.ask.AskAnswerTypeEntity
 import com.kzj.mall.mvp.contract.CreateAskAnswerContract
 import com.kzj.mall.mvp.presenter.CreateAskAnswerPresenter
+import com.kzj.mall.ui.dialog.AskAnswerTypeDialog
 
 class CreateAskAnswerActivity : BaseActivity<CreateAskAnswerPresenter, ActivityCreateAskAnswerBinding>(), View.OnClickListener, CreateAskAnswerContract.View {
     override fun getLayoutId() = R.layout.activity_create_ask_answer
@@ -29,8 +31,23 @@ class CreateAskAnswerActivity : BaseActivity<CreateAskAnswerPresenter, ActivityC
 
     override fun onClick(v: View?) {
         when (v?.id) {
+            R.id.rl_type -> {
+                AskAnswerTypeDialog.newInstance(ArrayList())
+                        .show(supportFragmentManager)
+            }
 
+            R.id.tv_submit -> {
+
+            }
         }
+    }
+
+    override fun showInterlucationType(types: MutableList<AskAnswerTypeEntity.CatList>?) {
+
+    }
+
+    override fun saceInterlucationSuccess() {
+        finish()
     }
 
     override fun showLoading() {

@@ -4,6 +4,7 @@ import com.kzj.mall.entity.*
 import com.kzj.mall.entity.address.*
 import com.kzj.mall.entity.ask.AskAnswerDetailEntity
 import com.kzj.mall.entity.ask.AskAnswerEntity
+import com.kzj.mall.entity.ask.AskAnswerTypeEntity
 import com.kzj.mall.entity.cart.AddCartEntity
 import com.kzj.mall.entity.cart.CartRecommendEntity
 import com.kzj.mall.entity.home.HomeRecommendEntity
@@ -316,4 +317,10 @@ interface ApiService {
     fun saveInterlucation(@Header("token") token: String?, @Field("cat_id") catId: String?, @Field("q_name") content: String?
                           , @Field("user_age") userAge: String?, @Field("user_sex") userSex: String?)
             : Observable<BaseResponse<SimpleResultEntity>>
+
+    /**
+     * 问答分类
+     */
+    @POST("/kzj/api/interlucation_.htm")
+    fun interlucationType(): Observable<BaseResponse<AskAnswerTypeEntity>>
 }

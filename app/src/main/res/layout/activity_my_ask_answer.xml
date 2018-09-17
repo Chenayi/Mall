@@ -34,7 +34,7 @@
                 android:layout_marginRight="15dp"
                 android:scaleType="centerCrop"
                 android:src="@mipmap/ask"
-                android:visibility="gone"/>
+                android:visibility="visible"/>
         </RelativeLayout>
 
     </com.kzj.mall.widget.RootLayout>

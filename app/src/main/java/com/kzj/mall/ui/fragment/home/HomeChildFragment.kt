@@ -70,6 +70,7 @@ class HomeChildFragment : BaseHomeChildListFragment() {
         //广告
 //        val homeHeaderBannerEntity = HomeHeaderBannerEntity()
 //        homeHeaderBannerEntity.adss = homeEntity?.adss
+        headerBannerProvider?.refresh = true
         datas.add(LocalDatas.homeBannerData())
 
         //分类

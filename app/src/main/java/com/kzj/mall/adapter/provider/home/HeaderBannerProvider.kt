@@ -28,7 +28,6 @@ import com.tmall.ultraviewpager.UltraViewPager
 
 
 class HeaderBannerProvider : BaseItemProvider<HomeHeaderBannerEntity, BaseViewHolder> {
-    private var isInitialized = false
     private var useRoundedCorners = true
     private var bannerPlaying = true
     private var onBannerPageChangeListener: OnBannerPageChangeListener? = null
@@ -36,6 +35,8 @@ class HeaderBannerProvider : BaseItemProvider<HomeHeaderBannerEntity, BaseViewHo
 
     private var mColors: MutableMap<Int, Int>? = null
     private var initFirstColor = true
+
+    var refresh = true
 
     constructor(useRoundedCorners: Boolean) {
         this.useRoundedCorners = useRoundedCorners
@@ -51,7 +52,7 @@ class HeaderBannerProvider : BaseItemProvider<HomeHeaderBannerEntity, BaseViewHo
     }
 
     override fun convert(helper: BaseViewHolder?, data: HomeHeaderBannerEntity?, position: Int) {
-        if (isInitialized == false) {
+        if (refresh == true) {
             val banners = data?.adss
             val indictorView = helper?.getView<IndictorView>(R.id.indicator)
             indictorView?.setIndicatorsSize(banners?.size!!)
@@ -83,7 +84,7 @@ class HeaderBannerProvider : BaseItemProvider<HomeHeaderBannerEntity, BaseViewHo
                 }
 
             })
-            isInitialized = true
+            refresh = false
         }
     }
 

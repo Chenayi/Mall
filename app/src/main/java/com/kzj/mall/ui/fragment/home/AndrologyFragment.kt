@@ -46,6 +46,7 @@ class AndrologyFragment : BaseHomeChildListFragment() {
     override fun showHomeDatas(homeEntity: HomeEntity?) {
         pageNo = 0
         mBinding?.refreshLayout?.isRefreshing = false
+        headerBannerProvider?.refresh = true
         setListDatas(getNormalMultipleEntities(homeEntity))
     }
 

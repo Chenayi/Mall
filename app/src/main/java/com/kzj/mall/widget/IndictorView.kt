@@ -46,6 +46,7 @@ class IndictorView : BaseLinearLayout<IndicatorViewBinding> {
      * 设置指示器
      */
     fun setIndicatorsSize(count: Int) {
+        mBinding?.widgetIndicatorLayout?.removeAllViews()
         for (i in 0 until count) {
             val imageView = ImageView(context)
             imageView.setImageResource(selectIndicatorResid)
