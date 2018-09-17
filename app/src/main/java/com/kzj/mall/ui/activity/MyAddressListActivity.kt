@@ -146,31 +146,32 @@ class MyAddressListActivity : BaseActivity<MyAddressListPresenter, ActivityAddre
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == REQUEST_CODE_CREATE_ADDRESS) {
-                val isUpdateAddress = data?.getBooleanExtra("isUpdateAddress", false)
-                data?.getSerializableExtra("address")?.let {
-                    val address = it as Address
-
-                    //更新地址
-                    if (isUpdateAddress == true) {
-                        addressAdapter?.data?.set(updatePosition, address)
-                        addressAdapter?.notifyItemChanged(updatePosition)
-                    }
-                    //新增地址
-                    else{
-                        addressAdapter?.addData(address)
-                    }
-
-                    if (address?.isDefault.equals("1")) {
-                        val d = addressAdapter?.data
-                        for (i in 0 until d?.size!!) {
-                            if (d?.get(i)?.isDefault.equals("1")) {
-                                d?.get(i)?.isDefault = "0"
-                                addressAdapter?.notifyItemChanged(i)
-                                return
-                            }
-                        }
-                    }
-                }
+                mPresenter?.requestAddress(false)
+//                val isUpdateAddress = data?.getBooleanExtra("isUpdateAddress", false)
+//                data?.getSerializableExtra("address")?.let {
+//                    val address = it as Address
+//
+//                    //更新地址
+//                    if (isUpdateAddress == true) {
+//                        addressAdapter?.data?.set(updatePosition, address)
+//                        addressAdapter?.notifyItemChanged(updatePosition)
+//                    }
+//                    //新增地址
+//                    else{
+//                        addressAdapter?.addData(address)
+//                    }
+//
+//                    if (address?.isDefault.equals("1")) {
+//                        val d = addressAdapter?.data
+//                        for (i in 0 until d?.size!!) {
+//                            if (d?.get(i)?.isDefault.equals("1")) {
+//                                d?.get(i)?.isDefault = "0"
+//                                addressAdapter?.notifyItemChanged(i)
+//                                return
+//                            }
+//                        }
+//                    }
+//                }
             }
         }
     }
