@@ -1,6 +1,7 @@
 package com.kzj.mall.ui.activity
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
@@ -81,5 +82,9 @@ class MyAskAnswerActivity : BaseActivity<IPresenter, ActivityMyAskAnswerBinding>
 
         mBinding?.magicIndicator?.navigator = commonNavigator
         ViewPagerHelper.bind(mBinding?.magicIndicator, mBinding?.vpAsk);
+
+        mBinding?.ivAsk?.setOnClickListener {
+            startActivity(Intent(this,CreateAskAnswerActivity::class.java))
+        }
     }
 }

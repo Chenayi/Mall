@@ -7,18 +7,34 @@
         android:layout_height="match_parent"
         app:titleBarTitle="我的问答">
 
-
-        <net.lucode.hackware.magicindicator.MagicIndicator
-            android:id="@+id/magic_indicator"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@color/white"/>
-
-        <android.support.v4.view.ViewPager
-            android:id="@+id/vp_ask"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1" />
+            android:layout_weight="1">
+
+            <net.lucode.hackware.magicindicator.MagicIndicator
+                android:id="@+id/magic_indicator"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/white" />
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/vp_ask"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/magic_indicator" />
+
+            <ImageView
+                android:id="@+id/iv_ask"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="10dp"
+                android:layout_marginRight="15dp"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/ask" />
+        </RelativeLayout>
 
     </com.kzj.mall.widget.RootLayout>
 </layout>

@@ -4,4 +4,10 @@ class AskAnswerDetailEntity : IAsk {
     var type = 0
 
     override fun type() = type
+
+    var interlocution:Interlocution?=null
+
+    class Interlocution{
+
+    }
 }
