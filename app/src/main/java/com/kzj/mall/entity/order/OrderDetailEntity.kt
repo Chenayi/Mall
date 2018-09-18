@@ -28,6 +28,7 @@ class OrderDetailEntity {
         var prePrice: String? = null
         var shippingFee: String? = null
         var expressno: MutableList<Expressno>? = null
+        var orderLinePay: String? = null
     }
 
     class OrderGoods {
@@ -70,6 +71,7 @@ class OrderDetailEntity {
         var goodsName: String? = null
         var goodsInfoSumPrice: String? = null
         var goodsNum: String? = null
+        var goodsPrice: String? = null
     }
 
     /**

@@ -51,6 +51,16 @@ class ConfirmOrderActivity : BaseActivity<ConfirmOrderPresenter, ActivityConfirm
     private var orderId: String? = null
     private var orderPrice: String? = null
 
+    /**
+     * 线上支付运费
+     */
+    private var onLinePayShipping = 0.00F
+
+    /**
+     * 到付运费
+     */
+    private var arrivePayShipping = 0.00F
+
     override fun getLayoutId(): Int {
         return R.layout.activity_confirm_order
     }
@@ -77,29 +87,32 @@ class ConfirmOrderActivity : BaseActivity<ConfirmOrderPresenter, ActivityConfirm
             buyEntity = it as BuyEntity
         }
 
-        intent?.getBooleanExtra("isFromCart",false)?.let {
+        intent?.getBooleanExtra("isFromCart", false)?.let {
             isFromCart = it
+        }
+
+        buyEntity?.shippingCharge?.let {
+            onLinePayShipping = it
+            arrivePayShipping = it + 10.00f
         }
 
         val goodsImgs = ArrayList<String>()
         buyEntity?.shoplist?.let {
             for (i in 0 until it?.size) {
-                if (goodsImgs?.size >= 4) {
-                    return
-                }
+                if (goodsImgs?.size < 4) {
+                    val appgoods = it?.get(i)?.appgoods
+                    if (appgoods != null) {
+                        goodsImgs?.add(appgoods?.goods_img!!)
+                    } else {
+                        val ggList = it?.get(i)?.ggList
+                        if (ggList != null) {
+                            for (j in 0 until ggList?.size!!) {
+                                if (goodsImgs?.size >= 4) {
+                                    return
+                                }
 
-                val appgoods = it?.get(i)?.appgoods
-                if (appgoods != null) {
-                    goodsImgs?.add(appgoods?.goods_img!!)
-                } else {
-                    val ggList = it?.get(i)?.ggList
-                    if (ggList != null) {
-                        for (j in 0 until ggList?.size!!) {
-                            if (goodsImgs?.size >= 4) {
-                                return
+                                goodsImgs?.add(ggList?.get(j)?.c_goods?.goods_img!!)
                             }
-
-                            goodsImgs?.add(ggList?.get(j)?.c_goods?.goods_img!!)
                         }
                     }
                 }
@@ -113,13 +126,13 @@ class ConfirmOrderActivity : BaseActivity<ConfirmOrderPresenter, ActivityConfirm
             buyEntity?.shoplist?.get(0)?.appgoods.let {
                 mBinding?.tvGoodsName?.text = it?.goods_name
                 mBinding?.tvGoodsPrice1?.text = "¥" + it?.goods_price
-                mBinding?.tvGoodsNum?.text = "x" + it?.goods_num
                 GlideApp.with(this)
                         .load(it?.goods_img)
                         .placeholder(R.color.gray_default)
                         .centerCrop()
                         .into(mBinding?.ivGoods!!)
             }
+            mBinding?.tvGoodsNum?.text = "x" + buyEntity?.shoplist?.get(0)?.goods_num
         }
         //多件商品
         else {
@@ -300,6 +313,15 @@ class ConfirmOrderActivity : BaseActivity<ConfirmOrderPresenter, ActivityConfirm
                     mBinding?.ivAliCheck?.setImageResource(R.mipmap.icon_cart_check)
                     mBinding?.ivArriveCheck?.setImageResource(R.mipmap.check_nor)
                     payCheck = CHECK_ALIPAY
+
+                    mBinding?.tvGoodsPrice?.text = "¥" + buyEntity?.sumOldPrice
+                    mBinding?.tvPrePrice?.text = "¥" + buyEntity?.sumPrePrice
+                    mBinding?.tvCharge?.text = "¥" + onLinePayShipping
+
+                    val f1 = buyEntity?.sumPrice?.toFloat()!!
+                    val f2 = onLinePayShipping
+                    val realPrice = f1 + f2
+                    mBinding?.tvRealGoodsPrice?.text = "实付款：¥" + FloatUtils.format(realPrice)
                 }
             }
             R.id.rl_arrive_pay -> {
@@ -307,6 +329,15 @@ class ConfirmOrderActivity : BaseActivity<ConfirmOrderPresenter, ActivityConfirm
                     mBinding?.ivArriveCheck?.setImageResource(R.mipmap.icon_cart_check)
                     mBinding?.ivAliCheck?.setImageResource(R.mipmap.check_nor)
                     payCheck = CHECK_ARRIVE_PAY
+
+                    mBinding?.tvGoodsPrice?.text = "¥" + buyEntity?.sumOldPrice
+                    mBinding?.tvPrePrice?.text = "¥" + buyEntity?.sumPrePrice
+                    mBinding?.tvCharge?.text = "¥" + arrivePayShipping
+
+                    val f1 = buyEntity?.sumPrice?.toFloat()!!
+                    val f2 = arrivePayShipping
+                    val realPrice = f1 + f2
+                    mBinding?.tvRealGoodsPrice?.text = "实付款：¥" + FloatUtils.format(realPrice)
                 }
             }
             R.id.rl_address -> {
@@ -329,13 +360,26 @@ class ConfirmOrderActivity : BaseActivity<ConfirmOrderPresenter, ActivityConfirm
             R.id.tv_submit_order -> {
                 showLoadingDialog()
                 val remark = mBinding?.etMark?.text?.toString()?.trim()
+
+
+                var shopSumPrice = 0.00f
+                var shippingCharge = 0.00f
+
+                if (payCheck == CHECK_ALIPAY) {
+                    shippingCharge = onLinePayShipping
+                    shopSumPrice = buyEntity?.sumPrice?.toFloat()!! + onLinePayShipping
+                } else if (payCheck == CHECK_ARRIVE_PAY) {
+                    shippingCharge = arrivePayShipping
+                    shopSumPrice = buyEntity?.sumPrice?.toFloat()!! + arrivePayShipping
+                }
+
                 mPresenter?.submitOrder(
                         buyEntity?.shoppingCartIds,
                         payCheck?.toString(),
                         remark,
                         buyEntity?.address?.addressId,
-                        buyEntity?.sumPrice,
-                        FloatUtils.format(buyEntity?.shippingCharge!!)
+                        shopSumPrice.toString(),
+                        shippingCharge?.toString()
                 )
             }
         }

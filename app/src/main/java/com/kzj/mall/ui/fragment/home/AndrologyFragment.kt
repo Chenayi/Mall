@@ -25,7 +25,7 @@ class AndrologyFragment : BaseHomeChildListFragment() {
         super.initData()
         setListDatas(ArrayList())
         mBinding?.refreshLayout?.setOnRefreshListener {
-            mPresenter?.requestHomeDatas()
+            mPresenter?.requestAndrologyDatas()
         }
 
         mPresenter?.requestAndrologyDatas()

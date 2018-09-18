@@ -353,6 +353,17 @@ class GoodsDetailActivity : BaseActivity<GoodsDetailPresenter, ActivityGoodsDeta
         }
     }
 
+    override fun addCartError() {
+        var num = mBinding?.tvCartNum?.text.toString().toInt()
+        if (num > 0){
+            val i = num - 1
+            mBinding?.tvCartNum?.text = i.toString()
+            if (i <=0){
+                mBinding?.tvCartNum?.visibility = View.GONE
+            }
+        }
+    }
+
 
     /**
      * 商品详情信息

@@ -304,6 +304,10 @@ class SearchActivity : BaseActivity<SearchPresenter, ActivitySearchBinding>()
         mBinding?.refreshLayout?.isRefreshing = false
         searchListAdapter?.setNewData(searchEntity?.results?.data!!)
         searchGridAdapter?.setNewData(searchEntity?.results?.data!!)
+        if (searchEntity?.results?.data?.size!! < C.PAGE_SIZE){
+            searchListAdapter?.loadMoreEnd()
+            searchGridAdapter?.loadMoreEnd()
+        }
         mBinding?.rvGoods?.scrollToPosition(0)
     }
 

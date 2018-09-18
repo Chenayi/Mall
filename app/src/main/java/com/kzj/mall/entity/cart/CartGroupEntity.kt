@@ -12,14 +12,16 @@ class CartGroupEntity : BaseCartEntity(), Serializable {
         return ICart.GROUP
     }
 
-    class Group:Serializable {
+    class Group : Serializable {
         var c_goods: CGoods? = null
+        var goodsNum: String? = null
     }
 
-    class CGoods:Serializable {
+    class CGoods : Serializable {
         var goods_img: String? = null
         var goods_name: String? = null
         var goods_price: String? = null
         var goods_info_id: String? = null
+        var goods_num: String? = null
     }
 }

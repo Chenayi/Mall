@@ -146,6 +146,8 @@ constructor(model: GoodsDetailContract.Model?, view: GoodsDetailContract.View?, 
                     }
 
                     override fun onHandleError(code: Int, msg: String?) {
+                        ToastUtils.showShort(msg)
+                        view?.addCartError()
                     }
 
                     override fun onHandleAfter() {

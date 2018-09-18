@@ -75,6 +75,7 @@ class CartGroupProvider : BaseItemProvider<CartGroupEntity, BaseViewHolder>() {
             helper?.setGone(R.id.line, helper?.layoutPosition > 0)
                     ?.setText(R.id.tv_goods_price, "¥" + item?.c_goods?.goods_price)
                     ?.setText(R.id.tv_goods_name, item?.c_goods?.goods_name)
+                    ?.setText(R.id.tv_goods_num,"x"+item?.goodsNum)
 
             GlideApp.with(mContext)
                     .load(item?.c_goods?.goods_img)

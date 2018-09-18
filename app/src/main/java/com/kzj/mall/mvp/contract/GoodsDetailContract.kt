@@ -16,6 +16,7 @@ interface GoodsDetailContract {
         fun demandRecord(buyEntity: BuyEntity?)
         fun colllectSuccess()
         fun cancelCollectSuccess()
+        fun addCartError()
     }
 
     interface Model : IModel {

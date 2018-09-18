@@ -28,8 +28,8 @@ class PrescriptionPop(val mContext: Context) : BasePopupWindow(mContext), View.O
 
     companion object {
         val NULL = "null"
-        val _1 = "1"
-        val _2 = "2"
+        val NOT_CHUFANG = "1"
+        val CHUFANG = "2"
     }
 
 
@@ -85,7 +85,7 @@ class PrescriptionPop(val mContext: Context) : BasePopupWindow(mContext), View.O
                 }
             }
             R.id.rl_1 -> {
-                if (!curChoose.equals(_1)) {
+                if (!curChoose.equals(CHUFANG)) {
                     rlDefault?.setBackgroundColor(Color.WHITE)
                     rl2?.setBackgroundColor(Color.WHITE)
                     rl1?.setBackgroundColor(Color.parseColor("#F2FFEE"))
@@ -98,15 +98,15 @@ class PrescriptionPop(val mContext: Context) : BasePopupWindow(mContext), View.O
                     ivCheck2?.visibility = View.GONE
                     ivCheck1?.visibility = View.VISIBLE
 
-                    onTypeChooseListener?.onTypeChoose(_1)
+                    onTypeChooseListener?.onTypeChoose(CHUFANG)
 
-                    curChoose = _1
+                    curChoose = CHUFANG
 
                     dismiss()
                 }
             }
             R.id.rl_2 -> {
-                if (!curChoose.equals(_2)) {
+                if (!curChoose.equals(NOT_CHUFANG)) {
                     rl1?.setBackgroundColor(Color.WHITE)
                     rlDefault?.setBackgroundColor(Color.WHITE)
                     rl2?.setBackgroundColor(Color.parseColor("#F2FFEE"))
@@ -119,9 +119,9 @@ class PrescriptionPop(val mContext: Context) : BasePopupWindow(mContext), View.O
                     ivCheckDefault?.visibility = View.GONE
                     ivCheck2?.visibility = View.VISIBLE
 
-                    onTypeChooseListener?.onTypeChoose(_2)
+                    onTypeChooseListener?.onTypeChoose(NOT_CHUFANG)
 
-                    curChoose = _2
+                    curChoose = NOT_CHUFANG
 
                     dismiss()
                 }

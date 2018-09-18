@@ -53,6 +53,7 @@ class CartSingleProvider : BaseItemProvider<CartSingleEntity, BaseViewHolder>() 
         }
 
         data?.shopping_cart_type?.let {
+            //疗程
             if (it.equals("1")) {
                 helper?.setText(R.id.tv_goods_pre_price, "已省 ¥"+data?.goods_pre_price)
                         ?.setText(R.id.tv_combination_name, data?.combination_name)

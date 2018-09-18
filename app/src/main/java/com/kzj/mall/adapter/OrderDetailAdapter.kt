@@ -53,7 +53,7 @@ class OrderDetailAdapter constructor(orderDatas: MutableList<IGoodsDetail>)
         : BaseAdapter<OrderDetailEntity.Goods, BaseViewHolder>(R.layout.item_order_detail_goods, goods) {
         override fun convert(helper: BaseViewHolder?, item: OrderDetailEntity.Goods?) {
             helper?.setGone(R.id.line, helper?.layoutPosition > 0)
-                    ?.setText(R.id.tv_goods_price, "¥" + item?.goodsInfoSumPrice)
+                    ?.setText(R.id.tv_goods_price, "¥" + item?.goodsPrice)
                     ?.setText(R.id.tv_goods_num, "x" + item?.goodsNum)
                     ?.setText(R.id.tv_goods_name, item?.goodsName)
 

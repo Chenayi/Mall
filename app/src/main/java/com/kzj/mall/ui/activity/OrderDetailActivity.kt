@@ -53,6 +53,7 @@ class OrderDetailActivity : BaseActivity<OrderDetailPresenter, ActivityOrderDeta
 
     private var tvOrderCode: TextView? = null
     private var tvAddTime: TextView? = null
+    private var tvPayType: TextView? = null
     private var tvCopyOrderCode: TextView? = null
 
     private var tvGoodsOldPrice: TextView? = null
@@ -107,6 +108,7 @@ class OrderDetailActivity : BaseActivity<OrderDetailPresenter, ActivityOrderDeta
 
         tvOrderCode = footerView1?.findViewById(R.id.tv_order_code)
         tvAddTime = footerView1?.findViewById(R.id.tv_add_time)
+        tvPayType = footerView1?.findViewById(R.id.tv_pay_type)
         tvCopyOrderCode = footerView1?.findViewById(R.id.tv_copy_order_code)
         tvCopyOrderCode?.setOnClickListener(this)
 
@@ -161,6 +163,16 @@ class OrderDetailActivity : BaseActivity<OrderDetailPresenter, ActivityOrderDeta
         tvAddress?.setText(order?.shippingProvince + "省" + order?.shippingCity + "市" + order?.shippingCounty + order?.shippingAddress)
         tvOrderCode?.setText(order?.orderNo)
         tvAddTime?.setText(TimeUtils.millis2String(order?.addTime!!))
+
+        //货到付款
+        if (order?.orderLinePay?.equals("0") == true){
+            tvPayType?.text = "货到付款"
+        }
+        //在线支付
+        else{
+            tvPayType?.text = "在线支付"
+        }
+
         tvGoodsOldPrice?.setText("¥" + order?.oldPrice)
         tvGoodsPrePrice?.setText("¥" + order?.prePrice)
         tvAllGoodsPrice?.setText("¥" + order?.moneyPaid)
