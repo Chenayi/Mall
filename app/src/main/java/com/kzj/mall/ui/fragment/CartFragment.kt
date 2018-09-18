@@ -107,7 +107,7 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
 
         cartAdapter?.setOnItemClickListener { adapter, view, position ->
             val iCart = cartAdapter?.data?.get(position)
-            if (iCart is CartSingleEntity && !isDeleteMode) {
+            if (iCart is CartSingleEntity) {
                 val intent = Intent(context, GoodsDetailActivity::class.java)
                 intent?.putExtra(C.GOODS_INFO_ID, iCart?.goods_info_id)
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -497,6 +497,7 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
      */
     override fun showCart(cartEntity: CartEntity?) {
         isCartChange = false
+        isDeleteMode = false
         mBinding?.refreshLayout?.isRefreshing = false
         mBinding?.ivAllCheck?.setImageResource(R.mipmap.check_nor)
         mBinding?.tvToBalance?.isEnabled = false

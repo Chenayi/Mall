@@ -78,12 +78,12 @@
                                         android:id="@+id/tv_name"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
+                                        android:maxWidth="120dp"
+                                        android:singleLine="true"
                                         android:text="司马嫣然司马嫣然司马嫣然司马嫣然"
                                         android:textColor="#2E3033"
                                         android:textSize="16dp"
-                                        android:textStyle="bold"
-                                        android:maxWidth="120dp"
-                                        android:singleLine="true"/>
+                                        android:textStyle="bold" />
 
                                     <TextView
                                         android:id="@+id/tv_mobile"
@@ -299,10 +299,11 @@
                                         android:layout_height="wrap_content"
                                         android:layout_alignParentBottom="true"
                                         android:layout_alignParentRight="true"
+                                        android:layout_marginRight="10dp"
                                         android:text="x7"
                                         android:textColor="#6A6E75"
                                         android:textSize="12dp"
-                                        android:visibility="visible"/>
+                                        android:visibility="visible" />
                                 </RelativeLayout>
 
                             </LinearLayout>

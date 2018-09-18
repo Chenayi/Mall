@@ -15,7 +15,7 @@ class SearchListAdapter constructor(val searchDatas: MutableList<SearchEntity.Da
         helper?.setGone(R.id.line_top, helper?.layoutPosition == 0)
                 ?.setGone(R.id.line_bottom, helper?.layoutPosition < data?.size - 1)
                 ?.setText(R.id.tv_goods_name, item?.goods_name)
-                ?.setText(R.id.tv_goods_indication, item?.goods_indication)
+                ?.setText(R.id.tv_goods_info_subtitle, item?.goods_info_subtitle)
                 ?.setText(R.id.tv_goods_price, "¥" + item?.goods_price)
                 ?.setText(R.id.tv_goods_market_price, "¥" + item?.goods_market_price)
 

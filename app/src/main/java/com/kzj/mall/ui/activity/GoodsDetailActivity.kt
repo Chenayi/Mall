@@ -10,6 +10,7 @@ import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.SizeUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.gyf.barlibrary.ImmersionBar
+import com.kzj.mall.BuildConfig
 import com.kzj.mall.C
 import com.kzj.mall.R
 import com.kzj.mall.RequestCode
@@ -86,6 +87,10 @@ class GoodsDetailActivity : BaseActivity<GoodsDetailPresenter, ActivityGoodsDeta
 //        mGoodsInfoId = "29921"
         mGoodsInfoId = intent?.getStringExtra(C.GOODS_INFO_ID)
         mGoodsDefaultInfoId = mGoodsInfoId
+
+        if (BuildConfig.DEBUG) {
+            LogUtils.e("goodsInfoId ===> " + mGoodsInfoId)
+        }
 
         mBinding?.goodsDetailBar?.setTabAlpha(barAlpha)
         val barHeight = SizeUtils.getMeasuredHeight(mBinding?.goodsDetailBar)
@@ -187,10 +192,10 @@ class GoodsDetailActivity : BaseActivity<GoodsDetailPresenter, ActivityGoodsDeta
      * 加入购物车
      */
     @Subscribe
-    fun addCartEvent(addCartEvent: AddGroupCartEvent) {
+    fun addGroupCartEvent(addCartEvent: AddGroupCartEvent) {
         goodsDetailEntity?.gn?.goodsStock?.let {
             if (it > 0) {
-                startAddCartAnim(true, addCartEvent?.startView!!, mBinding?.ivCart!!)
+                startAddCartAnim(null, addCartEvent.combinationId, "2", true, addCartEvent?.startView!!, mBinding?.ivCart!!)
             }
         }
     }
@@ -312,7 +317,7 @@ class GoodsDetailActivity : BaseActivity<GoodsDetailPresenter, ActivityGoodsDeta
     /**
      * 加入购物车动画
      */
-    private fun startAddCartAnim(isGroup: Boolean, startView: View, endView: View) {
+    private fun startAddCartAnim(goodsInfoId: String?, combinationId: String?, carType: String, isGroup: Boolean, startView: View, endView: View) {
         // 动画开始的坐标
         val startLocation = IntArray(2)
         startView.getLocationInWindow(startLocation);
@@ -338,11 +343,7 @@ class GoodsDetailActivity : BaseActivity<GoodsDetailPresenter, ActivityGoodsDeta
                 mBinding?.tvCartNum?.text = (num + 1).toString()
 
                 //加入购物车
-                var carType = "0"
-                if (isCombination) {
-                    carType = "2"
-                }
-                mPresenter?.addCar(carType, mGoodsNum, mGoodsInfoId, mCombinationId)
+                mPresenter?.addCar(carType, mGoodsNum, goodsInfoId, combinationId)
             }
 
         })
@@ -355,10 +356,10 @@ class GoodsDetailActivity : BaseActivity<GoodsDetailPresenter, ActivityGoodsDeta
 
     override fun addCartError() {
         var num = mBinding?.tvCartNum?.text.toString().toInt()
-        if (num > 0){
+        if (num > 0) {
             val i = num - 1
             mBinding?.tvCartNum?.text = i.toString()
-            if (i <=0){
+            if (i <= 0) {
                 mBinding?.tvCartNum?.visibility = View.GONE
             }
         }
@@ -449,6 +450,10 @@ class GoodsDetailActivity : BaseActivity<GoodsDetailPresenter, ActivityGoodsDeta
         if (code == 3002) {
             finish()
         }
+        //商品不存在
+        else if (code == 3001) {
+            finish()
+        }
     }
 
 
@@ -477,7 +482,11 @@ class GoodsDetailActivity : BaseActivity<GoodsDetailPresenter, ActivityGoodsDeta
                     startActivityForResult(intent, RequestCode.LOGIN)
                     return
                 }
-                startAddCartAnim(false, mBinding?.tvAddCart!!, mBinding?.ivCart!!)
+                var carType = "0"
+                if (isCombination) {
+                    carType = "2"
+                }
+                startAddCartAnim(mGoodsInfoId, mCombinationId, carType, false, mBinding?.tvAddCart!!, mBinding?.ivCart!!)
             }
             R.id.tv_buy -> {
                 if (!C.IS_LOGIN) {
@@ -513,7 +522,7 @@ class GoodsDetailActivity : BaseActivity<GoodsDetailPresenter, ActivityGoodsDeta
                 EventBus.getDefault().post(BackCartEvent())
             }
 
-            R.id.ll_phone->{
+            R.id.ll_phone -> {
                 val dialIntent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + C.CUSTOMER_TEL))
                 startActivity(dialIntent)
             }

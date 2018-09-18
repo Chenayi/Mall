@@ -55,7 +55,7 @@ class GoodsGroupView : BaseRelativeLayout<GoodsGroupViewBinding> {
                         context?.startActivity(intent)
                         return@setOnItemChildClickListener
                     }
-                    EventBus.getDefault().post(AddGroupCartEvent(view))
+                    EventBus.getDefault().post(AddGroupCartEvent(view, groupAdapter?.getItem(position)?.combination_id))
                 }
             }
         }

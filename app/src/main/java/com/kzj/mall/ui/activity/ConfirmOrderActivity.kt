@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.text.TextUtils
 import android.view.View
 import com.alipay.sdk.app.PayTask
+import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.chad.library.adapter.base.BaseViewHolder
 import com.gyf.barlibrary.ImmersionBar
@@ -125,13 +126,14 @@ class ConfirmOrderActivity : BaseActivity<ConfirmOrderPresenter, ActivityConfirm
             mBinding?.llMultiGoods?.visibility = View.GONE
             buyEntity?.shoplist?.get(0)?.appgoods.let {
                 mBinding?.tvGoodsName?.text = it?.goods_name
-                mBinding?.tvGoodsPrice1?.text = "¥" + it?.goods_price
                 GlideApp.with(this)
                         .load(it?.goods_img)
                         .placeholder(R.color.gray_default)
                         .centerCrop()
                         .into(mBinding?.ivGoods!!)
             }
+            val fl = buyEntity?.shoplist?.get(0)?.goods_price?.toFloat()!! / buyEntity?.shoplist?.get(0)?.goods_num?.toFloat()!!
+            mBinding?.tvGoodsPrice1?.text = "¥" + FloatUtils.format(fl)
             mBinding?.tvGoodsNum?.text = "x" + buyEntity?.shoplist?.get(0)?.goods_num
         }
         //多件商品
@@ -227,6 +229,9 @@ class ConfirmOrderActivity : BaseActivity<ConfirmOrderPresenter, ActivityConfirm
         val payRunnable = Runnable {
             val alipay = PayTask(this@ConfirmOrderActivity)
             val result = alipay.payV2(key, true)
+
+            LogUtils.e("result ===> " +result)
+
             val msg = Message()
             msg.what = SDK_PAY_FLAG
             msg.obj = result
@@ -244,7 +249,6 @@ class ConfirmOrderActivity : BaseActivity<ConfirmOrderPresenter, ActivityConfirm
             if (msg?.what == SDK_PAY_FLAG) {
                 val payResult = PayResult(msg.obj as Map<String, String>)
                 val resultStatus = payResult.resultStatus
-                val resultInfo = payResult.result
                 if (TextUtils.equals(resultStatus, "9000")) {
                     // 该笔订单是否真实支付成功，需要依赖服务端的异步通知。
                     ToastUtils.showShort("支付成功")
@@ -256,7 +260,7 @@ class ConfirmOrderActivity : BaseActivity<ConfirmOrderPresenter, ActivityConfirm
                     finish()
                 } else {
                     // 该笔订单真实的支付结果，需要依赖服务端的异步通知。
-                    ToastUtils.showShort("支付失败：" + resultInfo)
+                    ToastUtils.showShort(payResult.memo)
                 }
             }
         }
