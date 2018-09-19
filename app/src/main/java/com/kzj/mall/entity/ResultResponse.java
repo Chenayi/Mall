@@ -7,4 +7,9 @@ package com.kzj.mall.entity;
 public class ResultResponse {
     public int code;
     public String message;
+    public Data data;
+
+    public static class Data {
+        public String msg;
+    }
 }

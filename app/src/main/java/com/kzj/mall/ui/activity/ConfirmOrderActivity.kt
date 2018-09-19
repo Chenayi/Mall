@@ -230,7 +230,7 @@ class ConfirmOrderActivity : BaseActivity<ConfirmOrderPresenter, ActivityConfirm
             val alipay = PayTask(this@ConfirmOrderActivity)
             val result = alipay.payV2(key, true)
 
-            LogUtils.e("result ===> " +result)
+            LogUtils.e("result ===> " + result)
 
             val msg = Message()
             msg.what = SDK_PAY_FLAG
@@ -382,7 +382,7 @@ class ConfirmOrderActivity : BaseActivity<ConfirmOrderPresenter, ActivityConfirm
                         payCheck?.toString(),
                         remark,
                         addressId,
-                        shopSumPrice.toString(),
+                        FloatUtils.format(shopSumPrice),
                         shippingCharge?.toString()
                 )
             }

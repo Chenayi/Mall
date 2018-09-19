@@ -341,7 +341,9 @@ class OrderFragment : BaseListFragment<OrderPresenter, OrderEntity.List>(), Orde
         }
     }
 
-    override fun emptyMsg() = "暂时没有相关订单哦～"
+    override fun emptyMsg() = "居然还没有订单～"
+
+    override fun emptyViewIcon() = R.mipmap.empty_order
 
     override fun onItemClick(view: View, position: Int, data: OrderEntity.List?) {
         val intent = Intent(context, OrderDetailActivity::class.java)

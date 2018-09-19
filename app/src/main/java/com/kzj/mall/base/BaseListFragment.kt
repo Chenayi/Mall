@@ -76,7 +76,7 @@ abstract class BaseListFragment<P : IPresenter, D> : BaseFragment<P, FragmentBas
     protected abstract fun onLoadMore();
 
 
-    protected open fun emptyViewIcon() = R.mipmap.empty_default
+    protected open fun emptyViewIcon() = R.mipmap.icon_empty_save
 
     protected abstract fun emptyMsg(): String
 

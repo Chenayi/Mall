@@ -32,6 +32,11 @@ public class GsonResponseBodyConverter<T> implements Converter<ResponseBody, T> 
             return gson.fromJson(response, type);
         }
 
+        //购物车提交错误
+        if (resultResponse.code == 7001){
+            throw new ResultException(resultResponse.code, resultResponse.data.msg);
+        }
+
         LogUtils.e("message ===> " + resultResponse.message);
         throw new ResultException(resultResponse.code, resultResponse.message);
     }

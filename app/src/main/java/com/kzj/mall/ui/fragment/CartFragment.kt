@@ -5,8 +5,6 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import com.allen.library.SuperTextView
-import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.gyf.barlibrary.ImmersionBar
 import com.kzj.mall.C
@@ -41,7 +39,7 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
 
     private var headerView: View? = null
     private var tvContent: TextView? = null
-    private var tvLogin: SuperTextView? = null
+    private var tvLogin: TextView? = null
 
     private var isCartChange = false
 
@@ -63,7 +61,7 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
     }
 
     override fun initImmersionBar() {
-        immersionBarColor = R.color.fb
+        immersionBarColor = R.color.white
         mImmersionBar = ImmersionBar.with(this)
         mImmersionBar?.fitsSystemWindows(true, immersionBarColor)
                 ?.statusBarDarkFont(true, 0.5f)
@@ -206,7 +204,6 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
         isDeleteMode = false
         mBinding?.tvEdit?.text = "编辑"
         mBinding?.tvEdit?.visibility = View.GONE
-        tvContent?.setText("购物车空空如也")
         mBinding?.rvCart?.scrollToPosition(0)
     }
 
@@ -510,7 +507,6 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
         if (shoplist == null || shoplist?.size!! <= 0) {
             cartAdapter?.setNewData(iCarts)
             mBinding?.llBalance?.visibility = View.GONE
-            tvContent?.setText("购物车空空如也")
             tvLogin?.visibility = View.GONE
             mBinding?.tvEdit?.visibility = View.GONE
             cartAdapter?.setHeaderView(headerView)

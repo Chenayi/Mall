@@ -1,6 +1,7 @@
 package com.kzj.mall.mvp.presenter
 
 import android.content.Context
+import com.blankj.utilcode.util.LogUtils
 import com.kzj.mall.base.BaseObserver
 import com.kzj.mall.base.BasePresenter
 import com.kzj.mall.di.scope.ActivityScope
@@ -18,7 +19,7 @@ constructor(model: ConfirmOrderContract.Model, view: ConfirmOrderContract.View?,
 
     fun submitOrder(shoppingCartIds: LongArray?, pay: String?, remark: String?, addressId: String?, shopSumPrice: String?, shopSumshipping: String?) {
 
-//            LogUtils.e(shoppingCartIds?.get(0)?.toString()+"\n"+pay+"\n"+remark+"\n"+addressId+"\n"+shopSumPrice+"\n"+shopSumshipping)
+            LogUtils.e(shoppingCartIds?.get(0)?.toString()+"\n"+pay+"\n"+remark+"\n"+addressId+"\n"+shopSumPrice+"\n"+shopSumshipping)
 
               model?.submitOrder(shoppingCartIds,pay,remark,addressId,shopSumPrice,shopSumshipping)
                 ?.compose(RxScheduler.compose())

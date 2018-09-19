@@ -82,6 +82,7 @@ class MyAddressListActivity : BaseActivity<MyAddressListPresenter, ActivityAddre
 
         addressAdapter = AddressAdapter(ArrayList(), isManager)
         addressAdapter?.setEmptyView(R.layout.empty_view, mBinding?.rvAddress?.parent as ViewGroup)
+        addressAdapter?.emptyView?.findViewById<ImageView>(R.id.iv_empty)?.setImageResource(R.mipmap.empty_address)
         addressAdapter?.emptyView?.findViewById<TextView>(R.id.tv_empty_msg)?.setText("一个地址都没有哦～")
         mBinding?.rvAddress?.layoutManager = LinearLayoutManager(this)
         mBinding?.rvAddress?.adapter = addressAdapter

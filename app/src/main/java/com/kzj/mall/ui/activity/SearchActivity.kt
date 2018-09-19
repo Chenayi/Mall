@@ -10,7 +10,10 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
 import android.view.View
+import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.ImageView
+import android.widget.TextView
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.chad.library.adapter.base.BaseQuickAdapter
@@ -82,12 +85,23 @@ class SearchActivity : BaseActivity<SearchPresenter, ActivitySearchBinding>()
 
         searchListAdapter = SearchListAdapter(ArrayList())
         searchGridAdapter = SearchGridAdapter(ArrayList())
+
+        searchListAdapter?.setEmptyView(R.layout.empty_view, mBinding?.rvGoods?.parent as ViewGroup)
+        searchListAdapter?.emptyView?.findViewById<ImageView>(R.id.iv_empty)?.setImageResource(R.mipmap.empty_search)
+        searchListAdapter?.emptyView?.findViewById<TextView>(R.id.tv_empty_msg)?.setText("抱歉，没找到您想要的商品～")
+
+        searchGridAdapter?.setEmptyView(R.layout.empty_view, mBinding?.rvGoods?.parent as ViewGroup)
+        searchGridAdapter?.emptyView?.findViewById<ImageView>(R.id.iv_empty)?.setImageResource(R.mipmap.empty_search)
+        searchGridAdapter?.emptyView?.findViewById<TextView>(R.id.tv_empty_msg)?.setText("抱歉，没找到您想要的商品～")
+
         searchListAdapter?.setEnableLoadMore(true)
         searchListAdapter?.setOnLoadMoreListener(this, mBinding?.rvGoods)
         searchGridAdapter?.setEnableLoadMore(true)
         searchGridAdapter?.setOnLoadMoreListener(this, mBinding?.rvGoods)
         searchListAdapter?.setOnItemClickListener(this)
         searchGridAdapter?.setOnItemClickListener(this)
+
+
         manager = LinearLayoutManager(this)
         mBinding?.rvGoods?.layoutManager = manager
         mBinding?.rvGoods?.adapter = searchListAdapter
