@@ -1,6 +1,7 @@
 package com.kzj.mall.adapter
 
 import android.graphics.Paint
+import android.text.Html
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -15,8 +16,7 @@ class SearchGridAdapter constructor(val searchDatas: MutableList<SearchEntity.Da
     : BaseAdapter<SearchEntity.Data, BaseViewHolder>(R.layout.item_search_grid, searchDatas) {
     override fun convert(helper: BaseViewHolder?, item: SearchEntity.Data?) {
         val layoutPosition = helper?.layoutPosition
-        helper?.setGone(R.id.view_top, layoutPosition == 0 || layoutPosition == 1)
-                ?.setGone(R.id.view_right, layoutPosition!! % 2 != 0)
+        helper?.setGone(R.id.view_right, layoutPosition!! % 2 != 0)
         val ivGoods = helper?.getView<ImageView>(R.id.iv_goods)
         val goodsImageViewWidth = (ScreenUtils.getScreenWidth() - SizeUtils.dp2px(70f)) / 2f
         val layoutParams = ivGoods?.layoutParams as LinearLayout.LayoutParams
@@ -25,11 +25,11 @@ class SearchGridAdapter constructor(val searchDatas: MutableList<SearchEntity.Da
         ivGoods?.requestLayout()
 
         helper?.setText(R.id.tv_goods_name, item?.goods_name)
-                ?.setText(R.id.tv_goods_indication, item?.goods_indication)
+                ?.setText(R.id.tv_goods_indication, Html.fromHtml(item?.goods_info_subtitle))
                 ?.setText(R.id.tv_goods_price, "¥" + item?.goods_price)
                 ?.setText(R.id.tv_goods_market_price, "¥" + item?.goods_market_price)
 
-        helper?.getView<TextView>(R.id.tv_goods_market_price)?.getPaint()?.setFlags(Paint. STRIKE_THRU_TEXT_FLAG ); //中间横线
+        helper?.getView<TextView>(R.id.tv_goods_market_price)?.getPaint()?.setFlags(Paint.STRIKE_THRU_TEXT_FLAG); //中间横线
 
         GlideApp.with(mContext)
                 .load(item?.goods_img)

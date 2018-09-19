@@ -18,6 +18,9 @@ import com.kzj.mall.mvp.presenter.MyCollectPresenter
 import com.kzj.mall.ui.activity.GoodsDetailActivity
 import com.kzj.mall.ui.dialog.ConfirmDialog
 
+/**
+ * 我的收藏（关注）
+ */
 class MyCollectFragment : BaseListFragment<MyCollectPresenter, MyCollectEntity.FollowList>(), MyCollectContract.View {
     private var goodsType: Int? = null
 

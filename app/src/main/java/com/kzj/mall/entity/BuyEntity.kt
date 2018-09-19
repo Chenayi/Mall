@@ -33,6 +33,11 @@ class BuyEntity : Serializable {
     var goodsinfoMap: GoodsinfoMap? = null
 
     /**
+     * 套餐价格
+     */
+    var combinationprice: String? = null
+
+    /**
      * 商品列表
      */
     var shoplist: MutableList<CartEntity.Shoplist>? = null

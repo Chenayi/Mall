@@ -8,6 +8,7 @@ class OrderEntity {
         val ORDER_STATUS_WAIT_SEND = 1
         val ORDER_STATUS_WAIT_TAKE = 2
         val ORDER_STATUS_FINISH = 3
+        val ORDER_STATUS_CANCEL = 4
     }
 
     var orderList: OrderList? = null;
@@ -26,13 +27,13 @@ class OrderEntity {
 
     class OrderGoodses {
         var order_id: String? = null
-        var goods_info_num:String?=null
-        var goods_info_price:String?=null
-        var goods_info_old_price:String?=null
-        var order_goods_type:String?=null
-        var goods_info_id:String?=null
-        var goods_spec:String?=null
-        var goods_img:String?=null
-        var goods_name:String?=null
+        var goods_info_num: String? = null
+        var goods_info_price: String? = null
+        var goods_info_old_price: String? = null
+        var order_goods_type: String? = null
+        var goods_info_id: String? = null
+        var goods_spec: String? = null
+        var goods_img: String? = null
+        var goods_name: String? = null
     }
 }

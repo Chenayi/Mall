@@ -156,6 +156,13 @@ class OrderDetailActivity : BaseActivity<OrderDetailPresenter, ActivityOrderDeta
                 mBinding?.llBottom?.visibility = View.GONE
                 mBinding?.tvHandle?.setBackgroundResource(R.drawable.background_8a9099_stroke_corners_9999)
             }
+
+            OrderEntity.ORDER_STATUS_CANCEL -> {
+                ivOrderStatus?.setImageResource(R.mipmap.icon_finish)
+                tvOrderStatus?.setText("订单已取消")
+                mBinding?.llBottom?.visibility = View.GONE
+                mBinding?.tvHandle?.setBackgroundResource(R.drawable.background_8a9099_stroke_corners_9999)
+            }
         }
 
         tvName?.setText(order?.shippingPerson)

@@ -381,7 +381,7 @@ class ConfirmOrderActivity : BaseActivity<ConfirmOrderPresenter, ActivityConfirm
                         buyEntity?.shoppingCartIds,
                         payCheck?.toString(),
                         remark,
-                        buyEntity?.address?.addressId,
+                        addressId,
                         shopSumPrice.toString(),
                         shippingCharge?.toString()
                 )

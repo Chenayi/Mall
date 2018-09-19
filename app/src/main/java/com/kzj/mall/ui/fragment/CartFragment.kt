@@ -257,8 +257,8 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
                 (datas?.get(i) as BaseCartEntity).isCheck = true
             }
 
-            if (datas?.get(i) is CartSingleEntity || datas?.get(i) is CartGroupEntity){
-                size+=1
+            if (datas?.get(i) is CartSingleEntity || datas?.get(i) is CartGroupEntity) {
+                size += 1
             }
         }
         setCheckPrice()
@@ -410,7 +410,7 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
             cartGroupEntity?.isCheck = check
             cartAdapter?.data?.set(position, cartGroupEntity)
 
-            if (check){
+            if (check) {
                 setCheckPrice()
             }
         }
@@ -439,43 +439,43 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
             singleEntity?.let {
                 cartAdapter?.data?.set(position, it)
             }
-            if (check){
+            if (check) {
                 setCheckPrice()
             }
         }
         cartAdapter?.notifyItemChanged(position)
     }
 
+    /**
+     * 疗程价格
+     */
     private fun lcSinglePrice(num: Int, combinations: MutableList<CartEntity.Combinations>?): String {
         var price = "0.00"
         combinations?.let {
             for (i in 0 until it.size) {
-                if (i <= 0) {
-                    if (num == it.get(0)?.package_count!!) {
-                        price = it.get(0)?.combination_unit_price!!
-                        LogUtils.e("price1 ===> " + price)
+
+                if (i == 0 && num == it.get(0)?.package_count!!) {
+                    price = it.get(0)?.combination_unit_price!!
+                    return price
+                }
+
+                if (i > 0 && i < it.size - 1) {
+                    val pre = it?.get(i - 1)?.package_count!!
+                    val cur = it?.get(i)?.package_count!!
+                    if (num > pre && num <= cur) {
+                        price = it.get(i)?.combination_unit_price!!
                         return price
                     }
-                } else if (i > 0) {
-                    if (i < it.size - 1) {
-                        val pre = it?.get(i - 1)?.package_count!!
-                        val cur = it?.get(i)?.package_count!!
-                        if (num > pre && num <= cur) {
-                            price = it.get(i)?.combination_unit_price!!
-                            LogUtils.e("price2 ===> " + price)
-                            return price
-                        }
-                    } else if (i == it.size - 1) {
-                        val count = it?.get(i)?.package_count!!
-                        if (num >= count) {
-                            price = it.get(i)?.combination_unit_price!!
-                            LogUtils.e("price3 ===> " + price)
-                            return price
-                        } else {
-                            price = it.get(i - 1)?.combination_unit_price!!
-                            LogUtils.e("price4 ===> " + price)
-                            return price
-                        }
+                }
+
+                if (i > 0 && i == it.size -1) {
+                    val count = it?.get(i)?.package_count!!
+                    if (num >= count) {
+                        price = it.get(i)?.combination_unit_price!!
+                        return price
+                    } else {
+                        price = it.get(i - 1)?.combination_unit_price!!
+                        return price
                     }
                 }
             }

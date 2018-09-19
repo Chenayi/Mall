@@ -78,7 +78,9 @@ class OrderFragment : BaseListFragment<OrderPresenter, OrderEntity.List>(), Orde
                     }
 
                     OrderEntity.ORDER_STATUS_FINISH -> {
+                    }
 
+                    OrderEntity.ORDER_STATUS_CANCEL->{
                     }
                 }
             }
@@ -90,6 +92,8 @@ class OrderFragment : BaseListFragment<OrderPresenter, OrderEntity.List>(), Orde
             mPresenter?.myOrderList(onderStatus, pageNo, false, true)
         }
     }
+
+    override fun endTips() = "您的订单这么少，这么快就到底了昵～"
 
     override fun onSupportVisible() {
         super.onSupportVisible()
@@ -328,6 +332,11 @@ class OrderFragment : BaseListFragment<OrderPresenter, OrderEntity.List>(), Orde
                         ?.setGone(R.id.tv_handel, false)
                         ?.setTextColor(R.id.tv_handel, Color.parseColor("#8A9099"))
                         ?.setBackgroundRes(R.id.tv_handel, R.drawable.background_8a9099_stroke_corners_9999)
+            }
+
+            OrderEntity.ORDER_STATUS_CANCEL->{
+                helper?.setText(R.id.tv_order_status, "已取消")
+                        ?.setGone(R.id.tv_handel, false)
             }
         }
     }

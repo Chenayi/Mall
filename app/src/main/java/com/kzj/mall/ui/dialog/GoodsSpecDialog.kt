@@ -26,7 +26,6 @@ import org.greenrobot.eventbus.EventBus
 
 class GoodsSpecDialog : BaseDialog<GoodsSpecPresenter, DialogGoodsSpecBinding>(), View.OnClickListener, GoodsSpecContract.View {
     private var goodsDetailEntity: GoodsDetailEntity? = null
-    private var mGoodsDefaultInfoId: String? = null
     private var iGruops: MutableList<GoodsDetailEntity.IGroup>? = null
     private var packageList: MutableList<GoodsDetailEntity.PackageList>? = null
 
@@ -35,10 +34,6 @@ class GoodsSpecDialog : BaseDialog<GoodsSpecPresenter, DialogGoodsSpecBinding>()
      */
     private var isCombination = false
 
-    /**
-     * 规格选中位置
-     */
-    private var specPosition = 0
 
     /**
      * 疗程套装选中位置
@@ -50,14 +45,17 @@ class GoodsSpecDialog : BaseDialog<GoodsSpecPresenter, DialogGoodsSpecBinding>()
      */
     private var mGoodsNum = 1
 
+    /**
+     * 规格选中位置
+     */
+    private var specPosition = 0
+
     companion object {
-        fun newInstance(goodsNum: Int?, specPosition: Int?, groupPosition: Int?, goodsDefaultInfoId: String?, goodsDetailEntity: GoodsDetailEntity?): GoodsSpecDialog {
+        fun newInstance(goodsNum: Int?, groupPosition: Int?, goodsDetailEntity: GoodsDetailEntity?): GoodsSpecDialog {
             val goodsSpecDialog = GoodsSpecDialog()
             val arguments = Bundle()
             arguments?.putInt("goodsNum", goodsNum!!)
-            arguments?.putInt("specPosition", specPosition!!)
             arguments?.putInt("groupPosition", groupPosition!!)
-            arguments?.putString("goodsDefaultInfoId", goodsDefaultInfoId)
             arguments?.putSerializable("goodsDetailEntity", goodsDetailEntity)
             goodsSpecDialog?.arguments = arguments
             return goodsSpecDialog
@@ -71,13 +69,8 @@ class GoodsSpecDialog : BaseDialog<GoodsSpecPresenter, DialogGoodsSpecBinding>()
     override fun initData() {
         mBinding?.rlRoot?.layoutParams?.height = (ScreenUtils.getScreenHeight() * 0.65f).toInt()
 
-        mGoodsDefaultInfoId = arguments?.getString("goodsDefaultInfoId")
         arguments?.getSerializable("goodsDetailEntity")?.let {
             goodsDetailEntity = it as GoodsDetailEntity?
-        }
-
-        arguments?.getInt("specPosition")?.let {
-            specPosition = it
         }
 
         arguments?.getInt("groupPosition")?.let {
@@ -117,9 +110,11 @@ class GoodsSpecDialog : BaseDialog<GoodsSpecPresenter, DialogGoodsSpecBinding>()
         //规格
         mBinding?.sflGoodsSpec?.setOnTagClickListener(object : SuperFlowLayout.OnTagClickListener {
             override fun onTagClick(position: Int, tag: String?) {
-                mPresenter.requesrGoodsDetail(position, tag, goodsDetailEntity?.openSpec?.get(position)?.goodsId)
+                mPresenter.requesrGoodsDetail(position, tag, goodsDetailEntity?.openSpec?.get(position)?.goodsInfoId)
             }
         })
+
+        //疗程，套餐
         mBinding?.sflGoodsGroup?.setOnTagClickListener(object : SuperFlowLayout.OnTagClickListener {
             override fun onTagClick(position: Int, tag: String?) {
                 val iGroup = iGruops?.get(position)
@@ -155,7 +150,13 @@ class GoodsSpecDialog : BaseDialog<GoodsSpecPresenter, DialogGoodsSpecBinding>()
                 mBinding?.tvNum?.text = packetCount?.toString()
             }
         })
-        setSpecGroup(goodsDetailEntity)
+
+        //商品数据
+        setGoodsData()
+        //规格
+        setSpec()
+        //疗程、套餐
+        setGroup()
 
         mBinding?.ivPlus?.setOnClickListener(this)
         mBinding?.ivMinus?.setOnClickListener(this)
@@ -165,10 +166,7 @@ class GoodsSpecDialog : BaseDialog<GoodsSpecPresenter, DialogGoodsSpecBinding>()
         mBinding?.tvRequestCheckin?.setOnClickListener(this)
     }
 
-    /**
-     * 规格 , 疗程套餐
-     */
-    private fun setSpecGroup(goodsDetailEntity: GoodsDetailEntity?) {
+    private fun setGoodsData() {
         //图片
         GlideApp.with(context!!)
                 .load(goodsDetailEntity?.gn?.goodsImg)
@@ -178,28 +176,42 @@ class GoodsSpecDialog : BaseDialog<GoodsSpecPresenter, DialogGoodsSpecBinding>()
 
         //价格
         mBinding?.tvGoodsPrice?.setText("合计：¥" + goodsDetailEntity?.gn?.goodsPrice)
+    }
 
 
-        //规格
-        goodsDetailEntity?.openSpec?.let {
-            if (it?.size > 0) {
+    /**
+     * 规格
+     */
+    private fun setSpec() {
+        if (goodsDetailEntity?.openSpec != null && goodsDetailEntity?.openSpec?.size!! > 0) {
+            mBinding?.llSpec?.visibility = View.VISIBLE
+            goodsDetailEntity?.openSpec?.let {
                 val tags = ArrayList<String>()
                 for (i in 0 until it?.size) {
                     tags.add(it.get(i).goodsSpec!!)
+                    if (it?.get(i)?.goodsInfoId.equals(goodsDetailEntity?.gin?.goods_info_id)) {
+                        specPosition = i
+                    }
                 }
-
                 mBinding?.sflGoodsSpec?.setDatas(tags)
-                mBinding?.sflGoodsSpec?.switchTag(specPosition)
-
+                mBinding?.sflGoodsSpec?.switchTag(specPosition, false)
             }
+        } else {
+            mBinding?.llSpec?.visibility = View.GONE
         }
+    }
 
+
+    /**
+     * 疗程套餐
+     */
+    private fun setGroup() {
         //疗程
         packageList = ArrayList()
         val packet = GoodsDetailEntity.PackageList()
         packet?.combination_name = "一盒标准装"
         packet?.package_count = 1
-        packet?.goods_info_id = mGoodsDefaultInfoId
+        packet?.goods_info_id = goodsDetailEntity?.gin?.goods_info_id
         packet?.combination_price = goodsDetailEntity?.gn?.goodsPrice?.toFloat()!!
         packet?.combination_unit_price = goodsDetailEntity?.gn?.goodsPrice?.toFloat()!!
         packageList?.add(packet)
@@ -231,7 +243,7 @@ class GoodsSpecDialog : BaseDialog<GoodsSpecPresenter, DialogGoodsSpecBinding>()
             }
 
             mBinding?.sflGoodsGroup?.setDatas(groups)
-            mBinding?.sflGoodsGroup?.switchTag(groupPosition)
+            mBinding?.sflGoodsGroup?.switchTag(groupPosition, false)
         }
     }
 
@@ -254,29 +266,35 @@ class GoodsSpecDialog : BaseDialog<GoodsSpecPresenter, DialogGoodsSpecBinding>()
      * 切换疗程
      */
     private fun switchPackageList(num: Int) {
+        packageList?.let {
+            if (it.size > 1) {
+                for (i in 0 until it.size) {
 
-        if (packageList?.size!! <= 1) {
-            return
-        }
+                    val count = it?.get(i)?.package_count
 
-        for (i in 1 until packageList?.size!!) {
-            if (i < packageList?.size!! - 1) {
+                    //一盒标准装
+                    if (i == 0 && num == count) {
+                        mBinding?.sflGoodsGroup?.switchTag(0, true)
+                        return
+                    }
 
-                if (i == 1 && num < packageList?.get(1)?.package_count!!) {
-                    mBinding?.sflGoodsGroup?.switchTag(0)
-                    return
+                    if (i > 0 && i < it.size - 1) {
+                        val pre = it?.get(i - 1)?.package_count
+                        val cur = it?.get(i)?.package_count
+                        if (num > pre && num <= cur) {
+                            mBinding?.sflGoodsGroup?.switchTag(i, true)
+                            return
+                        }
+                    }
+
+                    if (i > 0 && i == it.size -1) {
+                        if (num >= count){
+                            mBinding?.sflGoodsGroup?.switchTag(i, true)
+                        }else{
+                            mBinding?.sflGoodsGroup?.switchTag(i - 1, true)
+                        }
+                    }
                 }
-
-                val cur = packageList?.get(i)?.package_count!!
-                val next = packageList?.get(i + 1)?.package_count!!
-                if (num >= cur && num < next) {
-                    mBinding?.sflGoodsGroup?.switchTag(i)
-                    return
-                }
-            }
-            val count = packageList?.get(packageList?.size!! - 1)?.package_count!!
-            if (num >= count) {
-                mBinding?.sflGoodsGroup?.switchTag(i)
             }
         }
     }
@@ -332,7 +350,7 @@ class GoodsSpecDialog : BaseDialog<GoodsSpecPresenter, DialogGoodsSpecBinding>()
      *  提交处方登记
      */
     fun submitDemand() {
-        if (!C.IS_LOGIN){
+        if (!C.IS_LOGIN) {
             val intent = Intent(context, LoginActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             context?.startActivity(intent)
@@ -347,13 +365,17 @@ class GoodsSpecDialog : BaseDialog<GoodsSpecPresenter, DialogGoodsSpecBinding>()
      * 详情数据返回
      */
     override fun showGoodsDetail(position: Int, spec: String?, goodsInfoId: String?, goodsDetailEntity: GoodsDetailEntity?) {
-        specPosition = position
+        mGoodsNum = 1
         groupPosition = 0
-        setSpecGroup(goodsDetailEntity)
         this.goodsDetailEntity = goodsDetailEntity
+        setGoodsData()
+        setSpec()
+        setGroup()
         goodsDetailEntity?.let {
-            EventBus.getDefault().post(GoodSpecChangeEvent(position, spec!!, goodsInfoId!!, it))
+            EventBus.getDefault().post(GoodSpecChangeEvent(it))
         }
+        EventBus.getDefault().post(GoodsNumChangeEvent(mGoodsNum))
+        EventBus.getDefault().post(GoodsNumChangeEvent(mGoodsNum))
     }
 
     override fun showLoading() {

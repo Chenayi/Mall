@@ -46,7 +46,6 @@ class GoodsDetailActivity : BaseActivity<GoodsDetailPresenter, ActivityGoodsDeta
      * 商品id
      */
     private var mGoodsInfoId: String? = null
-    private var mGoodsDefaultInfoId: String? = null
     private var goodsDetailEntity: GoodsDetailEntity? = null
 
     /**
@@ -86,8 +85,6 @@ class GoodsDetailActivity : BaseActivity<GoodsDetailPresenter, ActivityGoodsDeta
     override fun initData() {
 //        mGoodsInfoId = "29921"
         mGoodsInfoId = intent?.getStringExtra(C.GOODS_INFO_ID)
-        mGoodsDefaultInfoId = mGoodsInfoId
-
         if (BuildConfig.DEBUG) {
             LogUtils.e("goodsInfoId ===> " + mGoodsInfoId)
         }
@@ -225,8 +222,8 @@ class GoodsDetailActivity : BaseActivity<GoodsDetailPresenter, ActivityGoodsDeta
      */
     @Subscribe
     fun specChange(goodSpecChangeEvent: GoodSpecChangeEvent) {
-        val goodsDetailEntity = goodSpecChangeEvent?.goodsDetailEntity
-        mGoodsInfoId = goodSpecChangeEvent?.goodsInfoId
+        goodsDetailEntity = goodSpecChangeEvent?.goodsDetailEntity
+        mGoodsInfoId = goodsDetailEntity?.gin?.goods_info_id
     }
 
 
@@ -373,7 +370,7 @@ class GoodsDetailActivity : BaseActivity<GoodsDetailPresenter, ActivityGoodsDeta
         this.goodsDetailEntity = goodsDetailEntity
 
         val goodsInfoFragment = fragments?.get(0) as GoodsInfoFragment
-        goodsInfoFragment?.updateDatas(mGoodsDefaultInfoId, goodsDetailEntity)
+        goodsInfoFragment?.updateDatas(goodsDetailEntity)
 
         (fragments?.get(1) as GoodsDetailFragment)?.updateDatas(goodsDetailEntity)
 

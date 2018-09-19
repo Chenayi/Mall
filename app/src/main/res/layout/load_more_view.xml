@@ -7,7 +7,7 @@
     <LinearLayout
         android:id="@+id/load_more_loading_view"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="45dp"
         android:gravity="center"
         android:orientation="horizontal"
         android:visibility="gone">
@@ -32,7 +32,7 @@
     <FrameLayout
         android:id="@+id/load_more_load_fail_view"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="45dp"
         android:visibility="gone">
 
 
@@ -48,22 +48,25 @@
     <LinearLayout
         android:id="@+id/load_more_load_end_view"
         android:layout_width="match_parent"
-        android:layout_height="67dp"
+        android:layout_height="45dp"
         android:gravity="center"
         android:orientation="vertical"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <ImageView
+            android:id="@+id/iv_end_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/end_icon" />
+            android:layout_marginBottom="8dp"
+            android:src="@mipmap/end_icon"
+            android:visibility="gone" />
 
         <TextView
+            android:id="@+id/tv_end_tips"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="好厉害，竟然让你到了底～"
             android:textColor="#C2C6CC"
-            android:textSize="11dp"
-            android:layout_marginTop="8dp"/>
+            android:textSize="12dp" />
     </LinearLayout>
 </FrameLayout>

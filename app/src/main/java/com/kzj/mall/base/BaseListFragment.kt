@@ -13,10 +13,12 @@ import com.kzj.mall.C
 import com.kzj.mall.R
 import com.kzj.mall.adapter.BaseAdapter
 import com.kzj.mall.databinding.FragmentBaseListBinding
+import com.kzj.mall.widget.ExpandLoadMoewView
 
 abstract class BaseListFragment<P : IPresenter, D> : BaseFragment<P, FragmentBaseListBinding>() {
     protected var listAdapter: ListAdapter? = null
     protected var pageNo = 1
+    private var loadMoreView: ExpandLoadMoewView? = null
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_base_list
@@ -33,6 +35,8 @@ abstract class BaseListFragment<P : IPresenter, D> : BaseFragment<P, FragmentBas
         mBinding?.rv?.layoutManager = layoutManager()
         mBinding?.rv?.adapter = listAdapter
         listAdapter?.setEnableLoadMore(isLoadMoreEnable())
+        loadMoreView = ExpandLoadMoewView(endTips())
+        listAdapter?.setLoadMoreView(loadMoreView)
         if (isLoadMoreEnable()) {
             listAdapter?.setOnLoadMoreListener(object : BaseQuickAdapter.RequestLoadMoreListener {
                 override fun onLoadMoreRequested() {
@@ -48,6 +52,8 @@ abstract class BaseListFragment<P : IPresenter, D> : BaseFragment<P, FragmentBas
             }
         })
     }
+
+    protected open fun endTips() = "好厉害，竟然让你到了底～"
 
     /**
      * holder
@@ -107,7 +113,7 @@ abstract class BaseListFragment<P : IPresenter, D> : BaseFragment<P, FragmentBas
     protected fun finishLoadMore(datas: MutableList<D>) {
         listAdapter?.addData(datas)
         if (datas?.size < C.PAGE_SIZE) {
-            listAdapter?.loadMoreEnd(true)
+            listAdapter?.loadMoreEnd()
         } else {
             listAdapter?.loadMoreComplete()
         }

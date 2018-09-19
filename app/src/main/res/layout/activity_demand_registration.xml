@@ -76,20 +76,24 @@
                                         android:id="@+id/tv_name"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
+                                        android:maxWidth="120dp"
                                         android:text="司马嫣然"
                                         android:textColor="#2E3033"
-                                        android:textSize="17dp"
-                                        android:textStyle="bold" />
+                                        android:textSize="16dp"
+                                        android:textStyle="bold"
+                                        android:singleLine="true"
+                                        android:ellipsize="end"/>
 
                                     <TextView
                                         android:id="@+id/tv_mobile"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:layout_marginLeft="10dp"
+                                        android:layout_marginLeft="8dp"
                                         android:text="137****1234"
                                         android:textColor="#2E3033"
-                                        android:textSize="17dp"
-                                        android:textStyle="bold" />
+                                        android:textSize="16dp"
+                                        android:textStyle="bold"
+                                        android:singleLine="true"/>
 
                                     <com.allen.library.SuperTextView
                                         android:id="@+id/tv_default"
@@ -136,7 +140,7 @@
                         android:layout_alignParentBottom="true"
                         android:layout_marginLeft="4dp"
                         android:layout_marginRight="4dp"
-                        android:background="@color/colorAccent" />
+                        android:background="@mipmap/address_bottom" />
 
                 </RelativeLayout>
 
@@ -198,14 +202,16 @@
                                     android:textSize="12dp" />
 
                                 <TextView
+                                    android:id="@+id/tv_goods_num"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_alignParentBottom="true"
                                     android:layout_alignParentRight="true"
+                                    android:layout_marginRight="10dp"
                                     android:text="x7"
                                     android:textColor="#6A6E75"
                                     android:textSize="12dp"
-                                    android:visibility="gone" />
+                                    android:visibility="visible" />
                             </RelativeLayout>
 
                         </LinearLayout>
@@ -258,7 +264,7 @@
                             android:layout_width="16dp"
                             android:layout_height="16dp"
                             android:layout_gravity="right"
-                            android:src="@drawable/circle_orange" />
+                            android:src="@mipmap/icon_delete" />
 
                     </FrameLayout>
 
@@ -279,7 +285,7 @@
                             android:layout_width="16dp"
                             android:layout_height="16dp"
                             android:layout_gravity="right"
-                            android:src="@drawable/circle_orange" />
+                            android:src="@mipmap/icon_delete" />
                     </FrameLayout>
 
                     <FrameLayout
@@ -299,7 +305,7 @@
                             android:layout_width="16dp"
                             android:layout_height="16dp"
                             android:layout_gravity="right"
-                            android:src="@drawable/circle_orange" />
+                            android:src="@mipmap/icon_delete" />
 
                     </FrameLayout>
 
@@ -320,7 +326,7 @@
                             android:layout_width="16dp"
                             android:layout_height="16dp"
                             android:layout_gravity="right"
-                            android:src="@drawable/circle_orange" />
+                            android:src="@mipmap/icon_delete" />
 
                     </FrameLayout>
 
@@ -346,7 +352,7 @@
                                 android:layout_width="16dp"
                                 android:layout_height="16dp"
                                 android:layout_gravity="right"
-                                android:src="@drawable/circle_orange" />
+                                android:src="@mipmap/icon_delete" />
                         </FrameLayout>
 
                         <ImageView

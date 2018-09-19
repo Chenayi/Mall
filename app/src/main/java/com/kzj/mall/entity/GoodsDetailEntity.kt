@@ -34,6 +34,8 @@ class GoodsDetailEntity : Serializable {
         var goodsManufacturer: String? = null
         //商品编码
         var goodsNo: String? = null
+        //规格
+        var goodsSpec: String? = null
     }
 
     class GoodsBooks : Serializable {
@@ -104,6 +106,7 @@ class GoodsDetailEntity : Serializable {
     class Gin : Serializable {
         var goods_info_subtitle: String? = null
         var goods_mobile_desc: String? = null
+        var goods_info_id: String? = null
     }
 
     /**
@@ -157,7 +160,7 @@ class GoodsDetailEntity : Serializable {
         override fun getType() = IGroup.TYPE_COMBINATION_LIST
     }
 
-    class GGList :Serializable{
+    class GGList : Serializable {
         var goods_img: String? = null
         var goodsNum: String? = null
         var goods_stock: Int? = null

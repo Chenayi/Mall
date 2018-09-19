@@ -30,6 +30,7 @@ import permissions.dispatcher.*
 import com.kzj.mall.image.Glide4Engine
 import com.kzj.mall.mvp.contract.DemandRegistrationContract
 import com.kzj.mall.mvp.presenter.DemandRegistrationPresenter
+import com.kzj.mall.utils.FloatUtils
 import com.nanchen.compresshelper.CompressHelper
 import com.upyun.library.common.Params
 import com.upyun.library.common.UploadEngine
@@ -131,7 +132,7 @@ class DemandRegistrationActivity : BaseActivity<DemandRegistrationPresenter, Act
             buyEntity = it as BuyEntity
         }
 
-        intent?.getIntExtra("goodsNum",1)?.let {
+        intent?.getIntExtra("goodsNum", 1)?.let {
             mGoodsNum = it
         }
 
@@ -144,7 +145,7 @@ class DemandRegistrationActivity : BaseActivity<DemandRegistrationPresenter, Act
             goodsinfoid = it
         }
 
-        if(rxRecordType?.equals("1")){
+        if (rxRecordType?.equals("1")) {
             maxCount = 1
         }
 
@@ -159,8 +160,23 @@ class DemandRegistrationActivity : BaseActivity<DemandRegistrationPresenter, Act
                     .into(mBinding?.ivGoods!!)
 
             mBinding?.tvGoodsName?.text = it?.goods_name
-            mBinding?.tvGoodsPrice?.text = "¥" + it?.goods_price
-            mBinding?.tvAllGoodsPrice?.text = "合计：¥" + it?.goods_price
+        }
+
+        mBinding?.tvGoodsNum?.text = "x" + mGoodsNum
+
+        //套餐
+        if (rxRecordType?.equals("2") == true) {
+            val combinationprice = buyEntity?.combinationprice?.toFloat()!!
+            val sumPrice = combinationprice * mGoodsNum
+            mBinding?.tvGoodsPrice?.text = "¥" + buyEntity?.combinationprice
+            mBinding?.tvAllGoodsPrice?.text = "合计：¥" + FloatUtils.format(sumPrice)
+        }
+        //单品 疗程
+        else {
+            val price = buyEntity?.goodsinfoMap?.goods_price?.toFloat()!!
+            val sumPrice = price * mGoodsNum
+            mBinding?.tvGoodsPrice?.text = "¥" + buyEntity?.goodsinfoMap?.goods_price
+            mBinding?.tvAllGoodsPrice?.text = "合计：¥" + FloatUtils.format(sumPrice)
         }
 
         //地址
@@ -320,7 +336,7 @@ class DemandRegistrationActivity : BaseActivity<DemandRegistrationPresenter, Act
                         .placeholder(R.color.gray_default)
                         .centerCrop()
                         .into(mBinding?.ivImage1!!)
-                if (maxCount == 1){
+                if (maxCount == 1) {
                     mBinding?.ivCamera?.visibility = View.GONE
                 }
             } else if (curImagePosition == 1) {
@@ -471,7 +487,7 @@ class DemandRegistrationActivity : BaseActivity<DemandRegistrationPresenter, Act
                     rxImages += mImageUrls?.get(i) + ","
                 }
 
-                if (rxImages?.length > 0){
+                if (rxImages?.length > 0) {
                     rxImages = rxImages?.substring(0, rxImages?.length - 1)
                 }
 

@@ -3,11 +3,13 @@ package com.kzj.mall.ui.fragment
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.Paint
+import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.support.v4.view.ViewPager
 import android.support.v4.widget.NestedScrollView
+import android.text.Html
 import android.view.View
 import android.widget.*
 import cn.bingoogolapple.bgabanner.BGABanner
@@ -28,6 +30,12 @@ import com.kzj.mall.widget.ObservableScrollView
 import com.kzj.mall.widget.SlideDetailsLayout
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
+import android.text.SpannableString
+import android.text.Spannable
+import android.text.TextPaint
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
+
 
 class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), View.OnClickListener {
     private var tvOtc: TextView? = null
@@ -90,12 +98,6 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
     private var isFollow = false
 
     private var goodsDetailEntity: GoodsDetailEntity? = null
-    private var mGoodsDefaultInfoId: String? = null
-
-    /**
-     * 规格选中位置
-     */
-    private var specPosition = 0
 
     /**
      * 疗程套装选中位置
@@ -229,7 +231,7 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
     /**
      * 更新数据
      */
-    fun updateDatas(goodsDefaultInfoId: String?, goodsDetailEntity: GoodsDetailEntity?) {
+    fun updateDatas(goodsDetailEntity: GoodsDetailEntity?) {
         goodsDetailEntity?.let {
             this@GoodsInfoFragment.goodsDetailEntity = it
             //是否关注
@@ -281,6 +283,26 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
                 if (it.goodsType.equals("0")) {
                     tvOtc?.text = "RX"
                     mBinding?.llChufang?.visibility = View.VISIBLE
+                    var t1 = "如需协助可在线咨询药师或拨打热线"
+                    var t2 = C.CUSTOMER_TEL
+
+                    val spanText = SpannableString(t1 + t2)
+                    spanText.setSpan(object : ClickableSpan() {
+
+                        override fun updateDrawState(ds: TextPaint) {
+                            super.updateDrawState(ds)
+                            ds.color = Color.parseColor("#6A6E75")       //设置文件颜色
+                            ds.isUnderlineText = true      //设置下划线
+                        }
+
+                        override fun onClick(view: View) {
+                            val dialIntent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + t2))
+                            startActivity(dialIntent)
+                        }
+                    }, t1.length, (t1 + t2).length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+                    mBinding?.tvRxTips?.text = spanText
+                    mBinding?.tvRxTips?.setMovementMethod(LinkMovementMethod.getInstance());
                 }
 
                 //非处方
@@ -292,17 +314,14 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
 
             //商品信息
             it?.gin?.let {
-                tvGoodsInfoSubtitle?.setText(it?.goods_info_subtitle)
+                tvGoodsInfoSubtitle?.setText(Html.fromHtml(it?.goods_info_subtitle))
             }
 
             //规格
-            it?.openSpec.let {
-                if (it?.size != null && it?.size!! > 0) {
-                    mBinding?.detailSpec?.isEnabled = true
-                    tvCheckSpec?.setText(it?.get(specPosition)?.goodsSpec)
-                }
+            it?.gn?.goodsSpec?.let {
+                mBinding?.detailSpec?.isEnabled = true
+                tvCheckSpec?.setText(it)
             }
-
 
             //套餐
             it?.combinationList?.let {
@@ -314,10 +333,6 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
 
             this.goodsDetailEntity = goodsDetailEntity
         }
-        goodsDefaultInfoId?.let {
-            mGoodsDefaultInfoId = it
-        }
-
         mBinding?.osv?.scrollTo(0, 0)
     }
 
@@ -325,7 +340,7 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
      * 规格弹窗
      */
     fun showSpecDialog() {
-        GoodsSpecDialog.newInstance(mGoodsNum, specPosition, groupPosition, mGoodsDefaultInfoId, goodsDetailEntity)
+        GoodsSpecDialog.newInstance(mGoodsNum, groupPosition, goodsDetailEntity)
                 .setShowBottom(true)
                 .show(childFragmentManager)
     }
@@ -358,8 +373,7 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
      */
     @Subscribe
     fun specChange(goodSpecChangeEvent: GoodSpecChangeEvent) {
-        specPosition = goodSpecChangeEvent?.position
-        updateDatas(null, goodSpecChangeEvent?.goodsDetailEntity)
+        updateDatas(goodSpecChangeEvent?.goodsDetailEntity)
     }
 
     /**

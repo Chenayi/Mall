@@ -55,15 +55,17 @@ class SuperFlowLayout : BaseRelativeLayout<SuperFlowLayoutBinding>, View.OnClick
 
     override fun onClick(v: View?) {
         if (v is TextView) {
-            var tag = v?.tag as Int
-            switchTag(tag)
+            var position = v?.tag as Int
+            if (position != curPosition){
+                switchTag(position,true)
+            }
         }
     }
 
     /**
      * 选择
      */
-    fun switchTag(position: Int) {
+    fun switchTag(position: Int, callback: Boolean) {
         for (i in 0 until textViews?.size!!) {
             val tv = textViews?.get(i)
             tv?.setPadding(SizeUtils.dp2px(12f), SizeUtils.dp2px(8f), SizeUtils.dp2px(12f), SizeUtils.dp2px(8f))
@@ -75,7 +77,7 @@ class SuperFlowLayout : BaseRelativeLayout<SuperFlowLayoutBinding>, View.OnClick
                 tv?.setTextColor(Color.parseColor("#2E3033"))
             }
         }
-        if (position != curPosition) {
+        if (callback) {
             onTagClickListener?.onTagClick(position, datas?.get(position))
         }
         curPosition = position
@@ -84,7 +86,7 @@ class SuperFlowLayout : BaseRelativeLayout<SuperFlowLayoutBinding>, View.OnClick
     /**
      * 返回到上一个tag
      */
-    fun returnPrePosition(position: Int){
+    fun returnPrePosition(position: Int) {
         for (i in 0 until textViews?.size!!) {
             val tv = textViews?.get(i)
             tv?.setPadding(SizeUtils.dp2px(12f), SizeUtils.dp2px(8f), SizeUtils.dp2px(12f), SizeUtils.dp2px(8f))
