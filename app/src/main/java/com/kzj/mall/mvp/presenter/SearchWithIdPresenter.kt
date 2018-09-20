@@ -1,6 +1,7 @@
 package com.kzj.mall.mvp.presenter
 
 import android.content.Context
+import com.blankj.utilcode.util.LogUtils
 import com.kzj.mall.C
 import com.kzj.mall.base.BaseObserver
 import com.kzj.mall.base.BasePresenter
@@ -60,6 +61,9 @@ constructor(model: SearchWithIdContract.Model?, view: SearchWithIdContract.View?
      * 按价格
      */
     fun searchWithCidPrice(cid: String, order: String, isLoading: Boolean?, curPage: Int?) {
+
+        LogUtils.e("curPage ===> " +curPage)
+
         val params = HashMap<String, String>()
         params?.put("pageNo", curPage.toString())
         params?.put("pageSize", C.PAGE_SIZE.toString())
@@ -70,6 +74,9 @@ constructor(model: SearchWithIdContract.Model?, view: SearchWithIdContract.View?
     }
 
     fun searchWithBrandIDPrice(brandID: String, order: String, isLoading: Boolean?, curPage: Int?) {
+
+//        LogUtils.e("curPage ===> " +curPage + "\nbrandID ===> " + brandID + "\norder ===> " +order)
+
         val params = HashMap<String, String>()
         params?.put("pageNo", curPage.toString())
         params?.put("pageSize", C.PAGE_SIZE.toString())

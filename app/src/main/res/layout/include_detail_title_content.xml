@@ -53,7 +53,7 @@
                         android:text="特价"
                         android:textColor="@color/white"
                         android:textSize="12dp"
-                        android:visibility="visible" />
+                        android:visibility="gone" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -156,6 +156,7 @@
             android:textColor="@color/c_2e3033"
             android:textSize="14dp"
             android:id="@+id/tv_goods_info_subtitle"
+            android:visibility="gone"
             tools:text="【品牌直采】【每天1次，每次10毫升。50天量】如果平时饮食较为简单，偏素又很清淡，感觉皮肤质地下降、松弛，饱满度降低，皱纹增长快，那就该补充胶原蛋白啦。口服胶原蛋白能促进皮肤弹性，祛除皱纹，还能促进发质和指甲的生长" />
 
 

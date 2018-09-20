@@ -78,14 +78,13 @@ class HomeFragment : BaseFragment<IPresenter, FragmentHomeBinding>(), View.OnCli
 
 
         var commonNavigator = CommonNavigator(context)
-        commonNavigator?.isAdjustMode = true
         commonNavigator.adapter = object : CommonNavigatorAdapter() {
             override fun getTitleView(p0: Context?, index: Int): IPagerTitleView {
                 val colorTransitionPagerTitleView = HomeNavigatorTitleView(context)
-                colorTransitionPagerTitleView.normalColor = Color.parseColor("#EBFFD9")
+                colorTransitionPagerTitleView.normalColor = Color.WHITE
                 colorTransitionPagerTitleView.selectedColor = Color.WHITE
-                colorTransitionPagerTitleView.textSize = 13f
-                colorTransitionPagerTitleView.setPadding(SizeUtils.dp2px(12f), 0, SizeUtils.dp2px(12f), 0)
+                colorTransitionPagerTitleView.textSize = 15f
+                colorTransitionPagerTitleView.setPadding(SizeUtils.dp2px(20f), 0, SizeUtils.dp2px(20f), 0)
                 colorTransitionPagerTitleView.setText(mTitles[index])
                 colorTransitionPagerTitleView.setOnClickListener(object : View.OnClickListener {
                     override fun onClick(v: View?) {
@@ -104,11 +103,8 @@ class HomeFragment : BaseFragment<IPresenter, FragmentHomeBinding>(), View.OnCli
                 val indicator = LinePagerIndicator(context)
                 indicator.mode = LinePagerIndicator.MODE_EXACTLY
                 indicator.setColors(Color.WHITE)
-                indicator.lineWidth = SizeUtils.dp2px(13f).toFloat()
+                indicator.lineWidth = SizeUtils.dp2px(17f).toFloat()
                 return indicator
-            }
-            override fun getTitleWeight(context: Context?, index: Int): Float {
-                return 1.0f
             }
         }
 

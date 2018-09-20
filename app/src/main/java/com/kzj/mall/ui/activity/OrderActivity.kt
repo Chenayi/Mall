@@ -23,7 +23,7 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.Li
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorTransitionPagerTitleView
 
 class OrderActivity : BaseActivity<IPresenter, ActivityOrderBinding>() {
-    private val mTitles: Array<String> = arrayOf("全部", "待付款", "待发货", "待收货", "已完成")
+    private val mTitles: Array<String> = arrayOf("全部", "待付款", "待发货", "已发货", "已完成")
     private var fragments: MutableList<Fragment>? = null
     private var position = 0
 

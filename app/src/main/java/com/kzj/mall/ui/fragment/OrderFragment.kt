@@ -324,7 +324,7 @@ class OrderFragment : BaseListFragment<OrderPresenter, OrderEntity.List>(), Orde
             }
 
             OrderEntity.ORDER_STATUS_WAIT_TAKE -> {
-                helper?.setText(R.id.tv_order_status, "待收货")
+                helper?.setText(R.id.tv_order_status, "已发货")
                         ?.setTextColor(R.id.tv_order_status, ContextCompat.getColor(context!!, R.color.orange_default))
                         ?.setGone(R.id.tv_handel, true)
                         ?.setText(R.id.tv_handel, "确认收货")

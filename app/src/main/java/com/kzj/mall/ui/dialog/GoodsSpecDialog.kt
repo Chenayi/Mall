@@ -243,7 +243,7 @@ class GoodsSpecDialog : BaseDialog<GoodsSpecPresenter, DialogGoodsSpecBinding>()
             }
 
             mBinding?.sflGoodsGroup?.setDatas(groups)
-            mBinding?.sflGoodsGroup?.switchTag(groupPosition, false)
+            mBinding?.sflGoodsGroup?.switchTag(groupPosition, true)
         }
     }
 

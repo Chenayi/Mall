@@ -148,7 +148,7 @@ class OrderDetailActivity : BaseActivity<OrderDetailPresenter, ActivityOrderDeta
             }
             OrderEntity.ORDER_STATUS_WAIT_TAKE -> {
                 ivOrderStatus?.setImageResource(R.mipmap.icon_wait_take)
-                tvOrderStatus?.setText("订单待收货")
+                tvOrderStatus?.setText("订单已发货")
                 mBinding?.llBottom?.visibility = View.VISIBLE
                 mBinding?.tvHandle?.setBackgroundResource(R.drawable.background_orange_corners_9999)
                 mBinding?.tvHandle?.setText("确认收货")
@@ -161,7 +161,7 @@ class OrderDetailActivity : BaseActivity<OrderDetailPresenter, ActivityOrderDeta
             }
 
             OrderEntity.ORDER_STATUS_CANCEL -> {
-                ivOrderStatus?.setImageResource(R.mipmap.icon_finish)
+                ivOrderStatus?.setImageResource(R.mipmap.icon_cancel)
                 tvOrderStatus?.setText("订单已取消")
                 mBinding?.llBottom?.visibility = View.GONE
                 mBinding?.tvHandle?.setBackgroundResource(R.drawable.background_8a9099_stroke_corners_9999)

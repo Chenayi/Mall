@@ -9,7 +9,7 @@ import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.support.v4.view.ViewPager
 import android.support.v4.widget.NestedScrollView
-import android.text.Html
+import android.text.*
 import android.view.View
 import android.widget.*
 import cn.bingoogolapple.bgabanner.BGABanner
@@ -30,9 +30,6 @@ import com.kzj.mall.widget.ObservableScrollView
 import com.kzj.mall.widget.SlideDetailsLayout
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
-import android.text.SpannableString
-import android.text.Spannable
-import android.text.TextPaint
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.text.style.ImageSpan
@@ -248,7 +245,12 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
 
             //活动
             it?.promotionalAd?.wap_promotional_title?.let {
-                mBinding?.tvFunction?.setText(it)
+                if (!TextUtils.isEmpty(it)) {
+                    mBinding?.tvFunction?.setText(it)
+                    mBinding?.rlNotice?.visibility = View.VISIBLE
+                } else {
+                    mBinding?.rlNotice?.visibility = View.GONE
+                }
             }
 
             //产品信息
@@ -280,7 +282,7 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
                 //处方
                 if (it.goodsType.equals("0")) {
 
-                    val sp = SpannableString("  "+it?.goodsName)
+                    val sp = SpannableString("  " + it?.goodsName)
                     val drawable = ContextCompat.getDrawable(context!!, R.mipmap.rx_red);
                     drawable?.setBounds(0, 0, drawable?.getMinimumWidth(), drawable.getMinimumHeight());
                     val imageSpan = CenterAlignImageSpan(drawable)
@@ -314,7 +316,7 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
                 //红色OTC
                 else if (it.goodsType.equals("1")) {
 
-                    val sp = SpannableString("  "+it?.goodsName)
+                    val sp = SpannableString("  " + it?.goodsName)
                     val drawable = ContextCompat.getDrawable(context!!, R.mipmap.otc_red);
                     drawable?.setBounds(0, 0, drawable?.getMinimumWidth(), drawable.getMinimumHeight());
                     val imageSpan = CenterAlignImageSpan(drawable)
@@ -326,7 +328,7 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
                 //绿色OTC
                 else {
 
-                    val sp = SpannableString("  "+it?.goodsName)
+                    val sp = SpannableString("  " + it?.goodsName)
                     val drawable = ContextCompat.getDrawable(context!!, R.mipmap.otc_green);
                     drawable?.setBounds(0, 0, drawable?.getMinimumWidth(), drawable.getMinimumHeight());
                     val imageSpan = CenterAlignImageSpan(drawable)
@@ -339,7 +341,12 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
 
             //商品信息
             it?.gin?.let {
-                tvGoodsInfoSubtitle?.setText(Html.fromHtml(it?.goods_info_subtitle))
+                if (!TextUtils.isEmpty(it?.goods_info_subtitle)) {
+                    tvGoodsInfoSubtitle?.visibility = View.VISIBLE
+                    tvGoodsInfoSubtitle?.setText(Html.fromHtml(it?.goods_info_subtitle))
+                } else {
+                    tvGoodsInfoSubtitle?.visibility = View.GONE
+                }
             }
 
             //规格
@@ -352,7 +359,15 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
             it?.combinationList?.let {
                 if (it?.size > 0) {
                     mBinding?.detailGroup?.visibility = View.VISIBLE
-                    mBinding?.goodsGroupView?.setNewDatas(goodsDetailEntity?.gn?.goodsType?.equals("0") == false, it)
+
+                    var isShowAddCart = false
+
+                    //非处方药 不缺货才显示加入购物车
+                    if (goodsDetailEntity?.gn?.goodsType?.equals("0") == false && goodsDetailEntity?.gn?.goodsStock!! > 0) {
+                        isShowAddCart = true
+                    }
+
+                    mBinding?.goodsGroupView?.setNewDatas(isShowAddCart, it)
                 }
             }
 

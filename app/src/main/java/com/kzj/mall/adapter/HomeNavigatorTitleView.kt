@@ -14,7 +14,7 @@ class HomeNavigatorTitleView constructor(val mContext:Context?) : ColorTransitio
 
     override fun onDeselected(index: Int, totalCount: Int) {
         super.onDeselected(index, totalCount)
-        this.setTextSize(13f)
+        this.setTextSize(15f)
         val paint = this.paint
         paint.isFakeBoldText = false
     }

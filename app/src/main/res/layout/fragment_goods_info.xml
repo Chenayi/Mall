@@ -57,12 +57,14 @@
 
 
                         <RelativeLayout
+                            android:id="@+id/rl_notice"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_alignParentBottom="true"
                             android:layout_marginBottom="40dp"
                             android:layout_marginLeft="10dp"
-                            android:layout_marginRight="52dp">
+                            android:layout_marginRight="52dp"
+                            android:visibility="invisible">
 
                             <TextView
                                 android:id="@+id/tv_function"
@@ -102,7 +104,7 @@
                             android:textColor="@color/colorPrimary"
                             android:textSize="11dp"
                             android:textStyle="bold"
-                            android:visibility="gone"/>
+                            android:visibility="gone" />
 
                     </RelativeLayout>
 
