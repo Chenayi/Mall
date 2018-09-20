@@ -60,6 +60,8 @@ class SearchActivity : BaseActivity<SearchPresenter, ActivitySearchBinding>()
      */
     private var lastPostion: Int = 0
 
+    private var mode = SearchBar.MODE_LIST
+
     override fun getLayoutId() = R.layout.activity_search
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -255,6 +257,7 @@ class SearchActivity : BaseActivity<SearchPresenter, ActivitySearchBinding>()
      * 模式切换
      */
     override fun onModeChange(mode: Int) {
+        this.mode = mode
         if (mode == SearchBar.MODE_LIST) {
             mBinding?.llContainer?.setBackgroundColor(Color.WHITE)
 
@@ -331,8 +334,11 @@ class SearchActivity : BaseActivity<SearchPresenter, ActivitySearchBinding>()
     override fun loadMoreSeccess(searchEntity: SearchEntity?) {
         mBinding?.refreshLayout?.isRefreshing = false
         searchEntity?.results?.data?.let {
-            searchListAdapter?.addData(it)
-            searchGridAdapter?.addData(it)
+            if (mode == SearchBar.MODE_LIST){
+                searchListAdapter?.addData(it)
+            }else{
+                searchGridAdapter?.addData(it)
+            }
             if (it.size < C.PAGE_SIZE) {
                 searchListAdapter?.loadMoreEnd()
                 searchGridAdapter?.loadMoreEnd()

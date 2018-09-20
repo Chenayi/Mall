@@ -291,8 +291,11 @@ class SearchWithIdActivity : BaseActivity<SearchWithIdPresenter, ActivitySearchW
     override fun loadMoreSeccess(searchEntity: SearchEntity?) {
         mBinding?.refreshLayout?.isRefreshing = false
         searchEntity?.results?.data?.let {
-            searchListAdapter?.addData(it)
-            searchGridAdapter?.addData(it)
+            if (mode == SearchBar.MODE_LIST){
+                searchListAdapter?.addData(it)
+            }else{
+                searchGridAdapter?.addData(it)
+            }
             if (it.size < C.PAGE_SIZE) {
                 searchListAdapter?.loadMoreEnd()
                 searchGridAdapter?.loadMoreEnd()

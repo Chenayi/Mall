@@ -75,7 +75,7 @@ constructor(model: SearchWithIdContract.Model?, view: SearchWithIdContract.View?
 
     fun searchWithBrandIDPrice(brandID: String, order: String, isLoading: Boolean?, curPage: Int?) {
 
-//        LogUtils.e("curPage ===> " +curPage + "\nbrandID ===> " + brandID + "\norder ===> " +order)
+        LogUtils.e("curPage ===> " +curPage + "\nbrandID ===> " + brandID + "\norder ===> " +order)
 
         val params = HashMap<String, String>()
         params?.put("pageNo", curPage.toString())
