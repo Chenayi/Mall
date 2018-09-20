@@ -22,6 +22,8 @@ class GoodsGroupProvider : BaseItemProvider<CartGroupEntity, BaseViewHolder>() {
 
     override fun convert(helper: BaseViewHolder?, data: CartGroupEntity?, position: Int) {
         val rvGroup = helper?.getView<RecyclerView>(R.id.rv_group)
+        rvGroup?.setFocusableInTouchMode(false);
+        rvGroup?.requestFocus();
         rvGroup?.layoutManager = LinearLayoutManager(mContext)
         val groupAdapter = GroupAdapter(data?.groups!!)
         rvGroup?.adapter = groupAdapter

@@ -35,11 +35,11 @@ import android.text.Spannable
 import android.text.TextPaint
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
+import android.text.style.ImageSpan
+import com.kzj.mall.widget.CenterAlignImageSpan
 
 
 class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), View.OnClickListener {
-    private var tvOtc: TextView? = null
-
     private var tvTejie: TextView? = null
 
     /**
@@ -129,7 +129,6 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
             barHeight = it
         }
 
-        tvOtc = view?.findViewById(R.id.tv_otc)
         tvTejie = view?.findViewById(R.id.tv_tejie_tag)
         tvGoodsPrice = view?.findViewById(R.id.tv_goods_price)
         tvGoodsMarketPrice = view?.findViewById(R.id.tv_goods_market_price)
@@ -173,7 +172,7 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
         })
 
         mBinding?.osv?.setOnScrollChangedListener(object : ObservableScrollView.OnScrollChangedListener {
-            override fun onScrollChanged(who: NestedScrollView, x: Int, y: Int, oldx: Int, oldy: Int) {
+            override fun onScrollChanged(who: ObservableScrollView, x: Int, y: Int, oldx: Int, oldy: Int) {
                 val i = y.toFloat() / bannerHeight.toFloat()
                 alpha = if (i < 1f) i else 1f
                 EventBus.getDefault().post(ScrollChangedEvent(SlideDetailsLayout.Status.CLOSE, alpha))
@@ -269,7 +268,6 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
                 tvGoodsMarketPrice?.setText("¥" + it?.goodsMarketPrice)
                 tvGoodsMarketPrice?.getPaint()?.setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
                 tvMonthSalesNum?.setText("月销量:" + it?.goodsSole)
-                tvGoodsName?.setText(it?.goodsName)
                 tvApprovalNo?.setText("批准文号：" + it?.goodsApprovalNo?.approvalNo)
 
 
@@ -281,7 +279,15 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
 
                 //处方
                 if (it.goodsType.equals("0")) {
-                    tvOtc?.text = "RX"
+
+                    val sp = SpannableString("  "+it?.goodsName)
+                    val drawable = ContextCompat.getDrawable(context!!, R.mipmap.rx_red);
+                    drawable?.setBounds(0, 0, drawable?.getMinimumWidth(), drawable.getMinimumHeight());
+                    val imageSpan = CenterAlignImageSpan(drawable)
+                    sp.setSpan(imageSpan, 0, 1, ImageSpan.ALIGN_BASELINE);
+                    tvGoodsName?.setText(sp)
+
+
                     mBinding?.llChufang?.visibility = View.VISIBLE
                     var t1 = "如需协助可在线咨询药师或拨打热线"
                     var t2 = C.CUSTOMER_TEL
@@ -305,9 +311,28 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
                     mBinding?.tvRxTips?.setMovementMethod(LinkMovementMethod.getInstance());
                 }
 
-                //非处方
+                //红色OTC
+                else if (it.goodsType.equals("1")) {
+
+                    val sp = SpannableString("  "+it?.goodsName)
+                    val drawable = ContextCompat.getDrawable(context!!, R.mipmap.otc_red);
+                    drawable?.setBounds(0, 0, drawable?.getMinimumWidth(), drawable.getMinimumHeight());
+                    val imageSpan = CenterAlignImageSpan(drawable)
+                    sp.setSpan(imageSpan, 0, 1, ImageSpan.ALIGN_BASELINE);
+                    tvGoodsName?.setText(sp)
+
+                    mBinding?.llChufang?.visibility = View.GONE
+                }
+                //绿色OTC
                 else {
-                    tvOtc?.text = "OTC"
+
+                    val sp = SpannableString("  "+it?.goodsName)
+                    val drawable = ContextCompat.getDrawable(context!!, R.mipmap.otc_green);
+                    drawable?.setBounds(0, 0, drawable?.getMinimumWidth(), drawable.getMinimumHeight());
+                    val imageSpan = CenterAlignImageSpan(drawable)
+                    sp.setSpan(imageSpan, 0, 1, ImageSpan.ALIGN_BASELINE);
+                    tvGoodsName?.setText(sp)
+
                     mBinding?.llChufang?.visibility = View.GONE
                 }
             }

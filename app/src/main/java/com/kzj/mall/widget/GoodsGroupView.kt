@@ -36,6 +36,7 @@ class GoodsGroupView : BaseRelativeLayout<GoodsGroupViewBinding> {
         groupAdapter = GroupAdapter(ArrayList())
         mBinding?.rvGroup?.setFocusableInTouchMode(false);
         mBinding?.rvGroup?.requestFocus();
+        mBinding?.rvGroup?.isNestedScrollingEnabled = false
         mBinding?.rvGroup?.layoutManager = LinearLayoutManager(context)
         mBinding?.rvGroup?.adapter = groupAdapter
 
@@ -92,6 +93,8 @@ class GoodsGroupView : BaseRelativeLayout<GoodsGroupViewBinding> {
                     ?.addOnClickListener(R.id.tv_group_add_cart)
 
             val rvGroup = helper?.getView<MultiSnapRecyclerView>(R.id.rv_group)
+            rvGroup?.setFocusableInTouchMode(false);
+            rvGroup?.requestFocus();
             item?.ggList?.let {
                 val goodsAdapter = GoodsAdapter(it)
                 rvGroup?.layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false)

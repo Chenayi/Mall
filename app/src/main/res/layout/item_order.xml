@@ -97,7 +97,8 @@
                         android:layout_marginLeft="6dp"
                         android:text="¥28.9"
                         android:textColor="#8A9099"
-                        android:textSize="12dp" />
+                        android:textSize="12dp"
+                        android:visibility="gone"/>
 
                     <TextView
                         android:id="@+id/tv_goods_num"

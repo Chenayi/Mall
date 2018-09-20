@@ -6,6 +6,7 @@ import android.graphics.Paint
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
+import android.support.v4.content.ContextCompat
 import android.text.TextUtils
 import android.view.View
 import android.widget.TextView
@@ -30,6 +31,7 @@ class OrderFragment : BaseListFragment<OrderPresenter, OrderEntity.List>(), Orde
 
     private var orderId: String? = null
     private var orderPrice: String? = null
+
     companion object {
         fun newInstance(orderStatus: Int): OrderFragment {
             val orderFragment = OrderFragment()
@@ -57,7 +59,7 @@ class OrderFragment : BaseListFragment<OrderPresenter, OrderEntity.List>(), Orde
         super.initData()
 
         listAdapter?.setOnItemChildClickListener { adapter, view, position ->
-            if (view?.id == R.id.tv_handel){
+            if (view?.id == R.id.tv_handel) {
                 //订单状态
                 val orderStatus = listAdapter?.data?.get(position)?.order_status
                 when (orderStatus) {
@@ -80,7 +82,7 @@ class OrderFragment : BaseListFragment<OrderPresenter, OrderEntity.List>(), Orde
                     OrderEntity.ORDER_STATUS_FINISH -> {
                     }
 
-                    OrderEntity.ORDER_STATUS_CANCEL->{
+                    OrderEntity.ORDER_STATUS_CANCEL -> {
                     }
                 }
             }
@@ -201,7 +203,7 @@ class OrderFragment : BaseListFragment<OrderPresenter, OrderEntity.List>(), Orde
                     ?.setGone(R.id.ll_group, false)
                     ?.setText(R.id.tv_goods_name, goods?.goods_name)
                     ?.setText(R.id.tv_goods_price, "¥" + goods?.goods_info_price)
-                    ?.setText(R.id.tv_goods_old_price, "¥" + goods?.goods_info_old_price)
+//                    ?.setText(R.id.tv_goods_old_price, "¥" + goods?.goods_info_old_price)
                     ?.setText(R.id.tv_goods_num, "x" + goods?.goods_info_num)
 
             helper?.getView<TextView>(R.id.tv_goods_old_price)?.paint?.setFlags(Paint.STRIKE_THRU_TEXT_FLAG)
@@ -308,6 +310,7 @@ class OrderFragment : BaseListFragment<OrderPresenter, OrderEntity.List>(), Orde
         when (orderStatus) {
             OrderEntity.ORDER_STATUS_WAIT_PAY -> {
                 helper?.setText(R.id.tv_order_status, "待付款")
+                        ?.setTextColor(R.id.tv_order_status, ContextCompat.getColor(context!!, R.color.orange_default))
                         ?.setGone(R.id.tv_handel, true)
                         ?.setText(R.id.tv_handel, "立即支付")
                         ?.setTextColor(R.id.tv_handel, Color.WHITE)
@@ -316,11 +319,13 @@ class OrderFragment : BaseListFragment<OrderPresenter, OrderEntity.List>(), Orde
 
             OrderEntity.ORDER_STATUS_WAIT_SEND -> {
                 helper?.setText(R.id.tv_order_status, "待发货")
+                        ?.setTextColor(R.id.tv_order_status, ContextCompat.getColor(context!!, R.color.orange_default))
                         ?.setGone(R.id.tv_handel, false)
             }
 
             OrderEntity.ORDER_STATUS_WAIT_TAKE -> {
                 helper?.setText(R.id.tv_order_status, "待收货")
+                        ?.setTextColor(R.id.tv_order_status, ContextCompat.getColor(context!!, R.color.orange_default))
                         ?.setGone(R.id.tv_handel, true)
                         ?.setText(R.id.tv_handel, "确认收货")
                         ?.setTextColor(R.id.tv_handel, Color.WHITE)
@@ -329,13 +334,15 @@ class OrderFragment : BaseListFragment<OrderPresenter, OrderEntity.List>(), Orde
 
             OrderEntity.ORDER_STATUS_FINISH -> {
                 helper?.setText(R.id.tv_order_status, "已完成")
+                        ?.setTextColor(R.id.tv_order_status, ContextCompat.getColor(context!!, R.color.c_2e3033))
                         ?.setGone(R.id.tv_handel, false)
                         ?.setTextColor(R.id.tv_handel, Color.parseColor("#8A9099"))
                         ?.setBackgroundRes(R.id.tv_handel, R.drawable.background_8a9099_stroke_corners_9999)
             }
 
-            OrderEntity.ORDER_STATUS_CANCEL->{
+            OrderEntity.ORDER_STATUS_CANCEL -> {
                 helper?.setText(R.id.tv_order_status, "已取消")
+                        ?.setTextColor(R.id.tv_order_status, ContextCompat.getColor(context!!, R.color.c_8a9099))
                         ?.setGone(R.id.tv_handel, false)
             }
         }

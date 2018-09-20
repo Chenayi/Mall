@@ -101,7 +101,8 @@
                             android:text="OTC"
                             android:textColor="@color/colorPrimary"
                             android:textSize="11dp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            android:visibility="gone"/>
 
                     </RelativeLayout>
 

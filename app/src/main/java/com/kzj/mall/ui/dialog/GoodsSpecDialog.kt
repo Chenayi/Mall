@@ -82,23 +82,23 @@ class GoodsSpecDialog : BaseDialog<GoodsSpecPresenter, DialogGoodsSpecBinding>()
         }
 
         val goodsStock = goodsDetailEntity?.gn?.goodsStock!!
-        if (goodsStock <= 0) {
-            mBinding?.tvNoStock?.visibility = View.VISIBLE
-            mBinding?.tvRequestCheckin?.visibility = View.GONE
-            mBinding?.llBottom?.visibility = View.GONE
-        } else {
-            mBinding?.tvNoStock?.visibility = View.GONE
-            goodsDetailEntity?.gn?.goodsType?.let {
-                //处方
-                if (it.equals("0")) {
+        mBinding?.tvNoStock?.visibility = View.GONE
+        goodsDetailEntity?.gn?.goodsType?.let {
+            //处方
+            if (it.equals("0")) {
+                mBinding?.tvNoStock?.visibility = View.GONE
+                mBinding?.llBottom?.visibility = View.GONE
+                mBinding?.tvRequestCheckin?.visibility = View.VISIBLE
+            }
+            //非处方
+            else {
+                mBinding?.tvRequestCheckin?.visibility = View.GONE
+                if (goodsStock <= 0) {
+                    mBinding?.tvNoStock?.visibility = View.VISIBLE
                     mBinding?.llBottom?.visibility = View.GONE
-                    mBinding?.tvRequestCheckin?.visibility = View.VISIBLE
-                }
-
-                //非处方
-                else {
+                } else {
+                    mBinding?.tvNoStock?.visibility = View.GONE
                     mBinding?.llBottom?.visibility = View.VISIBLE
-                    mBinding?.tvRequestCheckin?.visibility = View.GONE
                 }
             }
         }
@@ -287,10 +287,10 @@ class GoodsSpecDialog : BaseDialog<GoodsSpecPresenter, DialogGoodsSpecBinding>()
                         }
                     }
 
-                    if (i > 0 && i == it.size -1) {
-                        if (num >= count){
+                    if (i > 0 && i == it.size - 1) {
+                        if (num >= count) {
                             mBinding?.sflGoodsGroup?.switchTag(i, true)
-                        }else{
+                        } else {
                             mBinding?.sflGoodsGroup?.switchTag(i - 1, true)
                         }
                     }

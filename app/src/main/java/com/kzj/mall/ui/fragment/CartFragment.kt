@@ -288,7 +288,7 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
                     val s = iCart?.goods_price?.toFloat()
                     s?.let {
                         val num = iCart?.goods_num
-                        val ss = s * num!!
+                        val ss = it * num!!
                         sumPrice += ss
                     }
                 }
@@ -304,9 +304,9 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
 
                     val s = iCart?.goods_price?.toFloat()
                     s?.let {
-                        val num = iCart?.goods_num
-                        val ss = s * num!!
-                        sumPrice += ss
+//                        val num = iCart?.goods_num
+//                        val ss = s * num!!
+                        sumPrice += it
                     }
                 }
             }
@@ -465,7 +465,7 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
                     }
                 }
 
-                if (i > 0 && i == it.size -1) {
+                if (i > 0 && i == it.size - 1) {
                     val count = it?.get(i)?.package_count!!
                     if (num >= count) {
                         price = it.get(i)?.combination_unit_price!!
@@ -495,6 +495,7 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
     override fun showCart(cartEntity: CartEntity?) {
         isCartChange = false
         isDeleteMode = false
+        mBinding?.tvEdit?.text = "编辑"
         mBinding?.refreshLayout?.isRefreshing = false
         mBinding?.ivAllCheck?.setImageResource(R.mipmap.check_nor)
         mBinding?.tvToBalance?.isEnabled = false

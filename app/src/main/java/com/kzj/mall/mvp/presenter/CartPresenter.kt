@@ -1,6 +1,7 @@
 package com.kzj.mall.mvp.presenter
 
 import android.content.Context
+import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.kzj.mall.C
 import com.kzj.mall.base.BaseObserver
@@ -107,6 +108,9 @@ constructor(model: CartContract.Model?, view: CartContract.View?, context: Conte
      * 购物车结算
      */
     fun cartBanlance(cartIDs:LongArray?){
+
+        LogUtils.e("cartId ===> " +cartIDs?.get(0))
+
         model?.cartBanlance(cartIDs)
                 ?.compose(RxScheduler.compose())
                 ?.subscribe(object :BaseObserver<BuyEntity>(){

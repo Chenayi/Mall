@@ -5,7 +5,7 @@ import android.support.v4.widget.NestedScrollView
 import android.util.AttributeSet
 import android.widget.ScrollView
 
-class ObservableScrollView : NestedScrollView {
+class ObservableScrollView : ScrollView {
     private var mOnScrollChangedListener: OnScrollChangedListener? = null
 
     constructor(context: Context) : super(context)
@@ -25,6 +25,6 @@ class ObservableScrollView : NestedScrollView {
     }
 
     interface OnScrollChangedListener {
-        fun onScrollChanged(who: NestedScrollView, l: Int, t: Int, oldl: Int, oldt: Int)
+        fun onScrollChanged(who: ObservableScrollView, l: Int, t: Int, oldl: Int, oldt: Int)
     }
 }

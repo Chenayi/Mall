@@ -78,6 +78,9 @@ class OrderDetailActivity : BaseActivity<OrderDetailPresenter, ActivityOrderDeta
         orderId = intent?.getStringExtra("orderId")
         LogUtils.e("orderId ===> " + orderId)
 
+
+        mBinding?.rvOrderDetail?.setFocusableInTouchMode(false);
+        mBinding?.rvOrderDetail?.requestFocus();
         orderDetailAdapter = OrderDetailAdapter(ArrayList())
         headerView = layoutInflater.inflate(R.layout.header_order_detail, mBinding?.rvOrderDetail?.parent as ViewGroup, false)
         footerView1 = layoutInflater.inflate(R.layout.footer_order1, mBinding?.rvOrderDetail?.parent as ViewGroup, false)

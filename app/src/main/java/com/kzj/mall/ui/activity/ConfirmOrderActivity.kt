@@ -108,11 +108,9 @@ class ConfirmOrderActivity : BaseActivity<ConfirmOrderPresenter, ActivityConfirm
                         val ggList = it?.get(i)?.ggList
                         if (ggList != null) {
                             for (j in 0 until ggList?.size!!) {
-                                if (goodsImgs?.size >= 4) {
-                                    return
+                                if (goodsImgs?.size < 4){
+                                    goodsImgs?.add(ggList?.get(j)?.c_goods?.goods_img!!)
                                 }
-
-                                goodsImgs?.add(ggList?.get(j)?.c_goods?.goods_img!!)
                             }
                         }
                     }
