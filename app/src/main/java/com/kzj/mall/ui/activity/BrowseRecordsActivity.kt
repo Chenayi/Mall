@@ -103,20 +103,13 @@ class BrowseRecordsActivity : BaseActivity<BrowseRecordPresenter, ActivityBrowse
 
         //清空
         rootLayout?.setOnRightOnClickListener1 {
-            ConfirmDialog.newInstance("取消", "删除", "确定要清空商品？")
+            ConfirmDialog.newInstance("取消", "删除", "确定要清空浏览记录？")
                     .setOnConfirmClickListener(object : ConfirmDialog.OnConfirmClickListener {
                         override fun onLeftClick() {
                         }
 
                         override fun onRightClick() {
-                            val datas = browseRecordsAdapter?.data
-                            val idArray = LongArray(datas?.size!!)
-                            datas?.let {
-                                for (i in 0 until it.size) {
-                                    idArray[i] = it?.get(i)?.likeId!!
-                                }
-                            }
-                            mPresenter?.deleteRecords(idArray)
+                            mPresenter?.deleteAllRecords()
                         }
 
                     }).show(supportFragmentManager)
@@ -197,6 +190,18 @@ class BrowseRecordsActivity : BaseActivity<BrowseRecordPresenter, ActivityBrowse
         return true
     }
 
+    override fun deleteAllSuccess() {
+        deleteMode = false
+        rootLayout?.showOrHideRightText1(false)
+        rootLayout?.setRightText("编辑")
+        mBinding?.rlDelete?.visibility = View.GONE
+        mBinding?.allCheck?.isChecked = false
+
+        pageNo = 1
+        browseRecordsAdapter?.deleteMode = false
+        browseRecordsAdapter?.setNewData(ArrayList())
+    }
+
     override fun deleteSuccrss() {
         deleteMode = false
         rootLayout?.showOrHideRightText1(false)
@@ -211,6 +216,13 @@ class BrowseRecordsActivity : BaseActivity<BrowseRecordPresenter, ActivityBrowse
     }
 
     override fun browseRecords(browseRecordEntity: BrowseRecordEntity?) {
+        deleteMode = false
+        rootLayout?.showOrHideRightText1(false)
+        rootLayout?.setRightText("编辑")
+        mBinding?.rlDelete?.visibility = View.GONE
+        browseRecordsAdapter?.deleteMode = false
+        mBinding?.allCheck?.isChecked = false
+
         mBinding?.refreshLayout?.isRefreshing = false
         val list = browseRecordEntity?.browserecords?.list
         if (list != null) {

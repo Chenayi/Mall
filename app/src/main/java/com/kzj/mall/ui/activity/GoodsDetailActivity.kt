@@ -167,6 +167,9 @@ class GoodsDetailActivity : BaseActivity<GoodsDetailPresenter, ActivityGoodsDeta
 
 
         mPresenter?.requesrGoodsDetail(mGoodsInfoId)
+        if (C.IS_LOGIN){
+            mPresenter?.cartCount()
+        }
     }
 
     /**
@@ -183,6 +186,16 @@ class GoodsDetailActivity : BaseActivity<GoodsDetailPresenter, ActivityGoodsDeta
             mBinding?.vpGoodsDetail?.setNoScroll(false)
             mBinding?.goodsDetailBar?.titleSwitch(false)
         }
+    }
+
+    /**
+     * 登录成功
+     */
+    @Subscribe
+    fun loginSuccess(loginSuccessEvent: LoginSuccessEvent){
+        ToastUtils.showShort("登录成功")
+        mPresenter?.followStatus(mGoodsInfoId)
+        mPresenter.cartCount()
     }
 
     /**
@@ -222,8 +235,9 @@ class GoodsDetailActivity : BaseActivity<GoodsDetailPresenter, ActivityGoodsDeta
      */
     @Subscribe
     fun specChange(goodSpecChangeEvent: GoodSpecChangeEvent) {
-        goodsDetailEntity = goodSpecChangeEvent?.goodsDetailEntity
+        val goodsDetailEntity = goodSpecChangeEvent?.goodsDetailEntity
         mGoodsInfoId = goodsDetailEntity?.gin?.goods_info_id
+        showGoodsDetail(goodsDetailEntity)
     }
 
 
@@ -240,11 +254,6 @@ class GoodsDetailActivity : BaseActivity<GoodsDetailPresenter, ActivityGoodsDeta
      */
     @Subscribe
     fun addCart(addCartEvent: AddCartEvent) {
-        if (mBinding?.tvCartNum?.visibility != View.VISIBLE) {
-            mBinding?.tvCartNum?.visibility = View.VISIBLE
-        }
-        var num = mBinding?.tvCartNum?.text.toString().toInt()
-        mBinding?.tvCartNum?.text = (num + 1).toString()
         //加入购物车
         var carType = "0"
         if (isCombination) {
@@ -333,12 +342,6 @@ class GoodsDetailActivity : BaseActivity<GoodsDetailPresenter, ActivityGoodsDeta
             }
 
             override fun setAnimEnd(a: AniManager?) {
-                if (mBinding?.tvCartNum?.visibility != View.VISIBLE) {
-                    mBinding?.tvCartNum?.visibility = View.VISIBLE
-                }
-                var num = mBinding?.tvCartNum?.text.toString().toInt()
-                mBinding?.tvCartNum?.text = (num + 1).toString()
-
                 //加入购物车
                 mPresenter?.addCar(carType, mGoodsNum, goodsInfoId, combinationId)
             }
@@ -352,16 +355,21 @@ class GoodsDetailActivity : BaseActivity<GoodsDetailPresenter, ActivityGoodsDeta
     }
 
     override fun addCartError() {
-        var num = mBinding?.tvCartNum?.text.toString().toInt()
-        if (num > 0) {
-            val i = num - 1
-            mBinding?.tvCartNum?.text = i.toString()
-            if (i <= 0) {
-                mBinding?.tvCartNum?.visibility = View.GONE
+    }
+
+    override fun updateFollowStatus(goodsDetailEntity: GoodsDetailEntity?) {
+        val goodsInfoFragment = fragments?.get(0) as GoodsInfoFragment
+        goodsInfoFragment?.updateFollowStatus(goodsDetailEntity)
+    }
+
+    override fun showCartCount(count: Int?) {
+        count?.let {
+            if (it > 0) {
+                mBinding?.tvCartNum?.visibility = View.VISIBLE
+                mBinding?.tvCartNum?.text = count?.toString()
             }
         }
     }
-
 
     /**
      * 商品详情信息

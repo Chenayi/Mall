@@ -70,4 +70,28 @@ constructor(model: BrowseRecordsContract.Model, view: BrowseRecordsContract.View
 
                 })
     }
+
+    fun  deleteAllRecords(){
+        model?.deleteAllBrowserecord()
+                ?.compose(RxScheduler.compose())
+                ?.subscribe(object :BaseObserver<SimpleResultEntity>(){
+                    override fun onSubscribe(d: Disposable) {
+                        addDisposable(d)
+                        view?.showLoading()
+                    }
+
+                    override fun onHandleSuccess(t: SimpleResultEntity?) {
+                        view?.deleteAllSuccess()
+                    }
+
+                    override fun onHandleError(code: Int, msg: String?) {
+                        view?.onError(code,msg)
+                    }
+
+                    override fun onHandleAfter() {
+                        view?.hideLoading()
+                    }
+
+                })
+    }
 }

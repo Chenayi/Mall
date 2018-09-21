@@ -12,11 +12,14 @@ interface BrowseRecordsContract {
         fun browseRecords(browseRecordEntity: BrowseRecordEntity?)
         fun loadMoreBrowseRecords(browseRecordEntity: BrowseRecordEntity?)
         fun deleteSuccrss()
+        fun deleteAllSuccess()
     }
 
     interface Model : IModel {
         fun browseRecords(pageNo: Int?, pageSize: Int?): Observable<BaseResponse<BrowseRecordEntity>>?
 
         fun deleteRecords(likeIds:LongArray?):Observable<BaseResponse<SimpleResultEntity>>?
+
+        fun deleteAllBrowserecord(): Observable<BaseResponse<SimpleResultEntity>>?
     }
 }

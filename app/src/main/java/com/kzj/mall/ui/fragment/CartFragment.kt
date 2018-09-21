@@ -621,11 +621,6 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
                 } else {
                     mBinding?.tvEdit?.setText("编辑")
                 }
-                val datas = cartAdapter?.data
-                for (i in 0 until datas?.size!!) {
-                    (datas?.get(i) as BaseCartEntity).isDeleteMode = isDeleteMode
-                }
-                cartAdapter?.notifyDataSetChanged()
             }
 
             R.id.ll_all_check -> {

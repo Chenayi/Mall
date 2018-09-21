@@ -3,10 +3,7 @@ package com.kzj.mall.mvp.model
 import com.kzj.mall.C
 import com.kzj.mall.base.BaseModel
 import com.kzj.mall.di.scope.ActivityScope
-import com.kzj.mall.entity.BaseResponse
-import com.kzj.mall.entity.BuyEntity
-import com.kzj.mall.entity.GoodsDetailEntity
-import com.kzj.mall.entity.SimpleResultEntity
+import com.kzj.mall.entity.*
 import com.kzj.mall.entity.cart.AddCartEntity
 import com.kzj.mall.http.HttpUtils
 import com.kzj.mall.http.api.ApiService
@@ -25,4 +22,5 @@ constructor(httpUtils: HttpUtils?) : BaseModel(httpUtils), GoodsDetailContract.M
     override fun addCar(params: MutableMap<String, String>) = httpUtils?.obtainRetrofitService(ApiService::class.java)?.addCart(C.Companion.TOKEN, params)
     override fun demandRecord(params: MutableMap<String, String>) = httpUtils?.obtainRetrofitService(ApiService::class.java)?.demandRecord(C.TOKEN, params)
     override fun saveGoodsAtte(goodsInfoId: String?) = httpUtils?.obtainRetrofitService(ApiService::class.java)?.saveGoodsAtte(C.TOKEN, goodsInfoId)
+    override fun shoppingCartCount() = httpUtils?.obtainRetrofitService(ApiService::class.java)?.shoppingCartCount(C.TOKEN)
 }

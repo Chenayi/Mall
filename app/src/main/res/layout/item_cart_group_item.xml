@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:maxLines="2"
                 android:text="SwSwisse 澳大利亚 月见草油软胶囊isse 澳大利亚 月见草油软胶囊"
-                android:textColor="#2E3033"
+                android:textColor="@color/gray_6A6E75"
                 android:textSize="13dp"
                 android:id="@+id/tv_goods_name"/>
 
@@ -54,7 +54,7 @@
                     android:lines="1"
                     android:singleLine="true"
                     android:text="¥158"
-                    android:textColor="@color/orange_default"
+                    android:textColor="@color/gray_6A6E75"
                     android:textSize="13dp"
                     android:id="@+id/tv_goods_price"/>
 

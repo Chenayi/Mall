@@ -81,31 +81,9 @@ class GoodsSpecDialog : BaseDialog<GoodsSpecPresenter, DialogGoodsSpecBinding>()
             mGoodsNum = it
         }
 
-        val goodsStock = goodsDetailEntity?.gn?.goodsStock!!
-        mBinding?.tvNoStock?.visibility = View.GONE
-        goodsDetailEntity?.gn?.goodsType?.let {
-            //处方
-            if (it.equals("0")) {
-                mBinding?.tvNoStock?.visibility = View.GONE
-                mBinding?.llBottom?.visibility = View.GONE
-                mBinding?.tvRequestCheckin?.visibility = View.VISIBLE
-            }
-            //非处方
-            else {
-                mBinding?.tvRequestCheckin?.visibility = View.GONE
-                if (goodsStock <= 0) {
-                    mBinding?.tvNoStock?.visibility = View.VISIBLE
-                    mBinding?.llBottom?.visibility = View.GONE
-                } else {
-                    mBinding?.tvNoStock?.visibility = View.GONE
-                    mBinding?.llBottom?.visibility = View.VISIBLE
-                }
-            }
-        }
 
         //数量
         mBinding?.tvNum?.text = mGoodsNum?.toString()
-
 
         //规格
         mBinding?.sflGoodsSpec?.setOnTagClickListener(object : SuperFlowLayout.OnTagClickListener {
@@ -176,6 +154,29 @@ class GoodsSpecDialog : BaseDialog<GoodsSpecPresenter, DialogGoodsSpecBinding>()
 
         //价格
         mBinding?.tvGoodsPrice?.setText("合计：¥" + goodsDetailEntity?.gn?.goodsPrice)
+
+        //库存
+        val goodsStock = goodsDetailEntity?.gn?.goodsStock!!
+        mBinding?.tvNoStock?.visibility = View.GONE
+        goodsDetailEntity?.gn?.goodsType?.let {
+            //处方
+            if (it.equals("0")) {
+                mBinding?.tvNoStock?.visibility = View.GONE
+                mBinding?.llBottom?.visibility = View.GONE
+                mBinding?.tvRequestCheckin?.visibility = View.VISIBLE
+            }
+            //非处方
+            else {
+                mBinding?.tvRequestCheckin?.visibility = View.GONE
+                if (goodsStock <= 0) {
+                    mBinding?.tvNoStock?.visibility = View.VISIBLE
+                    mBinding?.llBottom?.visibility = View.GONE
+                } else {
+                    mBinding?.tvNoStock?.visibility = View.GONE
+                    mBinding?.llBottom?.visibility = View.VISIBLE
+                }
+            }
+        }
     }
 
 
@@ -278,12 +279,19 @@ class GoodsSpecDialog : BaseDialog<GoodsSpecPresenter, DialogGoodsSpecBinding>()
                         return
                     }
 
+
                     if (i > 0 && i < it.size - 1) {
-                        val pre = it?.get(i - 1)?.package_count
-                        val cur = it?.get(i)?.package_count
-                        if (num > pre && num <= cur) {
-                            mBinding?.sflGoodsGroup?.switchTag(i, true)
-                            return
+                        val preCount = it?.get(i - 1)?.package_count
+                        val curCount = it?.get(i)?.package_count
+                        if (num > preCount) {
+                            if (num < curCount){
+                                mBinding?.sflGoodsGroup?.switchTag(i-1, true)
+                                return
+                            }
+                            if (num == curCount){
+                                mBinding?.sflGoodsGroup?.switchTag(i, true)
+                                return
+                            }
                         }
                     }
 

@@ -26,14 +26,7 @@ class CartGroupProvider : BaseItemProvider<CartGroupEntity, BaseViewHolder>() {
     override fun convert(helper: BaseViewHolder?, data: CartGroupEntity?, p1: Int) {
 
         val ivCheckDelete = helper?.getView<ImageView>(R.id.iv_check)
-        //删除模式
-        if (data?.isDeleteMode == true) {
-            ivCheckDelete?.setImageResource(R.mipmap.del)
-        }
-        //正常选择模式
-        else {
-            ivCheckDelete?.setImageResource(if (data?.isCheck == true) R.mipmap.icon_cart_check else R.mipmap.check_nor)
-        }
+        ivCheckDelete?.setImageResource(if (data?.isCheck == true) R.mipmap.icon_cart_check else R.mipmap.check_nor)
         helper?.addOnClickListener(R.id.iv_check)
                 ?.addOnClickListener(R.id.iv_minus)
                 ?.addOnClickListener(R.id.iv_plus)
@@ -75,7 +68,7 @@ class CartGroupProvider : BaseItemProvider<CartGroupEntity, BaseViewHolder>() {
             helper?.setGone(R.id.line, helper?.layoutPosition > 0)
                     ?.setText(R.id.tv_goods_price, "¥" + item?.c_goods?.goods_price)
                     ?.setText(R.id.tv_goods_name, item?.c_goods?.goods_name)
-                    ?.setText(R.id.tv_goods_num,"x"+item?.goodsNum)
+                    ?.setText(R.id.tv_goods_num, "x" + item?.goodsNum)
 
             GlideApp.with(mContext)
                     .load(item?.c_goods?.goods_img)

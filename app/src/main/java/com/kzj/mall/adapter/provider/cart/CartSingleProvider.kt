@@ -20,14 +20,7 @@ class CartSingleProvider : BaseItemProvider<CartSingleEntity, BaseViewHolder>() 
 
     override fun convert(helper: BaseViewHolder?, data: CartSingleEntity?, position: Int) {
         val ivCheckDelete = helper?.getView<ImageView>(R.id.iv_check)
-        //删除模式
-        if (data?.isDeleteMode == true) {
-            ivCheckDelete?.setImageResource(R.mipmap.del)
-        }
-        //正常选择模式
-        else {
-            ivCheckDelete?.setImageResource(if (data?.isCheck == true) R.mipmap.icon_cart_check else R.mipmap.check_nor)
-        }
+        ivCheckDelete?.setImageResource(if (data?.isCheck == true) R.mipmap.icon_cart_check else R.mipmap.check_nor)
         helper?.addOnClickListener(R.id.iv_check)
                 ?.addOnClickListener(R.id.iv_minus)
                 ?.addOnClickListener(R.id.iv_plus)
@@ -55,7 +48,7 @@ class CartSingleProvider : BaseItemProvider<CartSingleEntity, BaseViewHolder>() 
         data?.shopping_cart_type?.let {
             //疗程
             if (it.equals("1")) {
-                helper?.setText(R.id.tv_goods_pre_price, "已省 ¥"+data?.goods_pre_price)
+                helper?.setText(R.id.tv_goods_pre_price, "已省 ¥" + data?.goods_pre_price)
                         ?.setText(R.id.tv_combination_name, data?.combination_name)
             }
         }

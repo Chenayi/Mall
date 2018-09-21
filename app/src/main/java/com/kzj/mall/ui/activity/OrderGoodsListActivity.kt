@@ -1,6 +1,7 @@
 package com.kzj.mall.ui.activity
 
 import android.support.v7.widget.LinearLayoutManager
+import android.view.ViewGroup
 import com.blankj.utilcode.util.LogUtils
 import com.gyf.barlibrary.ImmersionBar
 import com.kzj.mall.R
@@ -17,7 +18,7 @@ import com.kzj.mall.entity.cart.ICart
  *商品清单列表
  */
 class OrderGoodsListActivity : BaseActivity<IPresenter, ActivityOrderGoodsListBinding>() {
-    private var buyEntity:BuyEntity?=null
+    private var buyEntity: BuyEntity? = null
     private var orderGoodsListAdapter: OrderGoodsListAdapter? = null
 
     override fun getLayoutId(): Int {
@@ -44,7 +45,7 @@ class OrderGoodsListActivity : BaseActivity<IPresenter, ActivityOrderGoodsListBi
         val iCarts = ArrayList<ICart>()
 
         buyEntity?.shoplist?.let {
-            for (i in 0 until it?.size){
+            for (i in 0 until it?.size) {
                 val type = it?.get(i)?.shopping_cart_type
                 //套装
                 if (type.equals("2")) {
@@ -78,6 +79,8 @@ class OrderGoodsListActivity : BaseActivity<IPresenter, ActivityOrderGoodsListBi
 
         mBinding?.rvGoods?.layoutManager = LinearLayoutManager(this)
         orderGoodsListAdapter = OrderGoodsListAdapter(iCarts)
+        orderGoodsListAdapter?.addFooterView(layoutInflater.inflate(R.layout.header_footer_line_gray_10dp
+                , mBinding?.rvGoods?.parent as ViewGroup, false))
         mBinding?.rvGoods?.adapter = orderGoodsListAdapter
     }
 }

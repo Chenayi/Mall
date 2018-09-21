@@ -225,6 +225,25 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
     }
 
     /**
+     * 更新关注状态
+     */
+    fun updateFollowStatus(goodsDetailEntity: GoodsDetailEntity?) {
+        goodsDetailEntity?.let {
+            isFollow = it?.is_follow?.equals("1") == true
+            //是否关注
+            if (it?.is_follow?.equals("1") == true) {
+                ivFollow?.setImageResource(R.mipmap.icon_collected)
+                tvFollow?.setText("已关注")
+                tvFollow?.setTextColor(ContextCompat.getColor(context!!, R.color.colorPrimary))
+            } else {
+                ivFollow?.setImageResource(R.mipmap.sc)
+                tvFollow?.setText("关注")
+                tvFollow?.setTextColor(Color.parseColor("#6A6E75"))
+            }
+        }
+    }
+
+    /**
      * 更新数据
      */
     fun updateDatas(goodsDetailEntity: GoodsDetailEntity?) {
@@ -411,10 +430,10 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
     /**
      * 规格切换
      */
-    @Subscribe
-    fun specChange(goodSpecChangeEvent: GoodSpecChangeEvent) {
-        updateDatas(goodSpecChangeEvent?.goodsDetailEntity)
-    }
+//    @Subscribe
+//    fun specChange(goodSpecChangeEvent: GoodSpecChangeEvent) {
+//        updateDatas(goodSpecChangeEvent?.goodsDetailEntity)
+//    }
 
     /**
      * 点击事件

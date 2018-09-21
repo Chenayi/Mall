@@ -130,7 +130,7 @@ interface ApiService {
      */
     @FormUrlEncoded
     @POST("/kzj/api/user_voucher/add_product_toShopCar.htm")
-    fun addCart(@Header("token") token: String?, @FieldMap params: MutableMap<String, String>?): Observable<BaseResponse<AddCartEntity>>
+    fun addCart(@Header("token") token: String?, @FieldMap params: MutableMap<String, String>?): Observable<BaseResponse<CartCountEntitiy>>
 
     /**
      * 购物车列表
@@ -160,6 +160,12 @@ interface ApiService {
     @POST("/kzj/api/user_voucher/app_shop_submit.htm")
     fun cartBalance(@Header("token") token: String?, @Field("shopping_cart_ids") cartId: LongArray?)
             : Observable<BaseResponse<BuyEntity>>
+
+    /**
+     * 查看购物车数量
+     */
+    @POST("/kzj/api/user_voucher/shopping_cart_count.htm")
+    fun shoppingCartCount(@Header("token") token: String?): Observable<BaseResponse<CartCountEntitiy>>
 
     /**
      * 提交订单
@@ -268,6 +274,12 @@ interface ApiService {
     @POST("/kzj/api/user_voucher/batch_delete_browserecord.htm")
     fun deleteBrowseRecords(@Header("token") token: String?, @Field("like_ids") likeIds: LongArray?)
             : Observable<BaseResponse<SimpleResultEntity>>
+
+    /**
+     * 清空浏览记录
+     */
+    @POST("/kzj/api/user_voucher/delete_all_browserecord.htm")
+    fun deleteAllBrowserecord(@Header("token") token: String?): Observable<BaseResponse<SimpleResultEntity>>
 
     /**
      * 订单列表

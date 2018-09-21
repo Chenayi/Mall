@@ -7,10 +7,7 @@ import com.kzj.mall.C
 import com.kzj.mall.base.BaseObserver
 import com.kzj.mall.base.BasePresenter
 import com.kzj.mall.di.scope.ActivityScope
-import com.kzj.mall.entity.BaseResponse
-import com.kzj.mall.entity.BuyEntity
-import com.kzj.mall.entity.GoodsDetailEntity
-import com.kzj.mall.entity.SimpleResultEntity
+import com.kzj.mall.entity.*
 import com.kzj.mall.entity.cart.AddCartEntity
 import com.kzj.mall.event.CartChangeEvent
 import com.kzj.mall.http.RxScheduler
@@ -136,12 +133,13 @@ constructor(model: GoodsDetailContract.Model?, view: GoodsDetailContract.View?, 
 
         model?.addCar(params)
                 ?.compose(RxScheduler.compose())
-                ?.subscribe(object : BaseObserver<AddCartEntity>() {
+                ?.subscribe(object : BaseObserver<CartCountEntitiy>() {
                     override fun onSubscribe(d: Disposable) {
                         addDisposable(d)
                     }
 
-                    override fun onHandleSuccess(t: AddCartEntity?) {
+                    override fun onHandleSuccess(t: CartCountEntitiy?) {
+                        view?.showCartCount(t?.count)
                         EventBus.getDefault().post(CartChangeEvent())
                     }
 
@@ -230,6 +228,62 @@ constructor(model: GoodsDetailContract.Model?, view: GoodsDetailContract.View?, 
                         view?.hideLoading()
                     }
 
+                })
+    }
+
+    /**
+     * 购物车数量
+     */
+    fun cartCount(){
+        model?.shoppingCartCount()
+                ?.compose(RxScheduler.compose())
+                ?.subscribe(object :BaseObserver<CartCountEntitiy>(){
+                    override fun onSubscribe(d: Disposable) {
+                        addDisposable(d)
+                    }
+
+                    override fun onHandleSuccess(t: CartCountEntitiy?) {
+                        view?.showCartCount(t?.count)
+                    }
+
+                    override fun onHandleError(code: Int, msg: String?) {
+                        view?.onError(code,msg)
+                    }
+
+                    override fun onHandleAfter() {
+                        view?.hideLoading()
+                    }
+
+                })
+    }
+
+    /**
+     * 关注状态
+     */
+    fun followStatus(goodsInfoId:String?){
+        val params = HashMap<String, String>()
+        goodsInfoId?.let {
+            params.put(C.GOODS_INFO_ID, it)
+        }
+
+        model?.requestGoodsDetailWithLogin(params)?.compose(RxScheduler.compose())
+                ?.subscribe(object : BaseObserver<GoodsDetailEntity>() {
+                    override fun onSubscribe(d: Disposable) {
+                        view?.showLoading()
+                        addDisposable(d)
+                    }
+
+                    override fun onHandleSuccess(t: GoodsDetailEntity?) {
+                        view?.updateFollowStatus(t)
+                    }
+
+                    override fun onHandleError(code: Int, msg: String?) {
+                        view?.onError(code, msg)
+                    }
+
+                    override fun onHandleAfter() {
+                        view?.hideLoading()
+                    }
                 })
     }
 }

@@ -12,10 +12,10 @@
         android:layout_height="wrap_content"
         android:background="@drawable/background_white_corners_8"
         android:orientation="vertical"
-        android:paddingBottom="16dp"
+        android:paddingBottom="12dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:paddingTop="16dp">
+        android:paddingTop="12dp">
 
         <LinearLayout
             android:id="@+id/ll_top"
@@ -23,31 +23,56 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:gravity="center_vertical"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:visibility="visible">
 
-            <com.allen.library.SuperTextView
-                android:layout_width="32dp"
-                android:layout_height="16dp"
-                app:sCenterTextColor="@color/colorPrimary"
-                app:sCenterTextSize="11dp"
-                app:sCenterTextString="疗程"
-                app:sShapeCornersRadius="9999dp"
-                app:sShapeStrokeColor="@color/colorPrimary"
-                app:sShapeStrokeWidth="1dp"
-                app:sUseShape="true" />
-
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="4dp"
-                android:lines="1"
-                android:singleLine="true"
-                android:text="2盒起495元/盒疗程价！"
-                android:textColor="#2E3033"
-                android:textSize="13dp"
-                android:id="@+id/tv_combination_name"/>
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
+                <com.allen.library.SuperTextView
+                    android:layout_width="32dp"
+                    android:layout_height="16dp"
+                    app:sCenterTextColor="@color/colorPrimary"
+                    app:sCenterTextSize="11dp"
+                    app:sCenterTextString="疗程"
+                    app:sShapeCornersRadius="9999dp"
+                    app:sShapeStrokeColor="@color/colorPrimary"
+                    app:sShapeStrokeWidth="1dp"
+                    app:sUseShape="true" />
+
+                <TextView
+                    android:id="@+id/tv_combination_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="4dp"
+                    android:layout_weight="1"
+                    android:lines="1"
+                    android:singleLine="true"
+                    android:text="2盒起495元/盒疗程价！"
+                    android:textColor="#2E3033"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:id="@+id/tv_all_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="¥ 987.00"
+                    android:textColor="@color/orange_default"
+                    android:textSize="12dp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="12dp"
+                android:background="@color/gray_default" />
         </LinearLayout>
 
         <LinearLayout
@@ -90,7 +115,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
                         android:text="¥158"
-                        android:textColor="#2E3033"
+                        android:textColor="@color/gray_6A6E75"
                         android:textSize="12dp" />
 
                     <TextView

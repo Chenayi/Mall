@@ -8,8 +8,8 @@ import com.kzj.mall.GlideApp
 import com.kzj.mall.R
 import com.kzj.mall.adapter.BaseAdapter
 import com.kzj.mall.entity.cart.CartGroupEntity
-import com.kzj.mall.entity.cart.GoodsGroupEntity
 import com.kzj.mall.entity.cart.ICart
+import com.kzj.mall.utils.FloatUtils
 
 class GoodsGroupProvider : BaseItemProvider<CartGroupEntity, BaseViewHolder>() {
     override fun layout(): Int {
@@ -28,7 +28,12 @@ class GoodsGroupProvider : BaseItemProvider<CartGroupEntity, BaseViewHolder>() {
         val groupAdapter = GroupAdapter(data?.groups!!)
         rvGroup?.adapter = groupAdapter
 
+        val allPrice = data?.goods_price?.toFloat()!!
+        val num = data?.goods_num!!
+        val singlePrice = allPrice / num
         helper?.setText(R.id.tv_combination_name, data?.combination_name)
+                ?.setText(R.id.tv_group_price, "¥" + FloatUtils.format(singlePrice))
+                ?.setText(R.id.tv_goods_num,"x"+data?.goods_num?.toString())
     }
 
     inner class GroupAdapter constructor(groupDatas: MutableList<CartGroupEntity.Group>)

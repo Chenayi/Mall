@@ -18,4 +18,6 @@ constructor(httpUtils: HttpUtils?) : BaseModel(httpUtils), BrowseRecordsContract
     override fun browseRecords(pageNo: Int?, pageSize: Int?) = httpUtils?.obtainRetrofitService(ApiService::class.java)?.browseRecords(C.TOKEN, pageNo, pageSize)
 
     override fun deleteRecords(likeIds: LongArray?) = httpUtils?.obtainRetrofitService(ApiService::class.java)?.deleteBrowseRecords(C.TOKEN, likeIds)
+
+    override fun deleteAllBrowserecord() = httpUtils?.obtainRetrofitService(ApiService::class.java)?.deleteAllBrowserecord(C.TOKEN)
 }
