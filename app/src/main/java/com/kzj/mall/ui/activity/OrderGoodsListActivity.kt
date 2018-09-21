@@ -27,7 +27,7 @@ class OrderGoodsListActivity : BaseActivity<IPresenter, ActivityOrderGoodsListBi
 
     override fun initImmersionBar() {
         mImmersionBar = ImmersionBar.with(this)
-        mImmersionBar?.fitsSystemWindows(true, R.color.fb)
+        mImmersionBar?.fitsSystemWindows(true, R.color.white)
                 ?.statusBarDarkFont(true, 0.5f)
                 ?.init()
     }

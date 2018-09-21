@@ -29,7 +29,7 @@ abstract class BaseFragment<P : IPresenter, D : ViewDataBinding> : SupportFragme
 
     protected var mImmersionBar: ImmersionBar? = null
 
-    protected var immersionBarColor = R.color.fb
+    protected var immersionBarColor = R.color.white
 
     protected var mApp: App? = null
 

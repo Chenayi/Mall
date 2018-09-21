@@ -234,10 +234,10 @@ abstract class BaseHomeChildListFragment : BaseFragment<HomePresenter, FragmentB
                     jumpGoodsDetail("41259")
                 }
                 R.id.ll_c_7 -> {
-                    jumpGoodsDetail("41259")
+                    jumpGoodsDetail("37597")
                 }
                 R.id.ll_c_8 -> {
-                    jumpGoodsDetail("37597")
+                    jumpGoodsDetail("26727")
                 }
 
             //以下是男性加油站跳转

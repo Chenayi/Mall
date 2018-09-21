@@ -285,7 +285,7 @@ class PersonInfoActivity : BaseActivity<PersonInfoPresenter, ActivityPersonInfoB
                 showDateDialog()
             }
             R.id.ll_nick_name -> {
-                val content = mBinding?.tvNickName?.text?.toString()?.trim()
+                val content = mBinding?.tvNickName?.text?.toString()
                 EditDialog.newInstance(content)
                         .setOnConfirmClickListener(object :EditDialog.OnConfirmClickListener{
                             override fun onLeftClick() {

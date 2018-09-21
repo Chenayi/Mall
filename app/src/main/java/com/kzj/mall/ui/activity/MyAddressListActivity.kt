@@ -63,7 +63,7 @@ class MyAddressListActivity : BaseActivity<MyAddressListPresenter, ActivityAddre
             mImmersionBar?.fitsSystemWindows(true, R.color.colorPrimary)
                     ?.init()
         } else {
-            mImmersionBar?.fitsSystemWindows(true, R.color.fb)
+            mImmersionBar?.fitsSystemWindows(true, R.color.white)
                     ?.statusBarDarkFont(true, 0.5f)
                     ?.init()
         }
@@ -75,7 +75,7 @@ class MyAddressListActivity : BaseActivity<MyAddressListPresenter, ActivityAddre
                     .setLeftIcon(R.mipmap.back_white)
                     .setTitleTextColor(ContextCompat.getColor(this, R.color.white))
         } else {
-            RootLayout.getInstance(this).setStatusBarViewColor(ContextCompat.getColor(this, R.color.fb))
+            RootLayout.getInstance(this).setStatusBarViewColor(ContextCompat.getColor(this, R.color.white))
                     .setLeftIcon(R.mipmap.back_black)
                     .setTitleTextColor(ContextCompat.getColor(this, R.color.c_2e3033))
         }

@@ -140,7 +140,9 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
                     var cartEntity = cartAdapter?.data?.get(position) as BaseCartEntity
                     val goodsNum = cartEntity?.goods_num!! - 1
                     val cartId = cartEntity?.shopping_cart_id
-                    mPresenter?.changeCartNum(position, cartId, goodsNum?.toString()?.trim()!!)
+                    if (goodsNum > 0){
+                        mPresenter?.changeCartNum(position, cartId, goodsNum?.toString()?.trim()!!)
+                    }
                 }
 
             //数量加
@@ -148,7 +150,9 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
                     var cartEntity = cartAdapter?.data?.get(position) as BaseCartEntity
                     val goodsNum = cartEntity?.goods_num!! + 1
                     val cartId = cartEntity?.shopping_cart_id
-                    mPresenter?.changeCartNum(position, cartId, goodsNum?.toString()?.trim()!!)
+                    if (goodsNum <= cartEntity?.goods_stock!!){
+                        mPresenter?.changeCartNum(position, cartId, goodsNum?.toString()?.trim()!!)
+                    }
                 }
             }
         }
@@ -171,25 +175,25 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
     /**
      * 移除购物车
      */
-    fun remove(position: Int) {
-        cartAdapter?.remove(position)
-        mBinding?.tvToBalance?.isEnabled = checkNum() > 0
-        mBinding?.tvToBalance?.setText("去结算(" + checkNum() + ")")
-        for (i in 0 until cartAdapter?.data?.size!!) {
-            val cart = cartAdapter?.data?.get(i)
-            val itemType = cart?.getItemType()
-            if (itemType == ICart.SINGLE || itemType == ICart.GROUP) {
-                return
-            }
-        }
-        cartAdapter?.setHeaderView(headerView, 0)
-        mBinding?.llBalance?.visibility = View.GONE
-        tvLogin?.visibility = View.GONE
-        isDeleteMode = false
-        mBinding?.tvEdit?.text = "编辑"
-        mBinding?.tvEdit?.visibility = View.GONE
-        mBinding?.rvCart?.scrollToPosition(0)
-    }
+//    fun remove(position: Int) {
+//        cartAdapter?.remove(position)
+//        mBinding?.tvToBalance?.isEnabled = checkNum() > 0
+//        mBinding?.tvToBalance?.setText("去结算(" + checkNum() + ")")
+//        for (i in 0 until cartAdapter?.data?.size!!) {
+//            val cart = cartAdapter?.data?.get(i)
+//            val itemType = cart?.getItemType()
+//            if (itemType == ICart.SINGLE || itemType == ICart.GROUP) {
+//                return
+//            }
+//        }
+//        cartAdapter?.setHeaderView(headerView, 0)
+//        mBinding?.llBalance?.visibility = View.GONE
+//        tvLogin?.visibility = View.GONE
+//        isDeleteMode = false
+//        mBinding?.tvEdit?.text = "编辑"
+//        mBinding?.tvEdit?.visibility = View.GONE
+//        mBinding?.rvCart?.scrollToPosition(0)
+//    }
 
     /**
      * 判断是否全选

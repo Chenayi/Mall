@@ -68,7 +68,7 @@ class ConfirmOrderActivity : BaseActivity<ConfirmOrderPresenter, ActivityConfirm
 
     override fun initImmersionBar() {
         mImmersionBar = ImmersionBar.with(this)
-        mImmersionBar?.fitsSystemWindows(true, R.color.fb)
+        mImmersionBar?.fitsSystemWindows(true, R.color.white)
                 ?.statusBarDarkFont(true, 0.5f)
                 ?.keyboardEnable(keyboardEnable())
                 ?.keyboardMode(getKeyboardMode())
@@ -259,6 +259,11 @@ class ConfirmOrderActivity : BaseActivity<ConfirmOrderPresenter, ActivityConfirm
                 } else {
                     // 该笔订单真实的支付结果，需要依赖服务端的异步通知。
                     ToastUtils.showShort(payResult.memo)
+                    val intent = Intent(this@ConfirmOrderActivity, OrderDetailActivity::class.java)
+                    intent.putExtra("orderId", orderId)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    startActivity(intent)
+                    finish()
                 }
             }
         }

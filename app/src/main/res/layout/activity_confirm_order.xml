@@ -5,7 +5,7 @@
     <com.kzj.mall.widget.RootLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:titleBarColor="@color/fb"
+        app:titleBarColor="@color/white"
         app:titleBarLeftIcon="@mipmap/back_black"
         app:titleBarRightTextColor="@color/c_2e3033"
         app:titleBarTitle="确认订单"

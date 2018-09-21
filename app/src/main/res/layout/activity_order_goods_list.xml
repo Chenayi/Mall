@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:titleBarTitle="商品清单"
-        app:titleBarColor="@color/fb"
+        app:titleBarColor="@color/white"
         app:titleBarLeftIcon="@mipmap/back_black"
         app:titleBarTitleColor="@color/c_2e3033"
         app:titleBarRightTextColor="@color/c_2e3033">
