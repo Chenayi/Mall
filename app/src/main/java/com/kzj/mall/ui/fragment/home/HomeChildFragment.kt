@@ -1,11 +1,5 @@
 package com.kzj.mall.ui.fragment.home
 
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.view.View
-import android.view.ViewConfiguration
-import android.view.animation.*
-import com.blankj.utilcode.util.LogUtils
 import com.chad.library.adapter.base.util.ProviderDelegate
 import com.kzj.mall.C
 import com.kzj.mall.adapter.provider.home.*

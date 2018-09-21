@@ -54,8 +54,9 @@ constructor(model: CartContract.Model?, view: CartContract.View?, context: Conte
     /**
      * 删除购物车
      */
-    fun deleteCart(position: Int, cartID: String?) {
-        model?.deleteCart(cartID)
+    fun deleteCart(cartIDs: LongArray?) {
+//        LogUtils.e("cartId ===> " + cartIDs?.get(0))
+        model?.deleteCart(cartIDs)
                 ?.compose(RxScheduler.compose())
                 ?.subscribe(object : BaseObserver<SimpleResultEntity>() {
                     override fun onSubscribe(d: Disposable) {
@@ -64,7 +65,7 @@ constructor(model: CartContract.Model?, view: CartContract.View?, context: Conte
                     }
 
                     override fun onHandleSuccess(t: SimpleResultEntity?) {
-                        view?.deleteCartSuccess(position)
+                        view?.deleteCartSuccess()
                     }
 
                     override fun onHandleError(code: Int, msg: String?) {

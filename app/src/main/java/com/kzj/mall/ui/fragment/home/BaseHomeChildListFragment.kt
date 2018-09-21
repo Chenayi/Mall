@@ -73,21 +73,21 @@ abstract class BaseHomeChildListFragment : BaseFragment<HomePresenter, FragmentB
 
             override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                if (distance < -ViewConfiguration.get(context).getScaledEdgeSlop() && !isAskVisible) {
-                    //显示
-                    showAskWithAnim();
-                    distance = 0;
-                    isAskVisible = true;
-                } else if (distance > ViewConfiguration.get(context).getScaledEdgeSlop() && isAskVisible) {
-                    //隐藏
-                    hideAskWithAnim();
-                    distance = 0;
-                    isAskVisible = false;
-                }
-                //向下滑并且可见 或者 向上滑并且不可见
-                if ((dy > 0 && isAskVisible) || (dy < 0 && !isAskVisible)) {
-                    distance += dy;
-                }
+//                if (distance < -ViewConfiguration.get(context).getScaledEdgeSlop() && !isAskVisible) {
+//                    //显示
+//                    showAskWithAnim();
+//                    distance = 0;
+//                    isAskVisible = true;
+//                } else if (distance > ViewConfiguration.get(context).getScaledEdgeSlop() && isAskVisible) {
+//                    //隐藏
+//                    hideAskWithAnim();
+//                    distance = 0;
+//                    isAskVisible = false;
+//                }
+//                //向下滑并且可见 或者 向上滑并且不可见
+//                if ((dy > 0 && isAskVisible) || (dy < 0 && !isAskVisible)) {
+//                    distance += dy;
+//                }
 
                 val layoutManager = recyclerView?.layoutManager as LinearLayoutManager
                 firstVisibleItemPosition = layoutManager?.findFirstVisibleItemPosition()
@@ -106,6 +106,9 @@ abstract class BaseHomeChildListFragment : BaseFragment<HomePresenter, FragmentB
 
         listAdapter?.setOnItemChildClickListener { adapter, view, position ->
             when (view?.id) {
+                R.id.iv_2369 -> {
+                    jumpGoodsDetail("2369")
+                }
 
             //精选优品 跳转商品详情
                 R.id.iv_yp1 -> {

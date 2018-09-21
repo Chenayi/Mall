@@ -19,5 +19,6 @@ class HomeClassifyProvider : BaseItemProvider<HomeClassifyEntity, BaseViewHolder
     }
 
     override fun convert(helper: BaseViewHolder?, data: HomeClassifyEntity?, position: Int) {
+        helper?.addOnClickListener(R.id.iv_2369)
     }
 }

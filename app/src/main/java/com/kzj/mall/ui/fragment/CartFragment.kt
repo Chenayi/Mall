@@ -18,8 +18,6 @@ import com.kzj.mall.di.module.CartModule
 import com.kzj.mall.entity.BuyEntity
 import com.kzj.mall.entity.CartEntity
 import com.kzj.mall.entity.cart.*
-import com.kzj.mall.utils.LocalDatas
-import com.kzj.mall.entity.home.HomeRecommendEntity
 import com.kzj.mall.event.CartChangeEvent
 import com.kzj.mall.event.LoginSuccessEvent
 import com.kzj.mall.event.LogoutEvent
@@ -121,7 +119,6 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
         cartAdapter?.setOnItemChildClickListener { adapter, view, position ->
             when (view.id) {
                 R.id.iv_check -> {
-                    if (isDeleteMode == false) {
                         var cartEntity = cartAdapter?.data?.get(position) as BaseCartEntity
                         cartEntity?.isCheck = !cartEntity?.isCheck
                         cartAdapter?.notifyItemChanged(position)
@@ -136,20 +133,6 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
                         setCheckPrice()
                         mBinding?.tvToBalance?.isEnabled = checkNum() > 0
                         mBinding?.tvToBalance?.setText("去结算(" + checkNum() + ")")
-                    } else {
-                        ConfirmDialog.newInstance("狠心删除", "留在购物车", "很抢手哦 ～ 下次不一定能买到确定要删除我吗 ～")
-                                .setOnConfirmClickListener(object : ConfirmDialog.OnConfirmClickListener {
-                                    override fun onLeftClick() {
-                                        val cartId = (cartAdapter?.getItem(position) as BaseCartEntity)?.shopping_cart_id
-                                        mPresenter?.deleteCart(position, cartId)
-                                    }
-
-                                    override fun onRightClick() {
-                                    }
-
-                                })
-                                .show(childFragmentManager)
-                    }
                 }
 
             //数量减
@@ -178,6 +161,7 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
         mBinding?.llAllCheck?.setOnClickListener(this)
         mBinding?.tvToBalance?.isEnabled = false
         mBinding?.tvToBalance?.setOnClickListener(this)
+        mBinding?.tvDelete?.setOnClickListener(this)
 
         if (C.IS_LOGIN) {
             mPresenter?.requesrCart(true)
@@ -304,7 +288,7 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
 
                     val s = iCart?.goods_price?.toFloat()
                     s?.let {
-//                        val num = iCart?.goods_num
+                        //                        val num = iCart?.goods_num
 //                        val ss = s * num!!
                         sumPrice += it
                     }
@@ -484,24 +468,39 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
     /**
      * 购物车删除成功
      */
-    override fun deleteCartSuccess(position: Int) {
-        remove(position)
-        setCheckPrice()
+    override fun deleteCartSuccess() {
+        mPresenter?.requesrCart(false)
+    }
+
+    private fun changeDeleteMode(){
+        if (isDeleteMode) {
+            mBinding?.tvEdit?.setText("完成")
+            mBinding?.llBalance2?.visibility = View.GONE
+            mBinding?.tvDelete?.visibility = View.VISIBLE
+        } else {
+            mBinding?.tvEdit?.setText("编辑")
+            mBinding?.tvDelete?.visibility = View.GONE
+            mBinding?.llBalance2?.visibility = View.VISIBLE
+        }
     }
 
     /**
      * 购物车数据
      */
     override fun showCart(cartEntity: CartEntity?) {
+        mBinding?.refreshLayout?.isRefreshing = false
+
         isCartChange = false
         isDeleteMode = false
-        mBinding?.tvEdit?.text = "编辑"
-        mBinding?.refreshLayout?.isRefreshing = false
+
+        changeDeleteMode()
+
         mBinding?.ivAllCheck?.setImageResource(R.mipmap.check_nor)
         mBinding?.tvToBalance?.isEnabled = false
         mBinding?.tvToBalance?.setText("去结算(0)")
         mBinding?.tvAllPrice?.setText("¥0.00")
         mBinding?.tvMinusPrice?.setText("已省：¥0.00")
+
         val shoplist = cartEntity?.shoplist
         val iCarts = ArrayList<ICart>()
 
@@ -616,11 +615,7 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
         when (v?.id) {
             R.id.tv_edit -> {
                 isDeleteMode = !isDeleteMode
-                if (isDeleteMode) {
-                    mBinding?.tvEdit?.setText("完成")
-                } else {
-                    mBinding?.tvEdit?.setText("编辑")
-                }
+                changeDeleteMode()
             }
 
             R.id.ll_all_check -> {
@@ -634,6 +629,22 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
 
             R.id.tv_to_balance -> {
                 mPresenter?.cartBanlance(cartIds())
+            }
+            R.id.tv_delete -> {
+                val cartIds = cartIds()
+                if (cartIds.size > 0){
+                    ConfirmDialog.newInstance("狠心删除", "留在购物车", "很抢手哦 ～ 下次不一定能买到确定要删除我吗 ～")
+                            .setOnConfirmClickListener(object : ConfirmDialog.OnConfirmClickListener {
+                                override fun onLeftClick() {
+                                    mPresenter?.deleteCart(cartIds)
+                                }
+
+                                override fun onRightClick() {
+                                }
+
+                            })
+                            .show(childFragmentManager)
+                }
             }
         }
     }

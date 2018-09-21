@@ -87,64 +87,84 @@
 
             </LinearLayout>
 
-            <LinearLayout
+
+            <FrameLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="right"
-                android:orientation="horizontal">
+                android:layout_weight="1">
 
                 <LinearLayout
+                    android:id="@+id/ll_balance2"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:gravity="center_vertical|right"
-                    android:orientation="vertical">
+                    android:layout_gravity="right"
+                    android:orientation="horizontal"
+                    android:visibility="visible">
 
                     <LinearLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical|right"
+                        android:orientation="vertical">
 
-                        <TextView
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="合计："
-                            android:textColor="#2E3033" />
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="合计："
+                                android:textColor="#2E3033" />
+
+                            <TextView
+                                android:id="@+id/tv_all_price"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="¥0.00"
+                                android:textColor="@color/orange_default" />
+                        </LinearLayout>
 
                         <TextView
-                            android:id="@+id/tv_all_price"
+                            android:id="@+id/tv_minus_price"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="¥0.00"
-                            android:textColor="@color/orange_default" />
+                            android:lines="1"
+                            android:singleLine="true"
+                            android:text="已省：¥0.00"
+                            android:textColor="#8A9099"
+                            android:textSize="12dp" />
+
+
                     </LinearLayout>
 
                     <TextView
-                        android:id="@+id/tv_minus_price"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:lines="1"
-                        android:singleLine="true"
-                        android:text="已省：¥0.00"
-                        android:textColor="#8A9099"
-                        android:textSize="12dp" />
-
-
+                        android:id="@+id/tv_to_balance"
+                        android:layout_width="90dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:background="@color/orange_default"
+                        android:gravity="center"
+                        android:text="去结算(0)"
+                        android:textColor="@color/white"
+                        android:textStyle="bold" />
                 </LinearLayout>
 
+
                 <TextView
-                    android:id="@+id/tv_to_balance"
+                    android:id="@+id/tv_delete"
                     android:layout_width="90dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
-                    android:background="@color/orange_default"
+                    android:layout_height="37dp"
+                    android:layout_gravity="right|center_vertical"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/background_green_corners_9999"
                     android:gravity="center"
-                    android:text="去结算(0)"
-                    android:textColor="@color/white"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
-
+                    android:text="删除"
+                    android:textColor="@color/fb"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+            </FrameLayout>
         </LinearLayout>
     </LinearLayout>
 </layout>

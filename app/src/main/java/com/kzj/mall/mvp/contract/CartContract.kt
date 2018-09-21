@@ -14,7 +14,7 @@ import io.reactivex.Observable
 interface CartContract {
     interface View : IView {
         fun showCart(cartEntity: CartEntity?)
-        fun deleteCartSuccess(position: Int)
+        fun deleteCartSuccess()
         fun changeCartNumSeccess(position: Int, cartEntity: CartEntity?)
         fun banlance(buyEntity: BuyEntity?)
         fun loadRecommendDatas(t:MutableList<CartRecommendEntity.Data>?)
@@ -22,7 +22,7 @@ interface CartContract {
 
     interface Model : IModel {
         fun requestCart(): Observable<BaseResponse<CartEntity>>?
-        fun deleteCart(cardID: String?): Observable<BaseResponse<SimpleResultEntity>>?
+        fun deleteCart(cartIDs: LongArray?): Observable<BaseResponse<SimpleResultEntity>>?
         fun changeCartNum(cardID: String?, num: String): Observable<BaseResponse<CartEntity>>?
         fun cartBanlance(cardIDs: LongArray?): Observable<BaseResponse<BuyEntity>>?
         fun loadRecommendHomeDatas(pageNo: Int, pageSize: Int, cid: String): Observable<BaseResponse<CartRecommendEntity>>?

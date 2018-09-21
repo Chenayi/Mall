@@ -18,7 +18,7 @@ class CartModel @Inject
 constructor(httpUtils: HttpUtils?) : BaseModel(httpUtils), CartContract.Model {
     override fun requestCart() = httpUtils?.obtainRetrofitService(ApiService::class.java)?.shopCart(C.TOKEN)
 
-    override fun deleteCart(cardID: String?) = httpUtils?.obtainRetrofitService(ApiService::class.java)?.deleteCart(C.TOKEN, cardID)
+    override fun deleteCart(cartIDs: LongArray?) = httpUtils?.obtainRetrofitService(ApiService::class.java)?.deleteCart(C.TOKEN, cartIDs)
 
     override fun changeCartNum(cardID: String?, num: String) = httpUtils?.obtainRetrofitService(ApiService::class.java)?.changeCartNum(C.TOKEN, cardID, num)
 

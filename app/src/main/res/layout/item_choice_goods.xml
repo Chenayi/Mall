@@ -63,7 +63,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="#F0F3FA"
+                android:background="#FAFAFA"
                 android:orientation="vertical">
 
                 <TextView
@@ -143,7 +143,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="1dp"
                 android:layout_weight="1"
-                android:background="#FAF0F8"
+                android:background="#FAFAFA"
                 android:orientation="vertical">
 
                 <TextView
@@ -231,7 +231,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="#F0FAF9"
+                android:background="#FAFAFA"
                 android:orientation="vertical">
 
                 <TextView
@@ -310,7 +310,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="1dp"
                 android:layout_weight="1"
-                android:background="#F6F0FA"
+                android:background="#FAFAFA"
                 android:orientation="vertical">
 
                 <TextView
@@ -399,7 +399,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@drawable/left_bottom_f0faf9_corners_8"
+                android:background="@drawable/left_bottom_fafafa_corners_8"
                 android:orientation="vertical">
 
                 <TextView
@@ -463,7 +463,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="1dp"
                 android:layout_weight="1"
-                android:background="#F0FAF9"
+                android:background="#FAFAFA"
                 android:orientation="vertical">
 
                 <TextView
@@ -526,7 +526,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="1dp"
                 android:layout_weight="1"
-                android:background="#F0FAF9"
+                android:background="#FAFAFA"
                 android:orientation="vertical">
 
                 <TextView
@@ -589,7 +589,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="1dp"
                 android:layout_weight="1"
-                android:background="@drawable/right_bottom_f0faf9_corners_8"
+                android:background="@drawable/right_bottom_fafafa_corners_8"
                 android:orientation="vertical">
 
                 <TextView

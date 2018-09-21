@@ -47,6 +47,7 @@ class HomeFragment : BaseFragment<IPresenter, FragmentHomeBinding>(), View.OnCli
     }
 
     override fun initData() {
+        mBinding?.rlSearch?.alpha = 0.9f
         mFragments = ArrayList()
         mBinding?.vpHome?.offscreenPageLimit = mTitles?.size - 1
         mFragments?.let {
