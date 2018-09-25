@@ -361,7 +361,7 @@
                             android:layout_height="69dp"
                             android:layout_gravity="center"
                             android:src="@mipmap/icon_camera"
-                            android:visibility="gone" />
+                            android:visibility="visible" />
 
                     </FrameLayout>
 

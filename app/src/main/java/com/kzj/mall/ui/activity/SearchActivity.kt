@@ -29,7 +29,6 @@ import com.kzj.mall.di.module.SearchModule
 import com.kzj.mall.entity.SearchEntity
 import com.kzj.mall.mvp.contract.SearchContract
 import com.kzj.mall.mvp.presenter.SearchPresenter
-import com.kzj.mall.ui.dialog.DetailMorePop
 import com.kzj.mall.widget.GoodsSortView
 import com.kzj.mall.widget.HotSearchView
 import com.kzj.mall.widget.SearchBar

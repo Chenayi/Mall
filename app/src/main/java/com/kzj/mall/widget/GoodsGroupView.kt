@@ -42,12 +42,14 @@ class GoodsGroupView : BaseRelativeLayout<GoodsGroupViewBinding> {
 
         groupAdapter?.setOnItemChildClickListener { adapter, view, position ->
             when (view?.id) {
-                R.id.iv_down -> {
-                    groupAdapter?.getItem(position)?.isOpen = true
-                    groupAdapter?.getItem(openPosition)?.isOpen = false
-                    groupAdapter?.notifyItemChanged(position)
-                    groupAdapter?.notifyItemChanged(openPosition)
-                    openPosition = position
+                R.id.ll_top -> {
+                    if (groupAdapter?.getItem(position)?.isOpen == false) {
+                        groupAdapter?.getItem(position)?.isOpen = true
+                        groupAdapter?.getItem(openPosition)?.isOpen = false
+                        groupAdapter?.notifyItemChanged(position)
+                        groupAdapter?.notifyItemChanged(openPosition)
+                        openPosition = position
+                    }
                 }
                 R.id.tv_group_add_cart -> {
                     if (!C.IS_LOGIN) {
@@ -87,9 +89,10 @@ class GoodsGroupView : BaseRelativeLayout<GoodsGroupViewBinding> {
                     ?.setText(R.id.tv_goods_price, "优惠价：¥" + item?.combination_price?.toString())
                     ?.setText(R.id.tv_goods_pre_price, "立省：¥" + item?.sumPrePrice)
                     ?.setGone(R.id.tv_group_add_cart, item?.isOpen == true && isShowAddCart)
-                    ?.setGone(R.id.rv_group, item?.isOpen == true)
+                    ?.setGone(R.id.ll_group, item?.isOpen == true)
                     ?.setGone(R.id.iv_down, item?.isOpen == false)
-                    ?.addOnClickListener(R.id.iv_down)
+                    ?.setGone(R.id.view_bottom, helper?.layoutPosition < data?.size - 1)
+                    ?.addOnClickListener(R.id.ll_top)
                     ?.addOnClickListener(R.id.tv_group_add_cart)
 
             val rvGroup = helper?.getView<MultiSnapRecyclerView>(R.id.rv_group)

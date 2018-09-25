@@ -6,6 +6,7 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/ll_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
@@ -63,7 +64,6 @@
 
         </LinearLayout>
 
-
         <TextView
             android:id="@+id/tv_group_add_cart"
             android:layout_width="75dp"
@@ -86,14 +86,35 @@
 
     </LinearLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/gray_default" />
 
-    <com.takusemba.multisnaprecyclerview.MultiSnapRecyclerView
-        android:id="@+id/rv_group"
+
+    <LinearLayout
+        android:id="@+id/ll_group"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
-        app:msrv_gravity="start"
-        app:msrv_ms_per_inch="100"
-        app:msrv_snap_count="2" />
+        android:layout_marginTop="10dp"
+        android:orientation="vertical">
+
+        <com.takusemba.multisnaprecyclerview.MultiSnapRecyclerView
+            android:id="@+id/rv_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            app:msrv_gravity="start"
+            app:msrv_ms_per_inch="100"
+            app:msrv_snap_count="2" />
+
+        <View
+            android:id="@+id/view_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@color/gray_default" />
+    </LinearLayout>
 
 </LinearLayout>

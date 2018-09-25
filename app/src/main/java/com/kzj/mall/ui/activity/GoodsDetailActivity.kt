@@ -317,6 +317,7 @@ class GoodsDetailActivity : BaseActivity<GoodsDetailPresenter, ActivityGoodsDeta
                 }
             }
         })
+        detailMorePop?.setOffsetY(-SizeUtils.dp2px(6f))
         detailMorePop?.showPopupWindow(mBinding?.goodsDetailBar)
     }
 

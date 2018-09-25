@@ -26,7 +26,7 @@ class HomeClassifyProvider : BaseItemProvider<HomeClassifyEntity, BaseViewHolder
     override fun convert(helper: BaseViewHolder?, data: HomeClassifyEntity?, position: Int) {
         helper?.addOnClickListener(R.id.iv_2369)
 
-        val screenWidth = ScreenUtils.getScreenWidth() - SizeUtils.dp2px(40f)
+        val screenWidth = ScreenUtils.getScreenWidth() - SizeUtils.dp2px(20f)
         val h = 270f * screenWidth / 1020f
         val imageView = helper?.getView<ImageView>(R.id.iv_2369)
         val layoutParams = imageView?.layoutParams as LinearLayout.LayoutParams
