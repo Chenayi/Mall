@@ -17,7 +17,7 @@
         <attr name="isShowRightIcon" format="boolean" />
     </declare-styleable>
 
-    <declare-styleable name="IndicatorView">
+    <declare-styleable name="IndictorView">
         <attr name="i_count" format="integer|reference" />
         <attr name="i_s_resid" format="reference" />
         <attr name="i_n_resid" format="reference" />

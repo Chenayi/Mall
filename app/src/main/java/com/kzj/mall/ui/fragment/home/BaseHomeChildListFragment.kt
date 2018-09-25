@@ -27,6 +27,7 @@ import android.animation.PropertyValuesHolder
 import android.support.v7.widget.RecyclerView
 import android.view.ViewConfiguration
 import android.view.animation.*
+import com.kzj.mall.ui.activity.BannerActivity
 import com.kzj.mall.ui.activity.SearchActivity
 import com.kzj.mall.ui.activity.SearchWithIdActivity
 
@@ -112,28 +113,52 @@ abstract class BaseHomeChildListFragment : BaseFragment<HomePresenter, FragmentB
 
             //精选优品 跳转商品详情
                 R.id.iv_yp1 -> {
-                    jumpGoodsDetail("35603")
+                    val intent = Intent(context, BannerActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    intent.putExtra("position", 0)
+                    startActivity(intent)
                 }
                 R.id.iv_yp2 -> {
-                    jumpGoodsDetail("26765")
+                    val intent = Intent(context, BannerActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    intent.putExtra("position", 1)
+                    startActivity(intent)
                 }
                 R.id.iv_yp3 -> {
-                    jumpGoodsDetail("12952")
+                    val intent = Intent(context, BannerActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    intent.putExtra("position", 2)
+                    startActivity(intent)
                 }
                 R.id.iv_yp4 -> {
-                    jumpGoodsDetail("24459")
+                    val intent = Intent(context, BannerActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    intent.putExtra("position", 3)
+                    startActivity(intent)
                 }
                 R.id.iv_yp5 -> {
-                    jumpGoodsDetail("36388")
+                    val intent = Intent(context, BannerActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    intent.putExtra("position", 4)
+                    startActivity(intent)
                 }
                 R.id.iv_yp6 -> {
-                    jumpGoodsDetail("29833")
+                    val intent = Intent(context, BannerActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    intent.putExtra("position", 5)
+                    startActivity(intent)
                 }
                 R.id.iv_yp7 -> {
-                    jumpGoodsDetail("44312")
+                    val intent = Intent(context, BannerActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    intent.putExtra("position", 6)
+                    startActivity(intent)
                 }
                 R.id.iv_yp8 -> {
-                    jumpGoodsDetail("41259")
+                    val intent = Intent(context, BannerActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    intent.putExtra("position", 7)
+                    startActivity(intent)
                 }
                 R.id.ll_yp9 -> {
                     jumpGoodsDetail("21536")

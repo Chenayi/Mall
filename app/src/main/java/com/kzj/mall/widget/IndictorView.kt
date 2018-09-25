@@ -11,7 +11,6 @@ import android.widget.LinearLayout
 
 
 class IndictorView : BaseLinearLayout<IndicatorViewBinding> {
-    private var count = 0//指示器的数量
     private var selectIndicatorResid = R.drawable.indicator_sel//选中时候的图片
     private var noSelectIndicatorResid = R.drawable.indicator_default //未选中的时候的图片
     private var indicatorWidhtDp = 0//指示器的宽
@@ -28,17 +27,17 @@ class IndictorView : BaseLinearLayout<IndicatorViewBinding> {
     }
 
     override fun init(attrs: AttributeSet, defStyleAttr: Int) {
-        val array = context.obtainStyledAttributes(attrs, R.styleable.IndicatorView)
-        selectIndicatorResid = array.getResourceId(R.styleable.IndicatorView_i_s_resid, R.drawable.indicator_sel);
-        noSelectIndicatorResid = array.getResourceId(R.styleable.IndicatorView_i_n_resid, R.drawable.indicator_default);
-        indicatorWidhtDp = array.getDimensionPixelSize(R.styleable.IndicatorView_i_width, SizeUtils.dp2px(12f));
-        indictorHeightDp = array.getDimensionPixelSize(R.styleable.IndicatorView_i_width, SizeUtils.dp2px(4f));
-        indicatorMarginLeft = array.getDimensionPixelOffset(R.styleable.IndicatorView_i_margin_left, SizeUtils.dp2px(6f));
+        val array = context.obtainStyledAttributes(attrs, R.styleable.IndictorView)
+        selectIndicatorResid = array.getResourceId(R.styleable.IndictorView_i_s_resid, R.drawable.indicator_sel);
+        noSelectIndicatorResid = array.getResourceId(R.styleable.IndictorView_i_n_resid, R.drawable.indicator_default);
+        indicatorWidhtDp = array.getDimensionPixelSize(R.styleable.IndictorView_i_width, SizeUtils.dp2px(12f));
+        indictorHeightDp = array.getDimensionPixelSize(R.styleable.IndictorView_i_width, SizeUtils.dp2px(4f));
+        indicatorMarginLeft = array.getDimensionPixelOffset(R.styleable.IndictorView_i_margin_left, SizeUtils.dp2px(6f));
         array.recycle()
+    }
 
-        if (count != 0) {
-            setIndicatorsSize(count);
-        }
+    fun setNoSelRes(id:Int){
+        noSelectIndicatorResid = id
     }
 
 

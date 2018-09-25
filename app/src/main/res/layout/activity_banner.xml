@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.kzj.mall.widget.RootLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:titleBarColor="@color/white"
+        app:titleBarLeftIcon="@mipmap/iv_close_x"
+        app:titleBarTitleColor="@color/c_2e3033">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_centerInParent="true"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:clipChildren="false">
+
+            <com.tmall.ultraviewpager.UltraViewPager
+                android:id="@+id/ultra_viewpager"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="33dp"
+                android:layout_marginRight="33dp"
+                android:clipChildren="false" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white">
+
+            <com.kzj.mall.widget.IndictorView
+                android:id="@+id/indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="30dp" />
+
+        </FrameLayout>
+    </com.kzj.mall.widget.RootLayout>
+</layout>

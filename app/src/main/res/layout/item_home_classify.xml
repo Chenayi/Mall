@@ -115,12 +115,7 @@
     <ImageView
         android:id="@+id/iv_2369"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="14dp"
-        android:scaleType="centerCrop"
-        android:src="@mipmap/icon_sample"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"/>
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"/>
 
 </LinearLayout>
