@@ -71,9 +71,11 @@ class HomeChildFragment : BaseHomeChildListFragment() {
         datas.add(HomeClassifyEntity())
 
         //公告精选
-        val homeChoiceEntity = HomeChoiceEntity()
-        homeChoiceEntity?.promotionalAd = homeEntity?.promotionalAd
-        datas.add(homeChoiceEntity)
+        homeEntity?.promotionalAd?.let {
+            val homeChoiceEntity = HomeChoiceEntity()
+            homeChoiceEntity?.promotionalAd = it
+            datas.add(homeChoiceEntity)
+        }
 
         //每日闪购
         homeEntity?.dailyBuy?.let {

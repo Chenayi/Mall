@@ -390,6 +390,7 @@
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
                                 android:layout_marginLeft="13dp"
+                                android:scaleType="centerInside"
                                 android:src="@mipmap/icon_liulanjilu" />
 
                             <TextView
@@ -438,6 +439,7 @@
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
                                 android:layout_marginLeft="13dp"
+                                android:scaleType="centerInside"
                                 android:src="@mipmap/icon_wendajilu" />
 
                             <TextView
@@ -484,6 +486,7 @@
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
                                 android:layout_marginLeft="13dp"
+                                android:scaleType="centerInside"
                                 android:src="@mipmap/icon_dizhiguanli" />
 
                             <TextView
@@ -530,6 +533,7 @@
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
                                 android:layout_marginLeft="13dp"
+                                android:scaleType="centerInside"
                                 android:src="@mipmap/icon_shangwuhezuo" />
 
                             <TextView
@@ -577,6 +581,7 @@
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
                                 android:layout_marginLeft="13dp"
+                                android:scaleType="centerInside"
                                 android:src="@mipmap/icon_about_kzj" />
 
                             <TextView
@@ -623,6 +628,7 @@
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
                                 android:layout_marginLeft="13dp"
+                                android:scaleType="centerInside"
                                 android:src="@mipmap/icon_mobile" />
 
                             <TextView

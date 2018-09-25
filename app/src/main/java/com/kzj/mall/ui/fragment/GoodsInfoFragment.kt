@@ -33,6 +33,7 @@ import org.greenrobot.eventbus.Subscribe
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.text.style.ImageSpan
+import com.kzj.mall.utils.PriceUtils
 import com.kzj.mall.widget.CenterAlignImageSpan
 
 
@@ -285,7 +286,8 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
                     mBinding?.tvBannerNum?.setText("1/" + advDatas.size)
                 }
                 //价格
-                tvGoodsPrice?.setText("¥" + it?.goodsPrice)
+                val goodsPrice = "¥" + it?.goodsPrice
+                tvGoodsPrice?.setText(PriceUtils.format(goodsPrice))
                 tvGoodsMarketPrice?.setText("¥" + it?.goodsMarketPrice)
                 tvGoodsMarketPrice?.getPaint()?.setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
                 tvMonthSalesNum?.setText("月销量:" + it?.goodsSole)
