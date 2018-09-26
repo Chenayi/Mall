@@ -2,13 +2,10 @@ package com.kzj.mall.ui.fragment
 
 import android.graphics.Color
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.blankj.utilcode.util.SizeUtils
 import com.kzj.mall.R
-import com.kzj.mall.adapter.CommomViewPagerAdapter
 import com.kzj.mall.base.BaseFragment
 import com.kzj.mall.base.IPresenter
 import com.kzj.mall.databinding.FragmentGoodsDetailBinding
@@ -56,7 +53,7 @@ class GoodsDetailFragment : BaseFragment<IPresenter, FragmentGoodsDetailBinding>
 
     override fun initData() {
 
-        val firstFragment = findChildFragment(GoodsDetailDescribeFragment::class.java)
+        val firstFragment = findChildFragment(GoodsDetailDescribeFragment2::class.java)
         if (firstFragment == null) {
             mFragments[FIRST] = GoodsDetailDescribeFragment2.newInstance(goodsDetailEntity?.gin?.goods_mobile_desc);
             val explainDatas = LocalDatas.explainDatas(goodsDetailEntity?.gn?.goodsName,

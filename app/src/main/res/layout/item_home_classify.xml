@@ -12,6 +12,7 @@
         android:orientation="horizontal">
 
         <LinearLayout
+            android:id="@+id/ll_classify"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -37,6 +38,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/ll_ask"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -62,6 +64,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/ll_ziyin"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -87,6 +90,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/ll_qingqu"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -117,6 +121,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="4dp"/>
+        android:layout_marginBottom="4dp" />
 
 </LinearLayout>

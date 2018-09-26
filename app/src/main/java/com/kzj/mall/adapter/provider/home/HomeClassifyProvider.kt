@@ -25,6 +25,10 @@ class HomeClassifyProvider : BaseItemProvider<HomeClassifyEntity, BaseViewHolder
 
     override fun convert(helper: BaseViewHolder?, data: HomeClassifyEntity?, position: Int) {
         helper?.addOnClickListener(R.id.iv_2369)
+                ?.addOnClickListener(R.id.ll_classify)
+                ?.addOnClickListener(R.id.ll_ask)
+                ?.addOnClickListener(R.id.ll_ziyin)
+                ?.addOnClickListener(R.id.ll_qingqu)
 
         val screenWidth = ScreenUtils.getScreenWidth() - SizeUtils.dp2px(20f)
         val h = 270f * screenWidth / 1020f

@@ -22,14 +22,15 @@
                 android:orientation="horizontal">
 
                 <RelativeLayout
-                    android:layout_width="92dp"
-                    android:layout_height="92dp">
+                    android:layout_width="93dp"
+                    android:layout_height="93dp">
 
                     <ImageView
-                        android:layout_width="92dp"
-                        android:layout_height="92dp"
+                        android:layout_width="83dp"
+                        android:layout_height="83dp"
                         android:src="@color/gray_default"
-                        android:id="@+id/iv_goods"/>
+                        android:id="@+id/iv_goods"
+                        android:layout_centerInParent="true"/>
 
                     <TextView
                         android:layout_width="23dp"
@@ -69,7 +70,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:singleLine="true"
-                android:text="¥239.00 x 2"
+                android:text="¥239.00"
                 android:textColor="#6A6E75"
                 android:textSize="11dp"
                 android:lines="1"

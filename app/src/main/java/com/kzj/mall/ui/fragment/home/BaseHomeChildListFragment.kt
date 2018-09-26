@@ -27,9 +27,11 @@ import android.animation.PropertyValuesHolder
 import android.support.v7.widget.RecyclerView
 import android.view.ViewConfiguration
 import android.view.animation.*
+import com.kzj.mall.event.BackClassifyEvent
 import com.kzj.mall.ui.activity.BannerActivity
 import com.kzj.mall.ui.activity.SearchActivity
 import com.kzj.mall.ui.activity.SearchWithIdActivity
+import org.greenrobot.eventbus.EventBus
 
 
 abstract class BaseHomeChildListFragment : BaseFragment<HomePresenter, FragmentBaseHomeChildListBinding>(), HomeContract.View {
@@ -109,6 +111,18 @@ abstract class BaseHomeChildListFragment : BaseFragment<HomePresenter, FragmentB
             when (view?.id) {
                 R.id.iv_2369 -> {
                     jumpGoodsDetail("2369")
+                }
+
+                R.id.ll_classify -> {
+                    EventBus.getDefault().post(BackClassifyEvent())
+                }
+
+                R.id.ll_ziyin -> {
+                    jumpSearch("滋阴保健")
+                }
+
+                R.id.ll_qingqu -> {
+                    jumpSearch("情趣用品")
                 }
 
             //精选优品 跳转商品详情

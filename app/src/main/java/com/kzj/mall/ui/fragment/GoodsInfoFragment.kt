@@ -156,11 +156,11 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
                 if (status == SlideDetailsLayout.Status.CLOSE) {
                     EventBus.getDefault().post(ScrollChangedEvent(status, alpha))
                     mBinding?.fabUpSlide?.hide()
-                    mBinding?.ivArrow?.setImageResource(R.mipmap.up)
+                    mBinding?.ivArrow?.setImageResource(R.mipmap.detail_down)
                     mBinding?.tvDetailTips?.text = "上拉查看图文详情"
                 } else if (status == SlideDetailsLayout.Status.OPEN) {
                     EventBus.getDefault().post(ScrollChangedEvent(status, 1.0f))
-                    mBinding?.ivArrow?.setImageResource(R.mipmap.down)
+                    mBinding?.ivArrow?.setImageResource(R.mipmap.detail_up)
                     mBinding?.fabUpSlide?.show()
                     mBinding?.tvDetailTips?.text = "下拉收起图文详情"
 
@@ -246,7 +246,7 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
             isFollow = it?.is_follow?.equals("1") == true
             //是否关注
             if (it?.is_follow?.equals("1") == true) {
-                ivFollow?.setImageResource(R.mipmap.icon_collected)
+                ivFollow?.setImageResource(R.mipmap.saved)
                 tvFollow?.setText("已关注")
                 tvFollow?.setTextColor(ContextCompat.getColor(context!!, R.color.colorPrimary))
             } else {
@@ -267,7 +267,7 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
             llFollow?.isEnabled = true
             isFollow = it?.is_follow?.equals("1") == true
             if (it?.is_follow?.equals("1") == true) {
-                ivFollow?.setImageResource(R.mipmap.icon_collected)
+                ivFollow?.setImageResource(R.mipmap.saved)
                 tvFollow?.setText("已关注")
                 tvFollow?.setTextColor(ContextCompat.getColor(context!!, R.color.colorPrimary))
             } else {
@@ -481,7 +481,7 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
     fun colllectSuccess() {
         tvFollow?.setText("已关注")
         tvFollow?.setTextColor(ContextCompat.getColor(context!!, R.color.colorPrimary))
-        ivFollow?.setImageResource(R.mipmap.icon_collected)
+        ivFollow?.setImageResource(R.mipmap.saved)
         llFollow?.isEnabled = true
         this@GoodsInfoFragment.isFollow = true
     }

@@ -48,7 +48,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
                     android:layout_alignParentBottom="true"
-                    android:background="@color/gray_default" />
+                    android:background="@color/gray_default"
+                    android:visibility="gone"/>
 
             </RelativeLayout>
 
@@ -59,7 +60,8 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="12dp"
                 android:scaleType="centerInside"
-                android:src="@mipmap/back_black" />
+                android:src="@mipmap/back_black"
+                android:background="@drawable/circle_white"/>
 
             <ImageView
                 android:id="@+id/iv_search"

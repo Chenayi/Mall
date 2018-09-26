@@ -18,7 +18,8 @@
             android:layout_marginLeft="10dp"
             android:text="已选"
             android:textColor="#2E3033"
-            android:textSize="14dp" />
+            android:textSize="14dp"
+            android:textStyle="bold"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -26,7 +27,8 @@
             android:layout_marginLeft="12dp"
             tools:text="0.7g/片*126片"
             android:textColor="#48B828"
-            android:id="@+id/tv_check_spec"/>
+            android:id="@+id/tv_check_spec"
+            android:textStyle="bold"/>
     </LinearLayout>
 
     <ImageView

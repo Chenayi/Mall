@@ -131,7 +131,7 @@ class GoodsGroupView : BaseRelativeLayout<GoodsGroupViewBinding> {
 
             helper?.setText(R.id.tv_num, item?.goodsNum + "盒")
                     ?.setText(R.id.tv_goods_name, item?.goods_name)
-                    ?.setText(R.id.tv_goods_price_num, "¥" + item?.goods_price + "x" + item?.goodsNum)
+                    ?.setText(R.id.tv_goods_price_num, "¥" + item?.goods_price)
         }
     }
 }

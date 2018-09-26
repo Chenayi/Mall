@@ -21,6 +21,7 @@ import com.kzj.mall.mvp.presenter.GoodsSpecPresenter
 import com.kzj.mall.ui.activity.login.LoginActivity
 import com.kzj.mall.utils.FloatUtils
 import com.kzj.mall.widget.SuperFlowLayout
+import com.makeramen.roundedimageview.RoundedImageView
 import org.greenrobot.eventbus.EventBus
 
 
@@ -119,7 +120,7 @@ class GoodsSpecDialog : BaseDialog<GoodsSpecPresenter, DialogGoodsSpecBinding>()
                     }
                     mBinding?.tvGoodsPrice?.setText("合计：¥" + FloatUtils.format(iGroup.combination_price))
                     mBinding?.tvPreGoodsPrice?.visibility = View.VISIBLE
-                    mBinding?.tvPreGoodsPrice?.setCenterString("立省：¥" + FloatUtils.format(iGroup.sumPrePrice))
+                    mBinding?.tvPreGoodsPrice?.setText("立省：¥" + FloatUtils.format(iGroup.sumPrePrice))
                     mBinding?.tvGroupName?.text = "活动套餐"
                     EventBus.getDefault().post(GoodsNumChangeEvent(1))
                     EventBus.getDefault().post(CombinationEvent(isCombination, position, iGroup))
@@ -150,7 +151,7 @@ class GoodsSpecDialog : BaseDialog<GoodsSpecPresenter, DialogGoodsSpecBinding>()
                 .load(goodsDetailEntity?.gn?.goodsImg)
                 .placeholder(R.color.gray_default)
                 .centerCrop()
-                .into(mBinding?.ivGoods!!)
+                .into(mBinding?.ivGoods as RoundedImageView)
 
         //价格
         mBinding?.tvGoodsPrice?.setText("合计：¥" + goodsDetailEntity?.gn?.goodsPrice)
@@ -258,7 +259,7 @@ class GoodsSpecDialog : BaseDialog<GoodsSpecPresenter, DialogGoodsSpecBinding>()
         val preSumPrice = oldSumPrice - sumPrice
 
         mBinding?.tvGoodsPrice?.setText("合计：¥" + FloatUtils.format(sumPrice))
-        mBinding?.tvPreGoodsPrice?.setCenterString("立省：¥" + FloatUtils.format(preSumPrice))
+        mBinding?.tvPreGoodsPrice?.setText("立省：¥" + FloatUtils.format(preSumPrice))
 
         EventBus.getDefault().post(PackageListEvent(isCombination, position, goodsInfoId, FloatUtils.format(sumPrice), FloatUtils.format(oldSumPrice)))
     }

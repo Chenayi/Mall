@@ -10,6 +10,7 @@ import com.kzj.mall.base.IPresenter
 import com.kzj.mall.databinding.ActivityMainBinding
 import com.kzj.mall.di.component.AppComponent
 import com.kzj.mall.event.BackCartEvent
+import com.kzj.mall.event.BackClassifyEvent
 import com.kzj.mall.event.BackHomeEvent
 import com.kzj.mall.event.BackMinetEvent
 import com.kzj.mall.ui.fragment.CartFragment
@@ -87,6 +88,15 @@ class MainActivity : BaseActivity<IPresenter, ActivityMainBinding>() {
         if (mBinding?.vpMain?.currentItem != HomeBottomTabBar.TAB_CART) {
             Handler().postDelayed({
                 mBinding?.homeTabBar?.switchCart()
+            }, 300)
+        }
+    }
+
+    @Subscribe
+    fun backClassifyEvent(backClassifyEvent: BackClassifyEvent) {
+        if (mBinding?.vpMain?.currentItem != HomeBottomTabBar.TAB_CLASSIFT) {
+            Handler().postDelayed({
+                mBinding?.homeTabBar?.switchClassify()
             }, 300)
         }
     }

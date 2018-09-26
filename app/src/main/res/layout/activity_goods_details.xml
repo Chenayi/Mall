@@ -72,7 +72,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="4dp"
                                 android:text="咨询"
-                                android:textColor="#6A6E75"
+                                android:textColor="@color/c_2e3033"
                                 android:textSize="10dp" />
 
                         </LinearLayout>
@@ -95,7 +95,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="4dp"
                                 android:text="电话"
-                                android:textColor="#6A6E75"
+                                android:textColor="@color/c_2e3033"
                                 android:textSize="10dp" />
 
                         </LinearLayout>
@@ -127,7 +127,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="4dp"
                                     android:text="购物车"
-                                    android:textColor="#6A6E75"
+                                    android:textColor="@color/c_2e3033"
                                     android:textSize="10dp" />
 
                             </LinearLayout>

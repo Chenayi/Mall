@@ -22,11 +22,9 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="18dp"
+                android:layout_height="wrap_content"
                 android:background="@mipmap/icon_discount_bg"
                 android:gravity="center"
-                android:paddingLeft="5dp"
-                android:paddingRight="10dp"
                 android:paddingBottom="2dp"
                 android:text="立抢"
                 android:textColor="@color/white"
@@ -76,7 +74,7 @@
                     android:singleLine="true"
                     android:text="¥239.00"
                     android:textColor="#FF4F0A"
-                    android:textSize="12dp"
+                    android:textSize="13dp"
                     android:textStyle="bold"
                     android:id="@+id/tv_price"/>
 
@@ -88,7 +86,7 @@
                     android:lines="1"
                     android:singleLine="true"
                     android:text="¥486.00"
-                    android:textSize="12dp"
+                    android:textSize="11dp"
                     android:textColor="#C2C6CC"/>
 
             </LinearLayout>
