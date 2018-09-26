@@ -11,14 +11,15 @@
             android:layout_height="match_parent"
             android:background="@color/gray_default"
             android:orientation="vertical"
-            android:padding="10dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
             android:id="@+id/ll_zizhi_root">
 
             <!-- 分割线 -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/background_white_corners_8"
+                android:background="@color/white"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -66,7 +67,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/background_white_corners_8"
+                android:background="@color/white"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -114,7 +115,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/background_white_corners_8"
+                android:background="@color/white"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -162,7 +163,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/background_white_corners_8"
+                android:background="@color/white"
                 android:orientation="vertical">
 
                 <LinearLayout

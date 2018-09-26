@@ -34,9 +34,9 @@ class GoodsZizhiFragment : BaseFragment<IPresenter, FragmentGoodsZizhiBinding>()
         val view = super.onCreateView(inflater, container, savedInstanceState)
         val margin =  SizeUtils.dp2px(10f)
         arguments?.getInt("barHeight")?.let {
-            barHeight = it +margin
+            barHeight = it
         }
-        mBinding?.llZizhiRoot?.setPadding(margin,barHeight,margin,margin)
+        mBinding?.llZizhiRoot?.setPadding(0,barHeight,0,0)
         return view
     }
 

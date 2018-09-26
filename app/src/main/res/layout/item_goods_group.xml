@@ -79,9 +79,8 @@
         <ImageView
             android:id="@+id/iv_down"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:paddingLeft="12dp"
-            android:paddingRight="12dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="2dp"
             android:src="@mipmap/down" />
 
     </LinearLayout>

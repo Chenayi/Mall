@@ -42,14 +42,13 @@ class GoodsDetailBottomFragment : BaseFragment<IPresenter, FragmentGoodsDetailBi
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = super.onCreateView(inflater, container, savedInstanceState)
-        val margin = SizeUtils.dp2px(10f)
         arguments?.getInt("barHeight")?.let {
-            barHeight = it + margin
+            barHeight = it
         }
         arguments?.getSerializable("goodsDetailEntity")?.let { it ->
             goodsDetailEntity = it as GoodsDetailEntity
         }
-        mBinding?.llDetailRoot?.setPadding(margin, barHeight, margin, margin)
+        mBinding?.llDetailRoot?.setPadding(0, barHeight, 0, 0)
         return view
     }
 

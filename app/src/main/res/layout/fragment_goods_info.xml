@@ -15,7 +15,8 @@
             <com.kzj.mall.widget.ObservableScrollView
                 android:id="@+id/osv"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:scrollbars="none">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -42,7 +43,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentBottom="true"
-                            android:layout_alignParentRight="true"
+                            android:layout_centerHorizontal="true"
                             android:layout_marginBottom="10dp"
                             android:layout_marginRight="12dp"
                             android:background="@drawable/background_aca89d_corners_9999"
@@ -90,29 +91,19 @@
 
                         </RelativeLayout>
 
-                        <TextView
-                            android:id="@+id/tv_otc"
-                            android:layout_width="wrap_content"
-                            android:layout_height="18dp"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginTop="84dp"
-                            android:background="@drawable/background_green_stroke_corners_9999"
-                            android:gravity="center"
-                            android:paddingLeft="6dp"
-                            android:paddingRight="6dp"
-                            android:text="OTC"
-                            android:textColor="@color/colorPrimary"
-                            android:textSize="11dp"
-                            android:textStyle="bold"
-                            android:visibility="gone" />
-
                     </RelativeLayout>
+
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/rl_banner"
                         android:orientation="vertical">
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:background="@color/gray_default" />
 
                         <!-- 标题 -->
                         <include
