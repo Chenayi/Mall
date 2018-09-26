@@ -32,6 +32,7 @@ import org.greenrobot.eventbus.Subscribe
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.text.style.ImageSpan
+import com.kzj.mall.ui.activity.PhotosActivity
 import com.kzj.mall.utils.PriceUtils
 import com.kzj.mall.widget.CenterAlignImageSpan
 
@@ -95,6 +96,9 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
     private var isFollow = false
 
     private var goodsDetailEntity: GoodsDetailEntity? = null
+
+
+    private var advDatas: MutableList<String>? = null
 
     /**
      * 疗程套装选中位置
@@ -200,6 +204,16 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
                     .centerCrop()
                     .dontAnimate()
                     .into(itemView)
+
+            itemView.setOnClickListener {
+                advDatas?.let {
+                    val intent = Intent(context, PhotosActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    intent.putStringArrayListExtra("advDatas", it as ArrayList<String>)
+                    intent.putExtra("position", position)
+                    startActivity(intent)
+                }
+            }
         })
         mBinding?.banner?.setOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {
@@ -276,13 +290,13 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
             it?.gn?.let {
                 //图片
                 val goodsImgs = it?.goodsImgs
-                val advDatas = ArrayList<String>()
+                advDatas = ArrayList<String>()
                 for (i in 0 until goodsImgs?.size!!) {
-                    advDatas.add(goodsImgs?.get(i).imageArtworkName!!)
+                    advDatas?.add(goodsImgs?.get(i).imageArtworkName!!)
                 }
                 mBinding?.banner?.setData(advDatas, null)
-                if (advDatas.size > 0) {
-                    mBinding?.tvBannerNum?.setText("1/" + advDatas.size)
+                if (advDatas?.size!! > 0) {
+                    mBinding?.tvBannerNum?.setText("1/" + advDatas?.size)
                 }
                 //价格
                 val goodsPrice = "¥" + it?.goodsPrice

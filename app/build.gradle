@@ -104,4 +104,5 @@ dependencies {
     implementation 'com.zhihu.android:matisse:0.5.2-beta2'
     implementation 'com.upyun:upyun-android-sdk:2.0.6'
     implementation 'com.github.nanchen2251:CompressHelper:1.0.5'
+    implementation 'com.github.chrisbanes:PhotoView:2.1.4'
 }

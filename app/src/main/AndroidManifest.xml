@@ -96,6 +96,7 @@
         <activity android:name=".ui.activity.PaySuccessActivity" />
         <activity android:name=".ui.activity.CreateAskAnswerActivity" />
         <activity android:name=".ui.activity.BannerActivity" />
+        <activity android:name=".ui.activity.PhotosActivity" />
 
 
     </application>

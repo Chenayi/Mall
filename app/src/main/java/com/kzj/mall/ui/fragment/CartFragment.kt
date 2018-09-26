@@ -618,6 +618,11 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.tv_edit -> {
+
+                if (!isDeleteMode && cartAdapter?.data?.size!! <=0){
+                    return
+                }
+
                 isDeleteMode = !isDeleteMode
                 changeDeleteMode()
             }
