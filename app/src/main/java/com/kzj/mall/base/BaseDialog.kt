@@ -44,10 +44,10 @@ abstract class BaseDialog<P : IPresenter, D : ViewDataBinding> : BaseNiceDialog(
 
     override fun convertView(p0: ViewHolder?, p1: BaseNiceDialog?) {
     }
+    abstract fun setUpComponent(appComponent: AppComponent?)
 
     abstract fun initData();
 
-    abstract fun setUpComponent(appComponent: AppComponent?)
 
     protected fun showLoadingDialog() {
         if (mLoadingDialog == null) {

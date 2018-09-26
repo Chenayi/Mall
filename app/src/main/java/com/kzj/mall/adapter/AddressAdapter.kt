@@ -31,7 +31,7 @@ class AddressAdapter constructor(addressDatas: MutableList<Address>, val isManag
                 ?.setText(R.id.tv_name, item?.addressName)
                 ?.setText(R.id.tv_mobile, Utils.subMobile(item?.addressMoblie!!))
                 ?.setText(R.id.tv_address, adddress)
-                ?.setImageResource(R.id.iv_default, if (item?.isDefault?.equals("1") == true) R.mipmap.c else R.mipmap.c_nor)
+                ?.setImageResource(R.id.iv_default, if (item?.isDefault?.equals("1") == true) R.mipmap.default_check else R.mipmap.c_nor)
                 ?.addOnClickListener(R.id.ll_edit)?.addOnClickListener(R.id.ll_default)
                 ?.addOnClickListener(R.id.ll_delete)
     }

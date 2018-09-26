@@ -85,6 +85,12 @@ class GoodsSpecDialog : BaseDialog<GoodsSpecPresenter, DialogGoodsSpecBinding>()
 
         //数量
         mBinding?.tvNum?.text = mGoodsNum?.toString()
+        if (mGoodsNum<=1){
+            mBinding?.ivMinus?.setImageResource(R.mipmap.minus_disable)
+        }else{
+            mBinding?.ivMinus?.setImageResource(R.mipmap.minus)
+        }
+
 
         //规格
         mBinding?.sflGoodsSpec?.setOnTagClickListener(object : SuperFlowLayout.OnTagClickListener {
@@ -127,6 +133,11 @@ class GoodsSpecDialog : BaseDialog<GoodsSpecPresenter, DialogGoodsSpecBinding>()
                 }
 
                 mBinding?.tvNum?.text = packetCount?.toString()
+                if (packetCount<=1){
+                    mBinding?.ivMinus?.setImageResource(R.mipmap.minus_disable)
+                }else{
+                    mBinding?.ivMinus?.setImageResource(R.mipmap.minus)
+                }
             }
         })
 
@@ -413,6 +424,13 @@ class GoodsSpecDialog : BaseDialog<GoodsSpecPresenter, DialogGoodsSpecBinding>()
                     EventBus.getDefault().post(GoodsNumChangeEvent(i))
                 }
                 mBinding?.tvNum?.text = i.toString()
+                if (i<=1){
+                    mBinding?.ivMinus?.setImageResource(R.mipmap.minus_disable)
+                }else{
+                    mBinding?.ivMinus?.setImageResource(R.mipmap.minus)
+                }
+            }else{
+                mBinding?.ivMinus?.setImageResource(R.mipmap.minus_disable)
             }
         }
     }
@@ -431,6 +449,7 @@ class GoodsSpecDialog : BaseDialog<GoodsSpecPresenter, DialogGoodsSpecBinding>()
                 }
                 mBinding?.tvNum?.text = i.toString()
             }
+            mBinding?.ivMinus?.setImageResource(R.mipmap.minus)
         }
     }
 }

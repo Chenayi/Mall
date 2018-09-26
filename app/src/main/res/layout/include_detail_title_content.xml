@@ -173,6 +173,7 @@
 
         <!-- 分割线 -->
         <LinearLayout
+            android:id="@+id/ll_service_note"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:gravity="center_vertical">

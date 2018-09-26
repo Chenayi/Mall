@@ -2,6 +2,7 @@ package com.kzj.mall.widget
 
 import android.content.Context
 import android.graphics.Color
+import android.graphics.Typeface
 import android.util.AttributeSet
 import android.view.View
 import android.widget.TextView
@@ -42,6 +43,8 @@ class SuperFlowLayout : BaseRelativeLayout<SuperFlowLayoutBinding>, View.OnClick
                     tv?.setBackgroundResource(R.drawable.background_f0_corners_9999)
                     tv?.setTextColor(Color.parseColor("#2E3033"))
                 }
+                tv?.setTextSize(12f)
+                tv?.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD))
                 tv?.setText(it.get(i))
                 tv?.setTag(i)
                 tv?.setOnClickListener(this)
@@ -68,7 +71,7 @@ class SuperFlowLayout : BaseRelativeLayout<SuperFlowLayoutBinding>, View.OnClick
     fun switchTag(position: Int, callback: Boolean) {
         for (i in 0 until textViews?.size!!) {
             val tv = textViews?.get(i)
-            tv?.setPadding(SizeUtils.dp2px(12f), SizeUtils.dp2px(8f), SizeUtils.dp2px(12f), SizeUtils.dp2px(8f))
+//            tv?.setPadding(SizeUtils.dp2px(12f), SizeUtils.dp2px(8f), SizeUtils.dp2px(12f), SizeUtils.dp2px(8f))
             if (position == i) {
                 tv?.setBackgroundResource(R.drawable.background_green_stroke_corners_9999)
                 tv?.setTextColor(Color.parseColor("#48B828"))

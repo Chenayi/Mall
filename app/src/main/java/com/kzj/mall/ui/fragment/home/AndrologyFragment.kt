@@ -92,7 +92,7 @@ class AndrologyFragment : BaseHomeChildListFragment() {
                 it?.get(0)?.isShowRecommendText = true
             }
             for (i in 0 until it.size) {
-                it?.get(i)?.isBackgroundCorners = true
+                it?.get(i)?.isBackgroundCorners = false
             }
             finishLoadMore(it)
         }

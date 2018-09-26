@@ -33,6 +33,7 @@ import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.text.style.ImageSpan
 import com.kzj.mall.ui.activity.PhotosActivity
+import com.kzj.mall.ui.dialog.ServiceNoteDialog
 import com.kzj.mall.utils.PriceUtils
 import com.kzj.mall.widget.CenterAlignImageSpan
 
@@ -78,6 +79,11 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
      * 已选规格
      */
     private var tvCheckSpec: TextView? = null
+
+    /**
+     * 服务说明
+     */
+    private var llServiceNote: LinearLayout? = null
 
 
     private var barHeight = 0
@@ -144,6 +150,9 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
         tvGoodsMarketPrice = view?.findViewById(R.id.tv_goods_market_price)
         tvApprovalNo = view?.findViewById(R.id.tv_approval_no)
         tvCheckSpec = view?.findViewById(R.id.tv_check_spec)
+
+        llServiceNote = view?.findViewById(R.id.ll_service_note)
+        llServiceNote?.setOnClickListener(this)
 
 
         mBinding?.fabUpSlide?.hide()
@@ -469,6 +478,11 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
                     return
                 }
                 addOrCancelFollow()
+            }
+            R.id.ll_service_note->{
+                ServiceNoteDialog.newInstance()
+                        .setShowBottom(true)
+                        .show(childFragmentManager)
             }
         }
     }
