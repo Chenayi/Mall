@@ -41,15 +41,15 @@ class SplashActivity : BaseActivity<SplashPresenter, ActivitySplashBinding>(), S
         requestPermissionWithPermissionCheck()
     }
 
-    @NeedsPermission(Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.READ_PHONE_STATE)
+    @NeedsPermission(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.READ_PHONE_STATE)
     fun requestPermission() {
         mPresenter?.delayFinish(3)
     }
 
-    @OnShowRationale(Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.READ_PHONE_STATE)
+    @OnShowRationale(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.READ_PHONE_STATE)
     fun showRationale(request: PermissionRequest) {
-        ConfirmDialog.newInstance("取消","确定","需要手机权限")
-                .setOnConfirmClickListener(object :ConfirmDialog.OnConfirmClickListener{
+        ConfirmDialog.newInstance("取消", "确定", "需要手机权限")
+                .setOnConfirmClickListener(object : ConfirmDialog.OnConfirmClickListener {
                     override fun onLeftClick() {
                         request.cancel()
                     }
@@ -62,10 +62,10 @@ class SplashActivity : BaseActivity<SplashPresenter, ActivitySplashBinding>(), S
                 .show(supportFragmentManager)
     }
 
-    @OnNeverAskAgain(Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.READ_PHONE_STATE)
+    @OnNeverAskAgain(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.READ_PHONE_STATE)
     internal fun showNeverAsk() {
-        ConfirmDialog.newInstance("取消","确定","请到设置中打开手机权限")
-                .setOnConfirmClickListener(object : ConfirmDialog.OnConfirmClickListener{
+        ConfirmDialog.newInstance("取消", "确定", "请到设置中打开手机权限")
+                .setOnConfirmClickListener(object : ConfirmDialog.OnConfirmClickListener {
                     override fun onRightClick() {
                         val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
                         intent.data = Uri.fromParts("package", packageName, null)
@@ -80,7 +80,7 @@ class SplashActivity : BaseActivity<SplashPresenter, ActivitySplashBinding>(), S
                 .show(supportFragmentManager)
     }
 
-    @OnPermissionDenied(Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.READ_PHONE_STATE)
+    @OnPermissionDenied(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.READ_PHONE_STATE)
     fun showDenied() {
         requestPermissionWithPermissionCheck()
     }
@@ -107,8 +107,17 @@ class SplashActivity : BaseActivity<SplashPresenter, ActivitySplashBinding>(), S
     }
 
     override fun delayFinish() {
+//        val isGuided = SPUtils.getInstance().getBoolean(C.IS_GUIDED)
+        val isGuided = false
+        if (!isGuided) {
+
+            jumpActivity(GuideActivity().javaClass)
+
+            return
+        }
+
         val token = SPUtils.getInstance()?.getString(C.SP_TOKEN)
-        if (!TextUtils.isEmpty(token)){
+        if (!TextUtils.isEmpty(token)) {
             C.IS_LOGIN = true
             C.TOKEN = token!!
         }
