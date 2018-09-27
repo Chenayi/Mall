@@ -107,12 +107,11 @@ class SplashActivity : BaseActivity<SplashPresenter, ActivitySplashBinding>(), S
     }
 
     override fun delayFinish() {
-//        val isGuided = SPUtils.getInstance().getBoolean(C.IS_GUIDED)
-        val isGuided = false
+        val isGuided = SPUtils.getInstance().getBoolean(C.IS_GUIDED)
+//        val isGuided = false
         if (!isGuided) {
-
             jumpActivity(GuideActivity().javaClass)
-
+            finish()
             return
         }
 

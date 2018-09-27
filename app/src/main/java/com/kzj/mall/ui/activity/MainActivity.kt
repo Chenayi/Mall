@@ -49,7 +49,7 @@ class MainActivity : BaseActivity<IPresenter, ActivityMainBinding>() {
     }
 
     private fun initViewPager() {
-        fragments = ArrayList()
+        fragments = ArrayList<Fragment>()
         fragments?.let {
             it.add(HomeFragment.newInstance())
             it.add(ClassifyFragment.newInstance())

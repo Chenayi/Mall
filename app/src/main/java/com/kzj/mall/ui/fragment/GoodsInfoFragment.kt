@@ -191,6 +191,7 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
 
 
         mBinding?.detailSpec?.isEnabled = false
+        mBinding?.ivNumBg?.alpha = 0.3f
         mBinding?.detailSpec?.setOnClickListener(this)
         mBinding?.fabUpSlide?.setOnClickListener(this)
     }
@@ -232,7 +233,7 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
             }
 
             override fun onPageSelected(position: Int) {
-                mBinding?.tvBannerNum?.setText((position + 1).toString() + "/" + mBinding?.banner?.views?.size?.toString())
+                mBinding?.tvBannerNum?.setText((position + 1).toString())
             }
 
         })
@@ -305,7 +306,8 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
                 }
                 mBinding?.banner?.setData(advDatas, null)
                 if (advDatas?.size!! > 0) {
-                    mBinding?.tvBannerNum?.setText("1/" + advDatas?.size)
+                    mBinding?.tvBannerNum?.setText("1")
+                    mBinding?.tvBannerCount?.text = " / "+advDatas?.size
                 }
                 //价格
                 val goodsPrice = "¥" + it?.goodsPrice

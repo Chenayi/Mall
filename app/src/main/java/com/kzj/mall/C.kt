@@ -8,8 +8,8 @@ class C {
 
 
         //        http://183.6.163.226:33300/mobile/
-        val BASE_URL = "http://testapp.kzj365.com:33300/"
-//        val BASE_URL = "http://192.168.60.233:8000/mobile/"
+//        val BASE_URL = "http://testapp.kzj365.com:33300/"
+        val BASE_URL = "http://192.168.60.233:8000/mobile/"
 
         val SPACE_ADDRESS = "http://kzjimg01.b0.upaiyun.com/"
 

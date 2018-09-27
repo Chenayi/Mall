@@ -49,16 +49,14 @@
                     android:orientation="horizontal">
 
                     <LinearLayout
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
                         android:orientation="horizontal">
 
                         <LinearLayout
                             android:id="@+id/ll_ask"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
                             android:gravity="center"
                             android:orientation="vertical">
 
@@ -79,9 +77,8 @@
 
                         <LinearLayout
                             android:id="@+id/ll_phone"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
                             android:gravity="center"
                             android:orientation="vertical">
 
@@ -102,9 +99,8 @@
 
                         <RelativeLayout
                             android:id="@+id/rl_cart"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
                             android:gravity="center"
                             android:orientation="vertical"
                             android:visibility="visible">
@@ -153,12 +149,13 @@
                     </LinearLayout>
 
                     <FrameLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
                         android:layout_height="match_parent">
 
                         <LinearLayout
                             android:id="@+id/ll_buy"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:gravity="center_vertical"
                             android:orientation="horizontal"
@@ -166,7 +163,8 @@
 
                             <TextView
                                 android:id="@+id/tv_add_cart"
-                                android:layout_width="92dp"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
                                 android:layout_height="40dp"
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginLeft="10dp"
@@ -178,7 +176,8 @@
 
                             <TextView
                                 android:id="@+id/tv_buy"
-                                android:layout_width="92dp"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
                                 android:layout_height="40dp"
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginLeft="10dp"
@@ -193,7 +192,7 @@
 
                         <TextView
                             android:id="@+id/tv_request_checkin"
-                            android:layout_width="240dp"
+                            android:layout_width="match_parent"
                             android:layout_height="40dp"
                             android:layout_gravity="center_vertical"
                             android:layout_marginLeft="10dp"
@@ -204,24 +203,22 @@
                             android:textColor="@color/white"
                             android:textStyle="bold"
                             android:visibility="gone" />
+
+                        <TextView
+                            android:id="@+id/tv_no_stock"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:background="@drawable/background_gray_c2c6cc_corners_9999"
+                            android:gravity="center"
+                            android:text="缺货"
+                            android:textColor="@color/white"
+                            android:visibility="gone" />
                     </FrameLayout>
                 </LinearLayout>
 
-
-                <com.allen.library.SuperTextView
-                    android:id="@+id/tv_no_stock"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:visibility="gone"
-                    app:sCenterTextColor="@color/white"
-                    app:sCenterTextString="缺货"
-                    app:sShapeCornersRadius="999dp"
-                    app:sShapeSelectorNormalColor="#C2C6CC"
-                    app:sShapeSelectorPressedColor="#C2C6CC"
-                    app:sUseShape="true" />
             </RelativeLayout>
         </LinearLayout>
     </LinearLayout>

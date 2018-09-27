@@ -108,6 +108,14 @@ abstract class BaseFragment<P : IPresenter, D : ViewDataBinding> : SupportFragme
         startActivity(dialIntent)
     }
 
+    fun jumpActivity(cls: Class<Any>) {
+        var intent = Intent()
+        intent.setClass(context, cls)
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(intent)
+    }
+
+
     override fun onDestroy() {
         mBinding?.unbind()
         mImmersionBar?.destroy()

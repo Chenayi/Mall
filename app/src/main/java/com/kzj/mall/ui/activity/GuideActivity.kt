@@ -20,6 +20,8 @@ class GuideActivity : BaseActivity<IPresenter, ActivityGuideBinding>() {
     private var fragments: MutableList<Fragment>? = null
     private var commomViewPagerAdapter: CommomViewPagerAdapter? = null
 
+    private var prePosition = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN)
         super.onCreate(savedInstanceState)
@@ -36,12 +38,16 @@ class GuideActivity : BaseActivity<IPresenter, ActivityGuideBinding>() {
     override fun initData() {
         SPUtils.getInstance().put(C.IS_GUIDED, true)
 
-        fragments = ArrayList()
+        fragments = ArrayList<Fragment>()
         fragments?.add(GuideFragment1.newInstance())
         fragments?.add(GuideFragment2.newInstance())
         fragments?.add(GuideFragment3.newInstance())
+
+        mBinding?.indicator?.setNoSelRes(R.drawable.indicator_gray)
+        mBinding?.indicator?.setIndicatorsSize(fragments?.size!!)
         commomViewPagerAdapter = CommomViewPagerAdapter(supportFragmentManager, fragments!!)
         mBinding?.vpGuide?.adapter = commomViewPagerAdapter
+        mBinding?.vpGuide?.offscreenPageLimit = 3
         mBinding?.vpGuide?.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {
             }
@@ -50,6 +56,7 @@ class GuideActivity : BaseActivity<IPresenter, ActivityGuideBinding>() {
             }
 
             override fun onPageSelected(position: Int) {
+                mBinding?.indicator?.setSelectIndex(position)
                 when (position) {
                     0 -> {
                         mBinding?.ivGuideBg?.setImageResource(R.mipmap.guide_bg1)
@@ -61,6 +68,7 @@ class GuideActivity : BaseActivity<IPresenter, ActivityGuideBinding>() {
                         mBinding?.ivGuideBg?.setImageResource(R.mipmap.guide_bg3)
                     }
                 }
+                prePosition = position
             }
         })
     }

@@ -388,26 +388,21 @@ class GoodsDetailActivity : BaseActivity<GoodsDetailPresenter, ActivityGoodsDeta
         gn?.goodsType?.let {
             //处方
             if (it.equals("0")) {
-                mBinding?.rlCart?.visibility = View.GONE
                 mBinding?.llBuy?.visibility = View.GONE
                 mBinding?.tvRequestCheckin?.visibility = View.VISIBLE
 
                 mBinding?.tvNoStock?.visibility = View.GONE
-                mBinding?.llBottom?.visibility = View.VISIBLE
             }
 
             //非处方
             else {
-                mBinding?.rlCart?.visibility = View.VISIBLE
                 mBinding?.llBuy?.visibility = View.VISIBLE
                 mBinding?.tvRequestCheckin?.visibility = View.GONE
 
                 if (gn?.goodsStock!! <= 0) {
                     mBinding?.tvNoStock?.visibility = View.VISIBLE
-                    mBinding?.llBottom?.visibility = View.GONE
                 } else {
                     mBinding?.tvNoStock?.visibility = View.GONE
-                    mBinding?.llBottom?.visibility = View.VISIBLE
                 }
             }
         }
