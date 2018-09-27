@@ -14,16 +14,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="60dp"
-            android:src="@mipmap/guide_title2"
-            android:visibility="invisible" />
+            android:src="@mipmap/guide_title2" />
 
         <ImageView
             android:id="@+id/iv_sub"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:src="@mipmap/guide_sub2"
-            android:visibility="invisible" />
+            android:src="@mipmap/guide_sub2" />
 
 
         <FrameLayout
@@ -43,8 +41,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="88dp"
-                android:src="@mipmap/guide_banner_002"
-                android:visibility="invisible" />
+                android:src="@mipmap/guide_banner_002"/>
         </FrameLayout>
 
     </LinearLayout>

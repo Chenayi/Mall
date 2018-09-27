@@ -40,6 +40,18 @@ class IndictorView : BaseLinearLayout<IndicatorViewBinding> {
         noSelectIndicatorResid = id
     }
 
+    fun setSelRes(id:Int){
+        selectIndicatorResid = id
+    }
+
+    fun setIndicatorWidth(width:Int){
+        indicatorWidhtDp = width
+    }
+
+    fun setIndicatorHeight(height:Int){
+        indictorHeightDp = height
+    }
+
 
     /**
      * 设置指示器

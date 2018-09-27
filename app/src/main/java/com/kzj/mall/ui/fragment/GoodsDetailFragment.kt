@@ -1,6 +1,7 @@
 package com.kzj.mall.ui.fragment
 
 import android.graphics.Color
+import android.graphics.Typeface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -84,11 +85,11 @@ class GoodsDetailFragment : BaseFragment<IPresenter, FragmentGoodsDetailBinding>
         when (v?.id) {
             R.id.rl_describe -> {
                 mBinding?.tvExplain?.setTextColor(Color.parseColor("#2E3033"))
-                mBinding?.tvExplain?.paint?.isFakeBoldText = false
+                mBinding?.tvExplain?.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL))
                 mBinding?.viewExplain?.visibility = View.GONE
 
                 mBinding?.tvDescribe?.setTextColor(Color.parseColor("#48B828"))
-                mBinding?.tvDescribe?.paint?.isFakeBoldText = true
+                mBinding?.tvDescribe?.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD))
                 mBinding?.viewDescribe?.visibility = View.VISIBLE
 
                 if (curFragment != FIRST) {
@@ -98,11 +99,11 @@ class GoodsDetailFragment : BaseFragment<IPresenter, FragmentGoodsDetailBinding>
             }
             R.id.rl_explain -> {
                 mBinding?.tvDescribe?.setTextColor(Color.parseColor("#2E3033"))
-                mBinding?.tvDescribe?.paint?.isFakeBoldText = false
+                mBinding?.tvDescribe?.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL))
                 mBinding?.viewDescribe?.visibility = View.GONE
 
                 mBinding?.tvExplain?.setTextColor(Color.parseColor("#48B828"))
-                mBinding?.tvExplain?.paint?.isFakeBoldText = true
+                mBinding?.tvExplain?.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD))
                 mBinding?.viewExplain?.visibility = View.VISIBLE
 
                 if (curFragment != SECOND) {

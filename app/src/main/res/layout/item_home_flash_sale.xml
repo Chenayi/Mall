@@ -21,12 +21,12 @@
                 android:src="@color/gray_default" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="36dp"
+                android:layout_height="18dp"
                 android:background="@mipmap/icon_discount_bg"
                 android:gravity="center"
-                android:paddingBottom="2dp"
                 android:text="立抢"
+                android:paddingRight="2dp"
                 android:textColor="@color/white"
                 android:textSize="10dp"
                 android:visibility="visible"/>

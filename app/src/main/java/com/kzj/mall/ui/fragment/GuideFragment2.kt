@@ -1,6 +1,5 @@
 package com.kzj.mall.ui.fragment
 
-import android.view.View
 import android.view.animation.TranslateAnimation
 import com.kzj.mall.R
 import com.kzj.mall.base.BaseFragment
@@ -22,20 +21,20 @@ class GuideFragment2:BaseFragment<IPresenter, FragmentGuide2Binding>() {
     }
 
     override fun initData() {
+    }
+
+    fun startAnim(){
         var animation1 = TranslateAnimation(200f, 0f,0f, 0f)
         animation1?.setDuration(100)
-        mBinding?.ivTitle?.visibility =View.VISIBLE
         mBinding?.ivTitle?.startAnimation(animation1)
 
         var animation2 = TranslateAnimation(200f, 0f,0f, 0f)
         animation2?.setDuration(200)
-        mBinding?.ivSub?.visibility =View.VISIBLE
         mBinding?.ivSub?.startAnimation(animation2)
 
 
         var animation3 = TranslateAnimation(200f, 0f,0f, 0f)
         animation3?.setDuration(300)
-        mBinding?.ivAnimView?.visibility =View.VISIBLE
         mBinding?.ivAnimView?.startAnimation(animation3)
     }
 }

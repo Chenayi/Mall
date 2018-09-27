@@ -18,16 +18,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="60dp"
-                android:src="@mipmap/guide_title3"
-                android:visibility="invisible" />
+                android:src="@mipmap/guide_title3" />
 
             <ImageView
                 android:id="@+id/iv_sub"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:src="@mipmap/guide_sub3"
-                android:visibility="invisible" />
+                android:src="@mipmap/guide_sub3" />
 
 
             <FrameLayout
@@ -48,19 +46,9 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="80dp"
                     android:scaleType="centerCrop"
-                    android:src="@mipmap/guide_banner_003"
-                    android:visibility="invisible" />
+                    android:src="@mipmap/guide_banner_003" />
             </FrameLayout>
 
         </LinearLayout>
-
-        <TextView
-            android:id="@+id/tv_in"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="54dp"
-            android:background="@mipmap/btn_in" />
     </RelativeLayout>
 </layout>

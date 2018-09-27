@@ -10,6 +10,7 @@ import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.ScreenUtils
 import com.blankj.utilcode.util.SizeUtils
 import com.kzj.mall.R
+import com.kzj.mall.adapter.GoodsDetailNavigatorTitleView
 import com.kzj.mall.base.BaseRelativeLayout
 import com.kzj.mall.databinding.TitlebarGoodsDetailBinding
 import com.kzj.mall.ui.activity.SearchActivity
@@ -19,7 +20,6 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.CommonNav
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorTransitionPagerTitleView
 
 class GoodsDetailTitleBar : BaseRelativeLayout<TitlebarGoodsDetailBinding>, View.OnClickListener {
     private val mTitles: Array<String> = arrayOf("商品", "详情", "资质")
@@ -49,7 +49,7 @@ class GoodsDetailTitleBar : BaseRelativeLayout<TitlebarGoodsDetailBinding>, View
         var commonNavigator = CommonNavigator(context)
         commonNavigator.adapter = object : CommonNavigatorAdapter() {
             override fun getTitleView(p0: Context?, index: Int): IPagerTitleView {
-                val colorTransitionPagerTitleView = ColorTransitionPagerTitleView(context)
+                val colorTransitionPagerTitleView = GoodsDetailNavigatorTitleView(context)
                 colorTransitionPagerTitleView.normalColor = Color.parseColor("#2E3033")
                 colorTransitionPagerTitleView.selectedColor = Color.parseColor("#48B828")
                 colorTransitionPagerTitleView.textSize = 15f

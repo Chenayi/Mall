@@ -178,6 +178,7 @@
                                 android:id="@+id/tv_rx_tips"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_marginBottom="10dp"
                                 android:text="如需协助可在线咨询药师或拨打热线4006356343"
                                 android:textColor="#6A6E75"
                                 android:textSize="12dp" />
