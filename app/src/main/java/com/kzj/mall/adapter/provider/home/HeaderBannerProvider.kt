@@ -63,7 +63,7 @@ class HeaderBannerProvider : BaseItemProvider<HomeHeaderBannerEntity, BaseViewHo
             ultraViewPager?.viewPager?.pageMargin = SizeUtils.dp2px(10f)
             ultraViewPager?.viewPager?.offscreenPageLimit = banners?.size!!
             ultraViewPager?.setInfiniteLoop(true);
-            ultraViewPager?.setAutoScroll(2000)
+            ultraViewPager?.setAutoScroll(5000)
             ultraViewPager?.setAdapter(adapter);
             ultraViewPager?.setPageTransformer(true, ScaleInTransformer());
 
@@ -94,7 +94,7 @@ class HeaderBannerProvider : BaseItemProvider<HomeHeaderBannerEntity, BaseViewHo
 
     fun startBanner() {
         if (bannerPlaying == false) {
-            ultraViewPager?.setAutoScroll(2000)
+            ultraViewPager?.setAutoScroll(5000)
         }
         bannerPlaying = true
     }

@@ -10,29 +10,30 @@
 
 
         <ImageView
+            android:id="@+id/iv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="60dp"
-            android:src="@mipmap/guide_title1"
-            android:id="@+id/iv_title"/>
+            android:src="@mipmap/guide_title1" />
 
         <ImageView
+            android:id="@+id/iv_sub"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:src="@mipmap/guide_sub1"
-            android:id="@+id/iv_sub"/>
+            android:src="@mipmap/guide_sub1" />
 
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp">
+            android:layout_height="0dp"
+            android:layout_marginTop="50dp"
+            android:layout_weight="1">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
+                android:layout_gravity="center_horizontal|bottom"
                 android:src="@mipmap/guide_001" />
 
             <ImageView
