@@ -20,7 +20,6 @@ import com.kzj.mall.entity.home.HomeRecommendEntity
 import com.kzj.mall.entity.home.IHomeEntity
 import com.kzj.mall.mvp.contract.HomeContract
 import com.kzj.mall.mvp.presenter.HomePresenter
-import com.kzj.mall.ui.activity.GoodsDetailActivity
 import com.kzj.mall.widget.ExpandLoadMoewView
 import android.animation.ObjectAnimator
 import android.animation.PropertyValuesHolder
@@ -28,9 +27,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.ViewConfiguration
 import android.view.animation.*
 import com.kzj.mall.event.BackClassifyEvent
-import com.kzj.mall.ui.activity.BannerActivity
-import com.kzj.mall.ui.activity.SearchActivity
-import com.kzj.mall.ui.activity.SearchWithIdActivity
+import com.kzj.mall.ui.activity.*
 import org.greenrobot.eventbus.EventBus
 
 
@@ -420,15 +417,23 @@ abstract class BaseHomeChildListFragment : BaseFragment<HomePresenter, FragmentB
     }
 
     override fun onSupportInvisible() {
-        headerBannerProvider?.pauseBanner()
+        pauseBanner()
         super.onSupportInvisible()
+    }
+
+    fun pauseBanner() {
+        headerBannerProvider?.pauseBanner()
+    }
+
+    fun startBanner() {
+        if (firstVisibleItemPosition == 0) {
+            headerBannerProvider?.startBanner()
+        }
     }
 
     override fun onSupportVisible() {
         super.onSupportVisible()
-        if (firstVisibleItemPosition == 0) {
-            headerBannerProvider?.startBanner()
-        }
+        startBanner()
     }
 
     open fun enableLoadMore(): Boolean {
@@ -451,13 +456,15 @@ abstract class BaseHomeChildListFragment : BaseFragment<HomePresenter, FragmentB
     fun setBackGroundColor(colorRes: Int?) {
         colorRes?.let {
             backgroundColor = it
-            (parentFragment as HomeFragment)?.setBackGroundColor(it)
+            (parentFragment as HomeFragment)?.setBackGroundColor(backgroundColor)
+            (activity as MainActivity)?.changeHomeBarColor(it)
         }
     }
 
     fun changeBackgroundColor() {
         backgroundColor?.let {
             (parentFragment as HomeFragment)?.setBackGroundColor(backgroundColor)
+            (activity as MainActivity)?.changeHomeBarColor(it)
         }
     }
 

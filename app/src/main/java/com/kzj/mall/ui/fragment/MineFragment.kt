@@ -6,7 +6,6 @@ import android.view.View
 import android.widget.RelativeLayout
 import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.SizeUtils
-import com.gyf.barlibrary.ImmersionBar
 import com.kzj.mall.C
 import com.kzj.mall.GlideApp
 import com.kzj.mall.R
@@ -43,18 +42,10 @@ class MineFragment : BaseFragment<MinePresenter, FragmentMineBinding>(), View.On
         return R.layout.fragment_mine
     }
 
-    override fun isImmersionBarEnabled(): Boolean {
-        return true
-    }
-
     override fun enableEventBus(): Boolean {
         return true
     }
 
-    override fun initImmersionBar() {
-        mImmersionBar = ImmersionBar.with(this)
-        mImmersionBar?.init()
-    }
 
     override fun setupComponent(appComponent: AppComponent?) {
         DaggerMineComponent.builder()

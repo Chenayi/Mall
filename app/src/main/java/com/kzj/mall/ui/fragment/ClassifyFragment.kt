@@ -32,15 +32,6 @@ class ClassifyFragment : BaseFragment<ClassifyLeftPresenter, FragmentClassifyBin
         return R.layout.fragment_classify
     }
 
-    override fun isImmersionBarEnabled(): Boolean {
-        return true
-    }
-
-    override fun initImmersionBar() {
-        immersionBarColor = R.color.colorPrimary
-        super.initImmersionBar()
-    }
-
     override fun setupComponent(appComponent: AppComponent?) {
         DaggerClassifyLeftComponent.builder()
                 .appComponent(appComponent)

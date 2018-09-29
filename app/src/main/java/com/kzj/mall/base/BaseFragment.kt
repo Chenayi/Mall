@@ -14,7 +14,6 @@ import javax.inject.Inject
 import com.gyf.barlibrary.ImmersionBar
 import com.kzj.mall.App
 import com.kzj.mall.C
-import com.kzj.mall.R
 import com.kzj.mall.di.component.AppComponent
 import com.kzj.mall.ui.dialog.LoadingDialog
 import com.yinglan.keyboard.HideUtil
@@ -28,8 +27,6 @@ abstract class BaseFragment<P : IPresenter, D : ViewDataBinding> : SupportFragme
     protected var mBinding: D? = null
 
     protected var mImmersionBar: ImmersionBar? = null
-
-    protected var immersionBarColor = R.color.white
 
     protected var mApp: App? = null
 
@@ -70,13 +67,6 @@ abstract class BaseFragment<P : IPresenter, D : ViewDataBinding> : SupportFragme
     protected open fun enableEventBus() = false
 
 
-    override fun onSupportVisible() {
-        super.onSupportVisible()
-        if (isImmersionBarEnabled()) {
-            initImmersionBar()
-        }
-    }
-
     protected fun showLoadingDialog() {
         if (mLoadingDialog == null) {
             mLoadingDialog = LoadingDialog
@@ -91,16 +81,6 @@ abstract class BaseFragment<P : IPresenter, D : ViewDataBinding> : SupportFragme
 
     protected fun dismissLoadingDialog() {
         mLoadingDialog?.dismiss()
-    }
-
-    protected open fun isImmersionBarEnabled(): Boolean {
-        return false
-    }
-
-    protected open fun initImmersionBar() {
-        mImmersionBar = ImmersionBar.with(this)
-        mImmersionBar?.fitsSystemWindows(true, immersionBarColor)
-                ?.init()
     }
 
     protected fun call(){

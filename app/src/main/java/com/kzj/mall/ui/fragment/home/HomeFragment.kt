@@ -13,11 +13,9 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.CommonNav
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView
 import android.graphics.Color
-import android.support.v4.content.ContextCompat
 import android.support.v4.view.ViewPager
 import android.view.View
 import com.blankj.utilcode.util.SizeUtils
-import com.gyf.barlibrary.ImmersionBar
 import com.kzj.mall.adapter.HomeNavigatorTitleView
 import com.kzj.mall.di.component.AppComponent
 import com.kzj.mall.entity.home.HomeTabEntity
@@ -118,23 +116,6 @@ class HomeFragment : BaseFragment<IPresenter, FragmentHomeBinding>(), View.OnCli
         mBinding?.rlSearch?.setOnClickListener(this)
     }
 
-    override fun isImmersionBarEnabled(): Boolean {
-        return false
-    }
-
-    override fun initImmersionBar() {
-        val currentItem = mBinding?.vpHome?.currentItem
-        if (currentItem == 1) {
-            immersionBarColor = R.color.colorPrimaryDark
-        } else {
-            immersionBarColor = R.color.colorPrimary
-        }
-        mImmersionBar = ImmersionBar.with(this)
-        mImmersionBar?.statusBarColor(immersionBarColor)
-                ?.fitsSystemWindows(true)
-                ?.init()
-    }
-
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.iv_classify -> {
@@ -173,12 +154,14 @@ class HomeFragment : BaseFragment<IPresenter, FragmentHomeBinding>(), View.OnCli
 
     fun setBackGroundColor(colorRes: Int?) {
         colorRes?.let {
-            mImmersionBar = ImmersionBar.with(this@HomeFragment)
-            mImmersionBar?.statusBarColorInt(it)
-                    ?.fitsSystemWindows(true)
-                    ?.init()
             mBinding?.llTopSearch?.setBackgroundColor(it)
             mBinding?.llTab?.setBackgroundColor(it)
         }
+    }
+
+    fun pauseBanner() {
+        val currentItem = mBinding?.vpHome?.currentItem!!
+        val fragment = mFragments?.get(currentItem)
+        (fragment as BaseHomeChildListFragment).pauseBanner()
     }
 }

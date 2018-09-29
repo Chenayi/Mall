@@ -12,7 +12,6 @@ import com.kzj.mall.entity.home.IHomeEntity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import com.blankj.utilcode.util.SizeUtils
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -63,7 +62,7 @@ class HeaderBannerProvider : BaseItemProvider<HomeHeaderBannerEntity, BaseViewHo
             ultraViewPager?.viewPager?.pageMargin = SizeUtils.dp2px(10f)
             ultraViewPager?.viewPager?.offscreenPageLimit = banners?.size!!
             ultraViewPager?.setInfiniteLoop(true);
-            ultraViewPager?.setAutoScroll(5000)
+            ultraViewPager?.setAutoScroll(3000)
             ultraViewPager?.setAdapter(adapter);
             ultraViewPager?.setPageTransformer(true, ScaleInTransformer());
 
@@ -94,7 +93,7 @@ class HeaderBannerProvider : BaseItemProvider<HomeHeaderBannerEntity, BaseViewHo
 
     fun startBanner() {
         if (bannerPlaying == false) {
-            ultraViewPager?.setAutoScroll(5000)
+            ultraViewPager?.setAutoScroll(3000)
         }
         bannerPlaying = true
     }
