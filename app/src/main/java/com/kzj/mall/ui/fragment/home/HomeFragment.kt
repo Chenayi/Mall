@@ -16,9 +16,11 @@ import android.graphics.Color
 import android.support.v4.view.ViewPager
 import android.view.View
 import com.blankj.utilcode.util.SizeUtils
+import com.blankj.utilcode.util.ToastUtils
 import com.kzj.mall.adapter.HomeNavigatorTitleView
 import com.kzj.mall.di.component.AppComponent
 import com.kzj.mall.entity.home.HomeTabEntity
+import com.kzj.mall.ui.activity.MessageActivity
 import com.kzj.mall.ui.activity.SearchActivity
 import com.kzj.mall.ui.dialog.HomeTabClassifyPop
 import net.lucode.hackware.magicindicator.ViewPagerHelper
@@ -114,6 +116,8 @@ class HomeFragment : BaseFragment<IPresenter, FragmentHomeBinding>(), View.OnCli
 
         mBinding?.ivClassify?.setOnClickListener(this)
         mBinding?.rlSearch?.setOnClickListener(this)
+        mBinding?.llScan?.setOnClickListener(this)
+        mBinding?.llMsg?.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
@@ -125,6 +129,12 @@ class HomeFragment : BaseFragment<IPresenter, FragmentHomeBinding>(), View.OnCli
                 val intent = Intent(context, SearchActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(intent)
+            }
+            R.id.ll_scan->{
+                ToastUtils.showShort("敬请期待")
+            }
+            R.id.ll_msg->{
+                jumpActivity(MessageActivity().javaClass)
             }
         }
     }

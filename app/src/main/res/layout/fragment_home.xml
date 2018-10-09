@@ -18,6 +18,7 @@
             android:paddingTop="12dp">
 
             <LinearLayout
+                android:id="@+id/ll_scan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -69,6 +70,7 @@
             </RelativeLayout>
 
             <LinearLayout
+                android:id="@+id/ll_msg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -109,7 +111,7 @@
                     android:id="@+id/magic_indicator"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_gravity="center"/>
+                    android:layout_gravity="center" />
             </FrameLayout>
 
 

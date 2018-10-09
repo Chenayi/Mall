@@ -4,14 +4,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
 import android.view.ViewGroup
 import com.blankj.utilcode.util.ToastUtils
 import com.kzj.mall.R
-import com.kzj.mall.adapter.ClassifyRightAdapter
 import com.kzj.mall.adapter.ClassifyRightAdapter2
 import com.kzj.mall.base.BaseFragment
-import com.kzj.mall.base.IPresenter
 import com.kzj.mall.databinding.FragmentClassifyRightBinding
 import com.kzj.mall.di.component.AppComponent
 import com.kzj.mall.di.component.DaggerClassifyRightComponent
@@ -20,7 +17,6 @@ import com.kzj.mall.entity.ClassifyRightEntity
 import com.kzj.mall.mvp.contract.ClassifyRightContract
 import com.kzj.mall.mvp.presenter.ClassifyRightPresenter
 import com.kzj.mall.ui.activity.SearchWithIdActivity
-import com.kzj.mall.utils.LocalDatas
 
 class ClassifyRightFragment : BaseFragment<ClassifyRightPresenter, FragmentClassifyRightBinding>(), ClassifyRightContract.View {
     private var classifyRightAdapter: ClassifyRightAdapter2? = null

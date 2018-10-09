@@ -98,6 +98,7 @@
         <activity android:name=".ui.activity.BannerActivity" />
         <activity android:name=".ui.activity.PhotosActivity" />
         <activity android:name=".ui.activity.GuideActivity" />
+        <activity android:name=".ui.activity.MessageActivity" />
 
 
     </application>

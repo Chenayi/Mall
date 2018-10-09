@@ -105,9 +105,9 @@ class HomeChildFragment : BaseHomeChildListFragment() {
         datas.add(sexToyEntity)
 
         //问答解惑
-        val homeAskAnswerEntity = HomeAskAnswerEntity()
-        homeAskAnswerEntity?.askList = homeEntity?.askList
-        datas.add(homeAskAnswerEntity)
+//        val homeAskAnswerEntity = HomeAskAnswerEntity()
+//        homeAskAnswerEntity?.askList = homeEntity?.askList
+//        datas.add(homeAskAnswerEntity)
 
         setListDatas(datas)
     }

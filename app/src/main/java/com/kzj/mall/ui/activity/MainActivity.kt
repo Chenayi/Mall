@@ -3,6 +3,7 @@ package com.kzj.mall.ui.activity
 import android.os.Handler
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
+import com.blankj.utilcode.util.ToastUtils
 import com.gyf.barlibrary.ImmersionBar
 import com.kzj.mall.R
 import com.kzj.mall.adapter.CommomViewPagerAdapter
@@ -48,6 +49,9 @@ class MainActivity : BaseActivity<IPresenter, ActivityMainBinding>() {
         mBinding?.vpMain?.setNoScroll(true)
         initViewPager()
         initBottomBar()
+        mBinding?.ivFunction?.setOnClickListener {
+            ToastUtils.showShort("敬请期待")
+        }
     }
 
     override fun enableEventBusCloseActivity(): Boolean {

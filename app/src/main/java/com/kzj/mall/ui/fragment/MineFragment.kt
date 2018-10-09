@@ -90,6 +90,7 @@ class MineFragment : BaseFragment<MinePresenter, FragmentMineBinding>(), View.On
         mBinding?.ivCGoods3?.setOnClickListener(this)
         mBinding?.ivCGoods4?.setOnClickListener(this)
         mBinding?.rlMobile?.setOnClickListener(this)
+        mBinding?.ivMsg?.setOnClickListener(this)
     }
 
     @Subscribe
@@ -444,6 +445,9 @@ class MineFragment : BaseFragment<MinePresenter, FragmentMineBinding>(), View.On
             }
             R.id.rl_mobile->{
                 call()
+            }
+            R.id.iv_msg->{
+                jumpActivity(MessageActivity().javaClass)
             }
         }
     }

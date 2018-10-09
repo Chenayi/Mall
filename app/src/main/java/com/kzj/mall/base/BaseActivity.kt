@@ -7,7 +7,6 @@ import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
 import android.net.Uri
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.view.WindowManager
 import com.blankj.utilcode.util.KeyboardUtils
 import com.gyf.barlibrary.ImmersionBar
