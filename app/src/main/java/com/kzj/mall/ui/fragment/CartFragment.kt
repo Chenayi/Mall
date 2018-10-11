@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.blankj.utilcode.util.ToastUtils
+import com.gyf.barlibrary.ImmersionBar
 import com.kzj.mall.C
 import com.kzj.mall.R
 import com.kzj.mall.adapter.CartAdapter
@@ -53,6 +54,8 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
 
     override fun enableEventBus() = true
 
+
+
     override fun setupComponent(appComponent: AppComponent?) {
         DaggerCartComponent.builder()
                 .appComponent(appComponent)
@@ -61,6 +64,14 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
                 .inject(this)
     }
 
+
+    override fun initImmersionBar() {
+        mImmersionBar = ImmersionBar.with(this)
+        mImmersionBar?.fitsSystemWindows(true)
+                ?.statusBarColor(R.color.white)
+                ?.statusBarDarkFont(true, 0.5f)
+                ?.init()
+    }
 
     override fun initData() {
         cartAdapter = CartAdapter(ArrayList())

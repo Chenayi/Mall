@@ -54,17 +54,23 @@ abstract class BaseFragment<P : IPresenter, D : ViewDataBinding> : SupportFragme
         super.onLazyInitView(savedInstanceState)
         mApp = activity?.application as App
         setupComponent(mApp?.getAppComponent())
-        if (enableEventBus()){
+        if (enableEventBus()) {
             EventBus.getDefault().register(this)
         }
         initData()
         isAcquired = true
     }
 
+    override fun onSupportVisible() {
+        super.onSupportVisible()
+        initImmersionBar()
+    }
+
     abstract fun getLayoutId(): Int
     abstract fun setupComponent(appComponent: AppComponent?)
     abstract fun initData()
     protected open fun enableEventBus() = false
+    protected open fun initImmersionBar() {}
 
 
     protected fun showLoadingDialog() {
@@ -83,7 +89,7 @@ abstract class BaseFragment<P : IPresenter, D : ViewDataBinding> : SupportFragme
         mLoadingDialog?.dismiss()
     }
 
-    protected fun call(){
+    protected fun call() {
         val dialIntent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + C.CUSTOMER_TEL))
         startActivity(dialIntent)
     }
@@ -102,7 +108,7 @@ abstract class BaseFragment<P : IPresenter, D : ViewDataBinding> : SupportFragme
         if (::mPresenter.isInitialized) {
             mPresenter.onDestory();
         }
-        if (enableEventBus()){
+        if (enableEventBus()) {
             EventBus.getDefault().unregister(this)
         }
         super.onDestroy()

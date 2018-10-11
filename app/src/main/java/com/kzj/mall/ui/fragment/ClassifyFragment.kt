@@ -4,6 +4,7 @@ import android.content.Intent
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import com.gyf.barlibrary.ImmersionBar
 import com.kzj.mall.R
 import com.kzj.mall.adapter.ClassifyLeftAdapter
 import com.kzj.mall.adapter.CommomViewPagerAdapter
@@ -38,6 +39,14 @@ class ClassifyFragment : BaseFragment<ClassifyLeftPresenter, FragmentClassifyBin
                 .classifyLeftModule(ClassifyLeftModule(this))
                 .build()
                 .inject(this)
+    }
+
+    override fun initImmersionBar() {
+        mImmersionBar = ImmersionBar.with(this)
+        mImmersionBar?.fitsSystemWindows(true)
+                ?.statusBarColor(R.color.colorPrimary)
+                ?.statusBarDarkFont(false)
+                ?.init()
     }
 
 

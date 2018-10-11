@@ -17,6 +17,9 @@ class OtherFragment : BaseHomeChildListFragment() {
         return R.layout.fragment_home_other
     }
 
+    override fun setBackGroundColor(colorRes: Int?) {
+    }
+
     override fun useRoundedCorners() = false
 
     override fun initData() {

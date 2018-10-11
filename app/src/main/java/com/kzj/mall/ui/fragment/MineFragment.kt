@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.RelativeLayout
 import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.SizeUtils
+import com.gyf.barlibrary.ImmersionBar
 import com.kzj.mall.C
 import com.kzj.mall.GlideApp
 import com.kzj.mall.R
@@ -54,6 +55,15 @@ class MineFragment : BaseFragment<MinePresenter, FragmentMineBinding>(), View.On
                 .build()
                 .inject(this)
     }
+
+    override fun initImmersionBar() {
+        mImmersionBar = ImmersionBar.with(this)
+        mImmersionBar?.fitsSystemWindows(false)
+                ?.statusBarColor(R.color.tran)
+                ?.statusBarDarkFont(false)
+                ?.init()
+    }
+
 
 
     override fun initData() {

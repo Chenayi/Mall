@@ -1,6 +1,7 @@
 package com.kzj.mall.ui.fragment.home
 
 import com.chad.library.adapter.base.util.ProviderDelegate
+import com.gyf.barlibrary.ImmersionBar
 import com.kzj.mall.C
 import com.kzj.mall.adapter.provider.home.*
 import com.kzj.mall.entity.AndrologySpecialFieldEntity
@@ -21,6 +22,16 @@ class AndrologyFragment : BaseHomeChildListFragment() {
         }
     }
 
+    override fun initImmersionBar() {
+        if (!isBarPrimaryColor()){
+            mImmersionBar = ImmersionBar.with(this)
+            mImmersionBar?.fitsSystemWindows(true)
+                    ?.statusBarColorInt(bannerColorRes!!)
+                    ?.statusBarDarkFont(false)
+                    ?.init()
+        }
+    }
+
     override fun initData() {
         super.initData()
         setListDatas(ArrayList())
@@ -29,6 +40,11 @@ class AndrologyFragment : BaseHomeChildListFragment() {
         }
 
         mPresenter?.requestAndrologyDatas()
+    }
+
+    override fun setBackGroundColor(colorRes: Int?) {
+        (parentFragment as HomeFragment)?.setTopBackGroundColor(colorRes)
+        bannerColorRes = colorRes
     }
 
     override fun useRoundedCorners() = false
@@ -64,7 +80,7 @@ class AndrologyFragment : BaseHomeChildListFragment() {
 
         //亲热
         homeEntity?.qinre?.let {
-            if (it?.size>0){
+            if (it?.size > 0) {
                 var andrologySpecialFieldEntity2 = AndrologySpecialFieldEntity()
                 andrologySpecialFieldEntity2?.specialFields = homeEntity?.qinre
                 andrologySpecialFieldEntity2.type = AndrologySpecialFieldEntity.TYPE_QINRE
@@ -74,7 +90,7 @@ class AndrologyFragment : BaseHomeChildListFragment() {
 
         //滋补
         homeEntity?.zibu?.let {
-            if (it?.size >0){
+            if (it?.size > 0) {
                 var andrologySpecialFieldEntity1 = AndrologySpecialFieldEntity()
                 andrologySpecialFieldEntity1?.specialFields = homeEntity?.zibu
                 andrologySpecialFieldEntity1.type = AndrologySpecialFieldEntity.TYPE_ZIBU

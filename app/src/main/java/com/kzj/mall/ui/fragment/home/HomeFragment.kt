@@ -13,10 +13,13 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.CommonNav
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView
 import android.graphics.Color
+import android.os.Bundle
+import android.support.v4.content.ContextCompat
 import android.support.v4.view.ViewPager
 import android.view.View
 import com.blankj.utilcode.util.SizeUtils
 import com.blankj.utilcode.util.ToastUtils
+import com.gyf.barlibrary.ImmersionBar
 import com.kzj.mall.adapter.HomeNavigatorTitleView
 import com.kzj.mall.di.component.AppComponent
 import com.kzj.mall.entity.home.HomeTabEntity
@@ -65,12 +68,26 @@ class HomeFragment : BaseFragment<IPresenter, FragmentHomeBinding>(), View.OnCli
                 }
 
                 override fun onPageSelected(position: Int) {
-                    when (position) {
-                        0 -> {
-                            (mFragments?.get(position) as HomeChildFragment)?.changeBackgroundColor()
+                    when(position){
+                        0->{
+                            val  homeChildFragment = (mFragments?.get(position) as HomeChildFragment)
+                            val barPrimaryColor = homeChildFragment.isBarPrimaryColor()
+                            if (barPrimaryColor){
+                                setTopBackGroundColor(ContextCompat.getColor(context!!,R.color.colorPrimary))
+                            }else{
+                                val bannerColorRes = homeChildFragment.bannerColorRes()
+                                setTopBackGroundColor(bannerColorRes)
+                            }
                         }
-                        1 -> {
-                            (mFragments?.get(position) as AndrologyFragment)?.changeBackgroundColor()
+                        1->{
+                            val  andrologyFragment = (mFragments?.get(position) as AndrologyFragment)
+                            val barPrimaryColor = andrologyFragment.isBarPrimaryColor()
+                            if (barPrimaryColor){
+                                setTopBackGroundColor(ContextCompat.getColor(context!!,R.color.colorPrimary))
+                            }else{
+                                val bannerColorRes = andrologyFragment.bannerColorRes()
+                                setTopBackGroundColor(bannerColorRes)
+                            }
                         }
                     }
                 }
@@ -130,10 +147,10 @@ class HomeFragment : BaseFragment<IPresenter, FragmentHomeBinding>(), View.OnCli
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(intent)
             }
-            R.id.ll_scan->{
+            R.id.ll_scan -> {
                 ToastUtils.showShort("敬请期待")
             }
-            R.id.ll_msg->{
+            R.id.ll_msg -> {
                 jumpActivity(MessageActivity().javaClass)
             }
         }
@@ -150,20 +167,13 @@ class HomeFragment : BaseFragment<IPresenter, FragmentHomeBinding>(), View.OnCli
         homeTabClassifyPop?.showPopupWindow(mBinding?.llTopSearch)
     }
 
-    fun changeBackgroundColor() {
-        val currentItem = mBinding?.vpHome?.currentItem
-        when (currentItem) {
-            0 -> {
-                (mFragments?.get(currentItem) as HomeChildFragment)?.changeBackgroundColor()
-            }
-            1 -> {
-                (mFragments?.get(currentItem) as AndrologyFragment)?.changeBackgroundColor()
-            }
-        }
-    }
-
-    fun setBackGroundColor(colorRes: Int?) {
+    fun setTopBackGroundColor(colorRes: Int?) {
         colorRes?.let {
+            mImmersionBar = ImmersionBar.with(this)
+            mImmersionBar?.fitsSystemWindows(true)
+                    ?.statusBarColorInt(colorRes)
+                    ?.statusBarDarkFont(false)
+                    ?.init()
             mBinding?.llTopSearch?.setBackgroundColor(it)
             mBinding?.llTab?.setBackgroundColor(it)
         }

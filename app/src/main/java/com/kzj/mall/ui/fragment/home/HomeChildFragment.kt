@@ -1,6 +1,7 @@
 package com.kzj.mall.ui.fragment.home
 
 import com.chad.library.adapter.base.util.ProviderDelegate
+import com.gyf.barlibrary.ImmersionBar
 import com.kzj.mall.C
 import com.kzj.mall.adapter.provider.home.*
 import com.kzj.mall.entity.HomeEntity
@@ -27,6 +28,21 @@ class HomeChildFragment : BaseHomeChildListFragment() {
             mPresenter?.requestHomeDatas()
         }
         mPresenter?.requestHomeDatas()
+    }
+
+    override fun initImmersionBar() {
+        if (!isBarPrimaryColor()){
+            mImmersionBar = ImmersionBar.with(this)
+            mImmersionBar?.fitsSystemWindows(true)
+                    ?.statusBarColorInt(bannerColorRes!!)
+                    ?.statusBarDarkFont(false)
+                    ?.init()
+        }
+    }
+
+    override fun setBackGroundColor(colorRes: Int?) {
+        (parentFragment as HomeFragment)?.setTopBackGroundColor(colorRes)
+        bannerColorRes = colorRes
     }
 
 

@@ -32,5 +32,7 @@ class C {
         var TOKEN = ""
 
         val IS_GUIDED = "is_guide"
+
+        var IS_BAR_PRIMARY_COLOR = false
     }
 }

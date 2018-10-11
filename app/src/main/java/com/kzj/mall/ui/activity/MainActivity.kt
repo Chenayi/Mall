@@ -24,7 +24,6 @@ import org.greenrobot.eventbus.Subscribe
 
 class MainActivity : BaseActivity<IPresenter, ActivityMainBinding>() {
 
-    private var homeBarColor = 0
 
     private var vpAdapter: CommomViewPagerAdapter? = null
     private var fragments: MutableList<Fragment>? = null
@@ -37,10 +36,9 @@ class MainActivity : BaseActivity<IPresenter, ActivityMainBinding>() {
     }
 
     override fun initImmersionBar() {
-        homeBarColor = ContextCompat.getColor(this, R.color.colorPrimary)
         mImmersionBar = ImmersionBar.with(this)
         mImmersionBar?.fitsSystemWindows(true)
-                ?.statusBarColorInt(homeBarColor)
+                ?.statusBarColorInt(ContextCompat.getColor(this, R.color.colorPrimary))
                 ?.statusBarDarkFont(false)
                 ?.init()
     }
@@ -76,7 +74,6 @@ class MainActivity : BaseActivity<IPresenter, ActivityMainBinding>() {
         mBinding?.homeTabBar?.setOnTabChooseListener(object : HomeBottomTabBar.OnTabChooseListener {
             override fun onTabChoose(tab: Int) {
                 mBinding?.vpMain?.setCurrentItem(tab, false)
-                changeTabImmersionBar(tab)
                 if (tab != HomeBottomTabBar.TAB_HOME) {
                     (fragments?.get(0) as HomeFragment).pauseBanner()
                 }
@@ -84,43 +81,6 @@ class MainActivity : BaseActivity<IPresenter, ActivityMainBinding>() {
         })
     }
 
-    fun changeHomeBarColor(colorInt: Int) {
-        homeBarColor = colorInt
-        mImmersionBar?.fitsSystemWindows(true)
-                ?.statusBarColorInt(homeBarColor)
-                ?.statusBarDarkFont(false)
-                ?.init()
-    }
-
-    fun changeTabImmersionBar(position: Int) {
-        when (position) {
-            HomeBottomTabBar.TAB_HOME -> {
-                mImmersionBar?.fitsSystemWindows(true)
-                        ?.statusBarColorInt(homeBarColor)
-                        ?.statusBarDarkFont(false)
-                        ?.init()
-            }
-
-            HomeBottomTabBar.TAB_CLASSIFT -> {
-                mImmersionBar?.fitsSystemWindows(true)
-                        ?.statusBarColor(R.color.colorPrimary)
-                        ?.statusBarDarkFont(false)
-                        ?.init()
-            }
-            HomeBottomTabBar.TAB_CART -> {
-                mImmersionBar?.fitsSystemWindows(true)
-                        ?.statusBarColor(R.color.white)
-                        ?.statusBarDarkFont(true, 0.5f)
-                        ?.init()
-            }
-            HomeBottomTabBar.TAB_MINE -> {
-                mImmersionBar?.fitsSystemWindows(false)
-                        ?.statusBarColor(R.color.tran)
-                        ?.statusBarDarkFont(false)
-                        ?.init()
-            }
-        }
-    }
 
     @Subscribe
     fun backHomeEvent(backHomeEvent: BackHomeEvent) {

@@ -23,6 +23,7 @@ import com.kzj.mall.mvp.presenter.HomePresenter
 import com.kzj.mall.widget.ExpandLoadMoewView
 import android.animation.ObjectAnimator
 import android.animation.PropertyValuesHolder
+import android.os.Bundle
 import android.support.v7.widget.RecyclerView
 import android.view.ViewConfiguration
 import android.view.animation.*
@@ -34,11 +35,18 @@ import org.greenrobot.eventbus.EventBus
 abstract class BaseHomeChildListFragment : BaseFragment<HomePresenter, FragmentBaseHomeChildListBinding>(), HomeContract.View {
     private var listAdapter: ListAdapter? = null
     protected var headerBannerProvider: HeaderBannerProvider? = null
-    private var backgroundColor: Int? = null
     protected var arrowVisiable = false
+    protected var bannerColorRes: Int? = null
     private var isAskVisible = true
     private var distance = 0
     private var firstVisibleItemPosition = 0
+
+    private var isBarPrimaryColor = false
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        bannerColorRes = ContextCompat.getColor(context!!, R.color.colorPrimary)
+    }
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_base_home_child_list
@@ -52,8 +60,11 @@ abstract class BaseHomeChildListFragment : BaseFragment<HomePresenter, FragmentB
                 .inject(this)
     }
 
+    fun bannerColorRes() = bannerColorRes
+
+    fun isBarPrimaryColor() = isBarPrimaryColor
+
     override fun initData() {
-        backgroundColor = ContextCompat.getColor(context!!, R.color.colorPrimary)
         val layoutManager = LinearLayoutManager(context)
         mBinding?.rvHome?.layoutManager = layoutManager
         listAdapter = ListAdapter(ArrayList())
@@ -93,8 +104,12 @@ abstract class BaseHomeChildListFragment : BaseFragment<HomePresenter, FragmentB
                 firstVisibleItemPosition = layoutManager?.findFirstVisibleItemPosition()
                 if (firstVisibleItemPosition == 0) {
                     headerBannerProvider?.startBanner()
+                    (parentFragment as HomeFragment).setTopBackGroundColor(bannerColorRes)
+                    isBarPrimaryColor = false
                 } else {
                     headerBannerProvider?.pauseBanner()
+                    (parentFragment as HomeFragment).setTopBackGroundColor(ContextCompat.getColor(context!!,R.color.colorPrimary))
+                    isBarPrimaryColor = true
                 }
                 if (firstVisibleItemPosition < 8) {
                     hideArrow()
@@ -453,20 +468,7 @@ abstract class BaseHomeChildListFragment : BaseFragment<HomePresenter, FragmentB
 
     abstract fun onLoadMore()
 
-    fun setBackGroundColor(colorRes: Int?) {
-        colorRes?.let {
-            backgroundColor = it
-            (parentFragment as HomeFragment)?.setBackGroundColor(backgroundColor)
-            (activity as MainActivity)?.changeHomeBarColor(it)
-        }
-    }
-
-    fun changeBackgroundColor() {
-        backgroundColor?.let {
-            (parentFragment as HomeFragment)?.setBackGroundColor(backgroundColor)
-            (activity as MainActivity)?.changeHomeBarColor(it)
-        }
-    }
+    abstract fun setBackGroundColor(colorRes: Int?)
 
     fun finishLoadMore(datas: MutableList<HomeRecommendEntity.Data>) {
         listAdapter?.addData(datas)
