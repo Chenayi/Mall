@@ -12,11 +12,12 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:overScrollMode="never">
+            android:overScrollMode="never"
+            android:fillViewport="true">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -93,7 +94,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:visibility="gone">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -131,7 +133,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:id="@+id/ll_age">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -142,8 +145,8 @@
                             android:textSize="16dp" />
 
 
-                        <EditText
-                            android:id="@+id/et_age"
+                        <TextView
+                            android:id="@+id/tv_age"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="13dp"
@@ -151,8 +154,6 @@
                             android:layout_weight="1"
                             android:background="@color/tran"
                             android:gravity="right|center_vertical"
-                            android:imeOptions="actionDone"
-                            android:inputType="number"
                             android:singleLine="true"
                             android:textColor="#6A6E75"
                             android:textSize="16dp" />
@@ -213,22 +214,23 @@
                     </LinearLayout>
 
                 </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_submit"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginBottom="27dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="50dp"
+                    android:background="@drawable/background_green_corners_9999"
+                    android:gravity="center"
+                    android:text="提交"
+                    android:textColor="@color/white"
+                    android:textSize="16dp" />
             </LinearLayout>
         </ScrollView>
 
-        <TextView
-            android:id="@+id/tv_submit"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginBottom="27dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/background_green_corners_9999"
-            android:gravity="center"
-            android:text="提交"
-            android:textColor="@color/white"
-            android:textSize="16dp" />
     </com.kzj.mall.widget.RootLayout>
 
 

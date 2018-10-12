@@ -9,7 +9,7 @@
             android:id="@+id/rv_type"
             android:layout_width="match_parent"
             android:layout_height="250dp"
-            android:background="@drawable/background_white_corners_8" />
+            android:background="@color/white" />
 
     </RelativeLayout>
 </layout>

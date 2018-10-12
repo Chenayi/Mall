@@ -83,7 +83,6 @@ class MyAskAnswerActivity : BaseActivity<IPresenter, ActivityMyAskAnswerBinding>
         mBinding?.magicIndicator?.navigator = commonNavigator
         ViewPagerHelper.bind(mBinding?.magicIndicator, mBinding?.vpAsk);
 
-        mBinding?.ivAsk?.visibility =View.GONE
         mBinding?.ivAsk?.setOnClickListener {
             startActivity(Intent(this,CreateAskAnswerActivity::class.java))
         }

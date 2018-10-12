@@ -8,5 +8,6 @@ class AskAnswerTypeEntity:Serializable {
     class CatList:Serializable {
         var catId: String? = null
         var catName: String? = null
+        var check = false
     }
 }
