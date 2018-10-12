@@ -16,9 +16,8 @@ class OrderDetailAdapter constructor(orderDatas: MutableList<IGoodsDetail>)
         if (item is OrderDetailEntity.DPMap) {
             helper?.setGone(R.id.ll_top, false)
             val rvGoods = helper?.getView<RecyclerView>(R.id.rv_goods)
-            val goods = ArrayList<OrderDetailEntity.Goods>()
-            goods.add(item?.goods!!)
-            val orderGoodsAdapter = OrderGoodsAdapter(goods)
+            val dpMapGoods = dpMapGoods(item)
+            val orderGoodsAdapter = OrderGoodsAdapter(dpMapGoods)
             rvGoods?.layoutManager = LinearLayoutManager(mContext)
             rvGoods?.adapter = orderGoodsAdapter
         }
@@ -27,11 +26,10 @@ class OrderDetailAdapter constructor(orderDatas: MutableList<IGoodsDetail>)
         else if (item is OrderDetailEntity.LCMap) {
             helper?.setGone(R.id.ll_top, true)
                     ?.setText(R.id.tv_tag, "疗程")
-                    ?.setText(R.id.tv_combination_name, item?.combination?.combination_name)
+                    ?.setText(R.id.tv_combination_name, item?.goodsMarketingName)
             val rvGoods = helper?.getView<RecyclerView>(R.id.rv_goods)
-            val goods = ArrayList<OrderDetailEntity.Goods>()
-            goods.add(item?.goods!!)
-            val orderGoodsAdapter = OrderGoodsAdapter(goods)
+            val lcMapGoods = lcMapGoods(item)
+            val orderGoodsAdapter = OrderGoodsAdapter(lcMapGoods)
             rvGoods?.layoutManager = LinearLayoutManager(mContext)
             rvGoods?.adapter = orderGoodsAdapter
         }
@@ -40,13 +38,43 @@ class OrderDetailAdapter constructor(orderDatas: MutableList<IGoodsDetail>)
         else if (item is OrderDetailEntity.TCMap) {
             helper?.setGone(R.id.ll_top, true)
                     ?.setText(R.id.tv_tag, "套餐")
-                    ?.setText(R.id.tv_combination_name, item?.combination?.combination_name)
-            val rvGoods = helper?.getView<RecyclerView>(R.id.rv_goods)
-            val orderGoodsAdapter = OrderGoodsAdapter(item?.goods!!)
-            rvGoods?.layoutManager = LinearLayoutManager(mContext)
-            rvGoods?.adapter = orderGoodsAdapter
+//                    ?.setText(R.id.tv_combination_name, item?.combination?.combination_name)
+//            val rvGoods = helper?.getView<RecyclerView>(R.id.rv_goods)
+//            val orderGoodsAdapter = OrderGoodsAdapter(item?.goods!!)
+//            rvGoods?.layoutManager = LinearLayoutManager(mContext)
+//            rvGoods?.adapter = orderGoodsAdapter
         }
 
+    }
+
+
+    /**
+     * 单品 商品
+     */
+    private fun dpMapGoods(dpMap: OrderDetailEntity.DPMap): MutableList<OrderDetailEntity.Goods> {
+        val goods = ArrayList<OrderDetailEntity.Goods>()
+        val good = OrderDetailEntity.Goods()
+        good?.goodsName = dpMap?.goodsInfoName
+        good?.goodsImg = dpMap?.goodsImg
+        good?.goodsNum = dpMap?.goodsInfoNum
+        good?.goodsPrice = dpMap?.goodsInfoPrice
+        goods.add(good)
+        return goods
+    }
+
+
+    /**
+     * 疗程 商品
+     */
+    private fun lcMapGoods(lcMap: OrderDetailEntity.LCMap): MutableList<OrderDetailEntity.Goods> {
+        val goods = ArrayList<OrderDetailEntity.Goods>()
+        val good = OrderDetailEntity.Goods()
+        good?.goodsName = lcMap?.goodsInfoName
+        good?.goodsImg = lcMap?.goodsImg
+        good?.goodsNum = lcMap?.goodsInfoNum
+        good?.goodsPrice = lcMap?.goodsInfoPrice
+        goods.add(good)
+        return goods
     }
 
     class OrderGoodsAdapter constructor(goods: MutableList<OrderDetailEntity.Goods>)

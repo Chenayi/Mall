@@ -44,41 +44,38 @@ class OrderDetailEntity {
      * 单品
      */
     class DPMap : IGoodsDetail {
-        var goods: Goods? = null
+        var goodsImg: String? = null
+        var goodsInfoName: String? = null
+        var goodsInfoNum: String? = null
+        var goodsInfoPrice: String? = null
     }
 
     /**
      * 疗程
      */
     class LCMap : IGoodsDetail {
-        var goods: Goods? = null
-        var combination: Combination? = null
+        var goodsImg: String? = null
+        var goodsInfoName: String? = null
+        var goodsInfoNum: String? = null
+        var goodsInfoPrice: String? = null
+        var goodsMarketingName: String? = null
     }
 
     /**
      * 组合套餐
      */
     class TCMap : IGoodsDetail {
-        var goods: MutableList<Goods>? = null
-        var combination: Combination? = null
-    }
-
-    /**
-     * 商品
-     */
-    class Goods {
         var goodsImg: String? = null
         var goodsName: String? = null
-        var goodsInfoSumPrice: String? = null
         var goodsNum: String? = null
         var goodsPrice: String? = null
     }
 
-    /**
-     * 套餐信息
-     */
-    class Combination {
-        var combination_name: String? = null
+    class Goods {
+        var goodsImg: String? = null
+        var goodsName: String? = null
+        var goodsNum: String? = null
+        var goodsPrice: String? = null
     }
 
     /**
