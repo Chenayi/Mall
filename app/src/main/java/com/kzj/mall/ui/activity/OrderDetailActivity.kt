@@ -9,7 +9,6 @@ import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.TimeUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.kzj.mall.R
-import com.kzj.mall.adapter.OrderDetailAdapter
 import com.kzj.mall.base.BaseActivity
 import com.kzj.mall.databinding.ActivityOrderDetailBinding
 import com.kzj.mall.di.component.AppComponent
@@ -30,7 +29,9 @@ import android.os.Message
 import android.widget.ImageView
 import android.widget.LinearLayout
 import com.alipay.sdk.app.PayTask
+import com.kzj.mall.adapter.OrderDetailAdapter
 import com.kzj.mall.entity.PayResult
+import com.kzj.mall.entity.order.TcMap
 
 
 class OrderDetailActivity : BaseActivity<OrderDetailPresenter, ActivityOrderDetailBinding>()
@@ -205,7 +206,12 @@ class OrderDetailActivity : BaseActivity<OrderDetailPresenter, ActivityOrderDeta
 
         //套餐
         orderGoods?.tcMap?.let {
-            iGoodsDetails?.addAll(it)
+            for (i in 0 until it.size){
+                val tcMaps = it.get(i)
+                val tcMap = TcMap()
+                tcMap.tcMaps = tcMaps
+                iGoodsDetails.add(tcMap)
+            }
         }
 
         orderDetailAdapter?.setNewData(iGoodsDetails)

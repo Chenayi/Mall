@@ -1,14 +1,6 @@
 package com.kzj.mall.entity.order
 
 class OrderDetailEntity {
-
-    companion object {
-        val TYPE_SINGLE = 0
-        val TYPE_GROUP = 1
-        val TYPE_COURSE = 2
-    }
-
-
     var order: Order? = null
 
     var ordergoods: OrderGoods? = null
@@ -33,49 +25,19 @@ class OrderDetailEntity {
 
     class OrderGoods {
         //单品
-        var dpMap: MutableList<DPMap>? = null
+        var dpMap: MutableList<DpMap>? = null
         //疗程
-        var lcMap: MutableList<LCMap>? = null
+        var lcMap: MutableList<LcMap>? = null
         //套餐
-        var tcMap: MutableList<TCMap>? = null
+        var tcMap: MutableList<MutableList<TCMap>>? = null
     }
 
-    /**
-     * 单品
-     */
-    class DPMap : IGoodsDetail {
-        var goodsImg: String? = null
-        var goodsInfoName: String? = null
-        var goodsInfoNum: String? = null
-        var goodsInfoPrice: String? = null
-    }
-
-    /**
-     * 疗程
-     */
-    class LCMap : IGoodsDetail {
+    class TCMap {
         var goodsImg: String? = null
         var goodsInfoName: String? = null
         var goodsInfoNum: String? = null
         var goodsInfoPrice: String? = null
         var goodsMarketingName: String? = null
-    }
-
-    /**
-     * 组合套餐
-     */
-    class TCMap : IGoodsDetail {
-        var goodsImg: String? = null
-        var goodsName: String? = null
-        var goodsNum: String? = null
-        var goodsPrice: String? = null
-    }
-
-    class Goods {
-        var goodsImg: String? = null
-        var goodsName: String? = null
-        var goodsNum: String? = null
-        var goodsPrice: String? = null
     }
 
     /**

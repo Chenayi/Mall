@@ -2,12 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="10dp"
-    android:layout_marginRight="10dp"
-    android:layout_marginTop="10dp"
+    android:layout_marginLeft="12dp"
+    android:layout_marginRight="12dp"
+    android:layout_marginTop="12dp"
     android:background="@drawable/background_white_corners_8"
     android:orientation="vertical"
-    android:padding="13dp">
+    android:padding="12dp">
 
     <LinearLayout
         android:id="@+id/ll_top"
@@ -24,7 +24,7 @@
             android:paddingLeft="6dp"
             android:paddingRight="6dp"
             android:paddingTop="1dp"
-            android:text="疗程"
+            android:text="套餐"
             android:textColor="@color/colorPrimary"
             android:textSize="12dp"
             android:id="@+id/tv_tag"/>
