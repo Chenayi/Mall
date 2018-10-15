@@ -171,29 +171,6 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
     }
 
     /**
-     * 移除购物车
-     */
-//    fun remove(position: Int) {
-//        cartAdapter?.remove(position)
-//        mBinding?.tvToBalance?.isEnabled = checkNum() > 0
-//        mBinding?.tvToBalance?.setText("去结算(" + checkNum() + ")")
-//        for (i in 0 until cartAdapter?.data?.size!!) {
-//            val cart = cartAdapter?.data?.get(i)
-//            val itemType = cart?.getItemType()
-//            if (itemType == ICart.SINGLE || itemType == ICart.GROUP) {
-//                return
-//            }
-//        }
-//        cartAdapter?.setHeaderView(headerView, 0)
-//        mBinding?.llBalance?.visibility = View.GONE
-//        tvLogin?.visibility = View.GONE
-//        isDeleteMode = false
-//        mBinding?.tvEdit?.text = "编辑"
-//        mBinding?.tvEdit?.visibility = View.GONE
-//        mBinding?.rvCart?.scrollToPosition(0)
-//    }
-
-    /**
      * 判断是否全选
      */
     fun isAllCheck(): Boolean {
@@ -266,9 +243,7 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
                     val p = iCart?.goods_pre_price?.toFloat()
                     p?.let {
                         sumPrePrice += it
-//                        var num = iCart?.goods_num
-//                        val pp = p * num!!
-//                        sumPrePrice += pp
+
                     }
 
                     val s = iCart?.goods_price?.toFloat()
@@ -283,15 +258,10 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
                     val p = iCart?.goods_pre_price?.toFloat()
                     p?.let {
                         sumPrePrice += it
-//                        val num = iCart?.goods_num
-//                        val pp = p * num!!
-//                        sumPrePrice += pp
                     }
 
                     val s = iCart?.goods_price?.toFloat()
                     s?.let {
-                        //                        val num = iCart?.goods_num
-//                        val ss = s * num!!
                         sumPrice += it
                     }
                 }
@@ -411,8 +381,9 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
             }
             //疗程
             else {
-                val lcSinglePrice = lcSinglePrice(shoppingCart?.goods_num!!, shoppingCart?.combinations)
-                singleEntity?.goods_price = lcSinglePrice
+                val goodsPrice = shoppingCart?.goods_price?.toFloat()!!
+                val singleGoodsPrice = goodsPrice / shoppingCart?.goods_num?.toFloat()!!
+                singleEntity?.goods_price = FloatUtils.format(singleGoodsPrice)
             }
             singleEntity?.goods_stock = shoppingCart?.goods_stock
             singleEntity?.goods_info_id = shoppingCart?.goods_info_id
@@ -427,44 +398,6 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
             }
         }
         cartAdapter?.notifyItemChanged(position)
-    }
-
-    /**
-     * 疗程价格
-     */
-    private fun lcSinglePrice(num: Int, combinations: MutableList<CartEntity.Combinations>?): String {
-        var price = "0.00"
-        combinations?.let {
-            for (i in 0 until it.size) {
-
-                if (i == 0 && num == it.get(0)?.package_count!!) {
-                    price = it.get(0)?.combination_unit_price!!
-                    return price
-                }
-
-                if (i > 0 && i < it.size - 1) {
-                    val pre = it?.get(i - 1)?.package_count!!
-                    val cur = it?.get(i)?.package_count!!
-                    if (num > pre && num <= cur) {
-                        price = it.get(i)?.combination_unit_price!!
-                        return price
-                    }
-                }
-
-                if (i > 0 && i == it.size - 1) {
-                    val count = it?.get(i)?.package_count!!
-                    if (num >= count) {
-                        price = it.get(i)?.combination_unit_price!!
-                        return price
-                    } else {
-                        price = it.get(i - 1)?.combination_unit_price!!
-                        return price
-                    }
-                }
-            }
-
-        }
-        return price
     }
 
     /**
@@ -553,8 +486,9 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
                 }
                 //疗程
                 else {
-                    val lcSinglePrice = lcSinglePrice(shoplist?.get(i)?.goods_num!!, shoplist?.get(i)?.combinations)
-                    singleEntity?.goods_price = lcSinglePrice
+                    val goodsPrice = shoplist?.get(i)?.goods_price?.toFloat()!!
+                    val singleGoodsPrice = goodsPrice / shoplist?.get(i)?.goods_num?.toFloat()!!
+                    singleEntity?.goods_price = FloatUtils.format(singleGoodsPrice)
                 }
                 singleEntity?.goods_stock = shoplist?.get(i)?.goods_stock
                 singleEntity?.goods_info_id = shoplist?.get(i)?.goods_info_id

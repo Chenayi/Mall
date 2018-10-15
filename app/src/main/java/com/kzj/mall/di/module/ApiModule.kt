@@ -4,6 +4,7 @@ import com.kzj.mall.BuildConfig
 import com.kzj.mall.C
 import com.kzj.mall.http.HttpLogger
 import com.kzj.mall.http.ResponseConverterFactory
+import com.kzj.mall.http.interceptor.DownloadInterceptor
 import com.kzj.mall.http.interceptor.NetworkInterceptor
 import dagger.Module
 import dagger.Provides
@@ -32,6 +33,7 @@ class ApiModule {
         }
         builder
                 .addInterceptor(NetworkInterceptor())
+                .addInterceptor(DownloadInterceptor())
                 .connectTimeout(10, TimeUnit.SECONDS)
                 .readTimeout(10, TimeUnit.SECONDS)
         return builder.build()
