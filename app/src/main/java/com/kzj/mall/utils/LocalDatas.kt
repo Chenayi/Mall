@@ -23,15 +23,15 @@ class LocalDatas {
             val banners = ArrayList<HomeHeaderBannerEntity.Adds>()
 
             val banner1 = HomeHeaderBannerEntity().Adds()
-            banner1.adCode = "http://thyrsi.com/t6/365/1535610735x-1404817844.png"
+            banner1.adCode = "http://i2.bvimg.com/665231/858fda69e0efe9ac.png"
             banner1.goodsInfoId = "29954"
 
             val banner2 = HomeHeaderBannerEntity().Adds()
-            banner2.adCode = "http://thyrsi.com/t6/365/1535610773x-1566688371.png"
+            banner2.adCode = "http://i2.bvimg.com/665231/421a2df5dfa5c606.png"
             banner2.goodsInfoId = "17124"
 
             val banner3 = HomeHeaderBannerEntity().Adds()
-            banner3.adCode = "http://thyrsi.com/t6/365/1535610798x1822611437.png"
+            banner3.adCode = "http://i2.bvimg.com/665231/3b767b51977cd174.png"
             banner3.goodsInfoId = "21536"
 
             banners.add(banner1)
@@ -51,15 +51,15 @@ class LocalDatas {
             val banners = ArrayList<HomeHeaderBannerEntity.Adds>()
 
             val banner1 = HomeHeaderBannerEntity().Adds()
-            banner1.adCode = "http://thyrsi.com/t6/365/1535598953x1822611359.png"
+            banner1.adCode = "http://i2.bvimg.com/665231/33470ca7408063e1.png"
             banner1.goodsInfoId = "26765"
 
             val banner2 = HomeHeaderBannerEntity().Adds()
-            banner2.adCode = "http://thyrsi.com/t6/365/1535598918x1822611263.png"
+            banner2.adCode = "http://i2.bvimg.com/665231/4405edf13cd48353.png"
             banner2.goodsInfoId = "35603"
 
             val banner3 = HomeHeaderBannerEntity().Adds()
-            banner3.adCode = "http://thyrsi.com/t6/365/1535600585x1822611437.png"
+            banner3.adCode = "http://i2.bvimg.com/665231/4df192304de7c597.png"
             banner3.goodsInfoId = "27400"
 
             banners.add(banner1)
