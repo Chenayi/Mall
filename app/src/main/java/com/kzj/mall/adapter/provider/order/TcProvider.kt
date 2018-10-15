@@ -21,6 +21,8 @@ class TcProvider : BaseItemProvider<TcMap, BaseViewHolder>() {
     override fun convert(helper: BaseViewHolder?, data: TcMap?, position: Int) {
         helper?.setText(R.id.tv_combination_name, data?.tcMaps?.get(0)?.goodsMarketingName)
         val rvGoods = helper?.getView<RecyclerView>(R.id.rv_goods)
+        rvGoods?.setFocusableInTouchMode(false);
+        rvGoods?.requestFocus();
         val orderGoodsAdapter = OrderGoodsAdapter(data?.tcMaps!!)
         rvGoods?.layoutManager = LinearLayoutManager(mContext)
         rvGoods?.adapter = orderGoodsAdapter
