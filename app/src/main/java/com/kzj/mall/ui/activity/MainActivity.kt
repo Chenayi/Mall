@@ -11,10 +11,14 @@ import com.kzj.mall.base.BaseActivity
 import com.kzj.mall.base.IPresenter
 import com.kzj.mall.databinding.ActivityMainBinding
 import com.kzj.mall.di.component.AppComponent
+import com.kzj.mall.di.component.DaggerMainComponent
+import com.kzj.mall.di.module.MainModule
 import com.kzj.mall.event.BackCartEvent
 import com.kzj.mall.event.BackClassifyEvent
 import com.kzj.mall.event.BackHomeEvent
 import com.kzj.mall.event.BackMinetEvent
+import com.kzj.mall.mvp.contract.MainContract
+import com.kzj.mall.mvp.presenter.MainPresenter
 import com.kzj.mall.ui.fragment.CartFragment
 import com.kzj.mall.ui.fragment.ClassifyFragment
 import com.kzj.mall.ui.fragment.home.HomeFragment
@@ -22,9 +26,7 @@ import com.kzj.mall.ui.fragment.MineFragment
 import com.kzj.mall.widget.HomeBottomTabBar
 import org.greenrobot.eventbus.Subscribe
 
-class MainActivity : BaseActivity<IPresenter, ActivityMainBinding>() {
-
-
+class MainActivity : BaseActivity<MainPresenter, ActivityMainBinding>(),MainContract.View {
     private var vpAdapter: CommomViewPagerAdapter? = null
     private var fragments: MutableList<Fragment>? = null
 
@@ -33,6 +35,11 @@ class MainActivity : BaseActivity<IPresenter, ActivityMainBinding>() {
     }
 
     override fun setupComponent(appComponent: AppComponent?) {
+        DaggerMainComponent.builder()
+                .appComponent(appComponent)
+                .mainModule(MainModule((this)))
+                .build()
+                .inject(this)
     }
 
     override fun initImmersionBar() {
@@ -116,5 +123,17 @@ class MainActivity : BaseActivity<IPresenter, ActivityMainBinding>() {
                 mBinding?.homeTabBar?.switchMine()
             }, 300)
         }
+    }
+
+
+    override fun showLoading() {
+        showLoadingDialog()
+    }
+
+    override fun hideLoading() {
+        dismissLoadingDialog()
+    }
+
+    override fun onError(code: Int, msg: String?) {
     }
 }
