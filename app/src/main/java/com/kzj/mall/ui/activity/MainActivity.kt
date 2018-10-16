@@ -13,12 +13,14 @@ import com.kzj.mall.databinding.ActivityMainBinding
 import com.kzj.mall.di.component.AppComponent
 import com.kzj.mall.di.component.DaggerMainComponent
 import com.kzj.mall.di.module.MainModule
+import com.kzj.mall.entity.VersionEntity
 import com.kzj.mall.event.BackCartEvent
 import com.kzj.mall.event.BackClassifyEvent
 import com.kzj.mall.event.BackHomeEvent
 import com.kzj.mall.event.BackMinetEvent
 import com.kzj.mall.mvp.contract.MainContract
 import com.kzj.mall.mvp.presenter.MainPresenter
+import com.kzj.mall.ui.dialog.UpgradeDialog
 import com.kzj.mall.ui.fragment.CartFragment
 import com.kzj.mall.ui.fragment.ClassifyFragment
 import com.kzj.mall.ui.fragment.home.HomeFragment
@@ -26,7 +28,7 @@ import com.kzj.mall.ui.fragment.MineFragment
 import com.kzj.mall.widget.HomeBottomTabBar
 import org.greenrobot.eventbus.Subscribe
 
-class MainActivity : BaseActivity<MainPresenter, ActivityMainBinding>(),MainContract.View {
+class MainActivity : BaseActivity<MainPresenter, ActivityMainBinding>(), MainContract.View {
     private var vpAdapter: CommomViewPagerAdapter? = null
     private var fragments: MutableList<Fragment>? = null
 
@@ -57,6 +59,7 @@ class MainActivity : BaseActivity<MainPresenter, ActivityMainBinding>(),MainCont
         mBinding?.ivFunction?.setOnClickListener {
             ToastUtils.showShort("敬请期待")
         }
+        mPresenter?.checkUpdate()
     }
 
     override fun enableEventBusCloseActivity(): Boolean {
@@ -123,6 +126,12 @@ class MainActivity : BaseActivity<MainPresenter, ActivityMainBinding>(),MainCont
                 mBinding?.homeTabBar?.switchMine()
             }, 300)
         }
+    }
+
+    override fun versionInfo(versionInfo: VersionEntity?) {
+        UpgradeDialog.newInstance(versionInfo)
+                .setMargin(40)
+                .show(supportFragmentManager)
     }
 
 

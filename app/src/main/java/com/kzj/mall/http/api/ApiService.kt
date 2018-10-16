@@ -335,4 +335,12 @@ interface ApiService {
      */
     @POST("kzj/api/interlucation_.htm")
     fun interlucationType(): Observable<BaseResponse<AskAnswerTypeEntity>>
+
+
+    /**
+     * 检查版本更新
+     */
+    @FormUrlEncoded
+    @POST("kzj/api/gain_newest_apk.htm")
+    fun checkUpdate(@Field("systemType") systemType: String?): Observable<BaseResponse<VersionEntity>>
 }
