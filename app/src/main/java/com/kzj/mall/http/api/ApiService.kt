@@ -12,6 +12,7 @@ import com.kzj.mall.entity.order.ConfirmOrderEntity
 import com.kzj.mall.entity.order.OrderDetailEntity
 import com.kzj.mall.entity.order.OrderEntity
 import io.reactivex.Observable
+import okhttp3.ResponseBody
 import retrofit2.http.*
 
 interface ApiService {
@@ -343,4 +344,12 @@ interface ApiService {
     @FormUrlEncoded
     @POST("kzj/api/gain_newest_apk.htm")
     fun checkUpdate(@Field("systemType") systemType: String?): Observable<BaseResponse<VersionEntity>>
+
+
+    /**
+     * 下载文件
+     */
+    @Streaming
+    @GET
+    fun download(@Url url: String?): Observable<ResponseBody> //直接使用网址下载
 }

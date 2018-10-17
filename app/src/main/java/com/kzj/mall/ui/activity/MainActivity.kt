@@ -131,6 +131,7 @@ class MainActivity : BaseActivity<MainPresenter, ActivityMainBinding>(), MainCon
     override fun versionInfo(versionInfo: VersionEntity?) {
         UpgradeDialog.newInstance(versionInfo)
                 .setMargin(40)
+                .setOutCancel(false)
                 .show(supportFragmentManager)
     }
 

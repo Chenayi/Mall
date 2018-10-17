@@ -30,7 +30,7 @@ constructor(model: MainContract.Model, view: MainContract.View?, context: Contex
                     override fun onHandleSuccess(t: VersionEntity?) {
                         val appVersionCode = AppUtils.getAppVersionCode()
                         val newVersionCode = t?.version_id!!
-                        if (newVersionCode > appVersionCode){
+                        if (newVersionCode > appVersionCode) {
                             view?.versionInfo(t)
                         }
                     }
