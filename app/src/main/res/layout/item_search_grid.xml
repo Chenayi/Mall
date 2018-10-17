@@ -41,7 +41,7 @@
                 android:id="@+id/tv_goods_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="6dp"
                 android:lines="1"
                 android:singleLine="true"
                 android:text="999 小儿氨酚黄那敏颗…"
@@ -52,7 +52,7 @@
                 android:id="@+id/tv_goods_indication"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="2dp"
                 android:lines="1"
                 android:singleLine="true"
                 android:text="热镇痛用于感冒引起的头…"
@@ -63,7 +63,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="4dp"
                 android:orientation="horizontal">
 
                 <TextView
