@@ -234,6 +234,11 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
 
             override fun onPageSelected(position: Int) {
                 mBinding?.tvBannerNum?.setText((position + 1).toString())
+                if(position == 0){
+                    mBinding?.rlNotice?.visibility = View.VISIBLE
+                }else{
+                    mBinding?.rlNotice?.visibility = View.INVISIBLE
+                }
             }
 
         })
