@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.ScreenUtils
+import com.blankj.utilcode.util.SizeUtils
 import com.kzj.mall.R
 import com.kzj.mall.base.BaseDialog
 import com.kzj.mall.databinding.DialogUpgradeBinding
@@ -44,7 +45,7 @@ class UpgradeDialog : BaseDialog<UpgradePresenter, DialogUpgradeBinding>(), Upgr
     override fun initData() {
         EventBus.getDefault().register(this)
 
-        val w = ScreenUtils.getScreenWidth() - 80
+        val w = ScreenUtils.getScreenWidth() - SizeUtils.dp2px(80f)
         val h = w * 375f / 760f
         mBinding?.ivTop?.layoutParams?.width = w
         mBinding?.ivTop?.layoutParams?.height = h?.toInt()
