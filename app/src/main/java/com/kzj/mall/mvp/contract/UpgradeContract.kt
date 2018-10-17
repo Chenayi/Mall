@@ -9,6 +9,7 @@ import java.io.File
 interface UpgradeContract {
     interface View : IView {
         fun downLoadSuccess(file: File)
+        fun downLoadFail()
     }
 
     interface Model : IModel {

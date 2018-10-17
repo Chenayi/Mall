@@ -45,6 +45,7 @@ constructor(model: UpgradeContract.Model?, view: UpgradeContract.View?, context:
 
                     override fun onDownloadError(code: Int, msg: String) {
                         ToastUtils.showShort("下载失败")
+                        view?.downLoadFail()
                     }
                 })
     }

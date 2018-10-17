@@ -98,6 +98,17 @@ class UpgradeDialog : BaseDialog<UpgradePresenter, DialogUpgradeBinding>(), Upgr
     override fun onError(code: Int, msg: String?) {
     }
 
+    override fun downLoadFail() {
+        mBinding?.btnUpgrade?.visibility = View.VISIBLE
+        if (versionEntity?.force_update?.equals("1") == true) {
+            mBinding?.llClose?.visibility = View.GONE
+        }else{
+            mBinding?.ivClose?.visibility = View.VISIBLE
+        }
+        mBinding?.numberProgressBar?.progress = 0
+        mBinding?.numberProgressBar?.visibility = View.GONE
+    }
+
     override fun onDestroy() {
         EventBus.getDefault().unregister(this)
         super.onDestroy()

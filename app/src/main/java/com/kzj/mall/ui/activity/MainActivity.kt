@@ -59,6 +59,8 @@ class MainActivity : BaseActivity<MainPresenter, ActivityMainBinding>(), MainCon
         mBinding?.ivFunction?.setOnClickListener {
             ToastUtils.showShort("敬请期待")
         }
+
+        // 检测版本更新
         mPresenter?.checkUpdate()
     }
 
