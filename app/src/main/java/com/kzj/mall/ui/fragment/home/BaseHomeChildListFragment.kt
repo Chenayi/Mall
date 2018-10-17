@@ -130,7 +130,7 @@ abstract class BaseHomeChildListFragment : BaseFragment<HomePresenter, FragmentB
                 }
 
                 R.id.ll_ziyin -> {
-                    jumpSearch("滋阴保健")
+                    jumpSearch("滋补保健")
                 }
 
                 R.id.ll_qingqu -> {
