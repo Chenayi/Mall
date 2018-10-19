@@ -84,8 +84,8 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentBottom="true"
                             android:layout_marginBottom="40dp"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginRight="52dp"
+                            android:layout_marginLeft="12dp"
+                            android:layout_marginRight="12dp"
                             android:visibility="invisible">
 
                             <TextView
@@ -94,7 +94,7 @@
                                 android:layout_height="24dp"
                                 android:layout_centerVertical="true"
                                 android:layout_marginLeft="15dp"
-                                android:background="@drawable/background_orange_corners_9999"
+                                android:background="@drawable/background_green_corners_9999"
                                 android:gravity="center_vertical"
                                 android:lines="1"
                                 android:minWidth="170dp"
@@ -102,7 +102,7 @@
                                 android:paddingRight="10dp"
                                 android:singleLine="true"
                                 android:textColor="@color/white"
-                                android:textSize="11dp" />
+                                android:textSize="12dp" />
 
                             <ImageView
                                 android:layout_width="33dp"
@@ -140,7 +140,7 @@
 
                             <View
                                 android:layout_width="match_parent"
-                                android:layout_height="10dp" />
+                                android:layout_height="12dp" />
 
                             <include layout="@layout/include_detail_spec" />
                         </LinearLayout>
@@ -151,25 +151,36 @@
                             android:id="@+id/ll_chufang"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
                             android:background="@color/white"
                             android:orientation="vertical"
-                            android:padding="10dp"
                             android:visibility="gone">
-
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="12dp"
+                                android:background="@color/gray_default"/>
 
                             <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_width="match_parent"
+                                android:layout_height="53dp"
                                 android:layout_marginTop="2dp"
-                                android:text="处方提示"
+                                android:gravity="center_vertical"
+                                android:paddingLeft="12dp"
+                                android:paddingRight="12dp"
+                                android:text="处方温馨提示"
                                 android:textColor="@color/c_2e3033"
-                                android:textStyle="bold" />
+                                android:textSize="16dp" />
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="0.5dp"
+                                android:background="@color/gray_default" />
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="12dp"
+                                android:paddingLeft="12dp"
+                                android:paddingRight="12dp"
                                 android:text="本品为处方药，如需订购可点击【需求登记】提交信息，药师会根据处方审核结果主动联系您。 "
                                 android:textColor="#6A6E75"
                                 android:textSize="12dp" />
@@ -178,7 +189,10 @@
                                 android:id="@+id/tv_rx_tips"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginBottom="10dp"
+                                android:layout_marginBottom="12dp"
+                                android:layout_marginTop="8dp"
+                                android:paddingLeft="12dp"
+                                android:paddingRight="12dp"
                                 android:text="如需协助可在线咨询药师或拨打热线4006356343"
                                 android:textColor="#6A6E75"
                                 android:textSize="12dp" />
@@ -195,7 +209,7 @@
 
                             <View
                                 android:layout_width="match_parent"
-                                android:layout_height="10dp" />
+                                android:layout_height="12dp" />
 
                             <com.kzj.mall.widget.GoodsGroupView
                                 android:id="@+id/goods_group_view"
@@ -208,7 +222,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:background="@color/white"
                             android:gravity="center"
                             android:orientation="vertical">
 
@@ -216,7 +229,6 @@
                                 android:id="@+id/tv_detail_tips"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="10dp"
                                 android:layout_marginTop="20dp"
                                 android:text="上拉查看图文详情"
                                 android:textColor="@color/gray_6A6E75"

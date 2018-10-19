@@ -106,4 +106,5 @@ dependencies {
     implementation 'com.github.nanchen2251:CompressHelper:1.0.5'
     implementation 'com.github.chrisbanes:PhotoView:2.1.4'
     implementation 'com.daimajia.numberprogressbar:library:1.4@aar'
+    implementation 'com.just.agentweb:agentweb:4.0.2'
 }

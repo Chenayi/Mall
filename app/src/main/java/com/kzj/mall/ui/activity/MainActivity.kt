@@ -57,7 +57,7 @@ class MainActivity : BaseActivity<MainPresenter, ActivityMainBinding>(), MainCon
         initViewPager()
         initBottomBar()
         mBinding?.ivFunction?.setOnClickListener {
-            ToastUtils.showShort("敬请期待")
+            jumpActivity(H5WebActivity().javaClass)
         }
 
         // 检测版本更新

@@ -39,8 +39,6 @@ import com.kzj.mall.widget.CenterAlignImageSpan
 
 
 class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), View.OnClickListener {
-    private var tvTejie: TextView? = null
-
     /**
      * 商品价格
      */
@@ -71,11 +69,6 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
     private var tvGoodsInfoSubtitle: TextView? = null
 
     /**
-     * 编号
-     */
-    private var tvApprovalNo: TextView? = null
-
-    /**
      * 已选规格
      */
     private var tvCheckSpec: TextView? = null
@@ -84,6 +77,11 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
      * 服务说明
      */
     private var llServiceNote: LinearLayout? = null
+
+    /**
+     * 特价
+     */
+    private var tvTejie: TextView? = null
 
 
     private var barHeight = 0
@@ -136,7 +134,7 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
             barHeight = it
         }
 
-        tvTejie = view?.findViewById(R.id.tv_tejie_tag)
+        tvTejie = view?.findViewById(R.id.tv_tejie)
         tvGoodsPrice = view?.findViewById(R.id.tv_goods_price)
         tvGoodsMarketPrice = view?.findViewById(R.id.tv_goods_market_price)
         tvMonthSalesNum = view?.findViewById(R.id.tv_month_sales_num)
@@ -148,7 +146,6 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
         tvGoodsName = view?.findViewById(R.id.tv_goods_name)
         tvGoodsInfoSubtitle = view?.findViewById(R.id.tv_goods_info_subtitle)
         tvGoodsMarketPrice = view?.findViewById(R.id.tv_goods_market_price)
-        tvApprovalNo = view?.findViewById(R.id.tv_approval_no)
         tvCheckSpec = view?.findViewById(R.id.tv_check_spec)
 
         llServiceNote = view?.findViewById(R.id.ll_service_note)
@@ -263,11 +260,9 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
             if (it?.is_follow?.equals("1") == true) {
                 ivFollow?.setImageResource(R.mipmap.saved)
                 tvFollow?.setText("已关注")
-                tvFollow?.setTextColor(ContextCompat.getColor(context!!, R.color.colorPrimary))
             } else {
                 ivFollow?.setImageResource(R.mipmap.sc)
                 tvFollow?.setText("关注")
-                tvFollow?.setTextColor(Color.parseColor("#6A6E75"))
             }
         }
     }
@@ -319,9 +314,7 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
                 tvGoodsPrice?.setText(PriceUtils.format(goodsPrice))
                 tvGoodsMarketPrice?.setText("¥" + it?.goodsMarketPrice)
                 tvGoodsMarketPrice?.getPaint()?.setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-                tvMonthSalesNum?.setText("月销量:" + it?.goodsSole)
-                tvApprovalNo?.setText("批准文号：" + it?.goodsApprovalNo?.approvalNo)
-
+                tvMonthSalesNum?.setText("已销售" + it?.goodsSole+"件")
 
                 if (it?.goodsPrice?.toFloat()!! < it?.goodsMarketPrice?.toFloat()!!) {
                     tvTejie?.visibility = View.VISIBLE

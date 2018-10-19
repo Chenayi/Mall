@@ -22,27 +22,28 @@
                 android:orientation="horizontal">
 
                 <RelativeLayout
-                    android:layout_width="93dp"
-                    android:layout_height="93dp">
+                    android:layout_width="60dp"
+                    android:layout_height="60dp">
 
                     <ImageView
-                        android:layout_width="83dp"
-                        android:layout_height="83dp"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
                         android:src="@color/gray_default"
                         android:id="@+id/iv_goods"
                         android:layout_centerInParent="true"/>
 
                     <TextView
-                        android:layout_width="23dp"
-                        android:layout_height="23dp"
-                        android:background="@drawable/circle_orange"
+                        android:layout_width="26dp"
+                        android:layout_height="16dp"
+                        android:background="@mipmap/group_num_bg"
                         android:gravity="center"
                         android:lines="1"
                         android:singleLine="true"
-                        android:text="2盒"
+                        android:text="2件"
                         android:textColor="@color/white"
-                        android:textSize="9dp"
-                        android:id="@+id/tv_num"/>
+                        android:textSize="11dp"
+                        android:id="@+id/tv_num"
+                        android:paddingBottom="3dp"/>
                 </RelativeLayout>
 
                 <TextView
@@ -55,9 +56,9 @@
             </LinearLayout>
 
             <TextView
-                android:layout_width="92dp"
+                android:layout_width="60dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="4dp"
                 android:singleLine="true"
                 android:lines="1"
                 android:text="Swisse 胶原蛋白...液500ml+Healthy Care 葡萄籽300粒"
@@ -68,7 +69,7 @@
             <TextView
                 android:layout_width="92dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="2dp"
                 android:singleLine="true"
                 android:text="¥239.00"
                 android:textColor="#6A6E75"

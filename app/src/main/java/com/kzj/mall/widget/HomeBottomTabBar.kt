@@ -45,32 +45,34 @@ class HomeBottomTabBar : BaseRelativeLayout<HomeBottomTabBarBinding>, View.OnCli
         when (v?.id) {
             R.id.rl_home -> {
                 if (curTab != TAB_HOME) {
-                    playAnim(mBinding?.ivHome)
+//                    playAnim(mBinding?.ivHome)
                     switchHome()
                 }
             }
             R.id.rl_classify -> {
                 if (curTab != TAB_CLASSIFT) {
-                    playAnim(mBinding?.llClassify)
+//                    playAnim(mBinding?.llClassify)
                     switchClassify()
                 }
             }
             R.id.rl_cart -> {
                 if (curTab != TAB_CART) {
-                    playAnim(mBinding?.llCart)
+//                    playAnim(mBinding?.llCart)
                     switchCart()
                 }
             }
             R.id.rl_mine -> {
                 if (curTab != TAB_MINE) {
-                    playAnim(mBinding?.llMine)
+//                    playAnim(mBinding?.llMine)
                     switchMine()
                 }
             }
         }
     }
 
-
+    /**
+     * 动画
+     */
     fun playAnim(v: View?) {
         var scaleAnim= AnimationUtils.loadAnimation(context, R.anim.scale_anim)
         v?.startAnimation(scaleAnim)

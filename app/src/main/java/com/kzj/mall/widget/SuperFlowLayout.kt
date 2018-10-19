@@ -2,11 +2,9 @@ package com.kzj.mall.widget
 
 import android.content.Context
 import android.graphics.Color
-import android.graphics.Typeface
 import android.util.AttributeSet
 import android.view.View
 import android.widget.TextView
-import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.SizeUtils
 import com.kzj.mall.R
 import com.kzj.mall.base.BaseRelativeLayout
@@ -44,7 +42,6 @@ class SuperFlowLayout : BaseRelativeLayout<SuperFlowLayoutBinding>, View.OnClick
                     tv?.setTextColor(Color.parseColor("#2E3033"))
                 }
                 tv?.setTextSize(12f)
-                tv?.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD))
                 tv?.setText(it.get(i))
                 tv?.setTag(i)
                 tv?.setOnClickListener(this)

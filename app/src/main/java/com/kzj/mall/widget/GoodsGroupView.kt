@@ -16,6 +16,7 @@ import com.kzj.mall.base.BaseRelativeLayout
 import com.kzj.mall.databinding.GoodsGroupViewBinding
 import com.kzj.mall.entity.GoodsDetailEntity
 import com.kzj.mall.event.AddGroupCartEvent
+import com.kzj.mall.ui.activity.GoodsDetailActivity
 import com.kzj.mall.ui.activity.login.LoginActivity
 import com.takusemba.multisnaprecyclerview.MultiSnapRecyclerView
 import org.greenrobot.eventbus.EventBus
@@ -86,7 +87,7 @@ class GoodsGroupView : BaseRelativeLayout<GoodsGroupViewBinding> {
         override fun convert(helper: BaseViewHolder?, item: GoodsDetailEntity.CombinationList?) {
 
             helper?.setText(R.id.tv_group_name, item?.combination_name)
-                    ?.setText(R.id.tv_goods_price, "优惠价：¥" + item?.combination_price?.toString())
+                    ?.setText(R.id.tv_goods_price, "¥" + item?.combination_price?.toString())
                     ?.setText(R.id.tv_goods_pre_price, "立省：¥" + item?.sumPrePrice)
                     ?.setGone(R.id.tv_group_add_cart, item?.isOpen == true && isShowAddCart)
                     ?.setGone(R.id.ll_group, item?.isOpen == true)
@@ -100,6 +101,13 @@ class GoodsGroupView : BaseRelativeLayout<GoodsGroupViewBinding> {
             rvGroup?.requestFocus();
             item?.ggList?.let {
                 val goodsAdapter = GoodsAdapter(it)
+                goodsAdapter?.setOnItemClickListener { adapter, view, position ->
+                    var intent = Intent()
+                    intent.setClass(context, GoodsDetailActivity::class.java)
+                    intent.putExtra(C.GOODS_INFO_ID, item?.ggList?.get(position)?.goods_info_id)
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    context.startActivity(intent)
+                }
                 rvGroup?.layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false)
                 rvGroup?.adapter = goodsAdapter
             }
@@ -129,7 +137,7 @@ class GoodsGroupView : BaseRelativeLayout<GoodsGroupViewBinding> {
                     .centerCrop()
                     .into(helper?.getView(R.id.iv_goods)!!)
 
-            helper?.setText(R.id.tv_num, item?.goodsNum + "盒")
+            helper?.setText(R.id.tv_num, item?.goodsNum + "件")
                     ?.setText(R.id.tv_goods_name, item?.goods_name)
                     ?.setText(R.id.tv_goods_price_num, "¥" + item?.goods_price)
         }
