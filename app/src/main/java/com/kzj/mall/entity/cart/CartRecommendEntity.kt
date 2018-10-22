@@ -14,9 +14,14 @@ class CartRecommendEntity {
         var isShowRecommendText: Boolean = false
 
         /**
-         * 是否圆角
+         * 是否显示右边距
          */
-        var isBackgroundCorners: Boolean = false
+        var isShowRightMargin: Boolean = false
+
+        /**
+         * 是否显示左边距
+         */
+        var isShowLeftMargin: Boolean = false
 
         var goods_img: String? = null
         var goods_name: String? = null

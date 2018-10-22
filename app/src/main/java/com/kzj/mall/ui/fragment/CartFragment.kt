@@ -1,11 +1,12 @@
 package com.kzj.mall.ui.fragment
 
 import android.content.Intent
-import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.GridLayoutManager
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.blankj.utilcode.util.ToastUtils
+import com.chad.library.adapter.base.BaseQuickAdapter
 import com.gyf.barlibrary.ImmersionBar
 import com.kzj.mall.C
 import com.kzj.mall.R
@@ -55,7 +56,6 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
     override fun enableEventBus() = true
 
 
-
     override fun setupComponent(appComponent: AppComponent?) {
         DaggerCartComponent.builder()
                 .appComponent(appComponent)
@@ -75,9 +75,21 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
 
     override fun initData() {
         cartAdapter = CartAdapter(ArrayList())
-        cartAdapter?.addFooterView(layoutInflater.inflate(R.layout.header_footer_line_gray_10dp, mBinding?.rvCart?.parent as ViewGroup, false))
-        mBinding?.rvCart?.layoutManager = LinearLayoutManager(context)
+        cartAdapter?.addFooterView(layoutInflater.inflate(R.layout.footer_kzj, mBinding?.rvCart?.parent as ViewGroup, false))
+        mBinding?.rvCart?.layoutManager = GridLayoutManager(context, 2)
+
+        cartAdapter?.setSpanSizeLookup(object : BaseQuickAdapter.SpanSizeLookup {
+            override fun getSpanSize(gridLayoutManager: GridLayoutManager?, position: Int): Int {
+                val itemType = cartAdapter?.getItem(position)?.getItemType()
+                if (itemType == ICart.RECOMMEND) {
+                    return 1
+                }
+                return 2
+            }
+        })
+
         mBinding?.rvCart?.adapter = cartAdapter
+
 
 
         headerView = layoutInflater.inflate(R.layout.header_cart, mBinding?.rvCart?.parent as ViewGroup, false)
@@ -117,20 +129,20 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
         cartAdapter?.setOnItemChildClickListener { adapter, view, position ->
             when (view.id) {
                 R.id.iv_check -> {
-                        var cartEntity = cartAdapter?.data?.get(position) as BaseCartEntity
-                        cartEntity?.isCheck = !cartEntity?.isCheck
-                        cartAdapter?.notifyItemChanged(position)
+                    var cartEntity = cartAdapter?.data?.get(position) as BaseCartEntity
+                    cartEntity?.isCheck = !cartEntity?.isCheck
+                    cartAdapter?.notifyItemChanged(position)
 
-                        if (isAllCheck()) {
-                            mBinding?.ivAllCheck?.setImageResource(R.mipmap.icon_cart_check)
-                            isAllCheck = true
-                        } else {
-                            mBinding?.ivAllCheck?.setImageResource(R.mipmap.check_nor)
-                            isAllCheck = false
-                        }
-                        setCheckPrice()
-                        mBinding?.tvToBalance?.isEnabled = checkNum() > 0
-                        mBinding?.tvToBalance?.setText("去结算(" + checkNum() + ")")
+                    if (isAllCheck()) {
+                        mBinding?.ivAllCheck?.setImageResource(R.mipmap.icon_cart_check)
+                        isAllCheck = true
+                    } else {
+                        mBinding?.ivAllCheck?.setImageResource(R.mipmap.check_nor)
+                        isAllCheck = false
+                    }
+                    setCheckPrice()
+                    mBinding?.tvToBalance?.isEnabled = checkNum() > 0
+                    mBinding?.tvToBalance?.setText("去结算(" + checkNum() + ")")
                 }
 
             //数量减
@@ -138,7 +150,7 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
                     var cartEntity = cartAdapter?.data?.get(position) as BaseCartEntity
                     val goodsNum = cartEntity?.goods_num!! - 1
                     val cartId = cartEntity?.shopping_cart_id
-                    if (goodsNum > 0){
+                    if (goodsNum > 0) {
                         mPresenter?.changeCartNum(position, cartId, goodsNum?.toString()?.trim()!!)
                     }
                 }
@@ -148,7 +160,7 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
                     var cartEntity = cartAdapter?.data?.get(position) as BaseCartEntity
                     val goodsNum = cartEntity?.goods_num!! + 1
                     val cartId = cartEntity?.shopping_cart_id
-                    if (goodsNum <= cartEntity?.goods_stock!!){
+                    if (goodsNum <= cartEntity?.goods_stock!!) {
                         mPresenter?.changeCartNum(position, cartId, goodsNum?.toString()?.trim()!!)
                     }
                 }
@@ -328,9 +340,22 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
         }
     }
 
+    /**
+     * 推荐商品
+     */
     override fun loadRecommendDatas(t: MutableList<CartRecommendEntity.Data>?) {
         t?.let {
-            it?.get(0)?.isShowRecommendText = true
+
+            for (i in 0 until t?.size) {
+                if (i % 2 == 0) {
+                    t.get(i).isShowLeftMargin = true
+                    t.get(i).isShowRightMargin = false
+                } else {
+                    t.get(i).isShowLeftMargin = false
+                    t.get(i).isShowRightMargin = true
+                }
+            }
+
             val iCart = ArrayList<ICart>()
             iCart?.addAll(it)
             if (cartAdapter?.data?.size!! > 0) {
@@ -407,7 +432,7 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
         mPresenter?.requesrCart(false)
     }
 
-    private fun changeDeleteMode(){
+    private fun changeDeleteMode() {
         if (isDeleteMode) {
             mBinding?.tvEdit?.setText("完成")
             mBinding?.llBalance2?.visibility = View.GONE
@@ -551,7 +576,7 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
         when (v?.id) {
             R.id.tv_edit -> {
 
-                if (!isDeleteMode && cartAdapter?.data?.size!! <=0){
+                if (!isDeleteMode && cartAdapter?.data?.size!! <= 0) {
                     return
                 }
 
@@ -573,7 +598,7 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
             }
             R.id.tv_delete -> {
                 val cartIds = cartIds()
-                if (cartIds.size > 0){
+                if (cartIds.size > 0) {
                     ConfirmDialog.newInstance("狠心删除", "留在购物车", "很抢手哦 ～ 下次不一定能买到确定要删除我吗 ～")
                             .setOnConfirmClickListener(object : ConfirmDialog.OnConfirmClickListener {
                                 override fun onLeftClick() {
