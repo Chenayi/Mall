@@ -118,13 +118,13 @@ class GoodsSpecDialog : BaseDialog<GoodsSpecPresenter, DialogGoodsSpecBinding>()
                     }
 
                     EventBus.getDefault().post(GoodsNumChangeEvent(iGroup?.package_count))
-                    setPackagesPrice(position, iGroup?.goods_info_id!!, iGroup?.combination_unit_price, iGroup?.package_count)
+                    setPackagesPrice(position, iGroup?.goods_info_id!!, iGroup?.combination_unit_price, iGroup?.package_count,iGroup?.combination_name!!)
                 } else if (iGroup is GoodsDetailEntity.CombinationList) {
                     isCombination = true
                     if (iGroup.package_count != null && iGroup.package_count!! > 0) {
                         packetCount = iGroup.package_count!!
                     }
-                    mBinding?.tvGoodsPrice?.setText("合计：¥" + FloatUtils.format(iGroup.combination_price))
+                    mBinding?.tvGoodsPrice?.setText("¥" + FloatUtils.format(iGroup.combination_price))
                     mBinding?.tvPreGoodsPrice?.visibility = View.VISIBLE
                     mBinding?.tvPreGoodsPrice?.setText("立省：¥" + FloatUtils.format(iGroup.sumPrePrice))
                     mBinding?.tvGroupName?.text = "活动套餐"
@@ -263,7 +263,7 @@ class GoodsSpecDialog : BaseDialog<GoodsSpecPresenter, DialogGoodsSpecBinding>()
     /**
      * 疗程价格
      */
-    private fun setPackagesPrice(position: Int, goodsInfoId: String, goodsPrice: Float, num: Int) {
+    private fun setPackagesPrice(position: Int, goodsInfoId: String, goodsPrice: Float, num: Int,comName:String) {
         var sumPrice = goodsPrice * num
         val oldSinglePrice = goodsDetailEntity?.gn?.goodsPrice?.toFloat()!!
         val oldSumPrice = oldSinglePrice * num
@@ -272,7 +272,8 @@ class GoodsSpecDialog : BaseDialog<GoodsSpecPresenter, DialogGoodsSpecBinding>()
         mBinding?.tvGoodsPrice?.setText("合计：¥" + FloatUtils.format(sumPrice))
         mBinding?.tvPreGoodsPrice?.setText("立省：¥" + FloatUtils.format(preSumPrice))
 
-        EventBus.getDefault().post(PackageListEvent(isCombination, position, goodsInfoId, FloatUtils.format(sumPrice), FloatUtils.format(oldSumPrice)))
+        EventBus.getDefault().post(PackageListEvent(isCombination, position, goodsInfoId,
+                FloatUtils.format(sumPrice), FloatUtils.format(oldSumPrice),comName))
     }
 
     /**

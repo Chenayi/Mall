@@ -141,12 +141,15 @@
 
             <TextView
                 android:id="@+id/tv_check_spec"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:textColor="@color/c_2e3033"
                 android:textSize="13dp"
-                tools:text="0.7g/片*126片" />
+                tools:text="0.7g/片*126片"
+                android:singleLine="true"
+                android:lines="1"/>
         </LinearLayout>
 
         <ImageView
@@ -241,7 +244,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
-                android:layout_marginRight="2dp"
                 android:src="@mipmap/more" />
 
         </FrameLayout>

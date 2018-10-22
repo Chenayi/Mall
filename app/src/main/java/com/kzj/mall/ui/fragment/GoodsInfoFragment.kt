@@ -231,9 +231,9 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
 
             override fun onPageSelected(position: Int) {
                 mBinding?.tvBannerNum?.setText((position + 1).toString())
-                if(position == 0){
+                if (position == 0) {
                     mBinding?.rlNotice?.visibility = View.VISIBLE
-                }else{
+                } else {
                     mBinding?.rlNotice?.visibility = View.INVISIBLE
                 }
             }
@@ -307,14 +307,14 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
                 mBinding?.banner?.setData(advDatas, null)
                 if (advDatas?.size!! > 0) {
                     mBinding?.tvBannerNum?.setText("1")
-                    mBinding?.tvBannerCount?.text = " / "+advDatas?.size
+                    mBinding?.tvBannerCount?.text = " / " + advDatas?.size
                 }
                 //价格
                 val goodsPrice = "¥" + it?.goodsPrice
                 tvGoodsPrice?.setText(PriceUtils.format(goodsPrice))
                 tvGoodsMarketPrice?.setText("¥" + it?.goodsMarketPrice)
                 tvGoodsMarketPrice?.getPaint()?.setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-                tvMonthSalesNum?.setText("已销售" + it?.goodsSole+"件")
+                tvMonthSalesNum?.setText("已销售" + it?.goodsSole + "件")
 
                 if (it?.goodsPrice?.toFloat()!! < it?.goodsMarketPrice?.toFloat()!!) {
                     tvTejie?.visibility = View.VISIBLE
@@ -395,7 +395,7 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
             //规格
             it?.gn?.goodsSpec?.let {
                 mBinding?.detailSpec?.isEnabled = true
-                tvCheckSpec?.setText(it)
+                tvCheckSpec?.setText(it + "；一盒标准装")
             }
 
             //套餐
@@ -437,6 +437,12 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
         tvGoodsPrice?.setText("¥" + packageListEvent.goodsPrice)
         tvGoodsMarketPrice?.setText("¥" + packageListEvent?.goodsMarketPrice)
         tvGoodsMarketPrice?.getPaint()?.setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+
+        //规格
+        goodsDetailEntity?.gn?.goodsSpec?.let {
+            mBinding?.detailSpec?.isEnabled = true
+            tvCheckSpec?.setText(it + "；" + packageListEvent?.combinaName)
+        }
     }
 
     /**
@@ -449,6 +455,12 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
         tvGoodsPrice?.setText("¥" + combination?.combination_price)
         tvGoodsMarketPrice?.setText("¥" + combination?.sumOldPrice)
         tvGoodsMarketPrice?.getPaint()?.setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+
+        //规格
+        goodsDetailEntity?.gn?.goodsSpec?.let {
+            mBinding?.detailSpec?.isEnabled = true
+            tvCheckSpec?.setText(it + "；" + combination?.combination_name)
+        }
     }
 
     /**
@@ -479,7 +491,7 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
                 }
                 addOrCancelFollow()
             }
-            R.id.ll_service_note->{
+            R.id.ll_service_note -> {
                 ServiceNoteDialog.newInstance()
                         .setShowBottom(true)
                         .show(childFragmentManager)

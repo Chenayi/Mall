@@ -15,7 +15,7 @@ class ExplainAdapter constructor(val context: Context?, val explains: MutableLis
         val view = LayoutInflater.from(context).inflate(R.layout.item_explain, null, false)
         view.findViewById<TextView>(R.id.tv_title)?.text = explains?.get(position)?.title
         view.findViewById<TextView>(R.id.tv_content)?.text = explains?.get(position)?.content
-        view.findViewById<View>(R.id.bottom_line)?.visibility = if(position == explains?.size- 1) View.GONE else View.VISIBLE
+//        view.findViewById<View>(R.id.bottom_line)?.visibility = if(position == explains?.size- 1) View.GONE else View.VISIBLE
         return view
     }
 

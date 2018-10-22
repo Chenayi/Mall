@@ -17,7 +17,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="10dp"
-                android:background="@color/white" />
+                android:background="@drawable/top_white_corners_12" />
 
             <RelativeLayout
                 android:id="@+id/rl_top"
@@ -54,7 +54,7 @@
                         android:textColor="@color/orange_default"
                         android:textSize="15dp"
                         android:textStyle="bold"
-                        tools:text="合计：¥0.00" />
+                        tools:text="¥0.00" />
 
                     <TextView
                         android:id="@+id/tv_pre_goods_price"
@@ -115,7 +115,7 @@
                             android:paddingRight="10dp"
                             android:paddingTop="14dp"
                             android:text="规格"
-                            android:textColor="#8A9099"
+                            android:textColor="@color/gray_6A6E75"
                             android:textSize="12dp"/>
 
                         <com.kzj.mall.widget.SuperFlowLayout
@@ -149,7 +149,7 @@
                             android:paddingRight="10dp"
                             android:paddingTop="14dp"
                             android:text="标准装"
-                            android:textColor="#8A9099"
+                            android:textColor="@color/gray_6A6E75"
                             android:textSize="12dp"/>
 
                         <com.kzj.mall.widget.SuperFlowLayout
@@ -178,7 +178,7 @@
                             android:layout_centerVertical="true"
                             android:layout_marginLeft="10dp"
                             android:text="数量"
-                            android:textColor="#8A9099"
+                            android:textColor="@color/gray_6A6E75"
                             android:textSize="12dp" />
 
 
@@ -195,13 +195,14 @@
                                 android:layout_width="30dp"
                                 android:layout_height="30dp"
                                 android:scaleType="centerInside"
-                                android:src="@mipmap/minus_nor" />
+                                android:src="@mipmap/minus_disable"
+                                android:background="@drawable/circle_f5"/>
 
                             <TextView
                                 android:id="@+id/tv_num"
                                 android:layout_width="46dp"
                                 android:layout_height="30dp"
-                                android:background="@color/gray_default"
+                                android:background="@drawable/background_fa_corners_9999"
                                 android:gravity="center"
                                 android:lines="1"
                                 android:paddingLeft="4dp"
@@ -209,14 +210,18 @@
                                 android:singleLine="true"
                                 android:text="1"
                                 android:textColor="#242A33"
-                                android:textStyle="bold"/>
+                                android:textStyle="bold"
+                                android:textSize="13dp"
+                                android:layout_marginLeft="4dp"
+                                android:layout_marginRight="4dp"/>
 
                             <ImageView
                                 android:id="@+id/iv_plus"
                                 android:layout_width="30dp"
                                 android:layout_height="30dp"
                                 android:scaleType="centerInside"
-                                android:src="@mipmap/plus" />
+                                android:src="@mipmap/plus"
+                                android:background="@drawable/circle_f5"/>
                         </LinearLayout>
 
 

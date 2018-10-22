@@ -5,17 +5,12 @@
         android:id="@+id/rl_explain"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
-        android:paddingBottom="16dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingTop="16dp">
+        android:background="@color/white">
 
         <com.kzj.mall.widget.ItemListView
             android:id="@+id/lv_explain"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/background_explain_bg"
             android:divider="@null"
             android:dividerHeight="0dp"
             android:overScrollMode="never"

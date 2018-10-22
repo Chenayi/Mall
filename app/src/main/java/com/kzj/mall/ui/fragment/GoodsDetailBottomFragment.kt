@@ -27,11 +27,11 @@ class GoodsDetailBottomFragment : BaseFragment<IPresenter, FragmentGoodsDetailBi
     private var goodsDetailEntity: GoodsDetailEntity? = null
 
     companion object {
-        fun newInstance(barHeight: Int,goodsDetailEntity: GoodsDetailEntity?): GoodsDetailBottomFragment {
+        fun newInstance(barHeight: Int, goodsDetailEntity: GoodsDetailEntity?): GoodsDetailBottomFragment {
             val goodsDetailBottomFragment = GoodsDetailBottomFragment()
             var b = Bundle()
             b.putInt("barHeight", barHeight)
-            b.putSerializable("goodsDetailEntity",goodsDetailEntity)
+            b.putSerializable("goodsDetailEntity", goodsDetailEntity)
             goodsDetailBottomFragment.arguments = b
             return goodsDetailBottomFragment
         }
@@ -71,7 +71,7 @@ class GoodsDetailBottomFragment : BaseFragment<IPresenter, FragmentGoodsDetailBi
             loadMultipleRootFragment(R.id.fl_goods_detail, FIRST,
                     mFragments[FIRST],
                     mFragments[SECOND]);
-        }else{
+        } else {
             mFragments[FIRST] = firstFragment
             mFragments[SECOND] = findFragment(GoodsDetailExplainFragment::class.java)
         }
@@ -84,31 +84,25 @@ class GoodsDetailBottomFragment : BaseFragment<IPresenter, FragmentGoodsDetailBi
 
     override fun onClick(v: View?) {
         when (v?.id) {
+        //图文描述
             R.id.rl_describe -> {
+                mBinding?.rlExplain?.setBackgroundResource(R.drawable.right_green_stroke_corners_9999)
                 mBinding?.tvExplain?.setTextColor(Color.parseColor("#2E3033"))
-                mBinding?.tvExplain?.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL))
-                mBinding?.viewExplain?.visibility = View.GONE
-
-                mBinding?.tvDescribe?.setTextColor(Color.parseColor("#48B828"))
-                mBinding?.tvDescribe?.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD))
-                mBinding?.viewDescribe?.visibility = View.VISIBLE
-
-                if (curFragment!= FIRST){
-                    showHideFragment(mFragments[FIRST],mFragments[SECOND])
+                mBinding?.rlDescribe?.setBackgroundResource(R.drawable.left_green_corners_9999)
+                mBinding?.tvDescribe?.setTextColor(Color.WHITE)
+                if (curFragment != FIRST) {
+                    showHideFragment(mFragments[FIRST], mFragments[SECOND])
                     curFragment = FIRST
                 }
             }
+        //说明书
             R.id.rl_explain -> {
+                mBinding?.rlDescribe?.setBackgroundResource(R.drawable.left_green_stroke_corners_9999)
                 mBinding?.tvDescribe?.setTextColor(Color.parseColor("#2E3033"))
-                mBinding?.tvDescribe?.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL))
-                mBinding?.viewDescribe?.visibility = View.GONE
-
-                mBinding?.tvExplain?.setTextColor(Color.parseColor("#48B828"))
-                mBinding?.tvExplain?.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD))
-                mBinding?.viewExplain?.visibility = View.VISIBLE
-
-                if (curFragment!= SECOND){
-                    showHideFragment(mFragments[SECOND],mFragments[FIRST])
+                mBinding?.tvExplain?.setTextColor(Color.WHITE)
+                mBinding?.rlExplain?.setBackgroundResource(R.drawable.right_green_corners_9999)
+                if (curFragment != SECOND) {
+                    showHideFragment(mFragments[SECOND], mFragments[FIRST])
                     curFragment = SECOND
                 }
             }

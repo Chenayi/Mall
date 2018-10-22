@@ -5,8 +5,8 @@
         android:id="@+id/ll_detail_root"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@color/white">
+        android:background="@color/white"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -16,14 +16,16 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="46dp"
+                android:layout_height="40dp"
+                android:layout_margin="12dp"
                 android:orientation="horizontal">
 
                 <RelativeLayout
                     android:id="@+id/rl_describe"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:background="@drawable/left_green_corners_9999">
 
                     <TextView
                         android:id="@+id/tv_describe"
@@ -31,30 +33,17 @@
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:text="图文描述"
-                        android:textStyle="bold"
-                        android:textColor="@color/colorPrimary" />
+                        android:textColor="@color/white" />
 
-                    <View
-                        android:id="@+id/view_describe"
-                        android:layout_width="21dp"
-                        android:layout_height="3dp"
-                        android:layout_alignParentBottom="true"
-                        android:layout_centerHorizontal="true"
-                        android:background="@color/colorPrimary" />
 
                 </RelativeLayout>
-
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="13dp"
-                    android:layout_gravity="center_vertical"
-                    android:background="#C2C6CC" />
 
                 <RelativeLayout
                     android:id="@+id/rl_explain"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:background="@drawable/right_green_stroke_corners_9999">
 
                     <TextView
                         android:id="@+id/tv_explain"
@@ -64,24 +53,9 @@
                         android:text="说明书"
                         android:textColor="#2E3033" />
 
-                    <View
-                        android:id="@+id/view_explain"
-                        android:layout_width="21dp"
-                        android:layout_height="3dp"
-                        android:layout_alignParentBottom="true"
-                        android:layout_centerHorizontal="true"
-                        android:background="@color/colorPrimary"
-                        android:visibility="gone" />
-
                 </RelativeLayout>
 
             </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:background="@color/gray_default" />
-
 
             <!-- 分割线 -->
 
