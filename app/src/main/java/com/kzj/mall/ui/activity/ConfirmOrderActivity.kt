@@ -29,6 +29,7 @@ import com.kzj.mall.event.CartChangeEvent
 import com.kzj.mall.mvp.contract.ConfirmOrderContract
 import com.kzj.mall.mvp.presenter.ConfirmOrderPresenter
 import com.kzj.mall.ui.dialog.ConfirmDialog
+import com.kzj.mall.ui.dialog.OrderGoodsListDialog
 import com.kzj.mall.utils.FloatUtils
 import com.kzj.mall.utils.Utils
 import com.kzj.mall.widget.RootLayout
@@ -108,7 +109,7 @@ class ConfirmOrderActivity : BaseActivity<ConfirmOrderPresenter, ActivityConfirm
                         val ggList = it?.get(i)?.ggList
                         if (ggList != null) {
                             for (j in 0 until ggList?.size!!) {
-                                if (goodsImgs?.size < 4){
+                                if (goodsImgs?.size < 4) {
                                     goodsImgs?.add(ggList?.get(j)?.c_goods?.goods_img!!)
                                 }
                             }
@@ -142,9 +143,9 @@ class ConfirmOrderActivity : BaseActivity<ConfirmOrderPresenter, ActivityConfirm
             mBinding?.rvGoods?.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
             mBinding?.rvGoods?.adapter = goodsAdapter
             goodsAdapter?.setOnItemClickListener { adapter, view, position ->
-                val intent = Intent(this@ConfirmOrderActivity, OrderGoodsListActivity::class.java)
-                intent.putExtra("buyEntity", buyEntity)
-                startActivity(intent)
+                OrderGoodsListDialog.newInstance(buyEntity)
+                        .setShowBottom(true)
+                        .show(supportFragmentManager)
             }
         }
 
@@ -359,9 +360,9 @@ class ConfirmOrderActivity : BaseActivity<ConfirmOrderPresenter, ActivityConfirm
                 }
             }
             R.id.ll_multi_goods -> {
-                val intent = Intent(this, OrderGoodsListActivity::class.java)
-                intent.putExtra("buyEntity", buyEntity)
-                startActivity(intent)
+                OrderGoodsListDialog.newInstance(buyEntity)
+                        .setShowBottom(true)
+                        .show(supportFragmentManager)
             }
 
             R.id.tv_submit_order -> {

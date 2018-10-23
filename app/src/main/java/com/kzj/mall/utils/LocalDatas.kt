@@ -23,15 +23,15 @@ class LocalDatas {
             val banners = ArrayList<HomeHeaderBannerEntity.Adds>()
 
             val banner1 = HomeHeaderBannerEntity().Adds()
-            banner1.adCode = "http://i2.bvimg.com/665231/858fda69e0efe9ac.png"
+            banner1.adCode = "http://m.qpic.cn/psb?/V141YaNB4X7WnB/LnuktjzmJT*4*MNgSeuwG.UlK17N*vnOZlE9K5GK6Cw!/b/dDUBAAAAAAAA&bo=tgPCAQAAAAADF0Q!&rf=viewer_4"
             banner1.goodsInfoId = "29954"
 
             val banner2 = HomeHeaderBannerEntity().Adds()
-            banner2.adCode = "http://i2.bvimg.com/665231/421a2df5dfa5c606.png"
+            banner2.adCode = "http://m.qpic.cn/psb?/V141YaNB4X7WnB/TNlBi8TuAG2F6dK1riTzjlQzvw5NOxbuWF9KsgzD90g!/b/dDcBAAAAAAAA&bo=tgPCAQAAAAADF0Q!&rf=viewer_4"
             banner2.goodsInfoId = "17124"
 
             val banner3 = HomeHeaderBannerEntity().Adds()
-            banner3.adCode = "http://i2.bvimg.com/665231/3b767b51977cd174.png"
+            banner3.adCode = "http://m.qpic.cn/psb?/V141YaNB4X7WnB/5vyhFErXmM4xVHUuVN0l6gHtWf*vS7iLkHSCLrQlHlQ!/b/dFMBAAAAAAAA&bo=tgPCAQAAAAADF0Q!&rf=viewer_4"
             banner3.goodsInfoId = "21536"
 
             banners.add(banner1)
@@ -51,15 +51,15 @@ class LocalDatas {
             val banners = ArrayList<HomeHeaderBannerEntity.Adds>()
 
             val banner1 = HomeHeaderBannerEntity().Adds()
-            banner1.adCode = "http://i2.bvimg.com/665231/33470ca7408063e1.png"
+            banner1.adCode = "http://m.qpic.cn/psb?/V141YaNB4X7WnB/8D7nfNwJqI4r7glm3K1gpLiF*lLvpgZn4dC0KE2ks.0!/b/dDQBAAAAAAAA&bo=tgPCAQAAAAADF0Q!&rf=viewer_4"
             banner1.goodsInfoId = "26765"
 
             val banner2 = HomeHeaderBannerEntity().Adds()
-            banner2.adCode = "http://i2.bvimg.com/665231/4405edf13cd48353.png"
+            banner2.adCode = "http://m.qpic.cn/psb?/V141YaNB4X7WnB/AGFPuXppAU6JvgFe1d46VrPkG4LIpm7rMiPFPHWxgM4!/b/dDEBAAAAAAAA&bo=tgPCAQAAAAADJ3Q!&rf=viewer_4"
             banner2.goodsInfoId = "35603"
 
             val banner3 = HomeHeaderBannerEntity().Adds()
-            banner3.adCode = "http://i2.bvimg.com/665231/4df192304de7c597.png"
+            banner3.adCode = "http://m.qpic.cn/psb?/V141YaNB4X7WnB/5OKL*mPvKboArvy1KaG9eS2pu8BmOqhRwe*BTrlj5NI!/b/dFMBAAAAAAAA&bo=tgPCAQAAAAADF0Q!&rf=viewer_4"
             banner3.goodsInfoId = "27400"
 
             banners.add(banner1)

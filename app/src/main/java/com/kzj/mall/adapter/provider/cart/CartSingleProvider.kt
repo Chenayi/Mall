@@ -24,8 +24,8 @@ class CartSingleProvider : BaseItemProvider<CartSingleEntity, BaseViewHolder>() 
         helper?.addOnClickListener(R.id.iv_check)
                 ?.addOnClickListener(R.id.iv_minus)
                 ?.addOnClickListener(R.id.iv_plus)
-                ?.setGone(R.id.ll_top, data?.shopping_cart_type.equals("1"))
-                ?.setGone(R.id.tv_goods_pre_price, data?.shopping_cart_type.equals("1"))
+                ?.setGone(R.id.ll_lc, data?.shopping_cart_type.equals("1"))
+                ?.setGone(R.id.ll_goods_pre_price, data?.shopping_cart_type.equals("1"))
                 ?.setText(R.id.tv_goods_num, data?.goods_num?.toString()?.trim())
                 ?.setText(R.id.tv_goods_name, data?.goods_name)
                 ?.setText(R.id.tv_goods_price, "¥" + data?.goods_price)
@@ -48,7 +48,7 @@ class CartSingleProvider : BaseItemProvider<CartSingleEntity, BaseViewHolder>() 
         data?.shopping_cart_type?.let {
             //疗程
             if (it.equals("1")) {
-                helper?.setText(R.id.tv_goods_pre_price, "已省 ¥" + data?.goods_pre_price)
+                helper?.setText(R.id.tv_goods_pre_price, "¥" + data?.goods_pre_price)
                         ?.setText(R.id.tv_combination_name, data?.combination_name)
             }
         }

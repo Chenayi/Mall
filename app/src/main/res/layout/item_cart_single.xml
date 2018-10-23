@@ -1,58 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginLeft="10dp"
     android:layout_marginRight="10dp"
     android:layout_marginTop="10dp"
     android:background="@drawable/background_white_corners_8"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="12dp">
 
 
     <LinearLayout
         android:id="@+id/ll_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingLeft="40dp"
-        android:paddingRight="10dp"
-        android:paddingTop="16dp"
-        android:visibility="gone">
+        android:orientation="vertical">
 
-        <com.allen.library.SuperTextView
-            android:layout_width="32dp"
-            android:layout_height="16dp"
-            app:sCenterTextColor="@color/colorPrimary"
-            app:sCenterTextSize="11dp"
-            app:sCenterTextString="疗程"
-            app:sShapeCornersRadius="9999dp"
-            app:sShapeStrokeColor="@color/colorPrimary"
-            app:sShapeStrokeWidth="1dp"
-            app:sUseShape="true" />
-
-        <TextView
-            android:id="@+id/tv_combination_name"
-            android:layout_width="wrap_content"
+        <!--全场满减-->
+        <LinearLayout
+            android:id="@+id/ll_manjian"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="4dp"
-            android:lines="1"
-            android:singleLine="true"
-            android:text="2盒起495元/盒疗程价！"
-            android:textColor="#2E3033"
-            android:textSize="13dp" />
+            android:layout_marginTop="2dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="28dp"
+            android:paddingRight="10dp"
+            android:visibility="visible">
 
+            <TextView
+                android:layout_width="48dp"
+                android:layout_height="14dp"
+                android:background="@drawable/background_orange_corners_9999"
+                android:gravity="center"
+                android:text="全场满减"
+                android:textColor="@color/white"
+                android:textSize="10dp" />
+
+            <TextView
+                android:id="@+id/tv_manjian_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:lines="1"
+                android:singleLine="true"
+                android:text="全场满500减20元；满800减100元"
+                android:textColor="#2E3033"
+                android:textSize="13dp" />
+
+        </LinearLayout>
+
+
+        <!-- 满赠 -->
+        <LinearLayout
+            android:id="@+id/ll_manzeng"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="28dp"
+            android:paddingRight="10dp"
+            android:visibility="visible">
+
+            <TextView
+                android:layout_width="28dp"
+                android:layout_height="14dp"
+                android:background="@drawable/background_orange_corners_9999"
+                android:gravity="center"
+                android:text="满赠"
+                android:textColor="@color/white"
+                android:textSize="10dp" />
+
+            <TextView
+                android:id="@+id/tv_manzeng_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:lines="1"
+                android:singleLine="true"
+                android:text="满2000元赠送六味地黄丸一瓶，手速慢无，速抢"
+                android:textColor="#2E3033"
+                android:textSize="13dp" />
+
+        </LinearLayout>
+
+
+        <!-- 疗程 -->
+        <LinearLayout
+            android:id="@+id/ll_lc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_marginTop="2dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="28dp"
+            android:paddingRight="10dp"
+            android:visibility="visible">
+
+            <TextView
+                android:layout_width="28dp"
+                android:layout_height="14dp"
+                android:background="@drawable/background_green_corners_9999"
+                android:gravity="center"
+                android:text="疗程"
+                android:textColor="@color/white"
+                android:textSize="10dp" />
+
+            <TextView
+                android:id="@+id/tv_combination_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:lines="1"
+                android:singleLine="true"
+                android:text="2盒起495元/盒疗程价！"
+                android:textColor="#2E3033"
+                android:textSize="13dp" />
+
+        </LinearLayout>
     </LinearLayout>
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -95,14 +168,15 @@
                 <TextView
                     android:id="@+id/tv_goods_price"
                     android:layout_width="0dp"
-                    android:layout_height="27dp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
                     android:lines="1"
                     android:singleLine="true"
                     android:text="￥158"
-                    android:textColor="@color/orange_default"
-                    android:textSize="13dp" />
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="14dp"
+                    android:textStyle="bold" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -111,16 +185,19 @@
 
                     <ImageView
                         android:id="@+id/iv_minus"
-                        android:layout_width="27dp"
-                        android:layout_height="27dp"
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:background="@drawable/circle_cart_plus_minus"
                         android:scaleType="centerInside"
                         android:src="@mipmap/minus_nor" />
 
                     <EditText
                         android:id="@+id/tv_goods_num"
-                        android:layout_width="45dp"
-                        android:layout_height="27dp"
-                        android:background="#F5F5F5"
+                        android:layout_width="38dp"
+                        android:layout_height="22dp"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginRight="4dp"
+                        android:background="@drawable/background_cart_num_bg"
                         android:focusable="false"
                         android:gravity="center"
                         android:lines="1"
@@ -132,8 +209,9 @@
 
                     <ImageView
                         android:id="@+id/iv_plus"
-                        android:layout_width="27dp"
-                        android:layout_height="27dp"
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:background="@drawable/circle_cart_plus_minus"
                         android:scaleType="centerInside"
                         android:src="@mipmap/plus_cart" />
                 </LinearLayout>
@@ -143,15 +221,69 @@
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/tv_goods_pre_price"
+    <!-- 赠品 -->
+    <LinearLayout
+        android:id="@+id/ll_zengpin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:layout_marginLeft="40dp"
-        android:text="已省¥100.00"
-        android:textColor="@color/orange_default"
-        android:textSize="13dp"
-        android:visibility="gone" />
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="22dp"
+        android:paddingTop="12dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:lines="1"
+            android:singleLine="true"
+            android:text="「赠品」"
+            android:textColor="#8A9099"
+            android:textSize="11dp" />
+
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginLeft="4dp"
+            android:src="@color/gray_default" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="6dp"
+            android:lines="1"
+            android:singleLine="true"
+            android:text="稳健医疗 日用棉签(塑棒双头) 7.5cm*200支"
+            android:textColor="#8A9099"
+            android:textSize="11dp" />
+
+    </LinearLayout>
+
+    <!-- 已省 -->
+    <LinearLayout
+        android:id="@+id/ll_goods_pre_price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="28dp"
+        android:visibility="visible">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="已省："
+            android:textColor="@color/c_2e3033"
+            android:textSize="12dp" />
+
+        <TextView
+            android:id="@+id/tv_goods_pre_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="¥100.00"
+            android:textColor="@color/orange_default"
+            android:textSize="14dp"
+            android:textStyle="bold" />
+    </LinearLayout>
 
 </LinearLayout>

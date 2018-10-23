@@ -30,7 +30,7 @@ class CartGroupProvider : BaseItemProvider<CartGroupEntity, BaseViewHolder>() {
         helper?.addOnClickListener(R.id.iv_check)
                 ?.addOnClickListener(R.id.iv_minus)
                 ?.addOnClickListener(R.id.iv_plus)
-                ?.setText(R.id.tv_goods_pre_price, "套餐价 ¥" + data?.goods_price)
+                ?.setText(R.id.tv_goods_pre_price, "¥" + data?.goods_price)
                 ?.setText(R.id.tv_combination_name, data?.combination_name)
                 ?.setText(R.id.tv_goods_num, data?.goods_num?.toString()?.trim())
 

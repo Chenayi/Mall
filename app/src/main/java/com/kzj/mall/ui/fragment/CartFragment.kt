@@ -225,12 +225,14 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
         val datas = cartAdapter?.data
         var size = 0
         for (i in 0 until datas?.size!!) {
-            if ((datas?.get(i) as BaseCartEntity).isCheck == false) {
-                (datas?.get(i) as BaseCartEntity).isCheck = true
-            }
+            if (datas?.get(i) is BaseCartEntity){
+                if ((datas?.get(i) as BaseCartEntity).isCheck == false) {
+                    (datas?.get(i) as BaseCartEntity).isCheck = true
+                }
 
-            if (datas?.get(i) is CartSingleEntity || datas?.get(i) is CartGroupEntity) {
-                size += 1
+                if (datas?.get(i) is CartSingleEntity || datas?.get(i) is CartGroupEntity) {
+                    size += 1
+                }
             }
         }
         setCheckPrice()
@@ -290,8 +292,10 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
     fun cancelAllCheck() {
         val datas = cartAdapter?.data
         for (i in 0 until datas?.size!!) {
-            if ((datas?.get(i) as BaseCartEntity).isCheck == true) {
-                (datas?.get(i) as BaseCartEntity).isCheck = false
+            if (datas?.get(i) is BaseCartEntity){
+                if ((datas?.get(i) as BaseCartEntity).isCheck == true) {
+                    (datas?.get(i) as BaseCartEntity).isCheck = false
+                }
             }
         }
         cartAdapter?.notifyDataSetChanged()
@@ -357,6 +361,7 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
             }
 
             val iCart = ArrayList<ICart>()
+            iCart?.add(CartRecommendTextEntity())
             iCart?.addAll(it)
             if (cartAdapter?.data?.size!! > 0) {
                 cartAdapter?.addData(iCart)
@@ -545,9 +550,11 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
         val data = cartAdapter?.data
         val ids = ArrayList<Long>()
         for (i in 0 until data?.size!!) {
-            val cartEntity = data?.get(i) as BaseCartEntity
-            if (cartEntity?.isCheck && (cartEntity is CartSingleEntity || cartEntity is CartGroupEntity)) {
-                ids?.add(cartEntity?.shopping_cart_id?.toLong()!!)
+            if (data?.get(i) is BaseCartEntity){
+                val cartEntity = data?.get(i) as BaseCartEntity
+                if (cartEntity?.isCheck && (cartEntity is CartSingleEntity || cartEntity is CartGroupEntity)) {
+                    ids?.add(cartEntity?.shopping_cart_id?.toLong()!!)
+                }
             }
         }
 

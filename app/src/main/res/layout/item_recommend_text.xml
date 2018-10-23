@@ -11,7 +11,8 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="20dp"
         android:layout_weight="1"
-        android:background="#C2C6CC" />
+        android:background="#C2C6CC"
+        android:visibility="invisible"/>
 
     <ImageView
         android:layout_width="wrap_content"
@@ -22,8 +23,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
-        android:text="你可能还需要"
-        android:textColor="#6A6E75" />
+        android:text="您可能还需要"
+        android:textColor="#6A6E75"
+        android:textSize="15dp"/>
 
     <View
         android:layout_width="0dp"
@@ -31,6 +33,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="10dp"
         android:layout_weight="1"
-        android:background="#C2C6CC" />
+        android:background="#C2C6CC"
+        android:visibility="invisible"/>
 
 </LinearLayout>
