@@ -358,6 +358,12 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
                     t.get(i).isShowLeftMargin = false
                     t.get(i).isShowRightMargin = true
                 }
+
+                if (i == 0 || i == 1){
+                    t.get(i).isShowTopMargin = false
+                }else{
+                    t.get(i).isShowTopMargin = true
+                }
             }
 
             val iCart = ArrayList<ICart>()

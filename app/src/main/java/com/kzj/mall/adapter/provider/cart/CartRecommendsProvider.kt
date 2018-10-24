@@ -26,8 +26,9 @@ class CartRecommendsProvider : BaseItemProvider<CartRecommendEntity.Data, BaseVi
     override fun convert(helper: BaseViewHolder?, data: CartRecommendEntity.Data?, position: Int) {
 
         helper?.setGone(R.id.view_right, data?.isShowRightMargin == true)
-                ?.setGone(R.id.view_right2,data?.isShowRightMargin == false)
+                ?.setGone(R.id.view_right2, data?.isShowRightMargin == false)
                 ?.setGone(R.id.view_left, data?.isShowLeftMargin == true)
+                ?.setGone(R.id.view_top, data?.isShowTopMargin == true)
 
         LogUtils.e("" + data?.isShowRightMargin)
         val ivGoods = helper?.getView<ImageView>(R.id.iv_goods)

@@ -160,7 +160,7 @@
                     android:layout_marginRight="10dp"
                     android:background="@drawable/background_green_corners_9999"
                     android:gravity="center"
-                    android:text="删除"
+                    android:text="删除商品"
                     android:textColor="@color/fb"
                     android:textStyle="bold"
                     android:visibility="gone" />

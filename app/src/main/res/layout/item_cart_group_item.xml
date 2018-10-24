@@ -34,7 +34,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxLines="2"
-                android:text="SwSwisse 澳大利亚 月见草油软胶囊isse 澳大利亚 月见草油软胶囊"
+                android:text="澳大利亚月见草油软胶囊"
                 android:textColor="@color/gray_6A6E75"
                 android:textSize="13dp"
                 android:id="@+id/tv_goods_name"/>
@@ -66,8 +66,7 @@
                     android:layout_alignParentRight="true"
                     android:text="x1"
                     android:textColor="#6A6E75"
-                    android:textSize="12dp"
-                    android:layout_marginRight="10dp"/>
+                    android:textSize="12dp"/>
 
             </LinearLayout>
         </LinearLayout>

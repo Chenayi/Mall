@@ -99,14 +99,15 @@ class ConfirmOrderActivity : BaseActivity<ConfirmOrderPresenter, ActivityConfirm
         }
 
         val goodsImgs = ArrayList<String>()
+        var allGoodsNum = 0
         buyEntity?.shoplist?.let {
             for (i in 0 until it?.size) {
+                val appgoods = it?.get(i)?.appgoods
+                val ggList = it?.get(i)?.ggList
                 if (goodsImgs?.size < 4) {
-                    val appgoods = it?.get(i)?.appgoods
                     if (appgoods != null) {
                         goodsImgs?.add(appgoods?.goods_img!!)
                     } else {
-                        val ggList = it?.get(i)?.ggList
                         if (ggList != null) {
                             for (j in 0 until ggList?.size!!) {
                                 if (goodsImgs?.size < 4) {
@@ -116,8 +117,18 @@ class ConfirmOrderActivity : BaseActivity<ConfirmOrderPresenter, ActivityConfirm
                         }
                     }
                 }
+
+                if (appgoods != null) {
+                    allGoodsNum += 1
+                } else {
+                    if (ggList != null) {
+                        allGoodsNum += ggList?.size!!
+                    }
+                }
             }
         }
+
+        mBinding?.tvAllGoodsNum?.text = "共${allGoodsNum}件"
 
         //单件商品
         if (goodsImgs?.size == 1) {
@@ -195,7 +206,7 @@ class ConfirmOrderActivity : BaseActivity<ConfirmOrderPresenter, ActivityConfirm
         hasAddress = true
     }
 
-    inner class GoodsAdapter constructor(val goodsDatas: MutableList<String>)
+    inner class GoodsAdapter constructor(goodsDatas: MutableList<String>)
         : BaseAdapter<String, BaseViewHolder>(R.layout.item_confirm_order_goods, goodsDatas) {
         override fun convert(helper: BaseViewHolder?, item: String?) {
             GlideApp.with(mContext)

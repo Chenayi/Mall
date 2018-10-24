@@ -45,6 +45,7 @@ class OrderGoodsListDialog : BaseDialog<IPresenter, DialogOrderGoodsListBinding>
         }
 
         val iCarts = ArrayList<ICart>()
+        var goodsNum = 0
 
         buyEntity?.shoplist?.let {
             for (i in 0 until it?.size) {
@@ -60,6 +61,7 @@ class OrderGoodsListDialog : BaseDialog<IPresenter, DialogOrderGoodsListBinding>
                     cartGroupEntity?.goods_stock = it.get(i)?.goods_stock
                     cartGroupEntity?.shopping_cart_id = it.get(i)?.shopping_cart_id
                     iCarts.add(cartGroupEntity)
+                    goodsNum += it.get(i)?.ggList?.size!!
                 }
                 //单品 疗程
                 else if (type.equals("0") || type.equals("1")) {
@@ -75,10 +77,12 @@ class OrderGoodsListDialog : BaseDialog<IPresenter, DialogOrderGoodsListBinding>
                     singleEntity?.let {
                         iCarts.add(it)
                     }
+                    goodsNum += 1
                 }
             }
         }
 
+        mBinding?.tvGoodsNum?.text = "（共${goodsNum}件）"
         mBinding?.rvGoods?.layoutManager = LinearLayoutManager(context)
         orderGoodsListAdapter = OrderGoodsListAdapter(iCarts)
         orderGoodsListAdapter?.addFooterView(layoutInflater.inflate(R.layout.header_footer_line_gray_10dp

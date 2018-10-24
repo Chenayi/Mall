@@ -23,6 +23,11 @@ class CartRecommendEntity {
          */
         var isShowLeftMargin: Boolean = false
 
+        /**
+         * 是否显示上边距
+         */
+        var isShowTopMargin:Boolean = false
+
         var goods_img: String? = null
         var goods_name: String? = null
         var goods_indication: String? = null

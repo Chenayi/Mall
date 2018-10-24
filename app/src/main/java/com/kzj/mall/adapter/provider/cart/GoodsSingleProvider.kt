@@ -39,7 +39,7 @@ class GoodsSingleProvider : BaseItemProvider<CartSingleEntity, BaseViewHolder>()
 
                 helper?.getView<TextView>(R.id.tv_goods_price)?.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL))
             } else {
-                helper?.setTextColor(R.id.tv_goods_price, ContextCompat.getColor(mContext, R.color.orange_default))
+                helper?.setTextColor(R.id.tv_goods_price, ContextCompat.getColor(mContext, R.color.colorPrimary))
                 helper?.getView<TextView>(R.id.tv_goods_price)?.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD))
             }
         }
