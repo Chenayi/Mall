@@ -1,9 +1,12 @@
 package com.kzj.mall.ui.activity
 
+import android.content.Context
+import android.content.Intent
 import android.webkit.JavascriptInterface
 import android.widget.LinearLayout
 import com.gyf.barlibrary.ImmersionBar
 import com.just.agentweb.AgentWeb
+import com.kzj.mall.C
 import com.kzj.mall.R
 import com.kzj.mall.base.BaseActivity
 import com.kzj.mall.base.IPresenter
@@ -15,7 +18,7 @@ import com.kzj.mall.di.component.AppComponent
  */
 class H5WebActivity : BaseActivity<IPresenter, ActivityH5WebBinding>() {
     private var mAgentWeb: AgentWeb? = null
-    private var url = "http://www.baidu.com"
+    private val URL = "http://192.168.90.81:8081/singlesdayapp.htm"
 
     override fun initImmersionBar() {
         mImmersionBar = ImmersionBar.with(this)
@@ -35,16 +38,23 @@ class H5WebActivity : BaseActivity<IPresenter, ActivityH5WebBinding>() {
                 .useDefaultIndicator()
                 .createAgentWeb()
                 .ready()
-                .go(url);
+                .go(URL);
 
-        mAgentWeb?.getJsInterfaceHolder()?.addJavaObject("client", JSInterface())
+        mAgentWeb?.getJsInterfaceHolder()?.addJavaObject("client", JSInterface(this))
     }
 
 
-    class JSInterface {
-        @JavascriptInterface
-        fun test(goodsInfoId: String?) {
+    class JSInterface(val context: Context) {
 
+        /**
+         * 点击商品
+         */
+        @JavascriptInterface
+        fun clickGoods(goodsInfoId: String?) {
+            val intent = Intent(context, GoodsDetailActivity::class.java)
+            intent?.putExtra(C.GOODS_INFO_ID, goodsInfoId)
+            intent?.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            context.startActivity(intent)
         }
     }
 }
