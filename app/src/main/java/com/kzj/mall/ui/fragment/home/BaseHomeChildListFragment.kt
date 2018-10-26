@@ -104,11 +104,11 @@ abstract class BaseHomeChildListFragment : BaseFragment<HomePresenter, FragmentB
                 firstVisibleItemPosition = layoutManager?.findFirstVisibleItemPosition()
                 if (firstVisibleItemPosition <= 0) {
                     isBarPrimaryColor = false
-                    headerBannerProvider?.startBanner()
                     (parentFragment as HomeFragment).setTopBackGroundColor(bannerColorRes)
+                    headerBannerProvider?.startBanner()
                 } else {
-                    isBarPrimaryColor = true
                     headerBannerProvider?.pauseBanner()
+                    isBarPrimaryColor = true
                     (parentFragment as HomeFragment).setTopBackGroundColor(ContextCompat.getColor(context!!,R.color.colorPrimary))
                 }
 
