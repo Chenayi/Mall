@@ -17,6 +17,8 @@ import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v4.view.ViewPager
 import android.view.View
+import com.blankj.utilcode.util.BarUtils
+import com.blankj.utilcode.util.ScreenUtils
 import com.blankj.utilcode.util.SizeUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.gyf.barlibrary.ImmersionBar
@@ -42,6 +44,13 @@ class HomeFragment : BaseFragment<IPresenter, FragmentHomeBinding>(), View.OnCli
         }
     }
 
+    override fun initImmersionBar() {
+        mImmersionBar = ImmersionBar.with(this)
+        mImmersionBar?.fitsSystemWindowsInt(false, ContextCompat.getColor(context!!, R.color.tran))
+                ?.statusBarDarkFont(false)
+                ?.init()
+    }
+
     override fun getLayoutId(): Int {
         return R.layout.fragment_home
     }
@@ -50,6 +59,9 @@ class HomeFragment : BaseFragment<IPresenter, FragmentHomeBinding>(), View.OnCli
     }
 
     override fun initData() {
+        val statusBarHeight = BarUtils.getStatusBarHeight()
+        mBinding?.llTopSearch?.setPadding(SizeUtils.dp2px(12f), SizeUtils.dp2px(12f) + statusBarHeight,
+                SizeUtils.dp2px(12f), 0)
         mBinding?.rlSearch?.alpha = 0.9f
         mFragments = ArrayList()
         mBinding?.vpHome?.offscreenPageLimit = mTitles?.size - 1
@@ -68,27 +80,12 @@ class HomeFragment : BaseFragment<IPresenter, FragmentHomeBinding>(), View.OnCli
                 }
 
                 override fun onPageSelected(position: Int) {
-                    when(position){
-                        0->{
-                            val  homeChildFragment = (mFragments?.get(position) as HomeChildFragment)
-                            val barPrimaryColor = homeChildFragment.isBarPrimaryColor()
-                            if (barPrimaryColor){
-                                setTopBackGroundColor(ContextCompat.getColor(context!!,R.color.colorPrimary))
-                            }else{
-                                val bannerColorRes = homeChildFragment.bannerColorRes()
-                                setTopBackGroundColor(bannerColorRes)
-                            }
-                        }
-                        1->{
-                            val  andrologyFragment = (mFragments?.get(position) as AndrologyFragment)
-                            val barPrimaryColor = andrologyFragment.isBarPrimaryColor()
-                            if (barPrimaryColor){
-                                setTopBackGroundColor(ContextCompat.getColor(context!!,R.color.colorPrimary))
-                            }else{
-                                val bannerColorRes = andrologyFragment.bannerColorRes()
-                                setTopBackGroundColor(bannerColorRes)
-                            }
-                        }
+                    val baseHomeChildListFragment = mFragments?.get(position) as BaseHomeChildListFragment
+                    val barPrimaryColor = baseHomeChildListFragment.isBarPrimaryColor()
+                    if (barPrimaryColor) {
+                        setTopBackGroundColor(ContextCompat.getColor(context!!, R.color.colorPrimary))
+                    } else {
+                        setTopBackGroundColor(baseHomeChildListFragment.bannerColorRes())
                     }
                 }
             })
@@ -169,11 +166,6 @@ class HomeFragment : BaseFragment<IPresenter, FragmentHomeBinding>(), View.OnCli
 
     fun setTopBackGroundColor(colorRes: Int?) {
         colorRes?.let {
-            mImmersionBar = ImmersionBar.with(this)
-            mImmersionBar?.fitsSystemWindows(true)
-                    ?.statusBarColorInt(colorRes)
-                    ?.statusBarDarkFont(false)
-                    ?.init()
             mBinding?.llTopSearch?.setBackgroundColor(it)
             mBinding?.llTab?.setBackgroundColor(it)
         }

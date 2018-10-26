@@ -2,6 +2,7 @@ package com.kzj.mall.ui.fragment
 
 import android.content.Intent
 import android.graphics.Color
+import android.support.v4.content.ContextCompat
 import android.view.View
 import android.widget.RelativeLayout
 import com.blankj.utilcode.util.BarUtils
@@ -28,9 +29,9 @@ import q.rorbin.badgeview.QBadgeView
 class MineFragment : BaseFragment<MinePresenter, FragmentMineBinding>(), View.OnClickListener, MineContract.View {
     private var followLists: MutableList<MineEntity.FollowList>? = null
 
-    private var waitPayNum:QBadgeView?=null
-    private var waitSendNum:QBadgeView?=null
-    private var waitTakeNum:QBadgeView?=null
+    private var waitPayNum: QBadgeView? = null
+    private var waitSendNum: QBadgeView? = null
+    private var waitTakeNum: QBadgeView? = null
 
     companion object {
         fun newInstance(): MineFragment {
@@ -58,12 +59,10 @@ class MineFragment : BaseFragment<MinePresenter, FragmentMineBinding>(), View.On
 
     override fun initImmersionBar() {
         mImmersionBar = ImmersionBar.with(this)
-        mImmersionBar?.fitsSystemWindows(false)
-                ?.statusBarColor(R.color.tran)
+        mImmersionBar?.fitsSystemWindowsInt(false,ContextCompat.getColor(context!!, R.color.tran))
                 ?.statusBarDarkFont(false)
                 ?.init()
     }
-
 
 
     override fun initData() {
@@ -453,10 +452,10 @@ class MineFragment : BaseFragment<MinePresenter, FragmentMineBinding>(), View.On
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(intent)
             }
-            R.id.rl_mobile->{
+            R.id.rl_mobile -> {
                 call()
             }
-            R.id.iv_msg->{
+            R.id.iv_msg -> {
                 jumpActivity(MessageActivity().javaClass)
             }
         }

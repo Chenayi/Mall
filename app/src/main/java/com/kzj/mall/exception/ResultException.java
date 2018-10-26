@@ -3,7 +3,7 @@ package com.kzj.mall.exception;
 import java.io.IOException;
 
 /**
- * Created by Chenwy on 2017/10/20.
+ * Created by Chenwy on 2018/6/20.
  */
 
 public class ResultException extends RuntimeException {

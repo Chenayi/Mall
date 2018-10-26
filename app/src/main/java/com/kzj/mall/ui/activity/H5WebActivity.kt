@@ -18,7 +18,7 @@ import com.kzj.mall.di.component.AppComponent
  */
 class H5WebActivity : BaseActivity<IPresenter, ActivityH5WebBinding>() {
     private var mAgentWeb: AgentWeb? = null
-    private val URL = "http://192.168.90.81:8081/singlesdayapp.htm"
+    private val URL = "http://m.kzj365.com/singlesdayapp.htm"
 
     override fun initImmersionBar() {
         mImmersionBar = ImmersionBar.with(this)

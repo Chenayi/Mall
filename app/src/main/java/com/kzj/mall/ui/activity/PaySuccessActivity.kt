@@ -10,8 +10,6 @@ import com.gyf.barlibrary.ImmersionBar
 import com.kzj.mall.C
 import com.kzj.mall.R
 import com.kzj.mall.adapter.PaySuccessAdapter
-import com.kzj.mall.adapter.SearchGridAdapter
-import com.kzj.mall.adapter.SearchListAdapter
 import com.kzj.mall.base.BaseActivity
 import com.kzj.mall.databinding.ActivityPaySuccessBinding
 import com.kzj.mall.di.component.AppComponent
@@ -32,6 +30,7 @@ class PaySuccessActivity : BaseActivity<PaySuccessPresenter, ActivityPaySuccessB
     private var payAdapter: PaySuccessAdapter? = null
     private var headerView: View? = null
     private var headerView2: View? = null
+    private var footerView: View? = null
     private var tvPayType: TextView? = null
     private var tvOrderPrice: TextView? = null
     private var tvSeeOrder: TextView? = null
@@ -82,9 +81,11 @@ class PaySuccessActivity : BaseActivity<PaySuccessPresenter, ActivityPaySuccessB
         tvHome?.setOnClickListener(this)
 
         headerView2 = layoutInflater.inflate(R.layout.item_recommend_text, mBinding?.rv?.parent as ViewGroup, false)
+        footerView = layoutInflater.inflate(R.layout.footer_kzj, mBinding?.rv?.parent as ViewGroup, false)
 
         payAdapter?.addHeaderView(headerView)
         payAdapter?.addHeaderView(headerView2)
+        payAdapter?.addFooterView(footerView)
 
         mBinding?.rv?.layoutManager = GridLayoutManager(this, 2)
         mBinding?.rv?.adapter = payAdapter

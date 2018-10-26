@@ -41,7 +41,7 @@ abstract class BaseHomeChildListFragment : BaseFragment<HomePresenter, FragmentB
     private var distance = 0
     private var firstVisibleItemPosition = 0
 
-    private var isBarPrimaryColor = false
+    private var isBarPrimaryColor = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -102,15 +102,16 @@ abstract class BaseHomeChildListFragment : BaseFragment<HomePresenter, FragmentB
 
                 val layoutManager = recyclerView?.layoutManager as LinearLayoutManager
                 firstVisibleItemPosition = layoutManager?.findFirstVisibleItemPosition()
-                if (firstVisibleItemPosition == 0) {
+                if (firstVisibleItemPosition <= 0) {
+                    isBarPrimaryColor = false
                     headerBannerProvider?.startBanner()
                     (parentFragment as HomeFragment).setTopBackGroundColor(bannerColorRes)
-                    isBarPrimaryColor = false
                 } else {
+                    isBarPrimaryColor = true
                     headerBannerProvider?.pauseBanner()
                     (parentFragment as HomeFragment).setTopBackGroundColor(ContextCompat.getColor(context!!,R.color.colorPrimary))
-                    isBarPrimaryColor = true
                 }
+
                 if (firstVisibleItemPosition < 8) {
                     hideArrow()
                 } else {

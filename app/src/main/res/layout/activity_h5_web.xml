@@ -7,7 +7,7 @@
         android:layout_height="match_parent"
         app:titleBarColor="@color/white"
         app:titleBarLeftIcon="@mipmap/back_black"
-        app:titleBarTitle="活动"
+        app:titleBarTitle="双11狂欢"
         app:titleBarTitleColor="@color/c_2e3033">
 
         <View

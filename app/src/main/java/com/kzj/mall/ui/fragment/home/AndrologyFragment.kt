@@ -24,14 +24,6 @@ class AndrologyFragment : BaseHomeChildListFragment() {
         }
     }
 
-    override fun initImmersionBar() {
-        if (!isBarPrimaryColor()){
-            (parentFragment as HomeFragment).setTopBackGroundColor(bannerColorRes)
-        }else{
-            (parentFragment as HomeFragment).setTopBackGroundColor(ContextCompat.getColor(context!!, R.color.colorPrimary))
-        }
-    }
-
     override fun initData() {
         super.initData()
         setListDatas(ArrayList())

@@ -12,9 +12,25 @@ import com.kzj.mall.R
 import com.kzj.mall.entity.home.HomeRecommendEntity
 
 class PaySuccessAdapter(recommendDatas: MutableList<HomeRecommendEntity.Data>)
-    : BaseAdapter<HomeRecommendEntity.Data, BaseViewHolder>(R.layout.item_recommend_grid, recommendDatas) {
+    : BaseAdapter<HomeRecommendEntity.Data, BaseViewHolder>(R.layout.item_recommend_grid2, recommendDatas) {
     override fun convert(helper: BaseViewHolder?, item: HomeRecommendEntity.Data?) {
-        helper?.setGone(R.id.view_right, helper?.layoutPosition!! % 2 == 0)
+        val layoutPosition = helper?.layoutPosition!!
+
+        if (layoutPosition % 2 == 0) {
+            helper?.setGone(R.id.view_right,true)
+                    ?.setGone(R.id.view_right2,false)
+                    ?.setGone(R.id.view_left, false)
+        }else{
+            helper?.setGone(R.id.view_right,false)
+                    ?.setGone(R.id.view_right2,true)
+                    ?.setGone(R.id.view_left, true)
+        }
+
+        if (layoutPosition == 1 || layoutPosition == 2){
+            helper?.setGone(R.id.view_top,false)
+        }else{
+            helper?.setGone(R.id.view_top,true)
+        }
 
         val ivGoods = helper?.getView<ImageView>(R.id.iv_goods)
         val goodsImageViewWidth = (ScreenUtils.getScreenWidth() - SizeUtils.dp2px(61f)) / 2f
@@ -28,7 +44,7 @@ class PaySuccessAdapter(recommendDatas: MutableList<HomeRecommendEntity.Data>)
                 ?.setText(R.id.tv_goods_price, "¥" + item?.goods_price)
                 ?.setText(R.id.tv_goods_market_price, "¥" + item?.goods_market_price)
 
-        helper?.getView<TextView>(R.id.tv_goods_market_price)?.getPaint()?.setFlags(Paint. STRIKE_THRU_TEXT_FLAG ); //中间横线
+        helper?.getView<TextView>(R.id.tv_goods_market_price)?.getPaint()?.setFlags(Paint.STRIKE_THRU_TEXT_FLAG); //中间横线
 
         GlideApp.with(mContext)
                 .load(item?.goods_img)

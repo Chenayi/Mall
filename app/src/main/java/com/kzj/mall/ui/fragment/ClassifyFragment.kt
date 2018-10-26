@@ -2,6 +2,7 @@ package com.kzj.mall.ui.fragment
 
 import android.content.Intent
 import android.support.v4.app.Fragment
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.gyf.barlibrary.ImmersionBar
@@ -43,8 +44,7 @@ class ClassifyFragment : BaseFragment<ClassifyLeftPresenter, FragmentClassifyBin
 
     override fun initImmersionBar() {
         mImmersionBar = ImmersionBar.with(this)
-        mImmersionBar?.fitsSystemWindows(true)
-                ?.statusBarColor(R.color.colorPrimary)
+        mImmersionBar?.fitsSystemWindowsInt(true, ContextCompat.getColor(context!!,R.color.colorPrimary))
                 ?.statusBarDarkFont(false)
                 ?.init()
     }

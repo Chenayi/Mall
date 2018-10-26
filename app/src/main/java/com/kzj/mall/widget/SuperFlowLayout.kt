@@ -10,6 +10,9 @@ import com.kzj.mall.R
 import com.kzj.mall.base.BaseRelativeLayout
 import com.kzj.mall.databinding.SuperFlowLayoutBinding
 
+/**
+ * 规格
+ */
 class SuperFlowLayout : BaseRelativeLayout<SuperFlowLayoutBinding>, View.OnClickListener {
     private var datas: MutableList<String>? = null
     private var textViews: MutableMap<Int, TextView>? = null

@@ -2,6 +2,7 @@ package com.kzj.mall.ui.fragment.home
 
 import android.support.v4.content.ContextCompat
 import com.chad.library.adapter.base.util.ProviderDelegate
+import com.gyf.barlibrary.ImmersionBar
 import com.kzj.mall.C
 import com.kzj.mall.R
 import com.kzj.mall.adapter.provider.home.*
@@ -29,14 +30,6 @@ class HomeChildFragment : BaseHomeChildListFragment() {
             mPresenter?.requestHomeDatas()
         }
         mPresenter?.requestHomeDatas()
-    }
-
-    override fun initImmersionBar() {
-        if (!isBarPrimaryColor()){
-            (parentFragment as HomeFragment).setTopBackGroundColor(bannerColorRes)
-        }else{
-            (parentFragment as HomeFragment).setTopBackGroundColor(ContextCompat.getColor(context!!, R.color.colorPrimary))
-        }
     }
 
     override fun setBackGroundColor(colorRes: Int?) {

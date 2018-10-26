@@ -1,6 +1,7 @@
 package com.kzj.mall.ui.fragment
 
 import android.content.Intent
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.GridLayoutManager
 import android.view.View
 import android.view.ViewGroup
@@ -67,8 +68,7 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
 
     override fun initImmersionBar() {
         mImmersionBar = ImmersionBar.with(this)
-        mImmersionBar?.fitsSystemWindows(true)
-                ?.statusBarColor(R.color.white)
+        mImmersionBar?.fitsSystemWindowsInt(true,ContextCompat.getColor(context!!,R.color.white))
                 ?.statusBarDarkFont(true, 0.5f)
                 ?.init()
     }
