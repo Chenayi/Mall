@@ -59,6 +59,7 @@ class HomeChildFragment : BaseHomeChildListFragment() {
         //问答
         providerDelegate.registerProvider(HomeAskAnswerProvider())
         //推荐
+        providerDelegate.registerProvider(RecommendTextProvider())
         providerDelegate.registerProvider(RecommendProvider())
     }
 
@@ -117,6 +118,9 @@ class HomeChildFragment : BaseHomeChildListFragment() {
 //        homeAskAnswerEntity?.askList = homeEntity?.askList
 //        datas.add(homeAskAnswerEntity)
 
+        //推荐文本
+        datas.add(HomeRecommendTextEntity())
+
         setListDatas(datas)
     }
 
@@ -128,11 +132,22 @@ class HomeChildFragment : BaseHomeChildListFragment() {
 
     override fun loadRecommendDatas(homeRecommendEntity: HomeRecommendEntity?) {
         homeRecommendEntity?.results?.data?.let {
-            if (pageNo == 1) {
-                it?.get(0)?.isShowRecommendText = true
-            }
             for (i in 0 until it.size) {
                 it?.get(i)?.isBackgroundCorners = true
+
+                if (i % 2 == 0) {
+                    it.get(i).isShowLeftMargin = true
+                    it.get(i).isShowRightMargin = false
+                } else {
+                    it.get(i).isShowLeftMargin = false
+                    it.get(i).isShowRightMargin = true
+                }
+
+                if ((i == 0 || i == 1) && pageNo <= 1) {
+                    it.get(i).isShowTopMargin = false
+                } else {
+                    it.get(i).isShowTopMargin = true
+                }
             }
             finishLoadMore(it)
         }

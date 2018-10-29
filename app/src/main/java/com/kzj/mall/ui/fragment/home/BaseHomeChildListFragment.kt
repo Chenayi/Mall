@@ -24,6 +24,7 @@ import com.kzj.mall.widget.ExpandLoadMoewView
 import android.animation.ObjectAnimator
 import android.animation.PropertyValuesHolder
 import android.os.Bundle
+import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.ViewConfiguration
 import android.view.animation.*
@@ -65,10 +66,19 @@ abstract class BaseHomeChildListFragment : BaseFragment<HomePresenter, FragmentB
     fun isBarPrimaryColor() = isBarPrimaryColor
 
     override fun initData() {
-        val layoutManager = LinearLayoutManager(context)
+        val layoutManager = GridLayoutManager(context,2)
         mBinding?.rvHome?.layoutManager = layoutManager
         listAdapter = ListAdapter(ArrayList())
         listAdapter?.setLoadMoreView(ExpandLoadMoewView())
+        listAdapter?.setSpanSizeLookup(object :BaseQuickAdapter.SpanSizeLookup{
+            override fun getSpanSize(gridLayoutManager: GridLayoutManager?, position: Int): Int {
+                val itemType = listAdapter?.data?.get(position)?.getItemType()
+                if (itemType == IHomeEntity.RECOMMEND){
+                    return 1
+                }
+               return 2
+            }
+        })
         mBinding?.rvHome?.adapter = listAdapter
         listAdapter?.setEnableLoadMore(enableLoadMore())
         if (enableLoadMore()) {
@@ -241,28 +251,34 @@ abstract class BaseHomeChildListFragment : BaseFragment<HomePresenter, FragmentB
 
             //以下是疾病跳转
                 R.id.ll_s_1 -> {
-                    jumpSearch("无法勃起")
+                    jumpSearch("痛风")
                 }
                 R.id.ll_s_2 -> {
-                    jumpSearch("硬度不够")
+                    jumpSearch("哮喘")
                 }
                 R.id.ll_s_3 -> {
-                    jumpSearch("早泄")
+                    jumpSearch("癫痫")
                 }
                 R.id.ll_s_4 -> {
-                    jumpSearch("性欲退减")
+                    jumpSearch("高血压")
                 }
                 R.id.ll_s_5 -> {
-                    jumpSearch("遗精")
+                    jumpSearch("病毒性肝炎")
                 }
                 R.id.ll_s_6 -> {
-                    jumpSearch("手淫过度")
+                    jumpSearch("速效壮阳")
                 }
                 R.id.ll_s_7 -> {
-                    jumpSearch("性部位溃烂")
+                    jumpSearch("美体瘦身")
                 }
                 R.id.ll_s_8 -> {
-                    jumpSearch("少精弱精")
+                    jumpSearch("月经不调")
+                }
+                R.id.ll_s_9 -> {
+                    jumpSearch("风湿骨痛")
+                }
+                R.id.ll_s_10 -> {
+                    jumpSearch("胃肠疾病")
                 }
 
 

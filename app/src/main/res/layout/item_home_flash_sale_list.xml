@@ -7,9 +7,9 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/background_white_corners_8">
 
         <LinearLayout
@@ -19,7 +19,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="42dp"
                 android:gravity="center_vertical"
                 android:orientation="vertical">
 
@@ -30,34 +30,20 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@mipmap/icon_flash_left" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="6dp"
-                        android:layout_marginRight="6dp"
-                        android:text="每日闪购"
-                        android:textColor="#FF4F0A"
-                        android:textSize="17dp"
-                        android:textStyle="bold" />
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:src="@mipmap/icon_flash_left"
+                        android:background="@drawable/circle_orange"
+                        android:scaleType="centerInside"/>
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@mipmap/icon_flash_right" />
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:src="@mipmap/flash_sale_title" />
 
                 </LinearLayout>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:text="抢购中，先下单先得哦~"
-                    android:textColor="#8A9099"
-                    android:textSize="11dp" />
 
             </LinearLayout>
 

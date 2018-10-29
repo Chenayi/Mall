@@ -27,5 +27,7 @@ class HomeSicknessProvider : BaseItemProvider<HomeSicknessEntity, BaseViewHolder
                 ?.addOnClickListener(R.id.ll_s_6)
                 ?.addOnClickListener(R.id.ll_s_7)
                 ?.addOnClickListener(R.id.ll_s_8)
+                ?.addOnClickListener(R.id.ll_s_9)
+                ?.addOnClickListener(R.id.ll_s_10)
     }
 }

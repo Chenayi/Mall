@@ -7,7 +7,7 @@ import com.kzj.mall.entity.home.HomeChoiceEntity
 import com.kzj.mall.entity.home.IHomeEntity
 
 /**
- * 公告/精选
+ * 小康公告
  */
 class HomeChoiceProvider : BaseItemProvider<HomeChoiceEntity, BaseViewHolder>() {
     override fun layout(): Int {

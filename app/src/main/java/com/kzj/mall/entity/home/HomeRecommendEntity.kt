@@ -9,10 +9,19 @@ class HomeRecommendEntity {
 
     class Data : IHomeEntity {
         /**
-         * 是否显示为您推荐
+         * 是否显示右边距
          */
-        var isShowRecommendText: Boolean = false
+        var isShowRightMargin: Boolean = false
 
+        /**
+         * 是否显示左边距
+         */
+        var isShowLeftMargin: Boolean = false
+
+        /**
+         * 是否显示上边距
+         */
+        var isShowTopMargin:Boolean = false
         /**
          * 是否圆角
          */

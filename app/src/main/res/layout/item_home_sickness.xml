@@ -2,9 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="10dp"
-    android:layout_marginRight="10dp"
-    android:layout_marginTop="10dp">
+    android:layout_marginLeft="12dp"
+    android:layout_marginRight="12dp"
+    android:layout_marginTop="8dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,7 +14,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="42dp"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -25,8 +25,10 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:background="@drawable/circle_gray"
+                    android:scaleType="centerInside"
                     android:src="@mipmap/icon_sick_left" />
 
                 <TextView
@@ -35,23 +37,11 @@
                     android:layout_marginLeft="6dp"
                     android:layout_marginRight="6dp"
                     android:text="常见疾病"
-                    android:textColor="#1F5BCA"
+                    android:textColor="@color/c_2e3033"
                     android:textSize="17dp"
                     android:textStyle="bold" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/icon_sick_right" />
             </LinearLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="百万男性常见症状"
-                android:textColor="#8A9099"
-                android:textSize="11dp" />
         </LinearLayout>
 
         <View
@@ -80,15 +70,15 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="47dp"
-                        android:layout_height="47dp"
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
                         android:src="@mipmap/s1" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="7dp"
-                        android:text="无法勃起"
+                        android:text="痛风"
                         android:textColor="#6A6E75"
                         android:textSize="12dp" />
                 </LinearLayout>
@@ -102,15 +92,15 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="47dp"
-                        android:layout_height="47dp"
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
                         android:src="@mipmap/s2" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="7dp"
-                        android:text="硬度不够"
+                        android:text="哮喘"
                         android:textColor="#6A6E75"
                         android:textSize="12dp" />
                 </LinearLayout>
@@ -124,15 +114,15 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="47dp"
-                        android:layout_height="47dp"
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
                         android:src="@mipmap/s3" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="7dp"
-                        android:text="早泄"
+                        android:text="癫痫"
                         android:textColor="#6A6E75"
                         android:textSize="12dp" />
                 </LinearLayout>
@@ -146,15 +136,37 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="47dp"
-                        android:layout_height="47dp"
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
                         android:src="@mipmap/s4" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="7dp"
-                        android:text="性欲减退"
+                        android:text="高血压"
+                        android:textColor="#6A6E75"
+                        android:textSize="12dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_s_5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:src="@mipmap/s4" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="7dp"
+                        android:text="病毒性肝炎"
                         android:textColor="#6A6E75"
                         android:textSize="12dp" />
                 </LinearLayout>
@@ -167,28 +179,6 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:id="@+id/ll_s_5"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="47dp"
-                        android:layout_height="47dp"
-                        android:src="@mipmap/s5" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="7dp"
-                        android:text="遗精"
-                        android:textColor="#6A6E75"
-                        android:textSize="12dp" />
-                </LinearLayout>
-
-                <LinearLayout
                     android:id="@+id/ll_s_6"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -197,15 +187,15 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="47dp"
-                        android:layout_height="47dp"
-                        android:src="@mipmap/s6" />
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:src="@mipmap/s5" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="7dp"
-                        android:text="手淫过度"
+                        android:text="速效壮阳"
                         android:textColor="#6A6E75"
                         android:textSize="12dp" />
                 </LinearLayout>
@@ -219,15 +209,15 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="47dp"
-                        android:layout_height="47dp"
-                        android:src="@mipmap/s7" />
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:src="@mipmap/s6" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="7dp"
-                        android:text="性部位溃烂"
+                        android:text="美体瘦身"
                         android:textColor="#6A6E75"
                         android:textSize="12dp" />
                 </LinearLayout>
@@ -241,15 +231,59 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="47dp"
-                        android:layout_height="47dp"
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:src="@mipmap/s7" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="7dp"
+                        android:text="月经不调"
+                        android:textColor="#6A6E75"
+                        android:textSize="12dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_s_9"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
                         android:src="@mipmap/s8" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="7dp"
-                        android:text="少精弱精"
+                        android:text="风湿骨痛"
+                        android:textColor="#6A6E75"
+                        android:textSize="12dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_s_10"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:src="@mipmap/s8" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="7dp"
+                        android:text="胃肠疾病"
                         android:textColor="#6A6E75"
                         android:textSize="12dp" />
                 </LinearLayout>

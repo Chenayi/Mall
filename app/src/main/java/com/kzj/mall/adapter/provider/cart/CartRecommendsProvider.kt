@@ -16,7 +16,7 @@ import com.kzj.mall.entity.cart.ICart
 
 class CartRecommendsProvider : BaseItemProvider<CartRecommendEntity.Data, BaseViewHolder>() {
     override fun layout(): Int {
-        return R.layout.item_recommend_grid2
+        return R.layout.item_recommend_grid
     }
 
     override fun viewType(): Int {
@@ -32,7 +32,7 @@ class CartRecommendsProvider : BaseItemProvider<CartRecommendEntity.Data, BaseVi
 
         LogUtils.e("" + data?.isShowRightMargin)
         val ivGoods = helper?.getView<ImageView>(R.id.iv_goods)
-        val goodsImageViewWidth = (ScreenUtils.getScreenWidth() - SizeUtils.dp2px(25f)) / 2f
+        val goodsImageViewWidth = (ScreenUtils.getScreenWidth() - SizeUtils.dp2px(29f)) / 2f
         val layoutParams = ivGoods?.layoutParams as LinearLayout.LayoutParams
         layoutParams?.width = goodsImageViewWidth.toInt()
         layoutParams?.height = goodsImageViewWidth.toInt()

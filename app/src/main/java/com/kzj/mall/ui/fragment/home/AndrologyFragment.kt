@@ -48,6 +48,7 @@ class AndrologyFragment : BaseHomeChildListFragment() {
         providerDelegate.registerProvider(AndrologyAdvBannerProvider())
         providerDelegate.registerProvider(AndroilogyBrandProvider())
         providerDelegate.registerProvider(AndrologySpecialFieldProvider())
+        providerDelegate.registerProvider(RecommendTextProvider())
         providerDelegate.registerProvider(RecommendProvider())
     }
 
@@ -90,17 +91,31 @@ class AndrologyFragment : BaseHomeChildListFragment() {
             }
         }
 
+        //推荐文本
+        list.add(HomeRecommendTextEntity())
+
         return list
     }
 
     override fun loadRecommendDatas(homeRecommendEntity: HomeRecommendEntity?) {
         mBinding?.refreshLayout?.isRefreshing = false
         homeRecommendEntity?.results?.data?.let {
-            if (pageNo == 1) {
-                it?.get(0)?.isShowRecommendText = true
-            }
             for (i in 0 until it.size) {
                 it?.get(i)?.isBackgroundCorners = false
+
+                if (i % 2 == 0) {
+                    it.get(i).isShowLeftMargin = true
+                    it.get(i).isShowRightMargin = false
+                } else {
+                    it.get(i).isShowLeftMargin = false
+                    it.get(i).isShowRightMargin = true
+                }
+
+                if ((i == 0 || i == 1) && pageNo <= 1) {
+                    it.get(i).isShowTopMargin = false
+                }else{
+                    it.get(i).isShowTopMargin = true
+                }
             }
             finishLoadMore(it)
         }

@@ -137,24 +137,6 @@ class LocalDatas {
         }
 
         /**
-         * 为您推荐
-         */
-        fun homeRecommendDatas(): MutableList<HomeRecommendEntity.Data> {
-            val list = ArrayList<HomeRecommendEntity.Data>()
-            for (i in 0..8) {
-                val homeRecommendEntity = HomeRecommendEntity.Data()
-                homeRecommendEntity.isBackgroundCorners = true
-                if (i == 0) {
-                    homeRecommendEntity.isShowRecommendText = true
-                } else {
-                    homeRecommendEntity.isShowRecommendText = false
-                }
-                list.add(homeRecommendEntity)
-            }
-            return list
-        }
-
-        /**
          * 男科穿插广告
          */
         fun andrologyAdvBannerData(): AndrologyAdvBannerEntity {

@@ -12,7 +12,7 @@ import com.kzj.mall.R
 import com.kzj.mall.entity.home.HomeRecommendEntity
 
 class PaySuccessAdapter(recommendDatas: MutableList<HomeRecommendEntity.Data>)
-    : BaseAdapter<HomeRecommendEntity.Data, BaseViewHolder>(R.layout.item_recommend_grid2, recommendDatas) {
+    : BaseAdapter<HomeRecommendEntity.Data, BaseViewHolder>(R.layout.item_recommend_grid, recommendDatas) {
     override fun convert(helper: BaseViewHolder?, item: HomeRecommendEntity.Data?) {
         val layoutPosition = helper?.layoutPosition!!
 

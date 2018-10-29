@@ -10,7 +10,7 @@
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
-        <RelativeLayout
+        <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
@@ -21,28 +21,28 @@
                 android:src="@color/gray_default" />
 
             <TextView
-                android:layout_width="36dp"
-                android:layout_height="18dp"
+                android:layout_width="28dp"
+                android:layout_height="16dp"
+                android:layout_gravity="bottom"
                 android:background="@mipmap/icon_discount_bg"
                 android:gravity="center"
-                android:text="立抢"
                 android:paddingRight="2dp"
+                android:text="爆品"
                 android:textColor="@color/white"
-                android:textSize="10dp"
-                android:visibility="visible"/>
-        </RelativeLayout>
+                android:textSize="9dp"
+                android:visibility="visible" />
+        </FrameLayout>
 
         <TextView
+            android:id="@+id/tv_goods_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
             android:layout_marginTop="8dp"
             android:lines="1"
             android:singleLine="true"
-            android:textColor="#6A6E75"
             android:text="Swisse 胶原蛋白...液500ml+Healthy Care 葡萄籽300粒"
-            android:textSize="12dp"
-            android:id="@+id/tv_goods_name"/>
+            android:textColor="@color/c_2e3033"
+            android:textSize="12dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -50,46 +50,28 @@
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
+
             <TextView
-                android:layout_width="22dp"
-                android:layout_height="22dp"
-                android:background="@mipmap/icon_qiang_bg"
-                android:gravity="center"
-                android:text="抢"
-                android:textColor="@color/white"
-                android:textSize="15dp"
+                android:id="@+id/tv_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:lines="1"
+                android:singleLine="true"
+                android:text="¥239.00"
+                android:textColor="#FF4F0A"
+                android:textSize="12dp"
                 android:textStyle="bold" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/tv_market_price"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="4dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="-2dp"
-                    android:lines="1"
-                    android:singleLine="true"
-                    android:text="¥239.00"
-                    android:textColor="#FF4F0A"
-                    android:textSize="13dp"
-                    android:textStyle="bold"
-                    android:id="@+id/tv_price"/>
-
-                <TextView
-                    android:id="@+id/tv_market_price"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="-2dp"
-                    android:lines="1"
-                    android:singleLine="true"
-                    android:text="¥486.00"
-                    android:textSize="11dp"
-                    android:textColor="#C2C6CC"/>
-
-            </LinearLayout>
+                android:lines="1"
+                android:singleLine="true"
+                android:text="¥486.00"
+                android:textColor="#C2C6CC"
+                android:textSize="11dp"
+                android:layout_marginLeft="4dp"/>
 
         </LinearLayout>
 

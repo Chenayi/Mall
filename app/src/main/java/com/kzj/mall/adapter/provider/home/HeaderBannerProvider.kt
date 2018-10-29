@@ -51,6 +51,11 @@ class HeaderBannerProvider : BaseItemProvider<HomeHeaderBannerEntity, BaseViewHo
     }
 
     override fun convert(helper: BaseViewHolder?, data: HomeHeaderBannerEntity?, position: Int) {
+        if (useRoundedCorners == true){
+            helper?.setImageResource(R.id.iv_banner_bottom,R.color.gray_default)
+        }else{
+            helper?.setImageResource(R.id.iv_banner_bottom,R.color.white)
+        }
         if (refresh == true) {
             val banners = data?.adss
             val indictorView = helper?.getView<IndictorView>(R.id.indicator)

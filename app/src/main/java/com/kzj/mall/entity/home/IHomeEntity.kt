@@ -12,14 +12,16 @@ interface IHomeEntity {
         val SICKNESS = 7
         val SEX_TOY = 8
         val ASK_ANSWER = 9
-        val RECOMMEND = 10
 
 
-        val MALE_STATION = 11
-        val MALE_SEPCIAL_FIELD = 12
-        val MALE_CLASSIFY = 13
-        val MALE_ADV_BANNER = 14
-        val MALE_BRAND = 15
+        val MALE_STATION = 10
+        val MALE_SEPCIAL_FIELD = 11
+        val MALE_CLASSIFY = 12
+        val MALE_ADV_BANNER = 13
+        val MALE_BRAND = 14
+
+        val RECOMMEND = 15
+        val RECOMMEND_TEXT = 16
     }
 
     fun getItemType(): Int

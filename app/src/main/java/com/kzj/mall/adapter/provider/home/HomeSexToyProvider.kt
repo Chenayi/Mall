@@ -1,10 +1,12 @@
 package com.kzj.mall.adapter.provider.home
 
 import android.content.Intent
+import android.graphics.Paint
 import android.support.v7.widget.LinearLayoutManager
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
+import android.widget.TextView
 import com.blankj.utilcode.util.SizeUtils
 import com.chad.library.adapter.base.BaseViewHolder
 import com.chad.library.adapter.base.provider.BaseItemProvider
@@ -61,9 +63,9 @@ class HomeSexToyProvider : BaseItemProvider<SexToyEntity, BaseViewHolder>() {
             val linearLayout = helper?.getView<LinearLayout>(R.id.ll_item)
             var params: RelativeLayout.LayoutParams = linearLayout?.layoutParams as RelativeLayout.LayoutParams
 
-            params.leftMargin = SizeUtils.dp2px(10f)
+            params.leftMargin = SizeUtils.dp2px(8f)
             if (helper?.layoutPosition == data?.size - 1) {
-                params.rightMargin = SizeUtils.dp2px(10f)
+                params.rightMargin = SizeUtils.dp2px(8f)
             } else {
                 params.rightMargin = 0
             }
@@ -71,7 +73,8 @@ class HomeSexToyProvider : BaseItemProvider<SexToyEntity, BaseViewHolder>() {
 
             helper?.setText(R.id.tv_goods_name, item?.goodsName)
                     ?.setText(R.id.tv_goods_price, "¥" + item?.goodsPrice)
-
+                    ?.setText(R.id.tv_goods_market_price, "¥" + item?.marketPrice)
+            helper?.getView<TextView>(R.id.tv_goods_market_price)?.paint?.flags = Paint.STRIKE_THRU_TEXT_FLAG
             GlideApp.with(mContext)
                     .load(item?.imgUrl)
                     .centerCrop()
