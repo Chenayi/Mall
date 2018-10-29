@@ -434,7 +434,7 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
     @Subscribe
     fun packageListChange(packageListEvent: PackageListEvent) {
         groupPosition = packageListEvent?.position
-        tvGoodsPrice?.setText("¥" + packageListEvent.goodsPrice)
+        tvGoodsPrice?.setText(PriceUtils.format("¥${packageListEvent.goodsPrice}"))
         tvGoodsMarketPrice?.setText("¥" + packageListEvent?.goodsMarketPrice)
         tvGoodsMarketPrice?.getPaint()?.setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
 
@@ -452,7 +452,7 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
     fun combinationChange(combinationEvent: CombinationEvent) {
         val combination = combinationEvent?.combinationList
         groupPosition = combinationEvent?.position
-        tvGoodsPrice?.setText("¥" + combination?.combination_price)
+        tvGoodsPrice?.setText(PriceUtils.format("¥${combination?.combination_price}"))
         tvGoodsMarketPrice?.setText("¥" + combination?.sumOldPrice)
         tvGoodsMarketPrice?.getPaint()?.setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
 
