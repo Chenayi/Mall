@@ -27,16 +27,21 @@ class LocalDatas {
             banner1.goodsInfoId = "29954"
 
             val banner2 = HomeHeaderBannerEntity().Adds()
-            banner2.adCode = "http://m.qpic.cn/psb?/V141YaNB4X7WnB/TNlBi8TuAG2F6dK1riTzjlQzvw5NOxbuWF9KsgzD90g!/b/dDcBAAAAAAAA&bo=tgPCAQAAAAADF0Q!&rf=viewer_4"
+            banner2.adCode = "http://m.qpic.cn/psb?/V141YaNB4X7WnB/D352a*Ar9VXBQx.eMiBNtizgne2VY53dQG37*3NNmLc!/b/dFQBAAAAAAAA&bo=9APCAQAAAAADBxY!&rf=viewer_4"
             banner2.goodsInfoId = "17124"
 
             val banner3 = HomeHeaderBannerEntity().Adds()
-            banner3.adCode = "http://m.qpic.cn/psb?/V141YaNB4X7WnB/5vyhFErXmM4xVHUuVN0l6gHtWf*vS7iLkHSCLrQlHlQ!/b/dFMBAAAAAAAA&bo=tgPCAQAAAAADF0Q!&rf=viewer_4"
+            banner3.adCode = "http://m.qpic.cn/psb?/V141YaNB4X7WnB/9nsNOgXywbEKTJUZRwGeIj2dkn8QiR94cMiv54o8KxY!/b/dDIBAAAAAAAA&bo=9APCAQAAAAADBxY!&rf=viewer_4"
             banner3.goodsInfoId = "21536"
+
+            val banner4 = HomeHeaderBannerEntity().Adds()
+            banner4.adCode = "http://m.qpic.cn/psb?/V141YaNB4X7WnB/H9J8aQmQKC7q4kRnjGVLJ0ooN5djpe3*y.RCe3pMZfQ!/b/dDYBAAAAAAAA&bo=9APCAQAAAAADBxY!&rf=viewer_4"
+            banner4.goodsInfoId = "-1"
 
             banners.add(banner1)
             banners.add(banner2)
             banners.add(banner3)
+            banners.add(banner4)
 
             homeHeaderBannerEntity.adss = banners
 

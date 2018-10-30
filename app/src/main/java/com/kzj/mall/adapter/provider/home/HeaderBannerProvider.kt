@@ -21,6 +21,7 @@ import com.kzj.mall.C
 import com.kzj.mall.GlideApp
 import com.kzj.mall.transformer.ScaleInTransformer
 import com.kzj.mall.ui.activity.GoodsDetailActivity
+import com.kzj.mall.ui.activity.H5WebActivity
 import com.kzj.mall.widget.IndictorView
 import com.makeramen.roundedimageview.RoundedImageView
 import com.tmall.ultraviewpager.UltraViewPager
@@ -124,6 +125,15 @@ class HeaderBannerProvider : BaseItemProvider<HomeHeaderBannerEntity, BaseViewHo
         mContext.startActivity(intent)
     }
 
+    /**
+     * 跳转H5活动页
+     */
+    protected fun jumpH5() {
+        val intent = Intent(mContext, H5WebActivity::class.java)
+        intent?.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        mContext.startActivity(intent)
+    }
+
 
     inner class UltraPagerAdapter constructor(val advDatas: MutableList<HomeHeaderBannerEntity.Adds>?, val backGround: TextView?) : PagerAdapter() {
         override fun isViewFromObject(view: View, `object`: Any): Boolean {
@@ -144,7 +154,12 @@ class HeaderBannerProvider : BaseItemProvider<HomeHeaderBannerEntity, BaseViewHo
             }
 
             imageView?.setOnClickListener {
-                jumpGoodsDetail(advDatas?.get(position)?.goodsInfoId)
+                val goodsInfoId = advDatas?.get(position)?.goodsInfoId
+                if (goodsInfoId.equals("-1")){
+                    jumpH5()
+                }else{
+                    jumpGoodsDetail(goodsInfoId)
+                }
             }
 
             val palette = GlidePalette.with(advDatas?.get(position)?.adCode)
