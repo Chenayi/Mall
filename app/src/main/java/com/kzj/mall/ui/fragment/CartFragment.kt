@@ -30,6 +30,7 @@ import com.kzj.mall.ui.activity.GoodsDetailActivity
 import com.kzj.mall.ui.activity.login.LoginActivity
 import com.kzj.mall.ui.dialog.ConfirmDialog
 import com.kzj.mall.utils.FloatUtils
+import com.kzj.mall.utils.PriceUtils
 import org.greenrobot.eventbus.Subscribe
 
 class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.OnClickListener, CartContract.View {
@@ -68,8 +69,7 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
 
     override fun initImmersionBar() {
         mImmersionBar = ImmersionBar.with(this)
-        mImmersionBar?.fitsSystemWindowsInt(true,ContextCompat.getColor(context!!,R.color.white))
-                ?.statusBarDarkFont(true, 0.5f)
+        mImmersionBar?.fitsSystemWindowsInt(true, ContextCompat.getColor(context!!, R.color.colorPrimary))
                 ?.init()
     }
 
@@ -128,7 +128,7 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
 
         cartAdapter?.setOnItemChildClickListener { adapter, view, position ->
             when (view.id) {
-                R.id.iv_check -> {
+                R.id.fl_check -> {
                     var cartEntity = cartAdapter?.data?.get(position) as BaseCartEntity
                     cartEntity?.isCheck = !cartEntity?.isCheck
                     cartAdapter?.notifyItemChanged(position)
@@ -141,8 +141,9 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
                         isAllCheck = false
                     }
                     setCheckPrice()
-                    mBinding?.tvToBalance?.isEnabled = checkNum() > 0
-                    mBinding?.tvToBalance?.setText("去结算(" + checkNum() + ")")
+                    val checkNum = checkNum()
+                    mBinding?.tvToBalance?.isEnabled = checkNum > 0
+                    mBinding?.tvToBalance?.setText("去结算(" + checkNum + ")")
                 }
 
             //数量减
@@ -225,7 +226,7 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
         val datas = cartAdapter?.data
         var size = 0
         for (i in 0 until datas?.size!!) {
-            if (datas?.get(i) is BaseCartEntity){
+            if (datas?.get(i) is BaseCartEntity) {
                 if ((datas?.get(i) as BaseCartEntity).isCheck == false) {
                     (datas?.get(i) as BaseCartEntity).isCheck = true
                 }
@@ -282,7 +283,8 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
             }
         }
 
-        mBinding?.tvAllPrice?.setText("¥" + FloatUtils.format(sumPrice))
+        val allPrice = PriceUtils.split12sp("¥" + FloatUtils.format(sumPrice))
+        mBinding?.tvAllPrice?.setText(allPrice)
         mBinding?.tvMinusPrice?.setText("已省：¥" + FloatUtils.format(sumPrePrice))
     }
 
@@ -292,7 +294,7 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
     fun cancelAllCheck() {
         val datas = cartAdapter?.data
         for (i in 0 until datas?.size!!) {
-            if (datas?.get(i) is BaseCartEntity){
+            if (datas?.get(i) is BaseCartEntity) {
                 if ((datas?.get(i) as BaseCartEntity).isCheck == true) {
                     (datas?.get(i) as BaseCartEntity).isCheck = false
                 }
@@ -302,7 +304,7 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
         mBinding?.ivAllCheck?.setImageResource(R.mipmap.check_nor)
         mBinding?.tvToBalance?.isEnabled = false
         mBinding?.tvToBalance?.setText("去结算(0)")
-        mBinding?.tvAllPrice?.setText("¥0.00")
+        mBinding?.tvAllPrice?.setText(PriceUtils.split12sp("¥0.00"))
         mBinding?.tvMinusPrice?.setText("已省：¥0.00")
     }
 
@@ -359,9 +361,9 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
                     t.get(i).isShowRightMargin = true
                 }
 
-                if (i == 0 || i == 1){
+                if (i == 0 || i == 1) {
                     t.get(i).isShowTopMargin = false
-                }else{
+                } else {
                     t.get(i).isShowTopMargin = true
                 }
             }
@@ -469,7 +471,7 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
         mBinding?.ivAllCheck?.setImageResource(R.mipmap.check_nor)
         mBinding?.tvToBalance?.isEnabled = false
         mBinding?.tvToBalance?.setText("去结算(0)")
-        mBinding?.tvAllPrice?.setText("¥0.00")
+        mBinding?.tvAllPrice?.setText(PriceUtils.split12sp("¥0.00"))
         mBinding?.tvMinusPrice?.setText("已省：¥0.00")
 
         val shoplist = cartEntity?.shoplist
@@ -556,7 +558,7 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
         val data = cartAdapter?.data
         val ids = ArrayList<Long>()
         for (i in 0 until data?.size!!) {
-            if (data?.get(i) is BaseCartEntity){
+            if (data?.get(i) is BaseCartEntity) {
                 val cartEntity = data?.get(i) as BaseCartEntity
                 if (cartEntity?.isCheck && (cartEntity is CartSingleEntity || cartEntity is CartGroupEntity)) {
                     ids?.add(cartEntity?.shopping_cart_id?.toLong()!!)

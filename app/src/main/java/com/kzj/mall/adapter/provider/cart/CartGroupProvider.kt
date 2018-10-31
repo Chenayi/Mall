@@ -3,7 +3,9 @@ package com.kzj.mall.adapter.provider.cart
 import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.View
 import android.widget.ImageView
+import android.widget.LinearLayout
 import com.chad.library.adapter.base.BaseViewHolder
 import com.chad.library.adapter.base.provider.BaseItemProvider
 import com.kzj.mall.C
@@ -13,6 +15,7 @@ import com.kzj.mall.adapter.BaseAdapter
 import com.kzj.mall.entity.cart.CartGroupEntity
 import com.kzj.mall.entity.cart.ICart
 import com.kzj.mall.ui.activity.GoodsDetailActivity
+import com.kzj.mall.utils.PriceUtils
 
 class CartGroupProvider : BaseItemProvider<CartGroupEntity, BaseViewHolder>() {
     override fun layout(): Int {
@@ -27,10 +30,13 @@ class CartGroupProvider : BaseItemProvider<CartGroupEntity, BaseViewHolder>() {
 
         val ivCheckDelete = helper?.getView<ImageView>(R.id.iv_check)
         ivCheckDelete?.setImageResource(if (data?.isCheck == true) R.mipmap.icon_cart_check else R.mipmap.check_nor)
-        helper?.addOnClickListener(R.id.iv_check)
+
+
+        val goodsPrice = PriceUtils.split12sp("¥" + data?.goods_price)
+        helper?.addOnClickListener(R.id.fl_check)
                 ?.addOnClickListener(R.id.iv_minus)
                 ?.addOnClickListener(R.id.iv_plus)
-                ?.setText(R.id.tv_goods_pre_price, "¥" + data?.goods_price)
+                ?.setText(R.id.tv_goods_pre_price, goodsPrice)
                 ?.setText(R.id.tv_combination_name, data?.combination_name)
                 ?.setText(R.id.tv_goods_num, data?.goods_num?.toString()?.trim())
 
@@ -65,10 +71,25 @@ class CartGroupProvider : BaseItemProvider<CartGroupEntity, BaseViewHolder>() {
     inner class GroupAdapter constructor(groupDatas: MutableList<CartGroupEntity.Group>)
         : BaseAdapter<CartGroupEntity.Group, BaseViewHolder>(R.layout.item_cart_group_item, groupDatas) {
         override fun convert(helper: BaseViewHolder?, item: CartGroupEntity.Group?) {
-            helper?.setGone(R.id.line, helper?.layoutPosition > 0)
-                    ?.setText(R.id.tv_goods_price, "¥" + item?.c_goods?.goods_price)
+            val goodsPrice = PriceUtils.split12sp("¥" + item?.c_goods?.goods_price)
+
+            val line = helper?.getView<View>(R.id.line)
+            if (helper?.layoutPosition!! > 0) {
+                line?.visibility = View.INVISIBLE
+            } else {
+                line?.visibility = View.GONE
+            }
+            helper?.setText(R.id.tv_goods_price, goodsPrice)
                     ?.setText(R.id.tv_goods_name, item?.c_goods?.goods_name)
                     ?.setText(R.id.tv_goods_num, "x" + item?.goodsNum)
+
+            if (item?.c_goods?.goods_stock!! <= 0) {
+                helper?.getView<LinearLayout>(R.id.ll_container)?.alpha = 0.5f
+                helper?.setGone(R.id.tv_no_stock, true)
+            } else {
+                helper?.getView<LinearLayout>(R.id.ll_container)?.alpha = 1f
+                helper?.setGone(R.id.tv_no_stock, false)
+            }
 
             GlideApp.with(mContext)
                     .load(item?.c_goods?.goods_img)

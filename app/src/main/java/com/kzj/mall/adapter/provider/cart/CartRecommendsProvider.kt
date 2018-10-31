@@ -13,6 +13,7 @@ import com.kzj.mall.GlideApp
 import com.kzj.mall.R
 import com.kzj.mall.entity.cart.CartRecommendEntity
 import com.kzj.mall.entity.cart.ICart
+import com.kzj.mall.utils.PriceUtils
 
 class CartRecommendsProvider : BaseItemProvider<CartRecommendEntity.Data, BaseViewHolder>() {
     override fun layout(): Int {
@@ -38,9 +39,10 @@ class CartRecommendsProvider : BaseItemProvider<CartRecommendEntity.Data, BaseVi
         layoutParams?.height = goodsImageViewWidth.toInt()
         ivGoods?.requestLayout()
 
+        val goodsPrice = PriceUtils.split12sp("¥" + data?.goods_price)
         helper?.setText(R.id.tv_goods_name, data?.goods_name)
                 ?.setText(R.id.tv_goods_indication, data?.goods_indication)
-                ?.setText(R.id.tv_goods_price, "¥" + data?.goods_price)
+                ?.setText(R.id.tv_goods_price, goodsPrice)
                 ?.setText(R.id.tv_goods_market_price, "¥" + data?.goods_market_price)
 
         helper?.getView<TextView>(R.id.tv_goods_market_price)?.getPaint()?.setFlags(Paint.STRIKE_THRU_TEXT_FLAG); //中间横线

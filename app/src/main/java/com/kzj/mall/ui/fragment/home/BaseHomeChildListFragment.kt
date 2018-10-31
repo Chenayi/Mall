@@ -28,6 +28,7 @@ import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.ViewConfiguration
 import android.view.animation.*
+import com.blankj.utilcode.util.LogUtils
 import com.kzj.mall.event.BackClassifyEvent
 import com.kzj.mall.ui.activity.*
 import org.greenrobot.eventbus.EventBus
@@ -66,17 +67,17 @@ abstract class BaseHomeChildListFragment : BaseFragment<HomePresenter, FragmentB
     fun isBarPrimaryColor() = isBarPrimaryColor
 
     override fun initData() {
-        val layoutManager = GridLayoutManager(context,2)
+        val layoutManager = GridLayoutManager(context, 2)
         mBinding?.rvHome?.layoutManager = layoutManager
         listAdapter = ListAdapter(ArrayList())
         listAdapter?.setLoadMoreView(ExpandLoadMoewView())
-        listAdapter?.setSpanSizeLookup(object :BaseQuickAdapter.SpanSizeLookup{
+        listAdapter?.setSpanSizeLookup(object : BaseQuickAdapter.SpanSizeLookup {
             override fun getSpanSize(gridLayoutManager: GridLayoutManager?, position: Int): Int {
                 val itemType = listAdapter?.data?.get(position)?.getItemType()
-                if (itemType == IHomeEntity.RECOMMEND){
+                if (itemType == IHomeEntity.RECOMMEND) {
                     return 1
                 }
-               return 2
+                return 2
             }
         })
         mBinding?.rvHome?.adapter = listAdapter
@@ -119,7 +120,13 @@ abstract class BaseHomeChildListFragment : BaseFragment<HomePresenter, FragmentB
                 } else {
                     headerBannerProvider?.pauseBanner()
                     isBarPrimaryColor = true
-                    (parentFragment as HomeFragment).setTopBackGroundColor(ContextCompat.getColor(context!!,R.color.colorPrimary))
+                    (parentFragment as HomeFragment).setTopBackGroundColor(ContextCompat.getColor(context!!, R.color.colorPrimary))
+                }
+
+                if (firstVisibleItemPosition <= 1) {
+                    startQianggouAnim()
+                }else{
+                    stopQianggouAnim()
                 }
 
                 if (firstVisibleItemPosition < 8) {
@@ -348,6 +355,9 @@ abstract class BaseHomeChildListFragment : BaseFragment<HomePresenter, FragmentB
             mBinding?.rvHome?.scrollToPosition(0)
         }
     }
+
+    open fun startQianggouAnim() {}
+    open fun stopQianggouAnim() {}
 
 
     fun getDefaultAlphaAnimation(`in`: Boolean): Animation {

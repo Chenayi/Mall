@@ -1,24 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
     android:gravity="center"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingBottom="41dp">
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="34dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="41dp"
         android:src="@mipmap/empty_cart" />
 
     <TextView
         android:id="@+id/tv_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="34dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="18dp"
         android:gravity="center"
         android:text="那么多好物，你都不加购物车吗？"
         android:textColor="#8A9099"
@@ -26,15 +25,14 @@
 
     <TextView
         android:id="@+id/tv_login"
-        android:layout_width="200dp"
+        android:layout_width="167dp"
         android:layout_height="41dp"
-        android:layout_marginBottom="33dp"
+        android:layout_marginTop="24dp"
         android:background="@drawable/background_green_corners_9999"
         android:gravity="center"
         android:text="登录并同步购物车商品"
         android:textColor="@color/white"
-        android:textSize="15dp"
-        android:textStyle="bold"
+        android:textSize="14dp"
         android:visibility="visible" />
 
 </LinearLayout>

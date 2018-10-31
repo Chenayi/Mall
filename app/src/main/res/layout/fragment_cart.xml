@@ -9,15 +9,15 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="@color/white">
-
+            android:background="@color/colorPrimary">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:text="购物车"
-                android:textColor="#2E3033"
+                android:textColor="@color/white"
+                android:textSize="17dp"
                 android:textStyle="bold" />
 
             <TextView
@@ -27,7 +27,7 @@
                 android:layout_alignParentRight="true"
                 android:gravity="center"
                 android:text="编辑"
-                android:textColor="#6A6E75"
+                android:textColor="@color/white"
                 android:textSize="13dp" />
 
         </RelativeLayout>
@@ -73,8 +73,8 @@
 
                 <ImageView
                     android:id="@+id/iv_all_check"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="17dp"
+                    android:layout_height="17dp"
                     android:src="@mipmap/check_nor" />
 
                 <TextView
@@ -123,7 +123,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="¥0.00"
-                                android:textColor="@color/orange_default" />
+                                android:textColor="@color/orange_default"
+                                android:textSize="17dp" />
                         </LinearLayout>
 
                         <TextView
@@ -142,12 +143,14 @@
                     <TextView
                         android:id="@+id/tv_to_balance"
                         android:layout_width="90dp"
-                        android:layout_height="match_parent"
+                        android:layout_height="39dp"
+                        android:layout_gravity="center_vertical"
                         android:layout_marginLeft="10dp"
-                        android:background="@color/orange_default"
+                        android:background="@drawable/background_orange_corners_9999"
                         android:gravity="center"
                         android:text="去结算(0)"
                         android:textColor="@color/white"
+                        android:textSize="14dp"
                         android:textStyle="bold" />
                 </LinearLayout>
 

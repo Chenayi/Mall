@@ -2,9 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="12dp"
-    android:layout_marginRight="12dp"
-    android:layout_marginTop="8dp">
+    android:layout_marginLeft="11dp"
+    android:layout_marginRight="11dp"
+    android:layout_marginTop="11dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -27,8 +27,8 @@
                 <ImageView
                     android:layout_width="18dp"
                     android:layout_height="18dp"
-                    android:scaleType="centerInside"
                     android:background="@drawable/circle_gray"
+                    android:scaleType="centerInside"
                     android:src="@mipmap/icon_brand_left" />
 
                 <TextView
@@ -47,8 +47,8 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="@color/gray_default" />
+            android:layout_height="1dp"
+            android:background="@color/gray_f0" />
 
 
         <!-- 分割线 -->
@@ -65,86 +65,78 @@
                 <LinearLayout
                     android:id="@+id/ll_brand_1"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="50dp"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:orientation="vertical">
 
                     <ImageView
                         android:id="@+id/iv_brand_1"
-                        android:layout_width="53dp"
-                        android:layout_height="53dp"
-                        android:layout_marginBottom="4dp"
-                        android:layout_marginTop="4dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:src="@mipmap/brand1" />
 
                 </LinearLayout>
 
                 <View
-                    android:layout_width="0.5dp"
+                    android:layout_width="1dp"
                     android:layout_height="match_parent"
-                    android:background="@color/gray_default" />
+                    android:background="@color/gray_f0" />
 
                 <LinearLayout
                     android:id="@+id/ll_brand_2"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="50dp"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:orientation="vertical">
 
                     <ImageView
                         android:id="@+id/iv_brand_2"
-                        android:layout_width="53dp"
-                        android:layout_height="53dp"
-                        android:layout_marginBottom="4dp"
-                        android:layout_marginTop="4dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:src="@mipmap/brand2" />
 
                 </LinearLayout>
 
                 <View
-                    android:layout_width="0.5dp"
+                    android:layout_width="1dp"
                     android:layout_height="match_parent"
-                    android:background="@color/gray_default" />
+                    android:background="@color/gray_f0" />
 
                 <LinearLayout
                     android:id="@+id/ll_brand_3"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="50dp"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:orientation="vertical">
 
                     <ImageView
                         android:id="@+id/iv_brand_3"
-                        android:layout_width="53dp"
-                        android:layout_height="53dp"
-                        android:layout_marginBottom="4dp"
-                        android:layout_marginTop="4dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:src="@mipmap/brand3" />
 
                 </LinearLayout>
 
                 <View
-                    android:layout_width="0.5dp"
+                    android:layout_width="1dp"
                     android:layout_height="match_parent"
-                    android:background="@color/gray_default" />
+                    android:background="@color/gray_f0" />
 
                 <LinearLayout
                     android:id="@+id/ll_brand_4"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="50dp"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:orientation="vertical">
 
                     <ImageView
                         android:id="@+id/iv_brand_4"
-                        android:layout_width="53dp"
-                        android:layout_height="53dp"
-                        android:layout_marginBottom="4dp"
-                        android:layout_marginTop="4dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:src="@mipmap/brand4" />
 
                 </LinearLayout>
@@ -152,8 +144,8 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:background="@color/gray_default" />
+                android:layout_height="1dp"
+                android:background="@color/gray_f0" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -168,86 +160,78 @@
                     <LinearLayout
                         android:id="@+id/ll_brand_5"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="50dp"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:orientation="vertical">
 
                         <ImageView
                             android:id="@+id/iv_brand_5"
-                            android:layout_width="53dp"
-                            android:layout_height="53dp"
-                            android:layout_marginBottom="4dp"
-                            android:layout_marginTop="4dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:src="@mipmap/brand5" />
 
                     </LinearLayout>
 
                     <View
-                        android:layout_width="0.5dp"
+                        android:layout_width="1dp"
                         android:layout_height="match_parent"
-                        android:background="@color/gray_default" />
+                        android:background="@color/gray_f0" />
 
                     <LinearLayout
                         android:id="@+id/ll_brand_6"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="50dp"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:orientation="vertical">
 
                         <ImageView
                             android:id="@+id/iv_brand_6"
-                            android:layout_width="53dp"
-                            android:layout_height="53dp"
-                            android:layout_marginBottom="4dp"
-                            android:layout_marginTop="4dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:src="@mipmap/brand6" />
 
                     </LinearLayout>
 
                     <View
-                        android:layout_width="0.5dp"
+                        android:layout_width="1dp"
                         android:layout_height="match_parent"
-                        android:background="@color/gray_default" />
+                        android:background="@color/gray_f0" />
 
                     <LinearLayout
                         android:id="@+id/ll_brand_7"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="50dp"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:orientation="vertical">
 
                         <ImageView
                             android:id="@+id/iv_brand_7"
-                            android:layout_width="53dp"
-                            android:layout_height="53dp"
-                            android:layout_marginBottom="4dp"
-                            android:layout_marginTop="4dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:src="@mipmap/brand7" />
 
                     </LinearLayout>
 
                     <View
-                        android:layout_width="0.5dp"
+                        android:layout_width="1dp"
                         android:layout_height="match_parent"
-                        android:background="@color/gray_default" />
+                        android:background="@color/gray_f0" />
 
                     <LinearLayout
                         android:id="@+id/ll_brand_8"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="50dp"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:orientation="vertical">
 
                         <ImageView
                             android:id="@+id/iv_brand_8"
-                            android:layout_width="53dp"
-                            android:layout_height="53dp"
-                            android:layout_marginBottom="4dp"
-                            android:layout_marginTop="4dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:src="@mipmap/brand8" />
 
                     </LinearLayout>
@@ -255,8 +239,8 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:background="@color/gray_default" />
+                    android:layout_height="1dp"
+                    android:background="@color/gray_f0" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -271,86 +255,78 @@
                         <LinearLayout
                             android:id="@+id/ll_brand_9"
                             android:layout_width="0dp"
-                            android:layout_height="wrap_content"
+                            android:layout_height="50dp"
                             android:layout_weight="1"
                             android:gravity="center"
                             android:orientation="vertical">
 
                             <ImageView
                                 android:id="@+id/iv_brand_9"
-                                android:layout_width="53dp"
-                                android:layout_height="53dp"
-                                android:layout_marginBottom="4dp"
-                                android:layout_marginTop="4dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
                                 android:src="@mipmap/brand9" />
 
                         </LinearLayout>
 
                         <View
-                            android:layout_width="0.5dp"
+                            android:layout_width="1dp"
                             android:layout_height="match_parent"
-                            android:background="@color/gray_default" />
+                            android:background="@color/gray_f0" />
 
                         <LinearLayout
                             android:id="@+id/ll_brand_10"
                             android:layout_width="0dp"
-                            android:layout_height="wrap_content"
+                            android:layout_height="50dp"
                             android:layout_weight="1"
                             android:gravity="center"
                             android:orientation="vertical">
 
                             <ImageView
                                 android:id="@+id/iv_brand_10"
-                                android:layout_width="53dp"
-                                android:layout_height="53dp"
-                                android:layout_marginBottom="4dp"
-                                android:layout_marginTop="4dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
                                 android:src="@mipmap/brand10" />
 
                         </LinearLayout>
 
                         <View
-                            android:layout_width="0.5dp"
+                            android:layout_width="1dp"
                             android:layout_height="match_parent"
-                            android:background="@color/gray_default" />
+                            android:background="@color/gray_f0" />
 
                         <LinearLayout
                             android:id="@+id/ll_brand_11"
                             android:layout_width="0dp"
-                            android:layout_height="wrap_content"
+                            android:layout_height="50dp"
                             android:layout_weight="1"
                             android:gravity="center"
                             android:orientation="vertical">
 
                             <ImageView
                                 android:id="@+id/iv_brand_11"
-                                android:layout_width="53dp"
-                                android:layout_height="53dp"
-                                android:layout_marginBottom="4dp"
-                                android:layout_marginTop="4dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
                                 android:src="@mipmap/brand11" />
 
                         </LinearLayout>
 
                         <View
-                            android:layout_width="0.5dp"
+                            android:layout_width="1dp"
                             android:layout_height="match_parent"
-                            android:background="@color/gray_default" />
+                            android:background="@color/gray_f0" />
 
                         <LinearLayout
                             android:id="@+id/ll_brand_12"
                             android:layout_width="0dp"
-                            android:layout_height="wrap_content"
+                            android:layout_height="50dp"
                             android:layout_weight="1"
                             android:gravity="center"
                             android:orientation="vertical">
 
                             <ImageView
                                 android:id="@+id/iv_brand_12"
-                                android:layout_width="53dp"
-                                android:layout_height="53dp"
-                                android:layout_marginBottom="4dp"
-                                android:layout_marginTop="4dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
                                 android:src="@mipmap/brand12" />
 
                         </LinearLayout>

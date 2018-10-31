@@ -52,7 +52,7 @@ class HomeFlashSaleProvider : BaseItemProvider<HomeFlashSaleEntity, BaseViewHold
             })
             flashSaleAdapter.setOnItemClickListener { adapter, view, position ->
                 var intent = Intent(mContext, GoodsDetailActivity::class.java)
-                intent?.putExtra(C.GOODS_INFO_ID,flashSaleAdapter?.getItem(position)?.goodsInfoId)
+                intent?.putExtra(C.GOODS_INFO_ID, flashSaleAdapter?.getItem(position)?.goodsInfoId)
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 mContext.startActivity(intent)
             }
@@ -75,7 +75,7 @@ class HomeFlashSaleProvider : BaseItemProvider<HomeFlashSaleEntity, BaseViewHold
             ivGoods.layoutParams = params
 
             helper?.setText(R.id.tv_goods_name, item?.goodsName)
-                    ?.setText(R.id.tv_price, "¥" + item?.goodsPrice)
+                    ?.setText(R.id.tv_price, item?.goodsPrice)
                     ?.setText(R.id.tv_market_price, "¥" + item?.marketPrice)
 
             helper?.getView<TextView>(R.id.tv_market_price)?.paint?.flags = Paint.STRIKE_THRU_TEXT_FLAG

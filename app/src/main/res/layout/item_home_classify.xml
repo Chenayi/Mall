@@ -109,10 +109,26 @@
         </LinearLayout>
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/iv_2369"
+    <RelativeLayout
+        android:id="@+id/rl_2369"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal" />
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_2369"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/function"
+            android:layout_centerInParent="true"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/function_button"
+            android:layout_alignRight="@+id/iv_2369"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:id="@+id/iv_scale_anim"/>
+    </RelativeLayout>
 
 </LinearLayout>

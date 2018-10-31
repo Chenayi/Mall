@@ -1,10 +1,8 @@
 package com.kzj.mall.ui.fragment.home
 
-import android.support.v4.content.ContextCompat
+import com.blankj.utilcode.util.LogUtils
 import com.chad.library.adapter.base.util.ProviderDelegate
-import com.gyf.barlibrary.ImmersionBar
 import com.kzj.mall.C
-import com.kzj.mall.R
 import com.kzj.mall.adapter.provider.home.*
 import com.kzj.mall.entity.HomeEntity
 import com.kzj.mall.entity.SexToyEntity
@@ -14,6 +12,7 @@ import com.kzj.mall.utils.LocalDatas
 class HomeChildFragment : BaseHomeChildListFragment() {
 
     private var pageNo = 0
+    private var homeClassifyProvider: HomeClassifyProvider? = null
 
     companion object {
         fun newInstance(): HomeChildFragment {
@@ -41,7 +40,8 @@ class HomeChildFragment : BaseHomeChildListFragment() {
     override fun registerItemProvider(providerDelegate: ProviderDelegate) {
         super.registerItemProvider(providerDelegate)
         //分类
-        providerDelegate.registerProvider(HomeClassifyProvider())
+        homeClassifyProvider = HomeClassifyProvider(context!!)
+        providerDelegate.registerProvider(homeClassifyProvider)
         //公告精选
         providerDelegate.registerProvider(HomeChoiceProvider())
         //每日闪购
@@ -61,6 +61,14 @@ class HomeChildFragment : BaseHomeChildListFragment() {
         //推荐
         providerDelegate.registerProvider(RecommendTextProvider())
         providerDelegate.registerProvider(RecommendProvider())
+    }
+
+    override fun startQianggouAnim() {
+        homeClassifyProvider?.startAnim()
+    }
+
+    override fun stopQianggouAnim() {
+        homeClassifyProvider?.stopAnim()
     }
 
     override fun showHomeDatas(homeEntity: HomeEntity?) {
@@ -109,9 +117,12 @@ class HomeChildFragment : BaseHomeChildListFragment() {
         datas.add(HomeBrandEntity())
 
         //情趣用品
-        val sexToyEntity = SexToyEntity()
-        sexToyEntity?.qingqu = homeEntity?.qingqu
-        datas.add(sexToyEntity)
+        val qingqu = homeEntity?.qingqu!!
+        if (qingqu?.size > 0) {
+            val sexToyEntity = SexToyEntity()
+            sexToyEntity?.qingqu = qingqu
+            datas.add(sexToyEntity)
+        }
 
         //问答解惑
 //        val homeAskAnswerEntity = HomeAskAnswerEntity()

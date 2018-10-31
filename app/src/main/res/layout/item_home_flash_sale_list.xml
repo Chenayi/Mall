@@ -7,9 +7,9 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="12dp"
-        android:layout_marginRight="12dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginLeft="11dp"
+        android:layout_marginRight="11dp"
+        android:layout_marginTop="11dp"
         android:background="@drawable/background_white_corners_8">
 
         <LinearLayout
@@ -47,10 +47,10 @@
 
             </LinearLayout>
 
-            <View
+            <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:background="#F0F0F0" />
+                android:layout_height="1dp"
+                android:src="@color/gray_f0" />
 
             <com.takusemba.multisnaprecyclerview.MultiSnapRecyclerView
                 android:id="@+id/rv_flash_sale"

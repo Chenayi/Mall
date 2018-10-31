@@ -1,6 +1,7 @@
 package com.kzj.mall.ui.dialog
 
 import android.os.Bundle
+import android.text.method.ScrollingMovementMethod
 import android.view.View
 import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.ScreenUtils
@@ -62,7 +63,9 @@ class UpgradeDialog : BaseDialog<UpgradePresenter, DialogUpgradeBinding>(), Upgr
         }
 
         mBinding?.tvTitle?.text = "升级到${versionEntity?.version_code}新版本"
+        mBinding?.tvContent?.setMovementMethod(ScrollingMovementMethod.getInstance());
         mBinding?.tvContent?.text = versionEntity?.update_content
+//        mBinding?.tvContent?.text = "1.全新设计\n2.支持微信、支付宝支付\n2.支持微信、支付宝支付\n2.支持微信、支付宝支付\n2.支持微信、支付宝支付\n2.支持微信、支付宝支付\n2.支持微信、支付宝支付\n2.支持微信、支付宝支付"
 
         mBinding?.ivClose?.setOnClickListener {
             dismiss()
@@ -72,7 +75,7 @@ class UpgradeDialog : BaseDialog<UpgradePresenter, DialogUpgradeBinding>(), Upgr
             mBinding?.btnUpgrade?.visibility = View.GONE
             mBinding?.ivClose?.visibility = View.GONE
             mBinding?.numberProgressBar?.visibility = View.VISIBLE
-            mPresenter?.downloadApk(versionEntity?.apk_address,versionEntity?.version_name)
+            mPresenter?.downloadApk(versionEntity?.apk_address, versionEntity?.version_name)
         }
     }
 
@@ -103,7 +106,7 @@ class UpgradeDialog : BaseDialog<UpgradePresenter, DialogUpgradeBinding>(), Upgr
         mBinding?.btnUpgrade?.visibility = View.VISIBLE
         if (versionEntity?.force_update?.equals("1") == true) {
             mBinding?.llClose?.visibility = View.GONE
-        }else{
+        } else {
             mBinding?.ivClose?.visibility = View.VISIBLE
         }
         mBinding?.numberProgressBar?.progress = 0

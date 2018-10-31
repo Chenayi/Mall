@@ -6,9 +6,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="12dp"
-        android:layout_marginRight="12dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginLeft="11dp"
+        android:layout_marginRight="11dp"
+        android:layout_marginTop="11dp"
         android:background="@drawable/background_white_corners_8"
         android:orientation="vertical">
 
@@ -48,7 +48,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:src="@color/gray_default"/>
+            android:src="@color/gray_f0"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -136,7 +136,7 @@
             <ImageView
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:src="@color/gray_default"/>
+                android:src="@color/gray_f0"/>
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -222,7 +222,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:src="@color/gray_default"/>
+            android:src="@color/gray_f0"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -311,7 +311,7 @@
             <ImageView
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:src="@color/gray_default"/>
+                android:src="@color/gray_f0"/>
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -396,7 +396,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:src="@color/gray_default"/>
+            android:src="@color/gray_f0"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -491,13 +491,12 @@
             <ImageView
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:src="@color/gray_default"/>
+                android:src="@color/gray_f0"/>
 
             <LinearLayout
                 android:id="@+id/ll_yp11"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="1dp"
                 android:layout_weight="1"
                 android:orientation="vertical">
 

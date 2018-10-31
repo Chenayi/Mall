@@ -2,9 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="12dp"
-    android:layout_marginRight="12dp"
-    android:layout_marginTop="8dp">
+    android:layout_marginLeft="11dp"
+    android:layout_marginRight="11dp"
+    android:layout_marginTop="11dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -46,14 +46,14 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="#f7f7f7" />
+            android:layout_height="1dp"
+            android:background="@color/gray_f0" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="16dp"
             android:orientation="vertical">
 
             <LinearLayout
@@ -160,7 +160,7 @@
                     <ImageView
                         android:layout_width="45dp"
                         android:layout_height="45dp"
-                        android:src="@mipmap/s4" />
+                        android:src="@mipmap/s5" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -175,7 +175,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="15dp"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -189,7 +189,7 @@
                     <ImageView
                         android:layout_width="45dp"
                         android:layout_height="45dp"
-                        android:src="@mipmap/s5" />
+                        android:src="@mipmap/s6" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -211,7 +211,7 @@
                     <ImageView
                         android:layout_width="45dp"
                         android:layout_height="45dp"
-                        android:src="@mipmap/s6" />
+                        android:src="@mipmap/s7" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -233,7 +233,7 @@
                     <ImageView
                         android:layout_width="45dp"
                         android:layout_height="45dp"
-                        android:src="@mipmap/s7" />
+                        android:src="@mipmap/s8" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -255,7 +255,7 @@
                     <ImageView
                         android:layout_width="45dp"
                         android:layout_height="45dp"
-                        android:src="@mipmap/s8" />
+                        android:src="@mipmap/s9" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -277,7 +277,7 @@
                     <ImageView
                         android:layout_width="45dp"
                         android:layout_height="45dp"
-                        android:src="@mipmap/s8" />
+                        android:src="@mipmap/s10" />
 
                     <TextView
                         android:layout_width="wrap_content"

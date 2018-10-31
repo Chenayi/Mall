@@ -57,7 +57,7 @@ class HomeSexToyProvider : BaseItemProvider<SexToyEntity, BaseViewHolder>() {
 
 
     inner class MyAdapter
-    constructor(val sexToyDatas: MutableList<SexToyEntity.SexToys>)
+    constructor(sexToyDatas: MutableList<SexToyEntity.SexToys>)
         : BaseAdapter<SexToyEntity.SexToys, BaseViewHolder>(R.layout.item_home_sex_toy, sexToyDatas) {
         override fun convert(helper: BaseViewHolder?, item: SexToyEntity.SexToys?) {
             val linearLayout = helper?.getView<LinearLayout>(R.id.ll_item)
@@ -72,7 +72,7 @@ class HomeSexToyProvider : BaseItemProvider<SexToyEntity, BaseViewHolder>() {
             linearLayout.layoutParams = params
 
             helper?.setText(R.id.tv_goods_name, item?.goodsName)
-                    ?.setText(R.id.tv_goods_price, "¥" + item?.goodsPrice)
+                    ?.setText(R.id.tv_goods_price, item?.goodsPrice)
                     ?.setText(R.id.tv_goods_market_price, "¥" + item?.marketPrice)
             helper?.getView<TextView>(R.id.tv_goods_market_price)?.paint?.flags = Paint.STRIKE_THRU_TEXT_FLAG
             GlideApp.with(mContext)

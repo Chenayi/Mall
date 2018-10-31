@@ -15,6 +15,7 @@ class CartGroupEntity : BaseCartEntity(), Serializable {
     class Group : Serializable {
         var c_goods: CGoods? = null
         var goodsNum: String? = null
+
     }
 
     class CGoods : Serializable {
@@ -23,5 +24,6 @@ class CartGroupEntity : BaseCartEntity(), Serializable {
         var goods_price: String? = null
         var goods_info_id: String? = null
         var goods_num: String? = null
+        var goods_stock: Int? = null
     }
 }
