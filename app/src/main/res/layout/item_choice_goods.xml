@@ -48,7 +48,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:src="@color/gray_f0"/>
+            android:src="@color/gray_f0" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -71,7 +71,7 @@
                     android:singleLine="true"
                     android:text="真男人强强联合"
                     android:textColor="#0919E5"
-                    android:textStyle="bold" />
+                    android:textSize="14dp" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -136,7 +136,7 @@
             <ImageView
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:src="@color/gray_f0"/>
+                android:src="@color/gray_f0" />
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -154,7 +154,7 @@
                     android:singleLine="true"
                     android:text="美丽女人这样吃"
                     android:textColor="#FF0AD4"
-                    android:textStyle="bold" />
+                    android:textSize="14dp" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -222,7 +222,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:src="@color/gray_f0"/>
+            android:src="@color/gray_f0" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -246,7 +246,7 @@
                     android:singleLine="true"
                     android:text="预防乙肝，健康相随"
                     android:textColor="#1FCAC0"
-                    android:textStyle="bold" />
+                    android:textSize="14dp" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -311,7 +311,7 @@
             <ImageView
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:src="@color/gray_f0"/>
+                android:src="@color/gray_f0" />
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -329,7 +329,7 @@
                     android:singleLine="true"
                     android:text="性福生活，魅力四射"
                     android:textColor="#9100FF"
-                    android:textStyle="bold" />
+                    android:textSize="14dp" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -396,7 +396,9 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:src="@color/gray_f0"/>
+            android:src="@color/gray_f0" />
+
+        <!-- 分割 -->
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -416,19 +418,18 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:layout_marginTop="14dp"
+                    android:layout_marginTop="12dp"
                     android:lines="1"
                     android:singleLine="true"
                     android:text="肾宝片"
                     android:textColor="@color/c_2e3033"
-                    android:textStyle="bold" />
+                    android:textSize="14dp" />
 
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginTop="2dp"
                     android:lines="1"
                     android:singleLine="true"
                     android:text="补肾佳选"
@@ -440,8 +441,8 @@
                     android:layout_width="53dp"
                     android:layout_height="53dp"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginBottom="7dp"
-                    android:layout_marginTop="13dp"
+                    android:layout_marginBottom="11dp"
+                    android:layout_marginTop="10dp"
                     android:src="@mipmap/yp_9" />
 
 
@@ -460,18 +461,17 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:layout_marginTop="14dp"
+                    android:layout_marginTop="12dp"
                     android:lines="1"
                     android:singleLine="true"
                     android:text="生精片"
                     android:textColor="@color/c_2e3033"
-                    android:textStyle="bold" />
+                    android:textSize="14dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginTop="2dp"
                     android:lines="1"
                     android:singleLine="true"
                     android:text="至尊持久"
@@ -482,8 +482,8 @@
                     android:layout_width="53dp"
                     android:layout_height="53dp"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginBottom="7dp"
-                    android:layout_marginTop="13dp"
+                    android:layout_marginBottom="11dp"
+                    android:layout_marginTop="10dp"
                     android:src="@mipmap/yp_10" />
 
             </LinearLayout>
@@ -491,7 +491,7 @@
             <ImageView
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:src="@color/gray_f0"/>
+                android:src="@color/gray_f0" />
 
             <LinearLayout
                 android:id="@+id/ll_yp11"
@@ -505,18 +505,17 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:layout_marginTop="14dp"
+                    android:layout_marginTop="12dp"
                     android:lines="1"
                     android:singleLine="true"
                     android:text="汤臣倍健"
                     android:textColor="@color/c_2e3033"
-                    android:textStyle="bold" />
+                    android:textSize="14dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginTop="2dp"
                     android:lines="1"
                     android:singleLine="true"
                     android:text="美白"
@@ -527,8 +526,8 @@
                     android:layout_width="53dp"
                     android:layout_height="53dp"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginBottom="7dp"
-                    android:layout_marginTop="13dp"
+                    android:layout_marginBottom="11dp"
+                    android:layout_marginTop="10dp"
                     android:src="@mipmap/yp_11" />
 
             </LinearLayout>
@@ -546,18 +545,17 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:layout_marginTop="14dp"
+                    android:layout_marginTop="12dp"
                     android:lines="1"
                     android:singleLine="true"
                     android:text="脱发白发"
                     android:textColor="@color/c_2e3033"
-                    android:textStyle="bold" />
+                    android:textSize="14dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginTop="2dp"
                     android:lines="1"
                     android:singleLine="true"
                     android:text="脱发克星"
@@ -568,8 +566,8 @@
                     android:layout_width="53dp"
                     android:layout_height="53dp"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginBottom="7dp"
-                    android:layout_marginTop="13dp"
+                    android:layout_marginBottom="11dp"
+                    android:layout_marginTop="10dp"
                     android:src="@mipmap/yp_12" />
 
             </LinearLayout>

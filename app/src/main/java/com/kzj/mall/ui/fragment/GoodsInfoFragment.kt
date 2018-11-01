@@ -279,11 +279,9 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
             if (it?.is_follow?.equals("1") == true) {
                 ivFollow?.setImageResource(R.mipmap.saved)
                 tvFollow?.setText("已关注")
-                tvFollow?.setTextColor(ContextCompat.getColor(context!!, R.color.colorPrimary))
             } else {
                 ivFollow?.setImageResource(R.mipmap.sc)
                 tvFollow?.setText("关注")
-                tvFollow?.setTextColor(Color.parseColor("#6A6E75"))
             }
 
             //活动
@@ -506,7 +504,6 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
 
     fun colllectSuccess() {
         tvFollow?.setText("已关注")
-        tvFollow?.setTextColor(ContextCompat.getColor(context!!, R.color.colorPrimary))
         ivFollow?.setImageResource(R.mipmap.saved)
         llFollow?.isEnabled = true
         this@GoodsInfoFragment.isFollow = true
@@ -514,7 +511,6 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
 
     fun cancelCollectSuccess() {
         tvFollow?.setText("关注")
-        tvFollow?.setTextColor(Color.parseColor("#6A6E75"))
         ivFollow?.setImageResource(R.mipmap.sc)
         llFollow?.isEnabled = true
         this@GoodsInfoFragment.isFollow = false

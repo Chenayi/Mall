@@ -17,6 +17,7 @@ import com.kzj.mall.adapter.BaseAdapter
 import com.kzj.mall.entity.home.HomeFlashSaleEntity
 import com.kzj.mall.entity.home.IHomeEntity
 import com.kzj.mall.ui.activity.GoodsDetailActivity
+import com.kzj.mall.utils.PriceUtils
 import com.takusemba.multisnaprecyclerview.MultiSnapRecyclerView
 import com.takusemba.multisnaprecyclerview.OnSnapListener
 
@@ -74,9 +75,11 @@ class HomeFlashSaleProvider : BaseItemProvider<HomeFlashSaleEntity, BaseViewHold
             }
             ivGoods.layoutParams = params
 
+
+            val goodsPrice = PriceUtils.split9sp("¥" + item?.goodsPrice)
             helper?.setText(R.id.tv_goods_name, item?.goodsName)
-                    ?.setText(R.id.tv_price, item?.goodsPrice)
-                    ?.setText(R.id.tv_market_price, "¥" + item?.marketPrice)
+                    ?.setText(R.id.tv_price, goodsPrice)
+                    ?.setText(R.id.tv_market_price, item?.marketPrice)
 
             helper?.getView<TextView>(R.id.tv_market_price)?.paint?.flags = Paint.STRIKE_THRU_TEXT_FLAG
 

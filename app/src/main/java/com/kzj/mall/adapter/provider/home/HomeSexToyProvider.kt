@@ -17,6 +17,7 @@ import com.kzj.mall.adapter.BaseAdapter
 import com.kzj.mall.entity.home.IHomeEntity
 import com.kzj.mall.entity.SexToyEntity
 import com.kzj.mall.ui.activity.GoodsDetailActivity
+import com.kzj.mall.utils.PriceUtils
 import com.takusemba.multisnaprecyclerview.MultiSnapRecyclerView
 
 /**
@@ -63,17 +64,18 @@ class HomeSexToyProvider : BaseItemProvider<SexToyEntity, BaseViewHolder>() {
             val linearLayout = helper?.getView<LinearLayout>(R.id.ll_item)
             var params: RelativeLayout.LayoutParams = linearLayout?.layoutParams as RelativeLayout.LayoutParams
 
-            params.leftMargin = SizeUtils.dp2px(8f)
+            params.leftMargin = SizeUtils.dp2px(11f)
             if (helper?.layoutPosition == data?.size - 1) {
-                params.rightMargin = SizeUtils.dp2px(8f)
+                params.rightMargin = SizeUtils.dp2px(11f)
             } else {
                 params.rightMargin = 0
             }
             linearLayout.layoutParams = params
 
+            val goodsPrice = PriceUtils.split9sp("¥" + item?.goodsPrice)
             helper?.setText(R.id.tv_goods_name, item?.goodsName)
-                    ?.setText(R.id.tv_goods_price, item?.goodsPrice)
-                    ?.setText(R.id.tv_goods_market_price, "¥" + item?.marketPrice)
+                    ?.setText(R.id.tv_goods_price, goodsPrice)
+                    ?.setText(R.id.tv_goods_market_price, item?.marketPrice)
             helper?.getView<TextView>(R.id.tv_goods_market_price)?.paint?.flags = Paint.STRIKE_THRU_TEXT_FLAG
             GlideApp.with(mContext)
                     .load(item?.imgUrl)

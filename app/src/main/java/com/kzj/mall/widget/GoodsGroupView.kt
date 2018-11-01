@@ -129,7 +129,7 @@ class GoodsGroupView : BaseRelativeLayout<GoodsGroupViewBinding> {
                 params.rightMargin = 0
                 helper?.setGone(R.id.tv_plus, true)
             }
-            linearLayout.layoutParams = params
+            linearLayout.requestLayout()
 
             GlideApp.with(mContext)
                     .load(item?.goods_img)

@@ -118,6 +118,7 @@ class HomeFragment : BaseFragment<IPresenter, FragmentHomeBinding>(), View.OnCli
                 val indicator = LinePagerIndicator(context)
                 indicator.mode = LinePagerIndicator.MODE_EXACTLY
                 indicator.setColors(Color.WHITE)
+                indicator.roundRadius = 9999f
                 indicator.lineWidth = SizeUtils.dp2px(17f).toFloat()
                 return indicator
             }

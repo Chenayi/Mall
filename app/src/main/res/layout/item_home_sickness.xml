@@ -78,7 +78,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="7dp"
-                        android:text="痛风"
+                        android:text="速效壮阳"
                         android:textColor="#6A6E75"
                         android:textSize="12dp" />
                 </LinearLayout>
@@ -100,7 +100,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="7dp"
-                        android:text="哮喘"
+                        android:text="高血压"
                         android:textColor="#6A6E75"
                         android:textSize="12dp" />
                 </LinearLayout>
@@ -122,7 +122,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="7dp"
-                        android:text="癫痫"
+                        android:text="病毒性肝炎"
                         android:textColor="#6A6E75"
                         android:textSize="12dp" />
                 </LinearLayout>
@@ -144,7 +144,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="7dp"
-                        android:text="高血压"
+                        android:text="风湿骨痛"
                         android:textColor="#6A6E75"
                         android:textSize="12dp" />
                 </LinearLayout>
@@ -166,7 +166,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="7dp"
-                        android:text="病毒性肝炎"
+                        android:text="痛风"
                         android:textColor="#6A6E75"
                         android:textSize="12dp" />
                 </LinearLayout>
@@ -195,7 +195,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="7dp"
-                        android:text="速效壮阳"
+                        android:text="哮喘"
                         android:textColor="#6A6E75"
                         android:textSize="12dp" />
                 </LinearLayout>
@@ -217,7 +217,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="7dp"
-                        android:text="美体瘦身"
+                        android:text="癫痫"
                         android:textColor="#6A6E75"
                         android:textSize="12dp" />
                 </LinearLayout>
@@ -261,7 +261,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="7dp"
-                        android:text="风湿骨痛"
+                        android:text="美体瘦身"
                         android:textColor="#6A6E75"
                         android:textSize="12dp" />
                 </LinearLayout>

@@ -258,31 +258,31 @@ abstract class BaseHomeChildListFragment : BaseFragment<HomePresenter, FragmentB
 
             //以下是疾病跳转
                 R.id.ll_s_1 -> {
-                    jumpSearch("痛风")
-                }
-                R.id.ll_s_2 -> {
-                    jumpSearch("哮喘")
-                }
-                R.id.ll_s_3 -> {
-                    jumpSearch("癫痫")
-                }
-                R.id.ll_s_4 -> {
-                    jumpSearch("高血压")
-                }
-                R.id.ll_s_5 -> {
-                    jumpSearch("病毒性肝炎")
-                }
-                R.id.ll_s_6 -> {
                     jumpSearch("速效壮阳")
                 }
+                R.id.ll_s_2 -> {
+                    jumpSearch("高血压")
+                }
+                R.id.ll_s_3 -> {
+                    jumpSearch("病毒性肝炎")
+                }
+                R.id.ll_s_4 -> {
+                    jumpSearch("风湿骨痛")
+                }
+                R.id.ll_s_5 -> {
+                    jumpSearch("痛风")
+                }
+                R.id.ll_s_6 -> {
+                    jumpSearch("哮喘")
+                }
                 R.id.ll_s_7 -> {
-                    jumpSearch("美体瘦身")
+                    jumpSearch("癫痫")
                 }
                 R.id.ll_s_8 -> {
                     jumpSearch("月经不调")
                 }
                 R.id.ll_s_9 -> {
-                    jumpSearch("风湿骨痛")
+                    jumpSearch("美体瘦身")
                 }
                 R.id.ll_s_10 -> {
                     jumpSearch("胃肠疾病")

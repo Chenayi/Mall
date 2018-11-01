@@ -67,7 +67,7 @@
                 android:id="@+id/tv_goods_name"/>
 
             <TextView
-                android:layout_width="92dp"
+                android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:singleLine="true"

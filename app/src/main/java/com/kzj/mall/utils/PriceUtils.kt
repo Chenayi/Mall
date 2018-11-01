@@ -24,5 +24,14 @@ class PriceUtils {
                     , Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
             return builder
         }
+
+        fun split9sp(amount: String): SpannableStringBuilder {
+            val builder = SpannableStringBuilder(amount);
+            builder.setSpan(AbsoluteSizeSpan(SizeUtils.sp2px(9f)), amount.indexOf("¥"), amount.indexOf("¥") + 1
+                    , Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            builder.setSpan(AbsoluteSizeSpan(SizeUtils.sp2px(9f)), amount.indexOf("."), amount?.length
+                    , Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            return builder
+        }
     }
 }
