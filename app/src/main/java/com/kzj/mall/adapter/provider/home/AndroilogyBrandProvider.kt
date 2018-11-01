@@ -6,6 +6,9 @@ import com.kzj.mall.R
 import com.kzj.mall.entity.home.AndrologyBrandEntity
 import com.kzj.mall.entity.home.IHomeEntity
 
+/**
+ * 男科品牌
+ */
 class AndroilogyBrandProvider : BaseItemProvider<AndrologyBrandEntity,BaseViewHolder>() {
     override fun layout(): Int {
         return R.layout.item_andrology_brand

@@ -6,6 +6,9 @@ import com.kzj.mall.R
 import com.kzj.mall.entity.home.AndrologyStationEntity
 import com.kzj.mall.entity.home.IHomeEntity
 
+/**
+ * 男性加油站
+ */
 class AndrologyStationProvider : BaseItemProvider<AndrologyStationEntity, BaseViewHolder>() {
     override fun layout(): Int {
         return R.layout.item_andrology_male_station

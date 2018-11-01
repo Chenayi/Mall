@@ -25,7 +25,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/gray_default" />
+        android:background="@color/gray_f0" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -84,7 +84,7 @@
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:background="@color/gray_default" />
+            android:background="@color/gray_f0" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -149,7 +149,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/gray_default" />
+                android:background="@color/gray_f0" />
 
             <LinearLayout
                 android:id="@+id/ll_man_station_3"
@@ -212,7 +212,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/gray_default" />
+        android:background="@color/gray_f0" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -268,7 +268,7 @@
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:background="@color/gray_default" />
+            android:background="@color/gray_f0" />
 
         <LinearLayout
             android:id="@+id/ll_man_station_5"
@@ -318,7 +318,7 @@
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:background="@color/gray_default" />
+            android:background="@color/gray_f0" />
 
         <LinearLayout
             android:id="@+id/ll_man_station_6"
@@ -368,7 +368,7 @@
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:background="@color/gray_default" />
+            android:background="@color/gray_f0" />
 
         <LinearLayout
             android:id="@+id/ll_man_station_7"

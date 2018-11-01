@@ -125,7 +125,7 @@ public class RootLayout extends LinearLayout {
 
         setClipToPadding(true);
         setOrientation(VERTICAL);
-        setBackgroundColor(Color.parseColor("#FFF0F0F0"));
+        setBackgroundColor(ContextCompat.getColor(context,R.color.gray_default));
 
         ViewGroup.LayoutParams lpTitle = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 (int) mTitleBarHeight);

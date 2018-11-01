@@ -26,24 +26,24 @@
                     android:layout_height="60dp">
 
                     <ImageView
+                        android:id="@+id/iv_goods"
                         android:layout_width="60dp"
                         android:layout_height="60dp"
-                        android:src="@color/gray_default"
-                        android:id="@+id/iv_goods"
-                        android:layout_centerInParent="true"/>
+                        android:layout_centerInParent="true"
+                        android:src="@color/gray_default" />
 
                     <TextView
+                        android:id="@+id/tv_num"
                         android:layout_width="26dp"
                         android:layout_height="16dp"
                         android:background="@mipmap/group_num_bg"
                         android:gravity="center"
                         android:lines="1"
+                        android:paddingBottom="3dp"
                         android:singleLine="true"
                         android:text="2件"
                         android:textColor="@color/white"
-                        android:textSize="11dp"
-                        android:id="@+id/tv_num"
-                        android:paddingBottom="3dp"/>
+                        android:textSize="11dp" />
                 </RelativeLayout>
 
                 <TextView
@@ -56,26 +56,26 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/tv_goods_name"
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:singleLine="true"
                 android:lines="1"
+                android:singleLine="true"
                 android:text="Swisse 胶原蛋白...液500ml+Healthy Care 葡萄籽300粒"
                 android:textColor="#6A6E75"
-                android:textSize="12dp"
-                android:id="@+id/tv_goods_name"/>
+                android:textSize="12dp" />
 
             <TextView
+                android:id="@+id/tv_goods_price_num"
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
+                android:lines="1"
                 android:singleLine="true"
                 android:text="¥239.00"
                 android:textColor="#6A6E75"
-                android:textSize="10dp"
-                android:lines="1"
-                android:id="@+id/tv_goods_price_num"/>
+                android:textSize="12dp" />
 
         </LinearLayout>
     </LinearLayout>

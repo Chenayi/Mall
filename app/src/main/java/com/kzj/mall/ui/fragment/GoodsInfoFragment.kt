@@ -207,7 +207,7 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
         mBinding?.banner?.setAdapter(BGABanner.Adapter<ImageView, String> { banner, itemView, model, position ->
             GlideApp.with(this)
                     .load(model)
-                    .placeholder(R.color.gray_default)
+                    .placeholder(R.mipmap.goods_default)
                     .centerCrop()
                     .dontAnimate()
                     .into(itemView)
@@ -332,7 +332,7 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
 
 
                     mBinding?.llChufang?.visibility = View.VISIBLE
-                    var t1 = "如需协助可在线咨询药师或拨打热线"
+                    var t1 = "如需协助可在线咨询药师或拨打热线 "
                     var t2 = C.CUSTOMER_TEL
 
                     val spanText = SpannableString(t1 + t2)
@@ -340,7 +340,7 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
 
                         override fun updateDrawState(ds: TextPaint) {
                             super.updateDrawState(ds)
-                            ds.color = Color.parseColor("#6A6E75")       //设置文件颜色
+                            ds.color = Color.parseColor("#004098")       //设置文件颜色
                             ds.isUnderlineText = true      //设置下划线
                         }
 

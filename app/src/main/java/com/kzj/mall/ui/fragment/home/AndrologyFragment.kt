@@ -104,11 +104,15 @@ class AndrologyFragment : BaseHomeChildListFragment() {
                 it?.get(i)?.isBackgroundCorners = false
 
                 if (i % 2 == 0) {
-                    it.get(i).isShowLeftMargin = true
                     it.get(i).isShowRightMargin = false
+                    it?.get(i).isShowRightMargin2 = true
+                    it.get(i).isShowLeftMargin = true
+                    it.get(i).isShowLeftMargin2 = false
                 } else {
-                    it.get(i).isShowLeftMargin = false
                     it.get(i).isShowRightMargin = true
+                    it?.get(i).isShowRightMargin2 = false
+                    it.get(i).isShowLeftMargin = false
+                    it.get(i).isShowLeftMargin2 = true
                 }
 
                 if ((i == 0 || i == 1) && pageNo <= 1) {

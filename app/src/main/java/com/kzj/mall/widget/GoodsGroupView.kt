@@ -18,6 +18,7 @@ import com.kzj.mall.entity.GoodsDetailEntity
 import com.kzj.mall.event.AddGroupCartEvent
 import com.kzj.mall.ui.activity.GoodsDetailActivity
 import com.kzj.mall.ui.activity.login.LoginActivity
+import com.kzj.mall.utils.PriceUtils
 import com.takusemba.multisnaprecyclerview.MultiSnapRecyclerView
 import org.greenrobot.eventbus.EventBus
 
@@ -86,9 +87,13 @@ class GoodsGroupView : BaseRelativeLayout<GoodsGroupViewBinding> {
         : BaseAdapter<GoodsDetailEntity.CombinationList, BaseViewHolder>(R.layout.item_goods_group, combinationList) {
         override fun convert(helper: BaseViewHolder?, item: GoodsDetailEntity.CombinationList?) {
 
+            val goodsPrice = PriceUtils.split10sp("¥" + item?.combination_price?.toString())
+
+            val goodsPrePrice = PriceUtils.split10sp("¥" + item?.sumPrePrice?.toString())
+
             helper?.setText(R.id.tv_group_name, item?.combination_name)
-                    ?.setText(R.id.tv_goods_price, "¥" + item?.combination_price?.toString())
-                    ?.setText(R.id.tv_goods_pre_price, "立省：¥" + item?.sumPrePrice)
+                    ?.setText(R.id.tv_goods_price, goodsPrice)
+                    ?.setText(R.id.tv_goods_pre_price, goodsPrePrice)
                     ?.setGone(R.id.tv_group_add_cart, item?.isOpen == true && isShowAddCart)
                     ?.setGone(R.id.ll_group, item?.isOpen == true)
                     ?.setGone(R.id.iv_down, item?.isOpen == false)
@@ -137,9 +142,10 @@ class GoodsGroupView : BaseRelativeLayout<GoodsGroupViewBinding> {
                     .centerCrop()
                     .into(helper?.getView(R.id.iv_goods)!!)
 
+            val goodsPrice = PriceUtils.split10sp("¥" + item?.goods_price)
             helper?.setText(R.id.tv_num, item?.goodsNum + "件")
                     ?.setText(R.id.tv_goods_name, item?.goods_name)
-                    ?.setText(R.id.tv_goods_price_num, "¥" + item?.goods_price)
+                    ?.setText(R.id.tv_goods_price_num, goodsPrice)
         }
     }
 }

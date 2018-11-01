@@ -20,13 +20,15 @@ class PaySuccessAdapter(recommendDatas: MutableList<HomeRecommendEntity.Data>)
         val layoutPosition = helper?.layoutPosition!!
 
         if (layoutPosition % 2 == 0) {
-            helper?.setGone(R.id.view_right,true)
-                    ?.setGone(R.id.view_right2,false)
+            helper?.setGone(R.id.view_right, true)
+                    ?.setGone(R.id.view_right2, false)
                     ?.setGone(R.id.view_left, false)
+                    ?.setGone(R.id.view_left2, true)
         }else{
-            helper?.setGone(R.id.view_right,false)
-                    ?.setGone(R.id.view_right2,true)
+            helper?.setGone(R.id.view_right, false)
+                    ?.setGone(R.id.view_right2, true)
                     ?.setGone(R.id.view_left, true)
+                    ?.setGone(R.id.view_left2, false)
         }
 
         if (layoutPosition == 1 || layoutPosition == 2){
@@ -50,7 +52,7 @@ class PaySuccessAdapter(recommendDatas: MutableList<HomeRecommendEntity.Data>)
                 RoundedCornersTransformation(SizeUtils.dp2px(8f), 0, RoundedCornersTransformation.CornerType.TOP))
         Glide.with(mContext)
                 .load(item?.goods_img)
-                .apply(RequestOptions.bitmapTransform(multi).placeholder(R.drawable.gray_f5_top_corners_8))
+                .apply(RequestOptions.bitmapTransform(multi).placeholder(R.drawable.gray_f5_corners_8))
                 .into(ivGoods!!)
     }
 }

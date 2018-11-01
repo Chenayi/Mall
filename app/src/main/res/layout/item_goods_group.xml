@@ -48,18 +48,35 @@
                     android:textSize="12dp"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/tv_goods_pre_price"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="6dp"
-                    android:gravity="center"
-                    android:lines="1"
-                    android:singleLine="true"
-                    android:text="立省:¥47.00"
-                    android:textColor="@color/orange_default"
-                    android:textSize="12dp"
-                    android:textStyle="bold" />
+                    android:orientation="horizontal"
+                    android:layout_marginLeft="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:lines="1"
+                        android:singleLine="true"
+                        android:text="立省:"
+                        android:textColor="@color/orange_default"
+                        android:textSize="12dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_goods_pre_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:lines="1"
+                        android:singleLine="true"
+                        android:text="¥47.00"
+                        android:textColor="@color/orange_default"
+                        android:textSize="12dp"
+                        android:textStyle="bold" />
+                </LinearLayout>
 
             </LinearLayout>
 

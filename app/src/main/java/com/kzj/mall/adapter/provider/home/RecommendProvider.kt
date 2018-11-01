@@ -1,7 +1,6 @@
 package com.kzj.mall.adapter.provider.home
 
 import android.graphics.Paint
-import android.support.v4.content.ContextCompat
 import android.widget.ImageView
 import android.widget.TextView
 import com.blankj.utilcode.util.SizeUtils
@@ -31,8 +30,9 @@ class RecommendProvider : BaseItemProvider<HomeRecommendEntity.Data, BaseViewHol
 
         val goodsPrice = PriceUtils.split12sp("¥" + data?.goods_price)
         helper?.setGone(R.id.view_right, data?.isShowRightMargin == true)
-                ?.setGone(R.id.view_right2, data?.isShowRightMargin == false)
+                ?.setGone(R.id.view_right2, data?.isShowRightMargin2 == true)
                 ?.setGone(R.id.view_left, data?.isShowLeftMargin == true)
+                ?.setGone(R.id.view_left2, data?.isShowLeftMargin2 == true)
                 ?.setGone(R.id.view_top, data?.isShowTopMargin == true)
                 ?.setText(R.id.tv_goods_name, data?.goods_name)
                 ?.setText(R.id.tv_goods_indication, data?.goods_indication)
@@ -48,7 +48,7 @@ class RecommendProvider : BaseItemProvider<HomeRecommendEntity.Data, BaseViewHol
                     RoundedCornersTransformation(SizeUtils.dp2px(8f), 0, RoundedCornersTransformation.CornerType.TOP))
             Glide.with(mContext)
                     .load(data?.goods_img)
-                    .apply(RequestOptions.bitmapTransform(multi).placeholder(R.drawable.gray_f5_top_corners_8))
+                    .apply(RequestOptions.bitmapTransform(multi).placeholder(R.drawable.gray_f5_corners_8))
                     .into(ivGoods!!)
         } else {
             helper?.setBackgroundRes(R.id.ll_bg, R.color.white)

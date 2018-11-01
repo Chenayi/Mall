@@ -12,11 +12,13 @@ class HomeRecommendEntity {
          * 是否显示右边距
          */
         var isShowRightMargin: Boolean = false
+        var isShowRightMargin2: Boolean = false
 
         /**
          * 是否显示左边距
          */
         var isShowLeftMargin: Boolean = false
+        var isShowLeftMargin2: Boolean = false
 
         /**
          * 是否显示上边距

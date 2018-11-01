@@ -354,11 +354,15 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
 
             for (i in 0 until t?.size) {
                 if (i % 2 == 0) {
-                    t.get(i).isShowLeftMargin = true
-                    t.get(i).isShowRightMargin = false
+                    it.get(i).isShowRightMargin = false
+                    it?.get(i).isShowRightMargin2 = true
+                    it.get(i).isShowLeftMargin = true
+                    it.get(i).isShowLeftMargin2 = false
                 } else {
-                    t.get(i).isShowLeftMargin = false
-                    t.get(i).isShowRightMargin = true
+                    it.get(i).isShowRightMargin = true
+                    it?.get(i).isShowRightMargin2 = false
+                    it.get(i).isShowLeftMargin = false
+                    it.get(i).isShowLeftMargin2 = true
                 }
 
                 if (i == 0 || i == 1) {
