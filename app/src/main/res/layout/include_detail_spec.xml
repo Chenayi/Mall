@@ -162,13 +162,6 @@
     </LinearLayout>
 
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginLeft="12dp"
-        android:background="@color/gray_default" />
-
-
     <!-- 服务 -->
     <LinearLayout
         android:id="@+id/ll_service_note"

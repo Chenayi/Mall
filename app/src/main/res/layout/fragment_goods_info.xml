@@ -34,6 +34,7 @@
                             app:banner_indicatorGravity="right|bottom"
                             app:banner_isNeedShowIndicatorOnOnlyOnePage="true"
                             app:banner_isNumberIndicator="true"
+                            app:banner_numberIndicatorTextColor="@color/tran"
                             app:banner_pointAutoPlayAble="false"
                             app:banner_pointContainerBackground="@color/tran"
                             app:banner_transitionEffect="defaultEffect" />
@@ -124,7 +125,7 @@
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="0.5dp"
-                            android:background="@color/gray_default" />
+                            android:background="@color/gray_f0" />
 
                         <!-- 标题 -->
                         <include
@@ -154,10 +155,11 @@
                             android:background="@color/white"
                             android:orientation="vertical"
                             android:visibility="gone">
+
                             <View
                                 android:layout_width="match_parent"
                                 android:layout_height="12dp"
-                                android:background="@color/gray_default"/>
+                                android:background="@color/gray_default" />
 
                             <TextView
                                 android:layout_width="match_parent"
@@ -173,7 +175,7 @@
                             <View
                                 android:layout_width="match_parent"
                                 android:layout_height="0.5dp"
-                                android:background="@color/gray_default" />
+                                android:background="@color/gray_f0" />
 
                             <TextView
                                 android:layout_width="match_parent"

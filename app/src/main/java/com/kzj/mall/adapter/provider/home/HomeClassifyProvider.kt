@@ -41,7 +41,7 @@ class HomeClassifyProvider(val context: Context) : BaseItemProvider<HomeClassify
                 ?.addOnClickListener(R.id.ll_qingqu)
 
         val screenWidth = ScreenUtils.getScreenWidth() - SizeUtils.dp2px(22f)
-        val h = 251f * screenWidth / 1016f
+        val h = 236f * screenWidth / 1020f
         val imageView = helper?.getView<ImageView>(R.id.iv_2369)
         val layoutParams = imageView?.layoutParams as RelativeLayout.LayoutParams
         layoutParams.width = screenWidth

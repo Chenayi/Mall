@@ -25,13 +25,13 @@
 
             <ImageView
                 android:id="@+id/iv_goods"
-                android:layout_width="88dp"
-                android:layout_height="88dp"
+                android:layout_width="77dp"
+                android:layout_height="77dp"
                 android:src="@color/gray_default" />
 
             <TextView
                 android:id="@+id/tv_no_stock"
-                android:layout_width="88dp"
+                android:layout_width="77dp"
                 android:layout_height="15dp"
                 android:layout_gravity="bottom|center_horizontal"
                 android:background="@drawable/background_000_65_corners_9999"

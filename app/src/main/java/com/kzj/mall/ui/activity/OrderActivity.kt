@@ -74,6 +74,7 @@ class OrderActivity : BaseActivity<IPresenter, ActivityOrderBinding>() {
             override fun getIndicator(p0: Context?): IPagerIndicator {
                 val indicator = LinePagerIndicator(applicationContext)
                 indicator.mode = LinePagerIndicator.MODE_EXACTLY
+                indicator.roundRadius = 9999f
                 indicator.setColors(ContextCompat.getColor(applicationContext, R.color.colorPrimary))
                 indicator.lineWidth = SizeUtils.dp2px(23f).toFloat()
                 indicator.lineHeight = SizeUtils.dp2px(3f).toFloat()

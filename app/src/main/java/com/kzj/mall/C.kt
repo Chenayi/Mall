@@ -10,10 +10,10 @@ class C {
 
         //测试地址
 //        val BASE_URL = "http://192.168.60.233:8000/mobile/"
-        val BASE_URL = "http://testapp.kzj365.com:33300/"
+//        val BASE_URL = "http://testapp.kzj365.com:33300/"
 
         //正式地址
-//        val BASE_URL = "http://m.kzj365.com/"
+        val BASE_URL = "http://m.kzj365.com/"
 
         val SPACE_ADDRESS = "http://kzjimg01.b0.upaiyun.com/"
 

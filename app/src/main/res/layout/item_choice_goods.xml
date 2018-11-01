@@ -47,7 +47,7 @@
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="0.5dp"
             android:src="@color/gray_f0" />
 
         <LinearLayout
@@ -134,7 +134,7 @@
             </LinearLayout>
 
             <ImageView
-                android:layout_width="1dp"
+                android:layout_width="0.5dp"
                 android:layout_height="match_parent"
                 android:src="@color/gray_f0" />
 
@@ -221,13 +221,12 @@
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="0.5dp"
             android:src="@color/gray_f0" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="1dp"
             android:orientation="horizontal">
 
             <LinearLayout
@@ -309,7 +308,7 @@
 
 
             <ImageView
-                android:layout_width="1dp"
+                android:layout_width="0.5dp"
                 android:layout_height="match_parent"
                 android:src="@color/gray_f0" />
 
@@ -395,7 +394,7 @@
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="0.5dp"
             android:src="@color/gray_f0" />
 
         <!-- 分割 -->
@@ -452,7 +451,6 @@
                 android:id="@+id/ll_yp10"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="1dp"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
@@ -489,7 +487,7 @@
             </LinearLayout>
 
             <ImageView
-                android:layout_width="1dp"
+                android:layout_width="0.5dp"
                 android:layout_height="match_parent"
                 android:src="@color/gray_f0" />
 
@@ -536,7 +534,6 @@
                 android:id="@+id/ll_yp12"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="1dp"
                 android:layout_weight="1"
                 android:orientation="vertical">
 

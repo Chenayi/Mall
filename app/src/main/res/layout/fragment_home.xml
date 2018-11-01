@@ -61,10 +61,9 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="1dp"
-                        android:layout_marginLeft="3dp"
+                        android:layout_marginLeft="6dp"
                         android:text="健康搜索，懂你所需～"
-                        android:textColor="#C2C6CC"
+                        android:textColor="#ADB3AB"
                         android:textSize="12dp" />
                 </LinearLayout>
             </RelativeLayout>

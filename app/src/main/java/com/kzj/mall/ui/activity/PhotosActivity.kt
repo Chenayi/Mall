@@ -78,7 +78,7 @@ class PhotosActivity:BaseActivity<IPresenter,ActivityPhotosBinding>() {
             GlideApp.with(this@PhotosActivity)
                     .load(advDatas?.get(position))
                     .fitCenter()
-                    .placeholder(R.color.gray_default)
+                    .placeholder(R.mipmap.goods_default)
                     .into(imageView!!)
             container.addView(view)
             return view

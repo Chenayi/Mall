@@ -12,8 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingBottom="12dp"
-        android:paddingTop="12dp">
+        android:paddingBottom="11dp"
+        android:paddingTop="11dp">
 
 
         <LinearLayout
@@ -99,8 +99,7 @@
                 android:id="@+id/ll_lc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:layout_marginTop="2dp"
+                android:layout_marginBottom="11dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:paddingLeft="28dp"
@@ -158,13 +157,13 @@
 
                 <ImageView
                     android:id="@+id/iv_goods"
-                    android:layout_width="88dp"
-                    android:layout_height="88dp"
+                    android:layout_width="77dp"
+                    android:layout_height="77dp"
                     android:src="@color/gray_default" />
 
                 <TextView
                     android:id="@+id/tv_no_stock"
-                    android:layout_width="88dp"
+                    android:layout_width="77dp"
                     android:layout_height="15dp"
                     android:layout_gravity="bottom|center_horizontal"
                     android:background="@drawable/background_000_65_corners_9999"
