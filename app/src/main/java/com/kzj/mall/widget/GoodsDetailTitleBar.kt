@@ -71,6 +71,7 @@ class GoodsDetailTitleBar : BaseRelativeLayout<TitlebarGoodsDetailBinding>, View
             override fun getIndicator(p0: Context?): IPagerIndicator {
                 val indicator = LinePagerIndicator(context)
                 indicator.mode = LinePagerIndicator.MODE_EXACTLY
+                indicator.roundRadius = 9999f
                 indicator.setColors(Color.parseColor("#48B828"))
                 indicator.lineWidth = SizeUtils.dp2px(13f).toFloat()
                 return indicator

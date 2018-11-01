@@ -45,7 +45,7 @@
                     android:singleLine="true"
                     android:text="¥1198.00"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="12dp"
+                    android:textSize="13dp"
                     android:textStyle="bold" />
 
                 <LinearLayout
@@ -74,7 +74,7 @@
                         android:singleLine="true"
                         android:text="¥47.00"
                         android:textColor="@color/orange_default"
-                        android:textSize="12dp"
+                        android:textSize="13dp"
                         android:textStyle="bold" />
                 </LinearLayout>
 
