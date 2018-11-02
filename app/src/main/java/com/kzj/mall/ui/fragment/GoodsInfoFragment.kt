@@ -32,7 +32,9 @@ import org.greenrobot.eventbus.Subscribe
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.text.style.ImageSpan
+import com.blankj.utilcode.util.SizeUtils
 import com.kzj.mall.ui.activity.PhotosActivity
+import com.kzj.mall.ui.dialog.CuxiaoDialog
 import com.kzj.mall.ui.dialog.ServiceNoteDialog
 import com.kzj.mall.utils.PriceUtils
 import com.kzj.mall.widget.CenterAlignImageSpan
@@ -99,6 +101,16 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
      */
     private var isFollow = false
 
+    /**
+     * 促销
+     */
+    private var llCuxiao: LinearLayout? = null
+    private var llMan: LinearLayout? = null
+    private var llAllManJian: LinearLayout? = null
+    private var tvManName: TextView? = null
+    private var tvManType: TextView? = null
+    private var tvAllManName: TextView? = null
+
     private var goodsDetailEntity: GoodsDetailEntity? = null
 
 
@@ -147,6 +159,13 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
         tvGoodsInfoSubtitle = view?.findViewById(R.id.tv_goods_info_subtitle)
         tvGoodsMarketPrice = view?.findViewById(R.id.tv_goods_market_price)
         tvCheckSpec = view?.findViewById(R.id.tv_check_spec)
+        llCuxiao = view?.findViewById(R.id.ll_cuxiao)
+        llCuxiao?.setOnClickListener(this)
+        llMan = view?.findViewById(R.id.ll_man)
+        llAllManJian = view?.findViewById(R.id.ll_all_manjian)
+        tvManName = view?.findViewById(R.id.tv_man_name)
+        tvManType = view?.findViewById(R.id.tv_man_type)
+        tvAllManName = view?.findViewById(R.id.tv_all_man_name)
 
         llServiceNote = view?.findViewById(R.id.ll_service_note)
         llServiceNote?.setOnClickListener(this)
@@ -298,6 +317,35 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
                 } else {
                     mBinding?.rlNotice?.visibility = View.GONE
                 }
+            }
+
+            //促销
+            if (it?.promotionmap != null || it?.orderPromotion != null) {
+                llCuxiao?.visibility = View.VISIBLE
+                if (it?.promotionmap != null) {
+                    val promotionType = it?.promotionmap?.promotion_type
+                    when (promotionType) {
+                        1 -> tvManType?.text = "直降"
+                        2 -> tvManType?.text = "折扣"
+                        3 -> tvManType?.text = "满减"
+                        4 -> tvManType?.text = "满赠"
+                    }
+                    tvManName?.text = it?.promotionmap?.promotion_name
+                    llMan?.visibility = View.VISIBLE
+                    llAllManJian?.setPadding(0,SizeUtils.dp2px(4f),0,0)
+                } else {
+                    llMan?.visibility = View.GONE
+                    llAllManJian?.setPadding(0,0,0,0)
+                }
+
+                if (it?.orderPromotion != null) {
+                    tvAllManName?.text = it?.orderPromotion?.promotion_name
+                    llAllManJian?.visibility = View.VISIBLE
+                } else {
+                    llAllManJian?.visibility = View.GONE
+                }
+            } else {
+                llCuxiao?.visibility = View.GONE
             }
 
             //产品信息
@@ -497,6 +545,11 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
             }
             R.id.ll_service_note -> {
                 ServiceNoteDialog.newInstance()
+                        .setShowBottom(true)
+                        .show(childFragmentManager)
+            }
+            R.id.ll_cuxiao->{
+                CuxiaoDialog.newInstance()
                         .setShowBottom(true)
                         .show(childFragmentManager)
             }

@@ -32,145 +32,171 @@
 
         </RelativeLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="@color/gray_default" />
 
-        <android.support.v4.widget.SwipeRefreshLayout
-            android:id="@+id/refresh_layout"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_cart"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/gray_default" />
-        </android.support.v4.widget.SwipeRefreshLayout>
+                android:orientation="vertical">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="@color/gray_default" />
+                <android.support.v4.widget.SwipeRefreshLayout
+                    android:id="@+id/refresh_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
 
-        <LinearLayout
-            android:id="@+id/ll_balance"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@color/white">
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_cart"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/gray_default" />
+                </android.support.v4.widget.SwipeRefreshLayout>
 
-            <LinearLayout
-                android:id="@+id/ll_all_check"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp">
-
-                <ImageView
-                    android:id="@+id/iv_all_check"
-                    android:layout_width="17dp"
-                    android:layout_height="17dp"
-                    android:src="@mipmap/check_nor" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:text="全选"
-                    android:textColor="#6A6E75"
-                    android:textSize="12dp" />
-
-            </LinearLayout>
-
-
-            <FrameLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/gray_f0" />
 
                 <LinearLayout
-                    android:id="@+id/ll_balance2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="right"
-                    android:orientation="horizontal"
-                    android:visibility="visible">
+                    android:id="@+id/ll_balance"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@color/white">
 
                     <LinearLayout
+                        android:id="@+id/ll_all_check"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:gravity="center_vertical|right"
-                        android:orientation="vertical">
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp">
 
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="合计："
-                                android:textColor="#2E3033"
-                                android:textStyle="bold"
-                                android:textSize="14dp"/>
-
-                            <TextView
-                                android:id="@+id/tv_all_price"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="¥0.00"
-                                android:textColor="@color/orange_default"
-                                android:textSize="17dp"
-                                android:textStyle="bold"/>
-                        </LinearLayout>
+                        <ImageView
+                            android:id="@+id/iv_all_check"
+                            android:layout_width="17dp"
+                            android:layout_height="17dp"
+                            android:src="@mipmap/check_nor" />
 
                         <TextView
-                            android:id="@+id/tv_minus_price"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:lines="1"
-                            android:singleLine="true"
-                            android:text="已省：¥0.00"
-                            android:textColor="#8A9099"
+                            android:layout_marginLeft="8dp"
+                            android:text="全选"
+                            android:textColor="#6A6E75"
                             android:textSize="12dp" />
-
 
                     </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/tv_to_balance"
-                        android:layout_width="90dp"
-                        android:layout_height="39dp"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:background="@drawable/background_orange_corners_9999"
-                        android:gravity="center"
-                        android:text="去结算(0)"
-                        android:textColor="@color/white"
-                        android:textSize="14dp"
-                        android:textStyle="bold" />
+
+                    <FrameLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                        <LinearLayout
+                            android:id="@+id/ll_balance2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="right"
+                            android:orientation="horizontal"
+                            android:visibility="visible">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:gravity="center_vertical|right"
+                                android:orientation="vertical">
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="合计："
+                                        android:textColor="#2E3033"
+                                        android:textSize="14dp"
+                                        android:textStyle="bold" />
+
+                                    <TextView
+                                        android:id="@+id/tv_all_price"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="¥0.00"
+                                        android:textColor="@color/orange_default"
+                                        android:textSize="17dp"
+                                        android:textStyle="bold" />
+                                </LinearLayout>
+
+                                <TextView
+                                    android:id="@+id/tv_minus_price"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:lines="1"
+                                    android:singleLine="true"
+                                    android:text="已省：¥0.00"
+                                    android:textColor="#8A9099"
+                                    android:textSize="12dp" />
+
+
+                            </LinearLayout>
+
+                            <TextView
+                                android:id="@+id/tv_to_balance"
+                                android:layout_width="90dp"
+                                android:layout_height="39dp"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="10dp"
+                                android:background="@drawable/background_orange_corners_9999"
+                                android:gravity="center"
+                                android:text="去结算(0)"
+                                android:textColor="@color/white"
+                                android:textSize="14dp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+
+                        <TextView
+                            android:id="@+id/tv_delete"
+                            android:layout_width="90dp"
+                            android:layout_height="37dp"
+                            android:layout_gravity="right|center_vertical"
+                            android:layout_marginRight="10dp"
+                            android:background="@drawable/background_green_corners_9999"
+                            android:gravity="center"
+                            android:text="删除商品"
+                            android:textColor="@color/fb"
+                            android:textStyle="bold"
+                            android:visibility="gone" />
+                    </FrameLayout>
                 </LinearLayout>
 
+            </LinearLayout>
 
-                <TextView
-                    android:id="@+id/tv_delete"
-                    android:layout_width="90dp"
-                    android:layout_height="37dp"
-                    android:layout_gravity="right|center_vertical"
-                    android:layout_marginRight="10dp"
-                    android:background="@drawable/background_green_corners_9999"
-                    android:gravity="center"
-                    android:text="删除商品"
-                    android:textColor="@color/fb"
-                    android:textStyle="bold"
-                    android:visibility="gone" />
-            </FrameLayout>
-        </LinearLayout>
+            <!-- 全场满减 -->
+            <TextView
+                android:id="@+id/tv_manjian"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="50.5dp"
+                android:background="#F6E6DC"
+                android:gravity="center"
+                android:lines="1"
+                android:paddingLeft="11dp"
+                android:paddingRight="11dp"
+                android:singleLine="true"
+                android:textColor="@color/orange_default"
+                android:textSize="12dp"
+                android:visibility="gone" />
+        </RelativeLayout>
     </LinearLayout>
 </layout>

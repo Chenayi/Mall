@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:visibility="gone">
+        android:visibility="visible">
         <!-- 促销 -->
         <LinearLayout
             android:layout_width="match_parent"
@@ -39,12 +39,15 @@
                 android:orientation="vertical">
 
                 <LinearLayout
+                    android:id="@+id/ll_man"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:visibility="gone">
 
                     <TextView
+                        android:id="@+id/tv_man_type"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/background_orange2_corners_9999"
@@ -58,6 +61,7 @@
 
 
                     <TextView
+                        android:id="@+id/tv_man_name"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="6dp"
@@ -76,10 +80,11 @@
                         android:src="@mipmap/more" />
                 </LinearLayout>
 
+                <!-- 全场满减 -->
                 <LinearLayout
+                    android:id="@+id/ll_all_manjian"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
                     android:orientation="horizontal"
                     android:visibility="gone">
 
@@ -96,6 +101,7 @@
                         android:textSize="10dp" />
 
                     <TextView
+                        android:id="@+id/tv_all_man_name"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="6dp"
@@ -142,14 +148,14 @@
             <TextView
                 android:id="@+id/tv_check_spec"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
+                android:layout_weight="1"
+                android:lines="1"
+                android:singleLine="true"
                 android:textColor="@color/c_2e3033"
                 android:textSize="13dp"
-                tools:text="0.7g/片*126片"
-                android:singleLine="true"
-                android:lines="1"/>
+                tools:text="0.7g/片*126片" />
         </LinearLayout>
 
         <ImageView

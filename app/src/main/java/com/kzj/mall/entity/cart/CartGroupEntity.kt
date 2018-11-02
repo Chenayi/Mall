@@ -1,5 +1,6 @@
 package com.kzj.mall.entity.cart
 
+import com.kzj.mall.entity.CartEntity
 import java.io.Serializable
 
 class CartGroupEntity : BaseCartEntity(), Serializable {
@@ -7,6 +8,7 @@ class CartGroupEntity : BaseCartEntity(), Serializable {
     var goods_pre_price: String? = null
     var combination_name: String? = null
     var goods_price: String? = null
+    var promotionMap: CartEntity.PromotionMap? = null
 
     override fun getItemType(): Int {
         return ICart.GROUP

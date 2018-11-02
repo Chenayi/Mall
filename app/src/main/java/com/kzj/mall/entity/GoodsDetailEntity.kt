@@ -10,6 +10,20 @@ class GoodsDetailEntity : Serializable {
     var openSpec: MutableList<OpenSpec>? = null
     var packageList: MutableList<PackageList>? = null
     var combinationList: MutableList<CombinationList>? = null
+    var promotionmap: Promotionmap? = null
+    var orderPromotion: OrderPromotion? = null
+
+    /**
+     * 促销
+     */
+    class Promotionmap {
+        var promotion_type: Int? = null
+        var promotion_name: String? = null
+    }
+
+    class OrderPromotion {
+        var promotion_name: String? = null
+    }
 
     /**
      * 产品信息

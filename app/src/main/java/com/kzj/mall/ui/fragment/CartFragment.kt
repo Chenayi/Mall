@@ -32,6 +32,9 @@ import com.kzj.mall.ui.dialog.ConfirmDialog
 import com.kzj.mall.utils.FloatUtils
 import com.kzj.mall.utils.PriceUtils
 import org.greenrobot.eventbus.Subscribe
+import java.math.BigDecimal
+import java.util.*
+import kotlin.collections.ArrayList
 
 class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.OnClickListener, CartContract.View {
     private var cartAdapter: CartAdapter? = null
@@ -43,6 +46,16 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
     private var tvLogin: TextView? = null
 
     private var isCartChange = false
+
+    /**
+     * 满额
+     */
+    private var fullPrices = ArrayList<BigDecimal>()
+
+    /**
+     * 减额
+     */
+    private var reducePrices = ArrayList<BigDecimal>()
 
     companion object {
         fun newInstance(): CartFragment {
@@ -255,34 +268,57 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
             val iCart = datas?.get(i)
             if (iCart is CartSingleEntity) {
                 if (iCart?.isCheck) {
-                    val p = iCart?.goods_pre_price?.toFloat()
-                    p?.let {
-                        sumPrePrice += it
-
-                    }
-
+                    //金额
                     val s = iCart?.goods_price?.toFloat()
                     s?.let {
                         val num = iCart?.goods_num
                         val ss = it * num!!
                         sumPrice += ss
                     }
+                    //减额
+                    val p = iCart?.goods_pre_price?.toFloat()
+                    p?.let {
+                        if (iCart?.promotionMap != null){
+                            val promotionType = iCart?.promotionMap?.promotion_type
+                            //满减或折扣或直降金额要减额
+                            if (promotionType == 3 || promotionType == 2 || promotionType == 1){
+                                sumPrice-=it
+                            }
+                        }
+                        sumPrePrice += it
+                    }
                 }
             } else if (iCart is CartGroupEntity) {
                 if (iCart?.isCheck) {
-                    val p = iCart?.goods_pre_price?.toFloat()
-                    p?.let {
-                        sumPrePrice += it
-                    }
 
                     val s = iCart?.goods_price?.toFloat()
                     s?.let {
                         sumPrice += it
                     }
+                    val p = iCart?.goods_pre_price?.toFloat()
+                    p?.let {
+                        sumPrePrice += it
+                    }
                 }
             }
         }
 
+        val fp = ArrayList<BigDecimal>()
+        fp.addAll(fullPrices)
+        val rp = ArrayList<BigDecimal>()
+        rp.addAll(reducePrices)
+        Collections.reverse(fp)
+        Collections.reverse(rp)
+
+        for (i in 0 until fp.size) {
+            val f = fp.get(i)
+            val r = rp.get(i)
+            if (sumPrice > f.toFloat()) {
+                sumPrePrice += r.toFloat()
+                sumPrice -= r.toFloat()
+                break
+            }
+        }
         val allPrice = PriceUtils.split12sp("¥" + FloatUtils.format(sumPrice))
         mBinding?.tvAllPrice?.setText(allPrice)
         mBinding?.tvMinusPrice?.setText("已省：¥" + FloatUtils.format(sumPrePrice))
@@ -401,6 +437,7 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
             cartGroupEntity?.goods_price = shoppingCart?.goods_price
             cartGroupEntity?.goods_stock = shoppingCart?.goods_stock
             cartGroupEntity?.shopping_cart_id = shoppingCart?.shopping_cart_id
+            cartGroupEntity?.promotionMap = shoppingCart?.promotionMap
             val check = (cartAdapter?.data?.get(position) as BaseCartEntity).isCheck
             cartGroupEntity?.isCheck = check
             cartAdapter?.data?.set(position, cartGroupEntity)
@@ -430,6 +467,7 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
             singleEntity?.goods_stock = shoppingCart?.goods_stock
             singleEntity?.goods_info_id = shoppingCart?.goods_info_id
             singleEntity?.shopping_cart_id = shoppingCart?.shopping_cart_id
+            singleEntity?.promotionMap = shoppingCart?.promotionMap
             val check = (cartAdapter?.data?.get(position) as BaseCartEntity).isCheck
             singleEntity?.isCheck = check
             singleEntity?.let {
@@ -449,6 +487,9 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
         mPresenter?.requesrCart(false)
     }
 
+    /**
+     * 切换删除编辑模式
+     */
     private fun changeDeleteMode() {
         if (isDeleteMode) {
             mBinding?.tvEdit?.setText("完成")
@@ -462,6 +503,17 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
     }
 
     /**
+     * 重置底部默认
+     */
+    private fun setDefaultBottom() {
+        mBinding?.ivAllCheck?.setImageResource(R.mipmap.check_nor)
+        mBinding?.tvToBalance?.isEnabled = false
+        mBinding?.tvToBalance?.setText("去结算(0)")
+        mBinding?.tvAllPrice?.setText(PriceUtils.split12sp("¥0.00"))
+        mBinding?.tvMinusPrice?.setText("已省：¥0.00")
+    }
+
+    /**
      * 购物车数据
      */
     override fun showCart(cartEntity: CartEntity?) {
@@ -470,13 +522,12 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
         isCartChange = false
         isDeleteMode = false
 
+        //切换删除编辑模式
         changeDeleteMode()
-
-        mBinding?.ivAllCheck?.setImageResource(R.mipmap.check_nor)
-        mBinding?.tvToBalance?.isEnabled = false
-        mBinding?.tvToBalance?.setText("去结算(0)")
-        mBinding?.tvAllPrice?.setText(PriceUtils.split12sp("¥0.00"))
-        mBinding?.tvMinusPrice?.setText("已省：¥0.00")
+        //重置底部默认
+        setDefaultBottom()
+        //全场满减
+        setManjian(cartEntity?.orderPromotion)
 
         val shoplist = cartEntity?.shoplist
         val iCarts = ArrayList<ICart>()
@@ -496,9 +547,7 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
         cartAdapter?.removeHeaderView(headerView)
 
 
-
-
-
+        //遍历数据适配
         for (i in 0 until shoplist?.size!!) {
             val type = shoplist?.get(i)?.shopping_cart_type
 
@@ -512,6 +561,7 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
                 cartGroupEntity?.goods_price = shoplist?.get(i)?.goods_price
                 cartGroupEntity?.goods_stock = shoplist?.get(i)?.goods_stock
                 cartGroupEntity?.shopping_cart_id = shoplist?.get(i)?.shopping_cart_id
+                cartGroupEntity?.promotionMap = shoplist?.get(i)?.promotionMap
                 iCarts.add(cartGroupEntity)
             }
 
@@ -535,6 +585,7 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
                 singleEntity?.goods_stock = shoplist?.get(i)?.goods_stock
                 singleEntity?.goods_info_id = shoplist?.get(i)?.goods_info_id
                 singleEntity?.shopping_cart_id = shoplist?.get(i)?.shopping_cart_id
+                singleEntity?.promotionMap = shoplist?.get(i)?.promotionMap
                 singleEntity?.let {
                     iCarts.add(it)
                 }
@@ -544,6 +595,45 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
         cartAdapter?.setNewData(iCarts)
 
         mPresenter?.loadRecommendsData()
+    }
+
+    /**
+     * 全场满减
+     */
+    fun setManjian(orderPromotion: CartEntity.OrderPromotion?) {
+        if (orderPromotion != null) {
+            mBinding?.tvManjian?.visibility = View.VISIBLE
+
+            fullPrices.clear()
+            reducePrices.clear()
+
+            orderPromotion?.promotion_mjprice?.let {
+                val mj = it?.split(",")
+                for (i in 0 until mj?.size) {
+                    val m = mj.get(i).split("_")
+                    fullPrices.add(m.get(0)?.toBigDecimal())
+                    reducePrices.add(m.get(1)?.toBigDecimal())
+                }
+
+                //从小到大排序
+                Collections.sort(fullPrices)
+                Collections.sort(reducePrices)
+
+                var r1 = "全场商品每笔订单每"
+                var r2 = ""
+                for (i in 0 until fullPrices.size) {
+                    val f = fullPrices.get(i)
+                    val r = reducePrices.get(i)
+                    r2 += "满${f}即减${r}元、"
+                }
+
+                r2 = r2.substring(0, r2.length - 1)
+                r1 += r2
+                mBinding?.tvManjian?.text = r1
+            }
+        } else {
+            mBinding?.tvManjian?.visibility = View.GONE
+        }
     }
 
     /**

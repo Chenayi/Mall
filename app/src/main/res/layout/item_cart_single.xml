@@ -22,54 +22,19 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingLeft="12dp"
-            android:paddingRight="12dp">
+            android:paddingRight="12dp"
+            android:layout_marginBottom="11dp">
 
-            <!--全场满减-->
+            <!-- 促销 -->
             <LinearLayout
-                android:id="@+id/ll_manjian"
+                android:id="@+id/ll_cuxiao"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:paddingLeft="28dp"
                 android:paddingRight="10dp"
-                android:visibility="gone">
-
-                <TextView
-                    android:layout_width="48dp"
-                    android:layout_height="14dp"
-                    android:background="@drawable/background_orange_corners_9999"
-                    android:gravity="center"
-                    android:text="全场满减"
-                    android:textColor="@color/white"
-                    android:textSize="10dp" />
-
-                <TextView
-                    android:id="@+id/tv_manjian_content"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="4dp"
-                    android:lines="1"
-                    android:singleLine="true"
-                    android:text="全场满500减20元；满800减100元"
-                    android:textColor="#2E3033"
-                    android:textSize="13dp" />
-
-            </LinearLayout>
-
-
-            <!-- 满赠 -->
-            <LinearLayout
-                android:id="@+id/ll_manzeng"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingLeft="28dp"
-                android:paddingRight="10dp"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <TextView
                     android:layout_width="28dp"
@@ -78,10 +43,11 @@
                     android:gravity="center"
                     android:text="满赠"
                     android:textColor="@color/white"
-                    android:textSize="10dp" />
+                    android:textSize="10dp"
+                    android:id="@+id/tv_cuxiao_type"/>
 
                 <TextView
-                    android:id="@+id/tv_manzeng_content"
+                    android:id="@+id/tv_cuxiao_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="4dp"
@@ -99,7 +65,6 @@
                 android:id="@+id/ll_lc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="11dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:paddingLeft="28dp"

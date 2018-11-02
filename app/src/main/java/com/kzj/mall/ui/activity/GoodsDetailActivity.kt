@@ -83,8 +83,8 @@ class GoodsDetailActivity : BaseActivity<GoodsDetailPresenter, ActivityGoodsDeta
     }
 
     override fun initData() {
-//        mGoodsInfoId = "29921"
-        mGoodsInfoId = intent?.getStringExtra(C.GOODS_INFO_ID)
+        mGoodsInfoId = "29921"
+//        mGoodsInfoId = intent?.getStringExtra(C.GOODS_INFO_ID)
         if (BuildConfig.DEBUG) {
             LogUtils.e("goodsInfoId ===> " + mGoodsInfoId)
         }
