@@ -1,11 +1,18 @@
 package com.kzj.mall.adapter.provider.cart
 
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
+import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
+import com.blankj.utilcode.util.SizeUtils
+import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.chad.library.adapter.base.provider.BaseItemProvider
 import com.kzj.mall.GlideApp
 import com.kzj.mall.R
+import com.kzj.mall.adapter.BaseAdapter
+import com.kzj.mall.entity.CartEntity
 import com.kzj.mall.entity.cart.CartSingleEntity
 import com.kzj.mall.entity.cart.ICart
 import com.kzj.mall.utils.PriceUtils
@@ -48,12 +55,30 @@ class CartSingleProvider : BaseItemProvider<CartSingleEntity, BaseViewHolder>() 
                 1 -> helper?.setText(R.id.tv_cuxiao_type, "直降")
                 2 -> helper?.setText(R.id.tv_cuxiao_type, "折扣")
                 3 -> helper?.setText(R.id.tv_cuxiao_type, "满减")
-                4 -> helper?.setText(R.id.tv_cuxiao_type, "满赠")
+                4 -> {
+                    helper?.setText(R.id.tv_cuxiao_type, "满赠")
+                    val rvZP = helper?.getView<RecyclerView>(R.id.rv_zp)
+                    rvZP?.setFocusableInTouchMode(false);
+                    rvZP?.requestFocus();
+                    rvZP?.layoutManager = LinearLayoutManager(mContext)
+                    val zpAdapter = ZPAdapter(data?.promotionMap?.mzList!!)
+                    zpAdapter?.setOnItemChildClickListener(object : BaseQuickAdapter.OnItemChildClickListener {
+                        override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
+                            if (view?.id == R.id.iv_down) {
+                                zpAdapter?.getItem(position)?.openImage = true
+                                zpAdapter?.notifyItemChanged(position)
+                            }
+                        }
+                    })
+                    rvZP?.adapter = zpAdapter
+                }
             }
             helper?.setGone(R.id.ll_cuxiao, true)
+                    ?.setGone(R.id.rv_zp, promotionType == 4)
                     ?.setText(R.id.tv_cuxiao_name, promotionMap?.promotion_name)
         } else {
             helper?.setGone(R.id.ll_cuxiao, false)
+                    ?.setGone(R.id.rv_zp, false)
         }
 
         //已省
@@ -101,5 +126,29 @@ class CartSingleProvider : BaseItemProvider<CartSingleEntity, BaseViewHolder>() 
                 .placeholder(R.color.gray_default)
                 .centerCrop()
                 .into(helper?.getView(R.id.iv_goods)!!)
+    }
+
+    class ZPAdapter(mzLists: MutableList<CartEntity.MZList>) : BaseAdapter<CartEntity.MZList, BaseViewHolder>(R.layout.item_zp, mzLists) {
+        override fun convert(helper: BaseViewHolder?, item: CartEntity.MZList?) {
+
+            val layoutPosition = helper?.layoutPosition!!
+            val llCotainer = helper?.getView<LinearLayout>(R.id.ll_container)
+            if (layoutPosition <= 0) {
+                llCotainer?.setPadding(0, 0, 0, 0)
+            } else {
+                llCotainer?.setPadding(0, SizeUtils.dp2px(6f), 0, 0)
+            }
+
+            helper?.setText(R.id.tv_goods_name, item?.goods_name)
+                    ?.setText(R.id.tv_goods_num, "x${item?.goodsNum}")
+                    ?.setGone(R.id.iv_down,item?.openImage == false)
+                    ?.setGone(R.id.iv_goods,item?.openImage == true)
+                    ?.addOnClickListener(R.id.iv_down)
+            GlideApp.with(mContext)
+                    .load(item?.goods_img)
+                    .centerCrop()
+                    .placeholder(R.color.gray_f0)
+                    .into(helper?.getView(R.id.iv_goods) as ImageView)
+        }
     }
 }

@@ -6,6 +6,7 @@ import android.support.v7.widget.GridLayoutManager
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.gyf.barlibrary.ImmersionBar
@@ -41,7 +42,7 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
     private var isDeleteMode = false
     private var isAllCheck = false
 
-    private var headerView: View? = null
+    private var headerEmptyView: View? = null
     private var tvContent: TextView? = null
     private var tvLogin: TextView? = null
 
@@ -104,13 +105,16 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
         mBinding?.rvCart?.adapter = cartAdapter
 
 
+        headerEmptyView = layoutInflater.inflate(R.layout.header_cart, mBinding?.rvCart?.parent as ViewGroup, false)
+        tvContent = headerEmptyView?.findViewById(R.id.tv_content)
+        tvLogin = headerEmptyView?.findViewById(R.id.tv_login)
 
-        headerView = layoutInflater.inflate(R.layout.header_cart, mBinding?.rvCart?.parent as ViewGroup, false)
-        tvContent = headerView?.findViewById(R.id.tv_content)
-        tvLogin = headerView?.findViewById(R.id.tv_login)
+        //已登录
         if (C.IS_LOGIN) {
             mBinding?.refreshLayout?.isEnabled = true
-        } else {
+        }
+        //未登录
+        else {
             mBinding?.refreshLayout?.isEnabled = false
             mBinding?.llBalance?.visibility = View.GONE
             mBinding?.tvEdit?.visibility = View.GONE
@@ -120,7 +124,7 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(intent)
             }
-            cartAdapter?.setHeaderView(headerView)
+            cartAdapter?.setHeaderView(headerEmptyView)
             mPresenter?.loadRecommendsData()
         }
 
@@ -134,6 +138,11 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
             } else if (iCart is CartRecommendEntity.Data) {
                 val intent = Intent(context, GoodsDetailActivity::class.java)
                 intent?.putExtra(C.GOODS_INFO_ID, iCart?.goods_info_id)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent)
+            } else if (iCart is CartZSEntity) {
+                val intent = Intent(context, GoodsDetailActivity::class.java)
+                intent?.putExtra(C.GOODS_INFO_ID, iCart?.msMap?.goods_info?.goods_info_id)
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(intent)
             }
@@ -278,11 +287,11 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
                     //减额
                     val p = iCart?.goods_pre_price?.toFloat()
                     p?.let {
-                        if (iCart?.promotionMap != null){
+                        if (iCart?.promotionMap != null) {
                             val promotionType = iCart?.promotionMap?.promotion_type
                             //满减或折扣或直降金额要减额
-                            if (promotionType == 3 || promotionType == 2 || promotionType == 1){
-                                sumPrice-=it
+                            if (promotionType == 3 || promotionType == 2 || promotionType == 1) {
+                                sumPrice -= it
                             }
                         }
                         sumPrePrice += it
@@ -355,20 +364,27 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
         mPresenter?.requesrCart(false)
     }
 
+    /**
+     * 注销登录
+     */
     @Subscribe
     fun logout(logoutEvent: LogoutEvent) {
+        cartAdapter?.removeAllHeaderView()
+
         mBinding?.refreshLayout?.isEnabled = false
         cartAdapter?.setNewData(ArrayList())
 
+        mBinding?.tvManjian?.visibility = View.GONE
         mBinding?.llBalance?.visibility = View.GONE
         mBinding?.tvEdit?.visibility = View.GONE
+
         tvLogin?.visibility = View.VISIBLE
         tvLogin?.setOnClickListener {
             val intent = Intent(context, LoginActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
         }
-        cartAdapter?.setHeaderView(headerView)
+        cartAdapter?.setHeaderView(headerEmptyView)
 
         mBinding?.rvCart?.scrollToPosition(0)
 
@@ -526,25 +542,28 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
         changeDeleteMode()
         //重置底部默认
         setDefaultBottom()
-        //全场满减
-        setManjian(cartEntity?.orderPromotion)
 
         val shoplist = cartEntity?.shoplist
         val iCarts = ArrayList<ICart>()
 
+        //购物车没有数据
         if (shoplist == null || shoplist?.size!! <= 0) {
             cartAdapter?.setNewData(iCarts)
+            mBinding?.tvManjian?.visibility = View.GONE
             mBinding?.llBalance?.visibility = View.GONE
             tvLogin?.visibility = View.GONE
             mBinding?.tvEdit?.visibility = View.GONE
-            cartAdapter?.setHeaderView(headerView)
+            cartAdapter?.setHeaderView(headerEmptyView)
             mPresenter?.loadRecommendsData()
             return
         }
 
+        //全场满减
+        setManjian(cartEntity?.orderPromotion)
+
         mBinding?.llBalance?.visibility = View.VISIBLE
         mBinding?.tvEdit?.visibility = View.VISIBLE
-        cartAdapter?.removeHeaderView(headerView)
+        cartAdapter?.removeHeaderView(headerEmptyView)
 
 
         //遍历数据适配
@@ -589,6 +608,16 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
                 singleEntity?.let {
                     iCarts.add(it)
                 }
+            }
+        }
+
+        //下单即送
+        val msMap = cartEntity?.msMap
+        if (msMap != null && msMap?.goods_info != null) {
+            if (msMap?.goods_info?.goods_stock!! > 0){
+                val cartZSEntity = CartZSEntity()
+                cartZSEntity.msMap = msMap
+                iCarts.add(0, cartZSEntity)
             }
         }
 

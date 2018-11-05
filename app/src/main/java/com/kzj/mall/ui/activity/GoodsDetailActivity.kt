@@ -82,9 +82,15 @@ class GoodsDetailActivity : BaseActivity<GoodsDetailPresenter, ActivityGoodsDeta
                 ?.init();
     }
 
+    /**
+     * 直降商品：34204
+     * 折扣商品：40068
+     * 满赠商品：29921
+     * 满减商品：870
+     */
     override fun initData() {
-        mGoodsInfoId = "29921"
-//        mGoodsInfoId = intent?.getStringExtra(C.GOODS_INFO_ID)
+//        mGoodsInfoId = "29921"
+        mGoodsInfoId = intent?.getStringExtra(C.GOODS_INFO_ID)
         if (BuildConfig.DEBUG) {
             LogUtils.e("goodsInfoId ===> " + mGoodsInfoId)
         }

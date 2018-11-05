@@ -36,6 +36,7 @@ import com.blankj.utilcode.util.SizeUtils
 import com.kzj.mall.ui.activity.PhotosActivity
 import com.kzj.mall.ui.dialog.CuxiaoDialog
 import com.kzj.mall.ui.dialog.ServiceNoteDialog
+import com.kzj.mall.utils.NameUtils
 import com.kzj.mall.utils.PriceUtils
 import com.kzj.mall.widget.CenterAlignImageSpan
 
@@ -339,7 +340,7 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
                 }
 
                 if (it?.orderPromotion != null) {
-                    tvAllManName?.text = it?.orderPromotion?.promotion_name
+                    tvAllManName?.text = NameUtils.manjianName(it?.orderPromotion?.promotion_mjprice!!)
                     llAllManJian?.visibility = View.VISIBLE
                 } else {
                     llAllManJian?.visibility = View.GONE
@@ -549,7 +550,7 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
                         .show(childFragmentManager)
             }
             R.id.ll_cuxiao->{
-                CuxiaoDialog.newInstance()
+                CuxiaoDialog.newInstance(goodsDetailEntity)
                         .setShowBottom(true)
                         .show(childFragmentManager)
             }

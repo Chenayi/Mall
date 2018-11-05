@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -53,8 +54,125 @@
                     android:paddingLeft="12dp"
                     android:paddingRight="12dp">
 
+                    <LinearLayout
+                        android:id="@+id/ll_man"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginTop="18dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/tv_man_type"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/background_orange2_corners_9999"
+                                android:paddingBottom="1dp"
+                                android:paddingLeft="4dp"
+                                android:paddingRight="4dp"
+                                android:paddingTop="1dp"
+                                android:text="满赠"
+                                android:textColor="@color/orange_default"
+                                android:textSize="10dp" />
 
 
+                            <TextView
+                                android:id="@+id/tv_man_name"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="6dp"
+                                android:layout_weight="1"
+                                android:maxLines="2"
+                                android:ellipsize="end"
+                                android:textColor="@color/c_2e3033"
+                                android:textSize="13dp"
+                                tools:text="买即送超级大礼包，多买多送，送完即止" />
+
+                        </LinearLayout>
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/rv_zengpin"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginLeft="35dp"
+                            android:visibility="gone"
+                            android:layout_marginBottom="4dp"/>
+
+                        <TextView
+                            android:id="@+id/tv_end_time1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="35dp"
+                            android:layout_marginTop="2dp"
+                            android:lines="1"
+                            android:singleLine="true"
+                            android:textColor="@color/gray_6A6E75"
+                            android:textSize="10dp"
+                            tools:text="2018-10-31   14 : 35 : 00  结束" />
+                    </LinearLayout>
+
+                    <!-- 分割 -->
+
+                    <LinearLayout
+                        android:id="@+id/ll_manjian"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:orientation="vertical"
+                        android:visibility="visible">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/background_orange2_corners_9999"
+                                android:paddingBottom="1dp"
+                                android:paddingLeft="4dp"
+                                android:paddingRight="4dp"
+                                android:paddingTop="1dp"
+                                android:text="全场满减"
+                                android:textColor="@color/orange_default"
+                                android:textSize="10dp" />
+
+
+                            <TextView
+                                android:id="@+id/tv_all_man_name"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="6dp"
+                                android:layout_marginRight="23dp"
+                                android:layout_weight="1"
+                                android:lines="1"
+                                android:singleLine="true"
+                                android:textColor="@color/c_2e3033"
+                                android:textSize="13dp"
+                                tools:text="满399减60，满699减100" />
+
+                        </LinearLayout>
+
+
+                        <TextView
+                            android:id="@+id/tv_end_time2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="55dp"
+                            android:layout_marginTop="2dp"
+                            android:lines="1"
+                            android:singleLine="true"
+                            android:textColor="@color/gray_6A6E75"
+                            android:textSize="10dp"
+                            tools:text="2018-10-31   14 : 35 : 00  结束" />
+                    </LinearLayout>
 
                 </LinearLayout>
 

@@ -11,6 +11,7 @@ import com.kzj.mall.databinding.DialogOrderGoodsListBinding
 import com.kzj.mall.di.component.AppComponent
 import com.kzj.mall.entity.BuyEntity
 import com.kzj.mall.entity.cart.CartGroupEntity
+import com.kzj.mall.entity.cart.CartZSEntity
 import com.kzj.mall.entity.cart.ICart
 
 /**
@@ -47,6 +48,17 @@ class OrderGoodsListDialog : BaseDialog<IPresenter, DialogOrderGoodsListBinding>
         val iCarts = ArrayList<ICart>()
         var goodsNum = 0
 
+        //下单即送
+        val msMap = buyEntity?.msMap
+        if (msMap != null && msMap?.goods_info != null) {
+            if (msMap?.goods_info?.goods_stock!! > 0) {
+                val cartZSEntity = CartZSEntity()
+                cartZSEntity.msMap = msMap
+                iCarts.add(cartZSEntity)
+                goodsNum += 1
+            }
+        }
+
         buyEntity?.shoplist?.let {
             for (i in 0 until it?.size) {
                 val type = it?.get(i)?.shopping_cart_type
@@ -74,6 +86,7 @@ class OrderGoodsListDialog : BaseDialog<IPresenter, DialogOrderGoodsListBinding>
                     singleEntity?.goods_stock = it.get(i)?.goods_stock
                     singleEntity?.goods_info_id = it.get(i)?.goods_info_id
                     singleEntity?.shopping_cart_id = it.get(i)?.shopping_cart_id
+                    singleEntity?.promotionMap = it?.get(i)?.promotionMap
                     singleEntity?.let {
                         iCarts.add(it)
                     }

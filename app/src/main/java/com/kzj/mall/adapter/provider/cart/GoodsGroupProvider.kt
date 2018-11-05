@@ -10,6 +10,7 @@ import com.kzj.mall.adapter.BaseAdapter
 import com.kzj.mall.entity.cart.CartGroupEntity
 import com.kzj.mall.entity.cart.ICart
 import com.kzj.mall.utils.FloatUtils
+import com.kzj.mall.utils.PriceUtils
 
 class GoodsGroupProvider : BaseItemProvider<CartGroupEntity, BaseViewHolder>() {
     override fun layout(): Int {
@@ -32,12 +33,12 @@ class GoodsGroupProvider : BaseItemProvider<CartGroupEntity, BaseViewHolder>() {
         val num = data?.goods_num!!
         val singlePrice = allPrice / num
         helper?.setText(R.id.tv_combination_name, data?.combination_name)
-                ?.setText(R.id.tv_group_price, "¥" + FloatUtils.format(singlePrice))
+                ?.setText(R.id.tv_group_price, PriceUtils.split11sp("¥" + FloatUtils.format(singlePrice)))
                 ?.setText(R.id.tv_goods_num,"x"+data?.goods_num?.toString())
     }
 
     inner class GroupAdapter constructor(groupDatas: MutableList<CartGroupEntity.Group>)
-        : BaseAdapter<CartGroupEntity.Group, BaseViewHolder>(R.layout.item_cart_group_item, groupDatas) {
+        : BaseAdapter<CartGroupEntity.Group, BaseViewHolder>(R.layout.item_goods_group_item, groupDatas) {
         override fun convert(helper: BaseViewHolder?, item: CartGroupEntity.Group?) {
             helper?.setGone(R.id.line, helper?.layoutPosition > 0)
                     ?.setText(R.id.tv_goods_price, "¥" + item?.c_goods?.goods_price)

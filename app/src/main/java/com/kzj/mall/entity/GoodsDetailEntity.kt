@@ -16,13 +16,27 @@ class GoodsDetailEntity : Serializable {
     /**
      * 促销
      */
-    class Promotionmap {
+    class Promotionmap : Serializable {
         var promotion_type: Int? = null
         var promotion_name: String? = null
+        var promotion_endtime_str: String? = null
+        var mzlist: MutableList<MZList>? = null
+        var promotion_mjprice: String? = null
+        var promotion_zjprice: String? = null
+        var promotion_discount: String? = null
+        var promotion_mzprice: String? = null
+        var mzgoodsnamestr:String?=null
     }
 
-    class OrderPromotion {
+    class OrderPromotion : Serializable {
         var promotion_name: String? = null
+        var promotion_endtime_str: String? = null
+        var promotion_mjprice: String? = null
+    }
+
+    class MZList {
+        var goods_img: String? = null
+        var goods_name: String? = null
     }
 
     /**

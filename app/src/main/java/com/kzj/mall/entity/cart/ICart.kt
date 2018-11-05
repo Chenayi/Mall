@@ -2,6 +2,7 @@ package com.kzj.mall.entity.cart
 
 interface ICart {
     companion object {
+        val ZS = 0
         val SINGLE = 1
         val GROUP = 2
         val RECOMMEND_TEXT = 3

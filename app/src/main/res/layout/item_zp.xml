@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/ll_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="「赠品」"
+            android:textColor="@color/c_8a9099"
+            android:textSize="11dp" />
+
+        <ImageView
+            android:id="@+id/iv_goods"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginRight="6dp"
+            android:src="@color/gray_f0"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tv_goods_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:lines="1"
+            android:singleLine="true"
+            android:text="稳健医疗 日用棉签 塑棒双头7.5cm*200...支超出...容..."
+            android:textColor="@color/c_8a9099"
+            android:textSize="11dp" />
+
+
+        <TextView
+            android:id="@+id/tv_goods_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:text="x1"
+            android:textColor="@color/c_8a9099"
+            android:textSize="10dp" />
+
+        <ImageView
+            android:id="@+id/iv_down"
+            android:layout_width="24dp"
+            android:layout_height="15dp"
+            android:layout_marginLeft="20dp"
+            android:scaleType="centerInside"
+            android:src="@mipmap/down" />
+
+    </LinearLayout>
+
+</RelativeLayout>

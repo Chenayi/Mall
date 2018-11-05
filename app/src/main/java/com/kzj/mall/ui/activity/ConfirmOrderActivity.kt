@@ -100,6 +100,14 @@ class ConfirmOrderActivity : BaseActivity<ConfirmOrderPresenter, ActivityConfirm
 
         val goodsImgs = ArrayList<String>()
         var allGoodsNum = 0
+
+        //下单即送
+        buyEntity?.msMap?.let {
+            val goodsImg = it?.goods_info?.goods_img!!
+            goodsImgs.add(goodsImg)
+            allGoodsNum += 1
+        }
+
         buyEntity?.shoplist?.let {
             for (i in 0 until it?.size) {
                 val appgoods = it?.get(i)?.appgoods

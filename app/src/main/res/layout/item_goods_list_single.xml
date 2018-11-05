@@ -60,17 +60,11 @@
                     android:layout_marginLeft="10dp"
                     android:text="¥ 987.00"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="12dp"
+                    android:textSize="13dp"
                     android:textStyle="bold" />
 
             </LinearLayout>
 
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginTop="12dp"
-                android:background="@color/gray_default" />
         </LinearLayout>
 
         <LinearLayout
@@ -98,7 +92,7 @@
                     android:layout_height="wrap_content"
                     android:maxLines="2"
                     android:text="SwSwisse 澳大利亚 月见草油软胶囊isse 澳大利亚 月见草油软胶囊"
-                    android:textColor="#6A6E75"
+                    android:textColor="@color/c_2e3033"
                     android:textSize="12dp" />
 
 
@@ -164,6 +158,12 @@
 
         </LinearLayout>
 
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_zp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:visibility="gone" />
 
     </LinearLayout>
 </RelativeLayout>

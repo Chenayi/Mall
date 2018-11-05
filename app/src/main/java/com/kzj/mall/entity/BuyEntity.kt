@@ -42,6 +42,7 @@ class BuyEntity : Serializable {
      */
     var shoplist: MutableList<CartEntity.Shoplist>? = null
 
+    var msMap: CartEntity.MSMap? = null
 
     /**
      * 处方商品
