@@ -265,7 +265,7 @@ class GoodsSpecDialog : BaseDialog<GoodsSpecPresenter, DialogGoodsSpecBinding>()
      */
     private fun setPackagesPrice(position: Int, goodsInfoId: String, goodsPrice: Float, num: Int,comName:String) {
         var sumPrice = goodsPrice * num
-        val oldSinglePrice = goodsDetailEntity?.gn?.goodsPrice?.toFloat()!!
+        val oldSinglePrice = goodsDetailEntity?.gn?.goodsMarketPrice?.toFloat()!!
         val oldSumPrice = oldSinglePrice * num
         val preSumPrice = oldSumPrice - sumPrice
 

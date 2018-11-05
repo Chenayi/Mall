@@ -158,7 +158,6 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
         llFollow?.setOnClickListener(this)
         tvGoodsName = view?.findViewById(R.id.tv_goods_name)
         tvGoodsInfoSubtitle = view?.findViewById(R.id.tv_goods_info_subtitle)
-        tvGoodsMarketPrice = view?.findViewById(R.id.tv_goods_market_price)
         tvCheckSpec = view?.findViewById(R.id.tv_check_spec)
         llCuxiao = view?.findViewById(R.id.ll_cuxiao)
         llCuxiao?.setOnClickListener(this)
