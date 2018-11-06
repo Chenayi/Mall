@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -185,18 +186,20 @@
             <TextView
                 android:id="@+id/tv_manjian"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_marginBottom="50.5dp"
-                android:background="#F6E6DC"
-                android:gravity="center"
-                android:lines="1"
+                android:background="@color/orange_default_alapha"
+                android:gravity="center_vertical"
+                android:paddingBottom="5dp"
                 android:paddingLeft="11dp"
                 android:paddingRight="11dp"
-                android:singleLine="true"
+                android:paddingTop="5dp"
+                android:maxLines="2"
                 android:textColor="@color/orange_default"
                 android:textSize="12dp"
-                android:visibility="gone" />
+                android:visibility="gone"
+                tools:text="全场满减" />
         </RelativeLayout>
     </LinearLayout>
 </layout>

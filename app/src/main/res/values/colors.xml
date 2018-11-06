@@ -12,6 +12,7 @@
     <color name="gray_default">#F6F7F5</color>-
     <color name="gray_6A6E75">#6A6E75</color>
     <color name="orange_default">#FF6600</color>
+    <color name="orange_default_alapha">#33FF6600</color>
     <color name="fb">#FBFBFB</color>
     <color name="c_2e3033">#2E3033</color>
     <color name="c_8a9099">#8A9099</color>
