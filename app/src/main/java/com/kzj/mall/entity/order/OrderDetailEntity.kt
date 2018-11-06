@@ -30,6 +30,10 @@ class OrderDetailEntity {
         var lcMap: MutableList<LcMap>? = null
         //套餐
         var tcMap: MutableList<MutableList<TCMap>>? = null
+        //买赠
+        var mzMap: MutableList<MZMap>? = null
+        //赠品
+        var zpMap: MutableList<ZPMap>? = null
     }
 
     class TCMap {

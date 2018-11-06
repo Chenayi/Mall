@@ -20,6 +20,7 @@ import com.kzj.mall.mvp.contract.GoodsSpecContract
 import com.kzj.mall.mvp.presenter.GoodsSpecPresenter
 import com.kzj.mall.ui.activity.login.LoginActivity
 import com.kzj.mall.utils.FloatUtils
+import com.kzj.mall.utils.PriceUtils
 import com.kzj.mall.widget.SuperFlowLayout
 import com.makeramen.roundedimageview.RoundedImageView
 import org.greenrobot.eventbus.EventBus
@@ -124,7 +125,7 @@ class GoodsSpecDialog : BaseDialog<GoodsSpecPresenter, DialogGoodsSpecBinding>()
                     if (iGroup.package_count != null && iGroup.package_count!! > 0) {
                         packetCount = iGroup.package_count!!
                     }
-                    mBinding?.tvGoodsPrice?.setText("¥" + FloatUtils.format(iGroup.combination_price))
+                    mBinding?.tvGoodsPrice?.setText(PriceUtils.split12sp("¥" + FloatUtils.format(iGroup.combination_price)))
                     mBinding?.tvPreGoodsPrice?.visibility = View.VISIBLE
                     mBinding?.tvPreGoodsPrice?.setText("立省：¥" + FloatUtils.format(iGroup.sumPrePrice))
                     mBinding?.tvGroupName?.text = "活动套餐"
@@ -165,7 +166,7 @@ class GoodsSpecDialog : BaseDialog<GoodsSpecPresenter, DialogGoodsSpecBinding>()
                 .into(mBinding?.ivGoods as RoundedImageView)
 
         //价格
-        mBinding?.tvGoodsPrice?.setText("合计：¥" + goodsDetailEntity?.gn?.goodsPrice)
+        mBinding?.tvGoodsPrice?.setText(PriceUtils.split12sp("¥" + goodsDetailEntity?.gn?.goodsPrice))
 
         //库存
         val goodsStock = goodsDetailEntity?.gn?.goodsStock!!
@@ -269,7 +270,7 @@ class GoodsSpecDialog : BaseDialog<GoodsSpecPresenter, DialogGoodsSpecBinding>()
         val oldSumPrice = oldSinglePrice * num
         val preSumPrice = oldSumPrice - sumPrice
 
-        mBinding?.tvGoodsPrice?.setText("合计：¥" + FloatUtils.format(sumPrice))
+        mBinding?.tvGoodsPrice?.setText(PriceUtils.split12sp("¥" + FloatUtils.format(sumPrice)))
         mBinding?.tvPreGoodsPrice?.setText("立省：¥" + FloatUtils.format(preSumPrice))
 
         EventBus.getDefault().post(PackageListEvent(isCombination, position, goodsInfoId,

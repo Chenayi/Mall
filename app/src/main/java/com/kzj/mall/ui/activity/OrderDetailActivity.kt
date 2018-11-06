@@ -32,6 +32,7 @@ import com.alipay.sdk.app.PayTask
 import com.kzj.mall.adapter.OrderDetailAdapter
 import com.kzj.mall.entity.PayResult
 import com.kzj.mall.entity.order.TcMap
+import com.kzj.mall.utils.PriceUtils
 
 
 class OrderDetailActivity : BaseActivity<OrderDetailPresenter, ActivityOrderDetailBinding>()
@@ -176,11 +177,11 @@ class OrderDetailActivity : BaseActivity<OrderDetailPresenter, ActivityOrderDeta
         tvAddTime?.setText(TimeUtils.millis2String(order?.addTime!!))
 
         //货到付款
-        if (order?.orderLinePay?.equals("0") == true){
+        if (order?.orderLinePay?.equals("0") == true) {
             tvPayType?.text = "货到付款"
         }
         //在线支付
-        else{
+        else {
             tvPayType?.text = "在线支付"
         }
 
@@ -188,11 +189,17 @@ class OrderDetailActivity : BaseActivity<OrderDetailPresenter, ActivityOrderDeta
         tvGoodsPrePrice?.setText("¥" + order?.prePrice)
         tvAllGoodsPrice?.setText("¥" + order?.moneyPaid)
         tvFee?.setText("¥" + order?.shippingFee)
-        tvPayPrice?.setText("¥" + order?.moneyPaid)
+        tvPayPrice?.setText(PriceUtils.split12sp("¥" + order?.moneyPaid))
 
 
         val iGoodsDetails = ArrayList<IGoodsDetail>()
         val orderGoods = orderDetailEntity?.ordergoods
+
+        //买赠
+        orderGoods?.mzMap?.let {
+            iGoodsDetails?.addAll(it)
+        }
+
 
         //单品
         orderGoods?.dpMap?.let {
@@ -206,12 +213,17 @@ class OrderDetailActivity : BaseActivity<OrderDetailPresenter, ActivityOrderDeta
 
         //套餐
         orderGoods?.tcMap?.let {
-            for (i in 0 until it.size){
+            for (i in 0 until it.size) {
                 val tcMaps = it.get(i)
                 val tcMap = TcMap()
                 tcMap.tcMaps = tcMaps
                 iGoodsDetails.add(tcMap)
             }
+        }
+
+        //赠品
+        orderGoods?.zpMap?.let {
+            iGoodsDetails?.addAll(it)
         }
 
         orderDetailAdapter?.setNewData(iGoodsDetails)

@@ -37,7 +37,7 @@
             android:singleLine="true"
             android:text="2盒起495元/盒疗程价！"
             android:textColor="@color/c_2e3033"
-            android:textSize="15dp"
+            android:textSize="13dp"
             android:id="@+id/tv_combination_name"/>
 
     </LinearLayout>

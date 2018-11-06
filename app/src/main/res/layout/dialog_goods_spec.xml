@@ -52,7 +52,7 @@
                         android:lines="1"
                         android:singleLine="true"
                         android:textColor="@color/orange_default"
-                        android:textSize="15dp"
+                        android:textSize="17dp"
                         android:textStyle="bold"
                         tools:text="¥0.00" />
 
