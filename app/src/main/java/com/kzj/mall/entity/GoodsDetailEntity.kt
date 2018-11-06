@@ -25,7 +25,7 @@ class GoodsDetailEntity : Serializable {
         var promotion_zjprice: String? = null
         var promotion_discount: String? = null
         var promotion_mzprice: String? = null
-        var mzgoodsnamestr:String?=null
+        var mzgoodsnamestr: String? = null
     }
 
     class OrderPromotion : Serializable {
@@ -198,7 +198,8 @@ class GoodsDetailEntity : Serializable {
     }
 
     class PromotionalAd : Serializable {
-        var wap_promotional_title: String? = null
+        var app_promotional_title: String? = null
+        var app_is_start_the: Int? = null
     }
 
     class GoodsApprovalNo : Serializable {

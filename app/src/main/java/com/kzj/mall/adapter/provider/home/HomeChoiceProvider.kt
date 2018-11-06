@@ -19,6 +19,6 @@ class HomeChoiceProvider : BaseItemProvider<HomeChoiceEntity, BaseViewHolder>() 
     }
 
     override fun convert(helper: BaseViewHolder?, data: HomeChoiceEntity?, position: Int) {
-        helper?.setText(R.id.tv_title,data?.promotionalAd?.wap_promotional_title)
+        helper?.setText(R.id.tv_title,data?.promotionalAd?.app_promotional_title)
     }
 }

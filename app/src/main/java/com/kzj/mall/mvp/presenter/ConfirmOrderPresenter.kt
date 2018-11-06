@@ -17,11 +17,14 @@ class ConfirmOrderPresenter @Inject
 constructor(model: ConfirmOrderContract.Model, view: ConfirmOrderContract.View?, context: Context?)
     : BasePresenter<ConfirmOrderContract.Model, ConfirmOrderContract.View>(model, view, context) {
 
+    /**
+     * 提交订单
+     */
     fun submitOrder(shoppingCartIds: LongArray?, pay: String?, remark: String?, addressId: String?, shopSumPrice: String?, shopSumshipping: String?) {
 
-            LogUtils.e(shoppingCartIds?.get(0)?.toString()+"\n"+pay+"\n"+remark+"\n"+addressId+"\n"+shopSumPrice+"\n"+shopSumshipping)
+        LogUtils.e(shoppingCartIds?.get(0)?.toString() + "\n" + pay + "\n" + remark + "\n" + addressId + "\n" + shopSumPrice + "\n" + shopSumshipping)
 
-              model?.submitOrder(shoppingCartIds,pay,remark,addressId,shopSumPrice,shopSumshipping)
+        model?.submitOrder(shoppingCartIds, pay, remark, addressId, shopSumPrice, shopSumshipping)
                 ?.compose(RxScheduler.compose())
                 ?.subscribe(object : BaseObserver<ConfirmOrderEntity>() {
                     override fun onSubscribe(d: Disposable) {
@@ -42,10 +45,10 @@ constructor(model: ConfirmOrderContract.Model, view: ConfirmOrderContract.View?,
                 })
     }
 
-    fun aliPayKey(orderId:String?){
+    fun aliPayKey(orderId: String?) {
         model?.aliPayKey(orderId)
                 ?.compose(RxScheduler.compose())
-                ?.subscribe(object :BaseObserver<AliPayKeyEntity>(){
+                ?.subscribe(object : BaseObserver<AliPayKeyEntity>() {
                     override fun onSubscribe(d: Disposable) {
                         addDisposable(d)
                     }

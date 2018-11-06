@@ -277,29 +277,17 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
             val iCart = datas?.get(i)
             if (iCart is CartSingleEntity) {
                 if (iCart?.isCheck) {
-                    //金额
-                    val s = iCart?.goods_price?.toFloat()
-                    s?.let {
-                        val num = iCart?.goods_num
-                        val ss = it * num!!
-                        sumPrice += ss
-                    }
+                    sumPrice += iCart?.goodsSumPrice?.toFloat()!!
                     //减额
                     val p = iCart?.goods_pre_price?.toFloat()
                     p?.let {
-                        if (iCart?.promotionMap != null) {
-                            val promotionType = iCart?.promotionMap?.promotion_type
-                            //满减或折扣或直降金额要减额
-                            if (promotionType == 3 || promotionType == 2 || promotionType == 1) {
-                                sumPrice -= it
-                            }
-                        }
                         sumPrePrice += it
                     }
                 }
-            } else if (iCart is CartGroupEntity) {
+            }
+            //套餐
+            else if (iCart is CartGroupEntity) {
                 if (iCart?.isCheck) {
-
                     val s = iCart?.goods_price?.toFloat()
                     s?.let {
                         sumPrice += it
@@ -322,7 +310,7 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
         for (i in 0 until fp.size) {
             val f = fp.get(i)
             val r = rp.get(i)
-            if (sumPrice > f.toFloat()) {
+            if (sumPrice >= f.toFloat()) {
                 sumPrePrice += r.toFloat()
                 sumPrice -= r.toFloat()
                 break
@@ -597,10 +585,16 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
                 }
                 //疗程
                 else {
-                    val goodsPrice = shoplist?.get(i)?.goods_price?.toFloat()!!
+                    var goodsPrice = shoplist?.get(i)?.goods_price?.toFloat()!!
+
+                    if (shoplist?.get(i)?.promotionMap?.promotion_type == 3 && shoplist?.get(i)?.promotionMap?.promotion_mjprice != null) {
+                        goodsPrice = PriceUtils.manjianPrice(goodsPrice, shoplist?.get(i)?.promotionMap?.promotion_mjprice!!)
+                    }
+
                     val singleGoodsPrice = goodsPrice / shoplist?.get(i)?.goods_num?.toFloat()!!
                     singleEntity?.goods_price = FloatUtils.format(singleGoodsPrice)
                 }
+                singleEntity?.goodsSumPrice = shoplist?.get(i)?.goods_price
                 singleEntity?.goods_stock = shoplist?.get(i)?.goods_stock
                 singleEntity?.goods_info_id = shoplist?.get(i)?.goods_info_id
                 singleEntity?.shopping_cart_id = shoplist?.get(i)?.shopping_cart_id
@@ -614,7 +608,7 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
         //下单即送
         val msMap = cartEntity?.msMap
         if (msMap != null && msMap?.goods_info != null) {
-            if (msMap?.goods_info?.goods_stock!! > 0){
+            if (msMap?.goods_info?.goods_stock!! > 0) {
                 val cartZSEntity = CartZSEntity()
                 cartZSEntity.msMap = msMap
                 iCarts.add(0, cartZSEntity)

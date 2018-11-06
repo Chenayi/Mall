@@ -19,12 +19,12 @@ class CartEntity : Serializable {
 
     var msMap: MSMap? = null
 
-    class MSMap :Serializable{
+    class MSMap : Serializable {
         var goods_info: GoodsInfo? = null
         var goods_num: Int? = null
     }
 
-    class GoodsInfo :Serializable{
+    class GoodsInfo : Serializable {
         var goods_img: String? = null
         var goods_name: String? = null
         var goods_info_id: String? = null
@@ -35,6 +35,7 @@ class CartEntity : Serializable {
         var goods_num: Int? = null
         var combination_name: String? = null
         var goods_pre_price: String? = null
+        //总价
         var goods_price: String? = null
         var goods_stock: Int? = null
         var goods_info_id: String? = null
@@ -54,22 +55,23 @@ class CartEntity : Serializable {
     class PromotionMap : Serializable {
         var promotion_type: Int? = null
         var promotion_name: String? = null
+        var promotion_mjprice: String? = null
         var mzList: MutableList<MZList>? = null
     }
 
-    class MZList :Serializable{
+    class MZList : Serializable {
         var goods_img: String? = null
         var goodsNum: Int? = null
         var goods_name: String? = null
         var openImage = false
     }
 
-    class OrderPromotion :Serializable{
+    class OrderPromotion : Serializable {
         var promotion_mjprice: String? = null
         var fullbuyReducePromotions: MutableList<FullbuyReducePromotions>? = null
     }
 
-    class FullbuyReducePromotions :Serializable{
+    class FullbuyReducePromotions : Serializable {
         var reducePrice: BigDecimal? = null
         var fullPrice: BigDecimal? = null
     }

@@ -1,6 +1,5 @@
 package com.kzj.mall
 
-import android.app.Application
 import android.support.multidex.MultiDexApplication
 import android.view.Gravity
 import com.blankj.utilcode.util.ToastUtils

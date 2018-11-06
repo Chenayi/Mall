@@ -8,7 +8,12 @@ class CartSingleEntity : BaseCartEntity(), Serializable {
     var goods_pre_price: String? = null
     var combination_name: String? = null
     var goods_name: String? = null
+
+    //单价
     var goods_price: String? = null
+    //总价
+    var goodsSumPrice: String? = null
+
     var goods_info_id: String? = null
     var shopping_cart_type: String? = null
     var promotionMap: CartEntity.PromotionMap? = null

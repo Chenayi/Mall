@@ -5,6 +5,7 @@ import com.chad.library.adapter.base.provider.BaseItemProvider
 import com.kzj.mall.GlideApp
 import com.kzj.mall.R
 import com.kzj.mall.entity.order.LcMap
+import com.kzj.mall.utils.FloatUtils
 
 /**
  * 疗程
@@ -15,7 +16,9 @@ class LcProvider : BaseItemProvider<LcMap, BaseViewHolder>() {
     override fun viewType() = 2
 
     override fun convert(helper: BaseViewHolder?, data: LcMap?, position: Int) {
-        helper?.setText(R.id.tv_goods_price, "¥" + data?.goodsInfoPrice)
+        val goodsInfoPrice = FloatUtils.format(data?.goodsInfoSumPrice?.toFloat()!! / data?.goodsInfoNum?.toFloat()!!)
+
+        helper?.setText(R.id.tv_goods_price, "¥" +goodsInfoPrice)
                 ?.setText(R.id.tv_goods_num, "x" + data?.goodsInfoNum)
                 ?.setText(R.id.tv_goods_name, data?.goodsInfoName)
                 ?.setText(R.id.tv_combination_name, data?.goodsMarketingName)

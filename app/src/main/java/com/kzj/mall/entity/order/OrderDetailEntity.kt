@@ -42,6 +42,8 @@ class OrderDetailEntity {
         var goodsInfoNum: String? = null
         var goodsInfoPrice: String? = null
         var goodsMarketingName: String? = null
+        var goodsInfoSumPrice: String? = null
+        var goodsInfoId: String? = null
     }
 
     /**

@@ -2,6 +2,7 @@ package com.kzj.mall.ui.fragment
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Html
 import android.view.View
 import com.blankj.utilcode.util.ToastUtils
 import com.chad.library.adapter.base.BaseViewHolder
@@ -42,15 +43,15 @@ class MyCollectFragment : BaseListFragment<MyCollectPresenter, MyCollectEntity.F
 
         listAdapter?.setOnItemLongClickListener { adapter, view, position ->
 
-            ConfirmDialog.newInstance("取消","确定","确定删除此关注？")
-                    .setOnConfirmClickListener(object :ConfirmDialog.OnConfirmClickListener{
+            ConfirmDialog.newInstance("取消", "确定", "确定删除此关注？")
+                    .setOnConfirmClickListener(object : ConfirmDialog.OnConfirmClickListener {
                         override fun onLeftClick() {
                         }
 
                         override fun onRightClick() {
                             var ids = LongArray(1)
                             ids[0] = listAdapter?.getItem(position)?.followId!!
-                           mPresenter?.deleteCollect(ids)
+                            mPresenter?.deleteCollect(ids)
                         }
 
                     }).show(childFragmentManager)
@@ -70,21 +71,21 @@ class MyCollectFragment : BaseListFragment<MyCollectPresenter, MyCollectEntity.F
     }
 
     override fun myCollect(goodsList: MutableList<MyCollectEntity.FollowList>?) {
-        if (goodsList !=null){
+        if (goodsList != null) {
             goodsList?.let {
                 finishRefresh(it)
             }
-        }else{
+        } else {
             finishRefresh(ArrayList())
         }
     }
 
     override fun moreMyCollect(goodsList: MutableList<MyCollectEntity.FollowList>?) {
-        if (goodsList !=null){
+        if (goodsList != null) {
             goodsList?.let {
                 finishLoadMore(it)
             }
-        }else{
+        } else {
             finishLoadMore(ArrayList())
         }
     }
@@ -117,7 +118,7 @@ class MyCollectFragment : BaseListFragment<MyCollectPresenter, MyCollectEntity.F
 
 
         helper?.setText(R.id.tv_goods_name, data?.good?.goodsName)
-                ?.setText(R.id.tv_goods_info_subtitle, data?.good?.goodsInfoSubtitle)
+                ?.setText(R.id.tv_goods_info_subtitle, Html.fromHtml(data?.good?.goodsInfoSubtitle))
                 ?.setText(R.id.tv_goods_price, "¥" + data?.good?.goodsPrice)
     }
 

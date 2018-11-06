@@ -52,29 +52,43 @@ class CartSingleProvider : BaseItemProvider<CartSingleEntity, BaseViewHolder>() 
         if (promotionMap != null) {
             val promotionType = promotionMap?.promotion_type!!
             when (promotionType) {
-                1 -> helper?.setText(R.id.tv_cuxiao_type, "直降")
-                2 -> helper?.setText(R.id.tv_cuxiao_type, "折扣")
-                3 -> helper?.setText(R.id.tv_cuxiao_type, "满减")
+                1 ->{
+                    helper?.setText(R.id.tv_cuxiao_type, "直降")
+                            ?.setGone(R.id.rv_zp, false)
+                }
+                2 -> {
+                    helper?.setText(R.id.tv_cuxiao_type, "折扣")
+                            ?.setGone(R.id.rv_zp, false)
+                }
+                3 -> {
+                    helper?.setText(R.id.tv_cuxiao_type, "满减")
+                            ?.setGone(R.id.rv_zp, false)
+                }
                 4 -> {
                     helper?.setText(R.id.tv_cuxiao_type, "满赠")
-                    val rvZP = helper?.getView<RecyclerView>(R.id.rv_zp)
-                    rvZP?.setFocusableInTouchMode(false);
-                    rvZP?.requestFocus();
-                    rvZP?.layoutManager = LinearLayoutManager(mContext)
-                    val zpAdapter = ZPAdapter(data?.promotionMap?.mzList!!)
-                    zpAdapter?.setOnItemChildClickListener(object : BaseQuickAdapter.OnItemChildClickListener {
-                        override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
-                            if (view?.id == R.id.iv_down) {
-                                zpAdapter?.getItem(position)?.openImage = true
-                                zpAdapter?.notifyItemChanged(position)
+
+                    if (data?.promotionMap != null && data?.promotionMap?.mzList!=null){
+                        helper?.setGone(R.id.rv_zp, true)
+                        val rvZP = helper?.getView<RecyclerView>(R.id.rv_zp)
+                        rvZP?.setFocusableInTouchMode(false);
+                        rvZP?.requestFocus();
+                        rvZP?.layoutManager = LinearLayoutManager(mContext)
+                        val zpAdapter = ZPAdapter(data?.promotionMap?.mzList!!)
+                        zpAdapter?.setOnItemChildClickListener(object : BaseQuickAdapter.OnItemChildClickListener {
+                            override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
+                                if (view?.id == R.id.iv_down) {
+                                    zpAdapter?.getItem(position)?.openImage = true
+                                    zpAdapter?.notifyItemChanged(position)
+                                }
                             }
-                        }
-                    })
-                    rvZP?.adapter = zpAdapter
+                        })
+                        rvZP?.adapter = zpAdapter
+                    }else{
+                        helper?.setGone(R.id.rv_zp, false)
+                    }
                 }
             }
             helper?.setGone(R.id.ll_cuxiao, true)
-                    ?.setGone(R.id.rv_zp, promotionType == 4)
                     ?.setText(R.id.tv_cuxiao_name, promotionMap?.promotion_name)
         } else {
             helper?.setGone(R.id.ll_cuxiao, false)

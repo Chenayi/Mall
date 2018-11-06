@@ -14,9 +14,6 @@ import com.kzj.mall.databinding.ActivityOrderDetailBinding
 import com.kzj.mall.di.component.AppComponent
 import com.kzj.mall.di.component.DaggerOrderDetailComponent
 import com.kzj.mall.di.module.OrderDetailModule
-import com.kzj.mall.entity.order.IGoodsDetail
-import com.kzj.mall.entity.order.OrderDetailEntity
-import com.kzj.mall.entity.order.OrderEntity
 import com.kzj.mall.mvp.contract.OrderDetailContract
 import com.kzj.mall.mvp.presenter.OrderDetailPresenter
 import com.kzj.mall.utils.Utils
@@ -29,9 +26,10 @@ import android.os.Message
 import android.widget.ImageView
 import android.widget.LinearLayout
 import com.alipay.sdk.app.PayTask
+import com.kzj.mall.C
 import com.kzj.mall.adapter.OrderDetailAdapter
 import com.kzj.mall.entity.PayResult
-import com.kzj.mall.entity.order.TcMap
+import com.kzj.mall.entity.order.*
 import com.kzj.mall.utils.PriceUtils
 
 
@@ -84,6 +82,30 @@ class OrderDetailActivity : BaseActivity<OrderDetailPresenter, ActivityOrderDeta
         mBinding?.rvOrderDetail?.setFocusableInTouchMode(false);
         mBinding?.rvOrderDetail?.requestFocus();
         orderDetailAdapter = OrderDetailAdapter(ArrayList())
+        orderDetailAdapter?.setOnItemClickListener { adapter, view, position ->
+            val iGoodsDetail = orderDetailAdapter?.getItem(position)
+            if (iGoodsDetail is DpMap){
+                val intent = Intent(mContext, GoodsDetailActivity::class.java)
+                intent?.putExtra(C.GOODS_INFO_ID, iGoodsDetail?.goodsInfoId)
+                intent?.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent)
+            }else if (iGoodsDetail is LcMap){
+                val intent = Intent(mContext, GoodsDetailActivity::class.java)
+                intent?.putExtra(C.GOODS_INFO_ID, iGoodsDetail?.goodsInfoId)
+                intent?.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent)
+            }else if (iGoodsDetail is MZMap){
+                val intent = Intent(mContext, GoodsDetailActivity::class.java)
+                intent?.putExtra(C.GOODS_INFO_ID, iGoodsDetail?.goodsInfoId)
+                intent?.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent)
+            }else if (iGoodsDetail is ZPMap){
+                val intent = Intent(mContext, GoodsDetailActivity::class.java)
+                intent?.putExtra(C.GOODS_INFO_ID, iGoodsDetail?.goodsInfoId)
+                intent?.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent)
+            }
+        }
         headerView = layoutInflater.inflate(R.layout.header_order_detail, mBinding?.rvOrderDetail?.parent as ViewGroup, false)
         footerView1 = layoutInflater.inflate(R.layout.footer_order1, mBinding?.rvOrderDetail?.parent as ViewGroup, false)
         footerView2 = layoutInflater.inflate(R.layout.footer_order2, mBinding?.rvOrderDetail?.parent as ViewGroup, false)

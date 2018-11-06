@@ -251,12 +251,11 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
             override fun onPageSelected(position: Int) {
                 mBinding?.tvBannerNum?.setText((position + 1).toString())
                 if (position == 0) {
-                    goodsDetailEntity?.promotionalAd?.wap_promotional_title?.let {
-                        if (!TextUtils.isEmpty(it)) {
-                            mBinding?.rlNotice?.visibility = View.VISIBLE
-                        } else {
-                            mBinding?.rlNotice?.visibility = View.INVISIBLE
-                        }
+                    val appIsStarThe = goodsDetailEntity?.promotionalAd?.app_is_start_the
+                    if (appIsStarThe == 1){
+                        mBinding?.rlNotice?.visibility = View.VISIBLE
+                    }else{
+                        mBinding?.rlNotice?.visibility = View.INVISIBLE
                     }
                 } else {
                     mBinding?.rlNotice?.visibility = View.INVISIBLE
@@ -310,13 +309,14 @@ class GoodsInfoFragment : BaseFragment<IPresenter, FragmentGoodsInfoBinding>(), 
             }
 
             //活动
-            it?.promotionalAd?.wap_promotional_title?.let {
-                if (!TextUtils.isEmpty(it)) {
+            val appIsStarThe = it?.promotionalAd?.app_is_start_the
+            if (appIsStarThe == 1){
+                it?.promotionalAd?.app_promotional_title?.let {
                     mBinding?.tvFunction?.setText(it)
-                    mBinding?.rlNotice?.visibility = View.VISIBLE
-                } else {
-                    mBinding?.rlNotice?.visibility = View.GONE
                 }
+                mBinding?.rlNotice?.visibility = View.VISIBLE
+            }else{
+                mBinding?.rlNotice?.visibility = View.GONE
             }
 
             //促销

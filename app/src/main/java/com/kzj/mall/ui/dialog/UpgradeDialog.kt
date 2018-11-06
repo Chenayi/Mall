@@ -60,6 +60,10 @@ class UpgradeDialog : BaseDialog<UpgradePresenter, DialogUpgradeBinding>(), Upgr
         //强制更新
         if (forceUpdate?.equals("1") == true) {
             mBinding?.llClose?.visibility = View.GONE
+            mBinding?.btnOut?.visibility = View.VISIBLE
+            mBinding?.btnOut?.setOnClickListener {
+                activity?.finish()
+            }
         }
 
         mBinding?.tvTitle?.text = "升级到${versionEntity?.version_code}新版本"
@@ -72,7 +76,7 @@ class UpgradeDialog : BaseDialog<UpgradePresenter, DialogUpgradeBinding>(), Upgr
         }
 
         mBinding?.btnUpgrade?.setOnClickListener {
-            mBinding?.btnUpgrade?.visibility = View.GONE
+            mBinding?.llBtn?.visibility = View.GONE
             mBinding?.ivClose?.visibility = View.GONE
             mBinding?.numberProgressBar?.visibility = View.VISIBLE
             mPresenter?.downloadApk(versionEntity?.apk_address, versionEntity?.version_name)
@@ -103,7 +107,7 @@ class UpgradeDialog : BaseDialog<UpgradePresenter, DialogUpgradeBinding>(), Upgr
     }
 
     override fun downLoadFail() {
-        mBinding?.btnUpgrade?.visibility = View.VISIBLE
+        mBinding?.llBtn?.visibility = View.VISIBLE
         if (versionEntity?.force_update?.equals("1") == true) {
             mBinding?.llClose?.visibility = View.GONE
         } else {

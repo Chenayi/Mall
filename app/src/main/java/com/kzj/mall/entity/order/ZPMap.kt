@@ -4,6 +4,7 @@ class ZPMap : IGoodsDetail {
     var goodsImg: String? = null
     var goodsInfoName: String? = null
     var goodsInfoNum: String? = null
+    var goodsInfoId: String? = null
 
     override fun type(): Int {
         return 5

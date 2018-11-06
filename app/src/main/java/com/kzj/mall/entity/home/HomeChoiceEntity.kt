@@ -7,7 +7,7 @@ class HomeChoiceEntity : IHomeEntity {
     }
 
     class PromotionalAd {
-        var wap_promotional_title: String? = null
+        var app_promotional_title: String? = null
         var goods_info_id: Long? = null
     }
 }

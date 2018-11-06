@@ -102,8 +102,8 @@ class ConfirmOrderActivity : BaseActivity<ConfirmOrderPresenter, ActivityConfirm
         var allGoodsNum = 0
 
         //下单即送
-        buyEntity?.msMap?.let {
-            val goodsImg = it?.goods_info?.goods_img!!
+        if (buyEntity?.msMap != null && buyEntity?.msMap?.goods_info != null) {
+            val goodsImg = buyEntity?.msMap?.goods_info?.goods_img!!
             goodsImgs.add(goodsImg)
             allGoodsNum += 1
         }
