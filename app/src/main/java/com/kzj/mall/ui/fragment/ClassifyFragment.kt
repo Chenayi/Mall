@@ -19,6 +19,9 @@ import com.kzj.mall.mvp.contract.ClassifyLeftContract
 import com.kzj.mall.mvp.presenter.ClassifyLeftPresenter
 import com.kzj.mall.ui.activity.SearchActivity
 
+/**
+ * 分类模块
+ */
 class ClassifyFragment : BaseFragment<ClassifyLeftPresenter, FragmentClassifyBinding>(), ClassifyLeftContract.View,View.OnClickListener {
     private var classifyleftAdapter: ClassifyLeftAdapter? = null
     private var commomViewPagerAdapter: CommomViewPagerAdapter? = null

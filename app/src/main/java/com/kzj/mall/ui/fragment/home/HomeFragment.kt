@@ -31,7 +31,9 @@ import com.kzj.mall.ui.dialog.HomeTabClassifyPop
 import net.lucode.hackware.magicindicator.ViewPagerHelper
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator
 
-
+/**
+ *  首页模块
+ */
 class HomeFragment : BaseFragment<IPresenter, FragmentHomeBinding>(), View.OnClickListener {
     private var mCommomViewPagerAdapter: CommomViewPagerAdapter? = null
     private val mTitles: Array<String> = arrayOf("首页", "男科")

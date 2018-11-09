@@ -28,6 +28,9 @@ import com.kzj.mall.ui.fragment.MineFragment
 import com.kzj.mall.widget.HomeBottomTabBar
 import org.greenrobot.eventbus.Subscribe
 
+/**
+ * 首页
+ */
 class MainActivity : BaseActivity<MainPresenter, ActivityMainBinding>(), MainContract.View {
     private var vpAdapter: CommomViewPagerAdapter? = null
     private var fragments: MutableList<Fragment>? = null
@@ -69,6 +72,7 @@ class MainActivity : BaseActivity<MainPresenter, ActivityMainBinding>(), MainCon
     }
 
     private fun initViewPager() {
+        //首页4大模块
         fragments = ArrayList<Fragment>()
         fragments?.let {
             it.add(HomeFragment.newInstance())

@@ -29,6 +29,9 @@ import com.kzj.mall.ui.dialog.UpgradeDialog
 import org.greenrobot.eventbus.Subscribe
 import q.rorbin.badgeview.QBadgeView
 
+/**
+ * 我的模块
+ */
 class MineFragment : BaseFragment<MinePresenter, FragmentMineBinding>(), View.OnClickListener, MineContract.View {
     private var followLists: MutableList<MineEntity.FollowList>? = null
 
@@ -76,7 +79,7 @@ class MineFragment : BaseFragment<MinePresenter, FragmentMineBinding>(), View.On
 
 
         //版本名
-        mBinding?.tvVersionName?.text = "版本号：${AppUtils.getAppVersionName()}"
+        mBinding?.tvVersionName?.text = "当前版本：${AppUtils.getAppVersionName()}"
 
         waitPayNum = QBadgeView(context)
         waitSendNum = QBadgeView(context)

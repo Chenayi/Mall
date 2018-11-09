@@ -37,6 +37,9 @@ import java.math.BigDecimal
 import java.util.*
 import kotlin.collections.ArrayList
 
+/**
+ * 购物车模块
+ */
 class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.OnClickListener, CartContract.View {
     private var cartAdapter: CartAdapter? = null
     private var isDeleteMode = false
