@@ -454,6 +454,7 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
         //单品 疗程
         else if (type.equals("0") || type.equals("1")) {
             val singleEntity = shoppingCart?.appgoods
+            singleEntity?.promotionMap = shoppingCart?.promotionMap
             singleEntity?.shopping_cart_type = shoppingCart?.shopping_cart_type
             singleEntity?.goods_pre_price = shoppingCart?.goods_pre_price
             singleEntity?.goodsSumPrice = shoppingCart?.goods_price
@@ -465,14 +466,16 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
             }
             //疗程
             else {
-                val goodsPrice = shoppingCart?.goods_price?.toFloat()!!
+                var goodsPrice = shoppingCart?.goods_price?.toFloat()!!
+                if (shoppingCart?.promotionMap?.promotion_type == 3 && shoppingCart?.promotionMap?.promotion_mjprice != null) {
+                    goodsPrice = PriceUtils.manjianPrice(goodsPrice, shoppingCart?.promotionMap?.promotion_mjprice!!)
+                }
                 val singleGoodsPrice = goodsPrice / shoppingCart?.goods_num?.toFloat()!!
                 singleEntity?.goods_price = FloatUtils.format(singleGoodsPrice)
             }
             singleEntity?.goods_stock = shoppingCart?.goods_stock
             singleEntity?.goods_info_id = shoppingCart?.goods_info_id
             singleEntity?.shopping_cart_id = shoppingCart?.shopping_cart_id
-            singleEntity?.promotionMap = shoppingCart?.promotionMap
             val check = (cartAdapter?.data?.get(position) as BaseCartEntity).isCheck
             singleEntity?.isCheck = check
             singleEntity?.let {
