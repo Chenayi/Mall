@@ -31,6 +31,7 @@ import com.kzj.mall.mvp.presenter.ConfirmOrderPresenter
 import com.kzj.mall.ui.dialog.ConfirmDialog
 import com.kzj.mall.ui.dialog.OrderGoodsListDialog
 import com.kzj.mall.utils.FloatUtils
+import com.kzj.mall.utils.PriceUtils
 import com.kzj.mall.utils.Utils
 import com.kzj.mall.widget.RootLayout
 import org.greenrobot.eventbus.EventBus
@@ -103,8 +104,10 @@ class ConfirmOrderActivity : BaseActivity<ConfirmOrderPresenter, ActivityConfirm
 
         //下单即送
         if (buyEntity?.msMap != null && buyEntity?.msMap?.goods_info != null) {
-            val goodsImg = buyEntity?.msMap?.goods_info?.goods_img!!
-            goodsImgs.add(goodsImg)
+            if (buyEntity?.msMap?.goods_info?.goods_img != null) {
+                val goodsImg = buyEntity?.msMap?.goods_info?.goods_img!!
+                goodsImgs.add(goodsImg)
+            }
             allGoodsNum += 1
         }
 
@@ -113,12 +116,12 @@ class ConfirmOrderActivity : BaseActivity<ConfirmOrderPresenter, ActivityConfirm
                 val appgoods = it?.get(i)?.appgoods
                 val ggList = it?.get(i)?.ggList
                 if (goodsImgs?.size < 4) {
-                    if (appgoods != null) {
+                    if (appgoods != null && appgoods?.goods_img != null) {
                         goodsImgs?.add(appgoods?.goods_img!!)
                     } else {
                         if (ggList != null) {
                             for (j in 0 until ggList?.size!!) {
-                                if (goodsImgs?.size < 4) {
+                                if (goodsImgs?.size < 4 && ggList?.get(j)?.c_goods?.goods_img != null) {
                                     goodsImgs?.add(ggList?.get(j)?.c_goods?.goods_img!!)
                                 }
                             }
@@ -139,7 +142,7 @@ class ConfirmOrderActivity : BaseActivity<ConfirmOrderPresenter, ActivityConfirm
         mBinding?.tvAllGoodsNum?.text = "共${allGoodsNum}件"
 
         //单件商品
-        if (goodsImgs?.size == 1) {
+        if (goodsImgs?.size == 0 || goodsImgs?.size == 1) {
             mBinding?.llOneGoods?.visibility = View.VISIBLE
             mBinding?.llMultiGoods?.visibility = View.GONE
             buyEntity?.shoplist?.get(0)?.appgoods.let {
@@ -150,7 +153,13 @@ class ConfirmOrderActivity : BaseActivity<ConfirmOrderPresenter, ActivityConfirm
                         .centerCrop()
                         .into(mBinding?.ivGoods!!)
             }
-            val fl = buyEntity?.shoplist?.get(0)?.goods_price?.toFloat()!! / buyEntity?.shoplist?.get(0)?.goods_num?.toFloat()!!
+            var goodsPrice = buyEntity?.shoplist?.get(0)?.goods_price?.toFloat()!!
+            if (buyEntity?.shoplist?.get(0)?.promotionMap != null
+                    && buyEntity?.shoplist?.get(0)?.promotionMap?.promotion_type == 3
+                    && buyEntity?.shoplist?.get(0)?.promotionMap?.promotion_mjprice != null) {
+                goodsPrice = PriceUtils.manjianPrice(goodsPrice, buyEntity?.shoplist?.get(0)?.promotionMap?.promotion_mjprice!!)
+            }
+            val fl = goodsPrice / buyEntity?.shoplist?.get(0)?.goods_num?.toFloat()!!
             mBinding?.tvGoodsPrice1?.text = "¥" + FloatUtils.format(fl)
             mBinding?.tvGoodsNum?.text = "x" + buyEntity?.shoplist?.get(0)?.goods_num
         }

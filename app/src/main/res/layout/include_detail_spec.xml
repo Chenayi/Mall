@@ -68,16 +68,11 @@
                         android:layout_weight="1"
                         android:lines="1"
                         android:singleLine="true"
-                        android:text="买即送超级大礼包，多买多送，送...即止..."
+                        tools:text="买即送超级大礼包，多买多送，送...即止..."
                         android:textColor="@color/c_2e3033"
                         android:textSize="13dp" />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="12dp"
-                        android:scaleType="centerInside"
-                        android:src="@mipmap/more" />
+
                 </LinearLayout>
 
                 <!-- 全场满减 -->
@@ -109,12 +104,20 @@
                         android:layout_weight="1"
                         android:lines="1"
                         android:singleLine="true"
-                        android:text="满399减60，满699减100"
+                        tools:text="满399减60，满699减100"
                         android:textColor="@color/c_2e3033"
                         android:textSize="13dp" />
 
                 </LinearLayout>
             </LinearLayout>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:scaleType="centerInside"
+                android:src="@mipmap/more"
+                android:layout_marginTop="8dp"/>
         </LinearLayout>
 
         <View

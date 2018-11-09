@@ -456,6 +456,7 @@ class CartFragment : BaseFragment<CartPresenter, FragmentCartBinding>(), View.On
             val singleEntity = shoppingCart?.appgoods
             singleEntity?.shopping_cart_type = shoppingCart?.shopping_cart_type
             singleEntity?.goods_pre_price = shoppingCart?.goods_pre_price
+            singleEntity?.goodsSumPrice = shoppingCart?.goods_price
             singleEntity?.combination_name = shoppingCart?.combination_name
             singleEntity?.goods_num = shoppingCart?.goods_num
             //单品

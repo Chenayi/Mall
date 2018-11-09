@@ -32,9 +32,16 @@ class GoodsSingleProvider : BaseItemProvider<CartSingleEntity, BaseViewHolder>()
 
     override fun convert(helper: BaseViewHolder?, data: CartSingleEntity?, position: Int) {
 
-        val allPrice = data?.goods_price?.toFloat()!!
+        var goodsPrice = data?.goods_price?.toFloat()!!
+
+        if (data?.promotionMap != null
+                && data?.promotionMap?.promotion_type == 3
+                && data?.promotionMap?.promotion_mjprice != null) {
+            goodsPrice = PriceUtils.manjianPrice(goodsPrice,data?.promotionMap?.promotion_mjprice!!)
+        }
+
         val num = data?.goods_num!!
-        val singlePrice = allPrice / num
+        val singlePrice = goodsPrice / num
 
         helper?.setGone(R.id.ll_top, data?.shopping_cart_type.equals("1"))
                 ?.setText(R.id.tv_goods_name, data?.goods_name)
@@ -65,12 +72,12 @@ class GoodsSingleProvider : BaseItemProvider<CartSingleEntity, BaseViewHolder>()
         val promotionMap = data?.promotionMap
         if (promotionMap != null && promotionMap?.promotion_type == 4) {
             val mzList = promotionMap?.mzList
-            if (mzList != null && mzList?.size > 0){
+            if (mzList != null && mzList?.size > 0) {
                 rvZP?.visibility = View.VISIBLE
                 rvZP?.layoutManager = LinearLayoutManager(mContext)
                 val zpAdapter = ZPAdapter(promotionMap?.mzList!!)
                 rvZP?.adapter = zpAdapter
-            }else{
+            } else {
                 rvZP?.visibility = View.GONE
             }
         } else {
