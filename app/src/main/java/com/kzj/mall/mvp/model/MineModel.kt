@@ -15,4 +15,5 @@ import javax.inject.Inject
 class MineModel @Inject
 constructor(httpUtils: HttpUtils?) : BaseModel(httpUtils), MineContract.Model {
     override fun requestMine() = httpUtils?.obtainRetrofitService(ApiService::class.java)?.requestMine(C.TOKEN)
+    override fun checkUpdate(systemType: String?) = httpUtils?.obtainRetrofitService(ApiService::class.java)?.checkUpdate(systemType)
 }

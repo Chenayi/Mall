@@ -30,7 +30,7 @@ import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 
 class LoginActivity : BaseActivity<IPresenter, ActivityLoginBinding>(), View.OnClickListener {
-    private val mTitles: Array<String> = arrayOf("验证码登录", "密码登录")
+    private val mTitles: Array<String> = arrayOf("密码登录", "验证码登录")
     private var commomViewPagerAdapter: CommomViewPagerAdapter? = null
     private var fragments: MutableList<Fragment>? = null
 
@@ -49,15 +49,15 @@ class LoginActivity : BaseActivity<IPresenter, ActivityLoginBinding>(), View.OnC
     override fun initImmersionBar() {
         mImmersionBar = ImmersionBar.with(this)
         mImmersionBar
-                ?.fitsSystemWindows(true,R.color.white)
-                ?.statusBarDarkFont(true,0.5f)
+                ?.fitsSystemWindows(true, R.color.white)
+                ?.statusBarDarkFont(true, 0.5f)
                 ?.init()
     }
 
     override fun initData() {
         fragments = ArrayList()
-        fragments?.add(LoginCodeFragment.newInstance())
         fragments?.add(LoginPasswordFragment.newInstance())
+        fragments?.add(LoginCodeFragment.newInstance())
         mBinding?.vpLogin?.setNoScroll(false)
         commomViewPagerAdapter = CommomViewPagerAdapter(supportFragmentManager, fragments!!)
         mBinding?.vpLogin?.adapter = commomViewPagerAdapter
@@ -71,8 +71,8 @@ class LoginActivity : BaseActivity<IPresenter, ActivityLoginBinding>(), View.OnC
         commonNavigator.adapter = object : CommonNavigatorAdapter() {
             override fun getTitleView(p0: Context?, index: Int): IPagerTitleView {
                 val colorTransitionPagerTitleView = LoginNavigatorTitleView(applicationContext)
-                colorTransitionPagerTitleView.normalColor = ContextCompat.getColor(applicationContext,R.color.c_2e3033)
-                colorTransitionPagerTitleView.selectedColor = ContextCompat.getColor(applicationContext,R.color.colorPrimary)
+                colorTransitionPagerTitleView.normalColor = ContextCompat.getColor(applicationContext, R.color.c_2e3033)
+                colorTransitionPagerTitleView.selectedColor = ContextCompat.getColor(applicationContext, R.color.colorPrimary)
                 colorTransitionPagerTitleView.setPadding(SizeUtils.dp2px(10f), 0, SizeUtils.dp2px(10f), 0)
                 colorTransitionPagerTitleView.setText(mTitles[index])
                 colorTransitionPagerTitleView.setOnClickListener(object : View.OnClickListener {
@@ -90,7 +90,7 @@ class LoginActivity : BaseActivity<IPresenter, ActivityLoginBinding>(), View.OnC
             override fun getIndicator(p0: Context?): IPagerIndicator {
                 val indicator = LinePagerIndicator(applicationContext)
                 indicator.mode = LinePagerIndicator.MODE_EXACTLY
-                indicator.setColors(ContextCompat.getColor(applicationContext,R.color.colorPrimary))
+                indicator.setColors(ContextCompat.getColor(applicationContext, R.color.colorPrimary))
                 indicator.lineWidth = SizeUtils.dp2px(21f).toFloat()
                 indicator.lineHeight = SizeUtils.dp2px(3f).toFloat()
                 return indicator
@@ -144,7 +144,7 @@ class LoginActivity : BaseActivity<IPresenter, ActivityLoginBinding>(), View.OnC
         super.onBackPressedSupport()
     }
 
-    fun loginSuccess(){
+    fun loginSuccess() {
         C.IS_LOGIN = true
         EventBus.getDefault().post(LoginSuccessEvent())
         KeyboardUtils.hideSoftInput(this)

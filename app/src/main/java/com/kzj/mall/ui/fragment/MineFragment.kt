@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.support.v4.content.ContextCompat
 import android.view.View
 import android.widget.RelativeLayout
+import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.SizeUtils
 import com.gyf.barlibrary.ImmersionBar
@@ -17,12 +18,14 @@ import com.kzj.mall.di.component.AppComponent
 import com.kzj.mall.di.component.DaggerMineComponent
 import com.kzj.mall.di.module.MineModule
 import com.kzj.mall.entity.MineEntity
+import com.kzj.mall.entity.VersionEntity
 import com.kzj.mall.event.LoginSuccessEvent
 import com.kzj.mall.event.LogoutEvent
 import com.kzj.mall.mvp.contract.MineContract
 import com.kzj.mall.mvp.presenter.MinePresenter
 import com.kzj.mall.ui.activity.*
 import com.kzj.mall.ui.activity.login.LoginActivity
+import com.kzj.mall.ui.dialog.UpgradeDialog
 import org.greenrobot.eventbus.Subscribe
 import q.rorbin.badgeview.QBadgeView
 
@@ -59,7 +62,7 @@ class MineFragment : BaseFragment<MinePresenter, FragmentMineBinding>(), View.On
 
     override fun initImmersionBar() {
         mImmersionBar = ImmersionBar.with(this)
-        mImmersionBar?.fitsSystemWindowsInt(false,ContextCompat.getColor(context!!, R.color.tran))
+        mImmersionBar?.fitsSystemWindowsInt(false, ContextCompat.getColor(context!!, R.color.tran))
                 ?.statusBarDarkFont(false)
                 ?.init()
     }
@@ -72,6 +75,9 @@ class MineFragment : BaseFragment<MinePresenter, FragmentMineBinding>(), View.On
         mBinding?.ivMsg?.requestLayout()
 
 
+        //版本名
+        mBinding?.tvVersionName?.text = "版本号：${AppUtils.getAppVersionName()}"
+
         waitPayNum = QBadgeView(context)
         waitSendNum = QBadgeView(context)
         waitTakeNum = QBadgeView(context)
@@ -82,6 +88,7 @@ class MineFragment : BaseFragment<MinePresenter, FragmentMineBinding>(), View.On
     }
 
     private fun initListener() {
+        mBinding?.rlVersion?.setOnClickListener(this)
         mBinding?.rlTop?.setOnClickListener(this)
         mBinding?.rlAskAnswer?.setOnClickListener(this)
         mBinding?.llOrder?.setOnClickListener(this)
@@ -118,6 +125,13 @@ class MineFragment : BaseFragment<MinePresenter, FragmentMineBinding>(), View.On
     override fun onError(code: Int, msg: String?) {
     }
 
+    override fun versionInfo(versionInfo: VersionEntity?) {
+        UpgradeDialog.newInstance(versionInfo)
+                .setMargin(40)
+                .setOutCancel(false)
+                .show(childFragmentManager)
+    }
+
     override fun showMineData(mineEntity: MineEntity?) {
         mBinding?.ivBg?.setImageResource(R.mipmap.mine_logined)
 
@@ -129,21 +143,21 @@ class MineFragment : BaseFragment<MinePresenter, FragmentMineBinding>(), View.On
         orderSum?.let {
             waitPayNum?.bindTarget(mBinding?.rlOrderWaitPay)
                     ?.setShowShadow(false)
-                    ?.setBadgeBackgroundColor(ContextCompat.getColor(context!!,R.color.orange_default))
+                    ?.setBadgeBackgroundColor(ContextCompat.getColor(context!!, R.color.orange_default))
                     ?.setGravityOffset(8f, 0f, true)
                     ?.setBadgeTextSize(12f, true)
                     ?.setBadgeNumber(it?.notpay)
 
             waitSendNum?.bindTarget(mBinding?.rlOrderWaitSend)
                     ?.setShowShadow(false)
-                    ?.setBadgeBackgroundColor(ContextCompat.getColor(context!!,R.color.orange_default))
+                    ?.setBadgeBackgroundColor(ContextCompat.getColor(context!!, R.color.orange_default))
                     ?.setGravityOffset(8f, 0f, true)
                     ?.setBadgeTextSize(12f, true)
                     ?.setBadgeNumber(it?.notdy)
 
             waitTakeNum?.bindTarget(mBinding?.rlOrderWaitTake)
                     ?.setShowShadow(false)
-                    ?.setBadgeBackgroundColor(ContextCompat.getColor(context!!,R.color.orange_default))
+                    ?.setBadgeBackgroundColor(ContextCompat.getColor(context!!, R.color.orange_default))
                     ?.setGravityOffset(8f, 0f, true)
                     ?.setBadgeTextSize(12f, true)
                     ?.setBadgeNumber(it?.nottdy)
@@ -457,6 +471,9 @@ class MineFragment : BaseFragment<MinePresenter, FragmentMineBinding>(), View.On
             }
             R.id.iv_msg -> {
                 jumpActivity(MessageActivity().javaClass)
+            }
+            R.id.rl_version -> {
+                mPresenter?.checkUpdate()
             }
         }
     }
